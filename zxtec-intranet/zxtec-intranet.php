@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: ZX Tec - Intranet de Servicos e Colaboradores
+Plugin Name: ZX Tec
 Description: Sistema interno de gestao de clientes, servicos e colaboradores.
  Version: 2.1.0
 Author: ZX Tec

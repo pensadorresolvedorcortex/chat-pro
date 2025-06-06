@@ -451,7 +451,7 @@ JS;
      * Render admin page
      */
     public function admin_page() {
-        echo '<div class="wrap"><h1>ZX Tec - Intranet</h1><p>Bem-vindo ao painel administrativo.</p></div>';
+        echo '<div class="wrap"><h1>ZX Tec</h1><p>Bem-vindo ao painel administrativo.</p></div>';
     }
 
     /**

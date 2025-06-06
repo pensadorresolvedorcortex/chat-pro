@@ -1,4 +1,4 @@
-# ZX Tec - Intranet de Servicos
+# ZX Tec
 
 Versao 2.1.0
 
