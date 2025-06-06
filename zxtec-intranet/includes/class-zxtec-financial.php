@@ -245,7 +245,38 @@ class ZXTEC_Financial {
             $commission = $total * self::get_rate_for( $tech );
             $exp = $expenses_total[ $tech ] ?? 0;
             $net = $commission - $exp;
-            echo ( $user_info ? $user_info->display_name : '#' . $tech ) . "\t" . number_format( $total, 2, ',', '' ) . "\t" . number_format( $exp, 2, ',', '' ) . "\t" . number_format( $commission, 2, ',', '' ) . "\t" . number_format( $net, 2, ',', '' ) . "\n";
+        echo ( $user_info ? $user_info->display_name : '#' . $tech ) . "\t" . number_format( $total, 2, ',', '' ) . "\t" . number_format( $exp, 2, ',', '' ) . "\t" . number_format( $commission, 2, ',', '' ) . "\t" . number_format( $net, 2, ',', '' ) . "\n";
         }
+    }
+
+    /**
+     * Monthly revenue and expense summary for analytics
+     */
+    public static function get_monthly_summary( $months = 12 ) {
+        $data = array();
+        for ( $i = $months - 1; $i >= 0; $i-- ) {
+            $start = date( 'Y-m-01', strtotime( '-' . $i . ' months' ) );
+            $end   = date( 'Y-m-t', strtotime( $start ) );
+            $orders   = self::get_orders( $start, $end );
+            $expenses = self::get_expenses( $start, $end );
+
+            $rev  = 0;
+            foreach ( $orders as $o ) {
+                $service_id = get_post_meta( $o->ID, '_zxtec_service', true );
+                $rev += floatval( get_post_meta( $service_id, '_zxtec_price', true ) );
+            }
+
+            $exp_total = 0;
+            foreach ( $expenses as $e ) {
+                $exp_total += floatval( get_post_meta( $e->ID, '_zxtec_amount', true ) );
+            }
+
+            $data[] = array(
+                'label'    => date_i18n( 'M/Y', strtotime( $start ) ),
+                'revenue'  => $rev,
+                'expenses' => $exp_total,
+            );
+        }
+        return $data;
     }
 }

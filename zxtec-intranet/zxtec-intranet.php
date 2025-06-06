@@ -2,7 +2,7 @@
 /*
 Plugin Name: ZX Tec
 Description: Sistema interno de gestao de clientes, servicos e colaboradores.
- Version: 2.1.0
+ Version: 2.2.0
 Author: ZX Tec
 License: GPL2
 */

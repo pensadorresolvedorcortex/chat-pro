@@ -1,6 +1,6 @@
 # ZX Tec
 
-Versao 2.1.0
+Versao 2.2.0
 
 Este plugin oferece um sistema de gerenciamento interno com dois paineis: administrativo e dashboard do colaborador.
 
@@ -30,6 +30,7 @@ Na versao 1.8 e possivel definir o percentual de comissao na pagina de configura
 Na versao 1.9 adicionamos um widget no painel inicial do WordPress exibindo o total de ordens pendentes, confirmadas e concluidas.
 Na versao 2.0 o Relatorio Financeiro passou a aceitar filtros de data e manteve as opcoes de exportacao.
 Na versao 2.1 e possivel definir um percentual de comissao individual para cada colaborador.
+Na versao 2.2 incluimos um **painel analitico** com graficos interativos de receita e despesas.
 
 Ao desinstalar o plugin, todos os registros e metas personalizados sao removidos automaticamente.
 

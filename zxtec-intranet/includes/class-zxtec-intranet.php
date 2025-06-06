@@ -35,6 +35,7 @@ class ZXTEC_Intranet {
     private function includes() {
         require_once plugin_dir_path( __FILE__ ) . 'class-zxtec-financial.php';
         require_once plugin_dir_path( __FILE__ ) . 'class-zxtec-expense.php';
+        require_once plugin_dir_path( __FILE__ ) . 'class-zxtec-analytics.php';
     }
 
     /**
@@ -391,6 +392,9 @@ class ZXTEC_Intranet {
             wp_enqueue_style( 'leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' );
             wp_enqueue_script( 'leaflet', 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', array(), null, true );
         }
+        if ( 'zxtec_admin_panel_page_zxtec_analytics' === $hook ) {
+            wp_enqueue_script( 'chartjs', 'https://cdn.jsdelivr.net/npm/chart.js', array(), null, true );
+        }
         if ( strpos( $hook, 'zxtec_' ) === 0 ) {
             wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css' );
         }
@@ -444,6 +448,7 @@ JS;
         add_submenu_page( 'zxtec_admin_panel', __( 'Mapa de Tecnicos', 'zxtec' ), __( 'Mapa de Tecnicos', 'zxtec' ), 'manage_options', 'zxtec_tech_map', array( $this, 'technician_map_page' ) );
         add_submenu_page( 'zxtec_admin_panel', __( 'Despesas', 'zxtec' ), __( 'Relatorio de Despesas', 'zxtec' ), 'manage_options', 'zxtec_expense_report', array( $this, 'expense_page' ) );
         add_submenu_page( 'zxtec_admin_panel', __( 'Notificacoes', 'zxtec' ), __( 'Notificacoes', 'zxtec' ), 'manage_options', 'zxtec_notifications', array( $this, 'notifications_page' ) );
+        add_submenu_page( 'zxtec_admin_panel', __( 'Analiticos', 'zxtec' ), __( 'Relatorio Grafico', 'zxtec' ), 'manage_options', 'zxtec_analytics', array( $this, 'analytics_page' ) );
         add_submenu_page( 'zxtec_admin_panel', __( 'Configuracoes', 'zxtec' ), __( 'Configuracoes', 'zxtec' ), 'manage_options', 'zxtec_settings', array( $this, 'settings_page' ) );
     }
 
@@ -553,6 +558,13 @@ JS;
         }
         echo '</tbody></table>';
         echo '</div>';
+    }
+
+    /**
+     * Analytics charts page
+     */
+    public function analytics_page() {
+        echo ZXTEC_Analytics::page_html();
     }
 
     /**
