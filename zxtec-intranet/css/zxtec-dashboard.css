@@ -1,0 +1,5 @@
+/* Custom ZX Tec dashboard styles */
+.zxtec-container { padding: 20px; }
+.zxtec-card { background:#fff; border:1px solid #dee2e6; border-radius:0.5rem; padding:20px; margin-bottom:20px; }
+.zxtec-card h2 { margin-top:0; }
+.zxtec-table { width:100%; }
