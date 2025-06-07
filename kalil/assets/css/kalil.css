@@ -7,6 +7,21 @@
     color:#fff;
     font-family:Arial, sans-serif;
 }
+.kalil-menu{
+    margin-bottom:15px;
+}
+.kalil-menu ul{
+    list-style:none;
+    padding:0;
+    display:flex;
+    gap:15px;
+}
+.kalil-menu li{
+    background:#fff;
+    color:#0083b0;
+    padding:5px 10px;
+    border-radius:4px;
+}
 #kalil-messages .kalil-msg{
     background:#fff;
     color:#333;

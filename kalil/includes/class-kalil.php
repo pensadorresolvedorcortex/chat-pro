@@ -18,6 +18,7 @@ class Plugin {
         add_action( 'init', [ $this, 'register_post_type' ] );
         add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
         add_shortcode( 'kalil_member_area', [ $this, 'member_area_shortcode' ] );
+        add_shortcode( 'kalil_register', [ $this, 'register_form_shortcode' ] );
         add_action( 'wp_ajax_kalil_send_message', [ $this, 'handle_send_message' ] );
         add_action( 'wp_ajax_nopriv_kalil_send_message', [ $this, 'handle_send_message' ] );
         add_action( 'wp_ajax_kalil_get_messages', [ $this, 'get_messages' ] );
@@ -61,6 +62,13 @@ class Plugin {
         ob_start();
         ?>
         <div class="kalil-container">
+            <nav class="kalil-menu">
+                <ul>
+                    <li>Documentos</li>
+                    <li>Vídeos</li>
+                    <li>Conversas</li>
+                </ul>
+            </nav>
             <div id="kalil-messages"></div>
             <form id="kalil-form" enctype="multipart/form-data">
                 <textarea name="message" placeholder="Digite sua mensagem"></textarea>
@@ -83,6 +91,11 @@ class Plugin {
         $patient_id   = absint( $_POST['patient'] ?? 0 );
         if ( ! $patient_id ) {
             wp_send_json_error( 'no_patient' );
+        }
+
+        $is_admin = user_can( $current_user, 'manage_options' );
+        if ( ! $is_admin && $current_user->ID !== $patient_id ) {
+            wp_send_json_error( 'forbidden' );
         }
 
         $content   = sanitize_textarea_field( $_POST['message'] ?? '' );
@@ -122,8 +135,14 @@ class Plugin {
             wp_send_json_error();
         }
 
+        $current = wp_get_current_user();
         $patient_id = absint( $_REQUEST['patient'] ?? 0 );
         if ( ! $patient_id ) {
+            wp_send_json_error();
+        }
+
+        $is_admin = user_can( $current, 'manage_options' );
+        if ( ! $is_admin && $current->ID !== $patient_id ) {
             wp_send_json_error();
         }
 
@@ -162,6 +181,53 @@ class Plugin {
     private function get_admin_id() {
         $admins = get_users( [ 'role' => 'administrator', 'number' => 1 ] );
         return $admins ? $admins[0]->ID : 1;
+    }
+
+    public function register_form_shortcode( $atts ) {
+        if ( is_user_logged_in() ) {
+            return '<p>Voc\xe3\u00ea j\u00e1 possui conta.</p>';
+        }
+
+        $atts     = shortcode_atts( [ 'redirect' => home_url( '/member-area' ) ], $atts );
+        $redirect = esc_url( $atts['redirect'] );
+
+        if ( 'POST' === $_SERVER['REQUEST_METHOD'] && isset( $_POST['kalil_register'] ) ) {
+            check_admin_referer( 'kalil_register_action', 'kalil_register_nonce' );
+
+            $username = sanitize_user( $_POST['username'] ?? '' );
+            $email    = sanitize_email( $_POST['email'] ?? '' );
+            $password = sanitize_text_field( $_POST['password'] ?? '' );
+
+            $user_id = wp_insert_user( [
+                'user_login' => $username,
+                'user_email' => $email,
+                'user_pass'  => $password,
+                'role'       => 'subscriber',
+            ] );
+
+            if ( is_wp_error( $user_id ) ) {
+                return '<p>Erro ao criar conta.</p>';
+            }
+
+            wp_set_current_user( $user_id );
+            wp_set_auth_cookie( $user_id );
+
+            wp_redirect( $redirect );
+            exit;
+        }
+
+        ob_start();
+        ?>
+        <form method="post" class="kalil-register-form">
+            <?php wp_nonce_field( 'kalil_register_action', 'kalil_register_nonce' ); ?>
+            <input type="hidden" name="kalil_register" value="1" />
+            <p><input type="text" name="username" placeholder="Usu\xe1rio" required></p>
+            <p><input type="email" name="email" placeholder="Email" required></p>
+            <p><input type="password" name="password" placeholder="Senha" required></p>
+            <p><button type="submit">Registrar</button></p>
+        </form>
+        <?php
+        return ob_get_clean();
     }
 }
 

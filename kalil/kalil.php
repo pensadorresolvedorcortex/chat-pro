@@ -2,7 +2,7 @@
 /*
 Plugin Name: Kalil
 Description: Area de membros com troca de arquivos, envio de videos e bate papo entre administrador e paciente.
-Version: 1.1.0
+Version: 1.2.0
 Author: Kalil Dev
 License: GPL2
 */
