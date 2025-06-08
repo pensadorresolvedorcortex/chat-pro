@@ -15,3 +15,7 @@ Este é o repositório inicial para o Codex do ChatGPT.
 ## Development
 Run `scripts/test.sh` to lint all PHP files.
 
+
+## Bot de Atendimento
+
+O diretório `bot/` contém um exemplo de bot em Node.js que simula um fluxo de atendimento para WhatsApp Business. Para executar, use `npm start` e siga as instruções no terminal. O bot agora recupera o nome do usuário de forma assíncrona e permite encerrar o atendimento digitando `sair`.
