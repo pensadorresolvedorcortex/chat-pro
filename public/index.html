@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Configurar WhatsApp</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    label { display: block; margin-top: 1em; }
+  </style>
+</head>
+<body>
+  <h1>Configuração da API do WhatsApp Business</h1>
+  <form id="cfg-form">
+    <label>Token:<br><input type="text" id="token" required></label>
+    <label>ID do Telefone:<br><input type="text" id="phone" required></label>
+    <label>Verify Token:<br><input type="text" id="verify" required></label>
+    <button type="submit">Salvar</button>
+  </form>
+  <p id="status"></p>
+  <script>
+    fetch('/api/config').then(r=>r.json()).then(cfg=>{
+      document.getElementById('token').value = cfg.WHATSAPP_TOKEN || '';
+      document.getElementById('phone').value = cfg.WHATSAPP_PHONE_ID || '';
+      document.getElementById('verify').value = cfg.VERIFY_TOKEN || '';
+    });
+    document.getElementById('cfg-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = {
+        WHATSAPP_TOKEN: document.getElementById('token').value,
+        WHATSAPP_PHONE_ID: document.getElementById('phone').value,
+        VERIFY_TOKEN: document.getElementById('verify').value
+      };
+      const res = await fetch('/api/config', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      document.getElementById('status').textContent = res.ok ?
+        'Configurações salvas.' : 'Erro ao salvar';
+    });
+  </script>
+</body>
+</html>
