@@ -1,0 +1,12 @@
+{
+  "name": "whatsapp-bot",
+  "version": "1.0.0",
+  "description": "Exemplo simples de bot de atendimento para WhatsApp",
+  "main": "bot/index.js",
+  "scripts": {
+    "start": "node bot/index.js"
+  },
+  "type": "commonjs",
+  "author": "",
+  "license": "MIT"
+}
