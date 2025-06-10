@@ -1,0 +1,4 @@
+vendor/
+.env
+wweb.log
+qr.png
