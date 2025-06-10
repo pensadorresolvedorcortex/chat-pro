@@ -1,17 +1,41 @@
-# Chat-Pro
+# Chat-Pro Bot via WhatsApp Web
 
-Este é o repositório inicial para o Codex do ChatGPT.
+Este projeto demonstra um bot de atendimento controlado por PHP que utiliza um navegador automatizado para se conectar ao WhatsApp Web. Dessa forma nenhuma chave de API ou token é necessária.
 
-## Plugins
+## Requisitos
 
- - **ZX Tec**: plugin WordPress localizado em `zxtec-intranet/` com gerenciamento de clientes, servicos, ordens e contratos. Inclui painel do colaborador com confirmacao e finalizacao de ordens, mapa de geolocalizacao, exportacao financeira em CSV, PDF e Excel, notificacoes por e-mail, historico de servicos com filtros e exportacao em CSV, contratos ativos, agenda de ordens confirmadas e mapa de tecnicos com atribuicao automatica pelo GPS. A versao 0.9 considerava tambem o custo por Km do colaborador e definia o agendamento automaticamente. A versao 1.0 adicionou relatorio financeiro individual e justificativa obrigatoria ao recusar servicos. A versao 1.1 ampliou o historico com filtros por data e tecnico. A versao 1.2 traz controle de despesas com relatorio e saldo liquido. A versao 1.3 inclui o framework Bootstrap para deixar o painel responsivo. A versao 1.4 permite exportar o financeiro individual em PDF. A versao 1.5 adiciona notificacoes internas sobre ordens e atualizacoes de status. A versao 1.6 inclui uma pagina de Notificacoes para administradores gerenciarem alertas dos colaboradores.
- A versao 1.7 adiciona limpeza completa de dados ao desinstalar o plugin.
- A versao 1.8 permite configurar o percentual de comissao na pagina de configuracoes do plugin.
- A versao 1.9 traz um widget de resumo no painel inicial do WordPress exibindo quantas ordens estao pendentes, confirmadas e concluidas.
- A versao 2.0 permite filtrar o Relatorio Financeiro por datas antes de exportar os arquivos.
- A versao 2.1 permite definir comissao individual para cada colaborador.
- A versao 2.2 apresenta um painel analitico com graficos interativos.
+- PHP 8 ou superior
+- Composer para instalar as dependências (será baixado automaticamente caso não esteja disponível)
+- Chrome/Chromium
+- `chromedriver` em `./bin/` ou disponível em `http://localhost:9515`
 
-## Development
-Run `scripts/test.sh` to lint all PHP files.
+## Instalação
 
+1. Instale as dependências com o Composer. Caso o binário não esteja presente, `index.php` e `wweb-bot.php` tentarão baixar `composer.phar` automaticamente. O instalador define `COMPOSER_HOME` para `composer-home/` se a variável não estiver configurada:
+   ```bash
+   composer install
+   ```
+2. Baixe o Chromedriver adequado para seu sistema (Linux x64 por padrão):
+   ```bash
+   bash scripts/install_chromedriver.sh
+   ```
+   Esse comando fará o download para o diretório `bin/`.
+3. Inicie o bot manualmente no terminal:
+   ```bash
+   php app.php
+   ```
+   ou acesse `index.php` em um servidor web e clique em **Iniciar Bot** para executá-lo em segundo plano. O script tenta executar comandos usando `exec`, `shell_exec` ou `proc_open`; se todas estiverem desabilitadas, será necessário rodar `php wweb-bot.php` manualmente via linha de comando.
+4. Você também pode abrir `wweb-bot.php` diretamente no navegador para executar o processo e gerar o QR Code na tela.
+   Em ambos os casos o QR Code será salvo como `qr.png` e exibido na página `index.php`.
+
+### Observação sobre hospedagem
+
+O script `wweb-bot.php` tenta iniciar automaticamente o `chromedriver` localizado em `bin/chromedriver` e executa `composer install` (baixando `composer.phar` se for preciso) caso as dependências ainda não estejam presentes. Caso não exista um serviço escutando em `http://localhost:9515` e o binário não seja encontrado, o processo será abortado registrando o erro em `wweb.log`.
+Você pode iniciar o driver manualmente executando:
+```bash
+bash scripts/start_chromedriver.sh
+```
+
+O botão de `index.php` apenas inicia esse script em segundo plano. Verifique o log caso o QR Code não seja gerado.
+
+Após autenticado, toda mensagem recebida poderá ser tratada pela árvore de diálogos definida em `Bot.php`.
