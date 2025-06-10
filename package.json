@@ -1,0 +1,17 @@
+{
+  "name": "whatsapp-bot",
+  "version": "1.0.0",
+  "description": "Exemplo simples de bot de atendimento para WhatsApp",
+  "main": "wweb-bot.mjs",
+  "scripts": {
+    "start": "node wweb-bot.mjs",
+    "test": "node test.js"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "whatsapp-web.js": "^1.30.0",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "author": "",
+  "license": "MIT"
+}
