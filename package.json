@@ -1,0 +1,14 @@
+{
+  "name": "chat-pro-bot",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js",
+    "cli": "node app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
