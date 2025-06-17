@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Finance Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+<h1>Finance Dashboard</h1>
+<h2>Saldo Atual: R$ <span id="balance">0</span></h2>
+<canvas id="summaryChart" height="100"></canvas>
+<canvas id="expenseChart" height="100"></canvas>
+</header>
+<section>
+<form id="incomeForm">
+<h2>Cadastro de Receitas</h2>
+<label>Valor</label><input type="number" step="0.01" id="incomeValue" required />
+<label>Descrição</label><input type="text" id="incomeDesc" required />
+<label>Data</label><input type="date" id="incomeDate" required />
+<label>Categoria</label>
+<select id="incomeCategory">
+<option>Salário</option>
+<option>Bônus</option>
+<option>Investimento</option>
+<option>Outros</option>
+</select>
+<button type="submit">Adicionar Receita</button>
+</form>
+<form id="expenseForm">
+<h2>Cadastro de Despesas</h2>
+<label>Valor</label><input type="number" step="0.01" id="expenseValue" required />
+<label>Descrição</label><input type="text" id="expenseDesc" required />
+<label>Data</label><input type="date" id="expenseDate" required />
+<label>Categoria</label>
+<select id="expenseCategory">
+<option>Alimentação</option>
+<option>Transporte</option>
+<option>Internet</option>
+<option>Saúde</option>
+<option>Lazer</option>
+<option>Educação</option>
+<option>Contas Fixas</option>
+<option>Outros</option>
+</select>
+<button type="submit">Adicionar Despesa</button>
+</form>
+</section>
+<section id="filters">
+<h2>Filtrar Movimentações</h2>
+<label>Mês</label><select id="filterMonth"></select>
+<label>Ano</label><select id="filterYear"></select>
+<label>Tipo</label><select id="filterType">
+<option value="">Todos</option>
+<option value="income">Receita</option>
+<option value="expense">Despesa</option>
+</select>
+<label>Categoria</label><select id="filterCategory"></select>
+<button id="applyFilters">Aplicar</button>
+</section>
+<section id="transactions">
+<h2>Movimentações</h2>
+<table id="transTable">
+<thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Tipo</th><th>Valor</th></tr></thead>
+<tbody></tbody>
+</table>
+</section>
+<script src="chart.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
