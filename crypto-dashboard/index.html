@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Cripto</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Dashboard de Criptomoedas</h1>
+    <nav>
+        <button onclick="showTab('dashboard')">Visão Geral</button>
+        <button onclick="showTab('transacoes')">Transações</button>
+        <button onclick="showTab('taxas')">Taxas</button>
+        <button onclick="showTab('rentabilidade')">Rentabilidade</button>
+        <button onclick="exportData()">Exportar dados</button>
+    </nav>
+
+    <section id="dashboard" class="tab">
+        <h2>Visão Geral</h2>
+        <label>Cotação USDT/BRL: <input type="number" id="cotacao" value="5" step="0.01" onchange="updateDashboard()"></label>
+        <div id="totais"></div>
+        <canvas id="graficoLinha"></canvas>
+        <h3>Últimas Transações</h3>
+        <ul id="listaTransacoes"></ul>
+    </section>
+
+    <section id="transacoes" class="tab" style="display:none">
+        <h2>Nova Transação</h2>
+        <form id="formTransacao" onsubmit="adicionarTransacao(event)">
+            <label>Tipo
+                <select id="tipo">
+                    <option>Compra</option>
+                    <option>Venda</option>
+                    <option>Transferência</option>
+                    <option>Taxa</option>
+                    <option>Depósito</option>
+                    <option>Saque</option>
+                    <option>Pool</option>
+                    <option>Staking</option>
+                    <option>Recompensa</option>
+                    <option>Taxa Reembolsável</option>
+                    <option>Taxa Não Reembolsável</option>
+                </select>
+            </label>
+            <label>Data <input type="date" id="data" required></label>
+            <label>Moeda <input type="text" id="moeda" required></label>
+            <label>Valor <input type="number" id="valor" step="0.0001" required></label>
+            <label>Carteira/Corretora <input type="text" id="origem" required></label>
+            <label>Taxas <input type="number" id="taxas" step="0.0001"></label>
+            <label>Observações <input type="text" id="obs"></label>
+            <button type="submit">Salvar</button>
+        </form>
+        <h3>Transações Salvas</h3>
+        <ul id="transacoesSalvas"></ul>
+    </section>
+
+    <section id="taxas" class="tab" style="display:none">
+        <h2>Taxas</h2>
+        <div>
+            <h3>Não Reembolsáveis</h3>
+            <ul id="taxasNao"></ul>
+        </div>
+        <div>
+            <h3>Reembolsáveis</h3>
+            <ul id="taxasReemb"></ul>
+        </div>
+    </section>
+
+    <section id="rentabilidade" class="tab" style="display:none">
+        <h2>Rentabilidade</h2>
+        <form id="formGanho" onsubmit="adicionarGanho(event)">
+            <label>Moeda <input type="text" id="moedaGanho" required></label>
+            <label>Valor <input type="number" id="valorGanho" step="0.0001" required></label>
+            <button type="submit">Adicionar</button>
+        </form>
+        <ul id="listaGanhos"></ul>
+        <canvas id="graficoPizza"></canvas>
+    </section>
+
+<script src="app.js"></script>
+</body>
+</html>
