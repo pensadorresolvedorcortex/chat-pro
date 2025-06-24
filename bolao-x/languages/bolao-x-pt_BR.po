@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bolao X 3.1.0\n"
+"Project-Id-Version: Bolao X 3.2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-23 15:57+0000\n"
 "PO-Revision-Date: 2025-06-23 15:57+0000\n"

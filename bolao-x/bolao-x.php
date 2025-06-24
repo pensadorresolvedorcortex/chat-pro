@@ -2,7 +2,7 @@
 /*
 Plugin Name: Bolao X
 Description: Sistema de gerenciamento de bolão com conferência automática, histórico de resultados, exportação em PDF e Excel, notificação por e-mail e visual moderno.
-Version: 3.1.0
+Version: 3.2.0
 Text Domain: bolao-x
 Domain Path: /languages
 Author: Bolao X
@@ -17,7 +17,7 @@ class BOLAOX_Plugin {
     private static $instance = null;
     private $notice = '';
     const TEXT_DOMAIN = 'bolao-x';
-    const VERSION = '3.1.0';
+    const VERSION = '3.2.0';
 
     public static function instance() {
         if ( null === self::$instance ) {
@@ -532,7 +532,14 @@ class BOLAOX_Plugin {
         $html .= '<form method="post" class="bolaox-form-inner">';
         $html .= wp_nonce_field( 'bolaox_form', 'bolaox_nonce', true, false );
         $html .= '<p class="bolaox-field"><label>' . esc_html__( 'Nome', self::TEXT_DOMAIN ) . '<br /><input type="text" name="bolaox_name" required /></label></p>';
-        $html .= '<p class="bolaox-field"><label>' . esc_html__( 'Dezenas', self::TEXT_DOMAIN ) . '<br /><input type="text" name="bolaox_numbers" placeholder="' . esc_attr__( '10 dezenas', self::TEXT_DOMAIN ) . '" required /></label></p>';
+        $html .= '<p class="bolaox-field"><label>' . esc_html__( 'Dezenas', self::TEXT_DOMAIN ) . '</label>';
+        $html .= '<div class="bolaox-numbers">';
+        for ( $i = 0; $i < 100; $i++ ) {
+            $num = str_pad( (string) $i, 2, '0', STR_PAD_LEFT );
+            $html .= '<span class="bolaox-number">' . esc_html( $num ) . '</span>';
+        }
+        $html .= '<input type="hidden" name="bolaox_numbers" required />';
+        $html .= '</div></p>';
         $html .= '<p class="bolaox-field"><input type="submit" name="bolaox_submit" value="' . esc_attr__( 'Enviar', self::TEXT_DOMAIN ) . '" class="button" /></p>';
         $pix_form = get_option( 'bolaox_pix_key', '' );
         if ( $pix_form ) {

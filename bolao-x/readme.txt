@@ -3,7 +3,7 @@ Contributors: bolaox
 Tags: lottery, bolao, pix, csv, pdf, excel
 Requires at least: 6.0
 Tested up to: 6.5
-Stable tag: 3.1.0
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -18,6 +18,7 @@ Sistema completo para gerenciamento de bolão semanal. Permite cadastro de apost
 * Botão para copiar a chave Pix após enviar a aposta
 * Estatísticas com gráfico de barras
 * Interface 2025 com efeito de vidro e botões em gradiente
+* Escolha das dezenas em grade clicável
 * Widget de resumo no painel e envio de e-mails automáticos
 * Todos os dados são removidos na desinstalação
 * Pronto para tradução com arquivos `.pot` e `.po` em `/languages`
@@ -29,6 +30,8 @@ Sistema completo para gerenciamento de bolão semanal. Permite cadastro de apost
 3. Acesse o menu Bolao X para configurar e começar a usar.
 
 == Changelog ==
+= 3.2.0 =
+* Grade de dezenas clicável para facilitar a seleção.
 = 3.1.0 =
 * Visual atualizado com efeito de vidro e botões em gradiente.
 = 3.0.0 =

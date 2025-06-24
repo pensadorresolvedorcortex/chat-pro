@@ -128,3 +128,32 @@
 .bolaox-stats tr:nth-child(odd) {
     background: rgba(255,255,255,0.05);
 }
+
+/* number picker */
+.bolaox-numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.bolaox-number {
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    padding: 8px 0;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s, transform 0.3s;
+    font-weight: 600;
+}
+
+.bolaox-number:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.bolaox-number.selected {
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    transform: scale(1.1);
+    color: #fff;
+}

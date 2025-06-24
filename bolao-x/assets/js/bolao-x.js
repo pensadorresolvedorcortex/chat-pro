@@ -32,5 +32,23 @@
         }
       });
     });
+    document.querySelectorAll('.bolaox-numbers').forEach(function(container){
+      var hidden = container.querySelector('input[type="hidden"]');
+      container.querySelectorAll('.bolaox-number').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          if(btn.classList.contains('selected')){
+            btn.classList.remove('selected');
+          } else {
+            if(container.querySelectorAll('.bolaox-number.selected').length >= 10) return;
+            btn.classList.add('selected');
+          }
+          var arr = [];
+          container.querySelectorAll('.bolaox-number.selected').forEach(function(el){
+            arr.push(el.textContent);
+          });
+          hidden.value = arr.join(',');
+        });
+      });
+    });
   });
 })();
