@@ -2,7 +2,7 @@
 /*
 Plugin Name: Bolao X
 Description: Sistema de gerenciamento de bolão com conferência automática, histórico de resultados, exportação em PDF e Excel, notificação por e-mail e visual moderno.
-Version: 3.2.0
+Version: 3.2.1
 Text Domain: bolao-x
 Domain Path: /languages
 Author: Bolao X
@@ -17,7 +17,7 @@ class BOLAOX_Plugin {
     private static $instance = null;
     private $notice = '';
     const TEXT_DOMAIN = 'bolao-x';
-    const VERSION = '3.2.0';
+    const VERSION = '3.2.1';
 
     public static function instance() {
         if ( null === self::$instance ) {
@@ -540,7 +540,6 @@ class BOLAOX_Plugin {
         }
         $html .= '<input type="hidden" name="bolaox_numbers" required />';
         $html .= '</div></p>';
-        $html .= '<p class="bolaox-field"><input type="submit" name="bolaox_submit" value="' . esc_attr__( 'Enviar', self::TEXT_DOMAIN ) . '" class="button" /></p>';
         $pix_form = get_option( 'bolaox_pix_key', '' );
         if ( $pix_form ) {
             $qr = $this->generate_pix_qr( $pix_form );
@@ -549,6 +548,7 @@ class BOLAOX_Plugin {
             }
             $html .= '<p class="bolaox-pix">' . sprintf( esc_html__( 'Chave Pix: %s', self::TEXT_DOMAIN ), '<strong>' . esc_html( $pix_form ) . '</strong>' ) . '</p>';
         }
+        $html .= '<p class="bolaox-field"><input type="submit" name="bolaox_submit" value="' . esc_attr__( 'Apostar agora', self::TEXT_DOMAIN ) . '" class="button" /></p>';
         $html .= '</form></div>';
         return $html;
     }

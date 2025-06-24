@@ -4,7 +4,7 @@ Este é o repositório inicial para o Codex do ChatGPT.
 
 ## Plugins
 
- - **Bolao X** (v3.2): plugin WordPress localizado em `bolao-x/`.
+ - **Bolao X** (v3.2.1): plugin WordPress localizado em `bolao-x/`.
    Principais recursos:
    - Cadastro manual ou importação de apostas via CSV
    - Shortcodes `[bolao_x_form]`, `[bolao_x_results]`, `[bolao_x_history]`, `[bolao_x_my_bets]` e `[bolao_x_stats]`

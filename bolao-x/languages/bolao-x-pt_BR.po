@@ -5,7 +5,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Bolao X 3.2.0\n"
+"Project-Id-Version: Bolao X 3.2.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-23 15:57+0000\n"
 "PO-Revision-Date: 2025-06-23 15:57+0000\n"
@@ -205,8 +205,8 @@ msgid "10 dezenas"
 msgstr ""
 
 #: bolao-x/bolao-x.php:533
-msgid "Enviar"
-msgstr ""
+msgid "Apostar agora"
+msgstr "Apostar agora"
 
 #: bolao-x/bolao-x.php:540
 #, php-format
