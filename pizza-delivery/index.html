@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pizzaria Delivery</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="cityModal" class="modal">
+    <div class="modal-content">
+      <h2>Escolha sua Cidade</h2>
+      <select id="estado">
+        <option value="">Selecione o Estado</option>
+        <option value="SP">São Paulo</option>
+        <option value="RJ">Rio de Janeiro</option>
+        <option value="MG">Minas Gerais</option>
+      </select>
+      <select id="cidade">
+        <option value="">Selecione a Cidade</option>
+        <option value="SaoPaulo">São Paulo</option>
+        <option value="Rio">Rio de Janeiro</option>
+        <option value="BeloHorizonte">Belo Horizonte</option>
+      </select>
+      <button onclick="confirmarCidade()">Confirmar</button>
+    </div>
+  </div>
+
+  <header>
+    <h1>Pizzaria Delivery</h1>
+  </header>
+  <section id="mensagem"></section>
+
+  <nav class="categorias">
+    <button onclick="mostrarCategoria('pizzas')">Pizzas</button>
+    <button onclick="mostrarCategoria('complementos')">Complementos</button>
+    <button onclick="mostrarCategoria('bebidas')">Bebidas</button>
+  </nav>
+
+  <main id="menu"></main>
+
+  <aside id="carrinho" class="carrinho"></aside>
+
+  <script src="script.js"></script>
+</body>
+</html>

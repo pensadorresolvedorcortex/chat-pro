@@ -1,0 +1,147 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+  color: #333;
+}
+header {
+  background: #d94e15;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+.categorias {
+  display: flex;
+  justify-content: space-around;
+  padding: .5rem;
+  background: #ffe5d0;
+}
+.categorias button {
+  flex: 1;
+  margin: .2rem;
+  padding: .8rem;
+  border: none;
+  border-radius: 5px;
+  background: #f5d247;
+  font-size: 1rem;
+  transition: background .3s;
+}
+.categorias button:hover {
+  background: #ffd700;
+}
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem;
+}
+.card {
+  width: 45%;
+  background: #fff;
+  margin: .5rem;
+  padding: .5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform .2s;
+}
+.card:hover {
+  transform: scale(1.02);
+}
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.card h3 {
+  margin: .5rem 0 0;
+}
+.card p {
+  font-size: .9rem;
+}
+.card button {
+  margin-top: .5rem;
+  width: 100%;
+  padding: .6rem;
+  border: none;
+  background: #d94e15;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: opacity .3s;
+}
+.card button:hover {
+  opacity: .8;
+}
+.carrinho {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 250px;
+  background: #fff;
+  border-left: 2px solid #eee;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.carrinho h2 {
+  text-align: center;
+}
+.carrinho ul {
+  list-style: none;
+  padding: 0;
+}
+.carrinho li {
+  margin-bottom: .5rem;
+}
+.carrinho button {
+  width: 100%;
+  padding: .7rem;
+  background: #28a745;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 90%;
+  }
+  .carrinho {
+    width: 100%;
+    height: 200px;
+    top: auto;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+  }
+}
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 300px;
+  text-align: center;
+}
+.modal select, .modal button {
+  width: 100%;
+  margin-top: .5rem;
+  padding: .5rem;
+}
+
+#mensagem {
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+}
