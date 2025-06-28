@@ -13,5 +13,5 @@ Este é o repositório inicial para o Codex do ChatGPT.
  A versao 2.2 apresenta um painel analitico com graficos interativos.
 
 ## Development
-Run `scripts/test.sh` to lint all PHP files.
+Run `scripts/test.sh` before committing to lint all PHP files.
 
