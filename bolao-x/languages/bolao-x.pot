@@ -1,0 +1,392 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Bolao X 3.9.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-23 22:34+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: bolao-x.php:113
+msgid "Apostas"
+msgstr ""
+
+#: bolao-x.php:114 bolao-x.php:450
+msgid "Aposta"
+msgstr ""
+
+#: bolao-x.php:123
+msgid "Resultados"
+msgstr ""
+
+#: bolao-x.php:124
+msgid "Resultado"
+msgstr ""
+
+#: bolao-x.php:133 bolao-x.php:452 bolao-x.php:532
+msgid "Dezenas"
+msgstr ""
+
+#: bolao-x.php:138
+msgid "Ex: 05,12,23,34,45,56,67,78,89,90"
+msgstr ""
+
+#: bolao-x.php:146
+msgid ""
+"Dezenas da aposta inválidas. Use 10 números de 00 a 99 separados por vírgula."
+msgstr ""
+
+#: bolao-x.php:155 bolao-x.php:233
+msgid "Configurações"
+msgstr ""
+
+#: bolao-x.php:156
+msgid "Importar CSV"
+msgstr ""
+
+#: bolao-x.php:157
+msgid "Histórico"
+msgstr ""
+
+#: bolao-x.php:158 bolao-x.php:320
+msgid "Estatísticas"
+msgstr ""
+
+#: bolao-x.php:165
+msgid ""
+"Resultado semanal inválido. Informe 10 números de 00 a 99 separados por "
+"vírgula."
+msgstr ""
+
+#: bolao-x.php:189
+msgid "Resultado Semanal"
+msgstr ""
+
+#: bolao-x.php:192
+msgid "Ex: 05,19,28,36,44,59,66,71,86,96"
+msgstr ""
+
+#: bolao-x.php:193
+msgid "Salvar"
+msgstr ""
+
+#: bolao-x.php:196
+msgid "Conferência"
+msgstr ""
+
+#: bolao-x.php:200
+msgid "Exportar CSV"
+msgstr ""
+
+#: bolao-x.php:201
+msgid "Exportar Excel"
+msgstr ""
+
+#: bolao-x.php:202
+msgid "Exportar PDF"
+msgstr ""
+
+#: bolao-x.php:210
+msgid "Segunda"
+msgstr ""
+
+#: bolao-x.php:211
+msgid "Terça"
+msgstr ""
+
+#: bolao-x.php:212
+msgid "Quarta"
+msgstr ""
+
+#: bolao-x.php:213
+msgid "Quinta"
+msgstr ""
+
+#: bolao-x.php:214
+msgid "Sexta"
+msgstr ""
+
+#: bolao-x.php:215
+msgid "Sábado"
+msgstr ""
+
+#: bolao-x.php:216
+msgid "Domingo"
+msgstr ""
+
+#: bolao-x.php:229
+msgid "Configurações salvas."
+msgstr ""
+
+#: bolao-x.php:242
+msgid "Chave Pix"
+msgstr ""
+
+msgid "Chaves Pix"
+msgstr ""
+
+msgid "Chave ativa"
+msgstr ""
+
+msgid "Nome do Recebedor"
+msgstr ""
+
+msgid "Cidade"
+msgstr ""
+
+#: bolao-x.php:249
+msgid "Importar Apostas via CSV"
+msgstr ""
+
+#: bolao-x.php:276
+#, php-format
+msgid "Importadas %d apostas."
+msgstr ""
+
+#: bolao-x.php:281
+msgid "Importar"
+msgstr ""
+
+#: bolao-x.php:300
+msgid "Histórico de Resultados"
+msgstr ""
+
+#: bolao-x.php:302 bolao-x.php:549 bolao-x.php:561
+msgid "Nenhum resultado cadastrado."
+msgstr ""
+
+#: bolao-x.php:320 bolao-x.php:352 bolao-x.php:607
+msgid "Nenhuma aposta cadastrada."
+msgstr ""
+
+#: bolao-x.php:335
+msgid "Estatísticas de Frequência"
+msgstr ""
+
+#: bolao-x.php:336
+msgid "Dezena"
+msgstr ""
+
+#: bolao-x.php:336
+msgid "Ocorrências"
+msgstr ""
+
+#: bolao-x.php:447
+msgid "Relatorio de Apostas"
+msgstr ""
+
+#: bolao-x.php:451
+msgid "Acertos"
+msgstr ""
+
+#: bolao-x.php:478
+#, php-format
+msgid "Olá %s,"
+msgstr ""
+
+#: bolao-x.php:479
+#, php-format
+msgid "O resultado da semana foi: %s"
+msgstr ""
+
+#: bolao-x.php:480
+#, php-format
+msgid "Sua aposta: %s"
+msgstr ""
+
+#: bolao-x.php:481
+#, php-format
+msgid "Acertos: %d"
+msgstr ""
+
+#: bolao-x.php:483
+#, php-format
+msgid "Parabéns! Você acertou %d dezenas."
+msgstr ""
+
+#: bolao-x.php:485
+msgid "Resultado do Bolão"
+msgstr ""
+
+#: bolao-x.php:497
+msgid "Apostas encerradas. Tente novamente no próximo concurso."
+msgstr ""
+
+#: bolao-x.php:506
+msgid ""
+"Formato de dezenas inválido. Use 10 números de 00 a 99 separados por vírgula."
+msgstr ""
+
+#: bolao-x.php:517
+msgid "Aposta registrada com sucesso!"
+msgstr ""
+
+#: bolao-x.php:523
+#, php-format
+msgid "Pague via Pix usando a chave: %s"
+msgstr ""
+
+#: bolao-x.php:608
+msgid "Como quer ser chamado?"
+msgstr ""
+
+#: bolao-x.php:609
+msgid "Escolha 10 dezenas"
+msgstr ""
+
+#: bolao-x.php:610
+msgid "APOSTE AGORA"
+msgstr ""
+
+#: bolao-x.php:540
+#, php-format
+msgid "Chave Pix: %s"
+msgstr ""
+
+msgid "TXID: %s"
+msgstr ""
+
+#: bolao-x.php:526
+msgid "Copiar"
+msgstr ""
+
+#: bolao-x.php:552
+msgid "Resultado da Semana:"
+msgstr ""
+
+#: bolao-x.php:575
+msgid "Faça login para ver suas apostas."
+msgstr ""
+
+#: bolao-x.php:586
+msgid "Você ainda não cadastrou apostas."
+msgstr ""
+
+#: bolao-x.php:658
+#, php-format
+msgid "Total de apostas: %d"
+msgstr ""
+
+#: bolao-x.php:660
+msgid "Acertos:"
+msgstr ""
+
+#: bolao-x.php:661
+#, php-format
+msgid "10 dezenas: %d"
+msgstr ""
+
+#: bolao-x.php:662
+#, php-format
+msgid "9 dezenas: %d"
+msgstr ""
+
+#: bolao-x.php:663
+#, php-format
+msgid "8 dezenas: %d"
+msgstr ""
+
+#: bolao-x.php:666
+msgid "Nenhum resultado cadastrado ainda."
+msgstr ""
+
+#: bolao-x.php:524
+msgid "Pague com Pix"
+msgstr ""
+
+#: bolao-x.php:726
+msgid "Perdeu a senha?"
+msgstr ""
+
+#: bolao-x.php:742
+msgid "Nova senha"
+msgstr ""
+
+#: bolao-x.php:743
+msgid "Confirme a senha"
+msgstr ""
+
+#: bolao-x.php:744
+msgid "Alterar senha"
+msgstr ""
+
+#: bolao-x.php:736
+msgid "Senha alterada com sucesso."
+msgstr ""
+
+#: bolao-x.php:738
+msgid "As senhas não conferem."
+msgstr ""
+#: bolao-x.php:269
+msgid "Segredo do Webhook"
+msgstr ""
+
+#: bolao-x.php:771
+msgid "Você já está logado."
+msgstr ""
+
+#: bolao-x.php:782
+msgid "Senha incorreta."
+msgstr ""
+
+#: bolao-x.php:784
+msgid "Telefone não encontrado."
+msgstr ""
+
+#: bolao-x.php:790
+msgid "Preencha todos os campos."
+msgstr ""
+
+#: bolao-x.php:792
+msgid "Telefone já cadastrado."
+msgstr ""
+
+#: bolao-x.php:798
+msgid "Erro ao criar usuário."
+msgstr ""
+
+#: bolao-x.php:801
+msgid "Cadastro realizado com sucesso."
+msgstr ""
+
+#: bolao-x.php:808
+msgid "Telefone"
+msgstr ""
+
+#: bolao-x.php:809 bolao-x.php:816
+msgid "Senha"
+msgstr ""
+
+#: bolao-x.php:810
+msgid "Entrar"
+msgstr ""
+
+#: bolao-x.php:817
+msgid "Criar conta"
+msgstr ""
+
+#: bolao-x.php:820
+msgid "Acessar"
+msgstr ""
+
+#: bolao-x.php:820
+msgid "Cadastrar"
+msgstr ""
+
+#: bolao-x.php
+msgid "Login realizado com sucesso."
+msgstr ""
+
+#: bolao-x.php
+msgid "Cadastro realizado com sucesso."
+msgstr ""
