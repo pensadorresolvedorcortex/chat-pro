@@ -4,14 +4,35 @@ Este é o repositório inicial para o Codex do ChatGPT.
 
 ## Plugins
 
- - **ZX Tec**: plugin WordPress localizado em `zxtec-intranet/` com gerenciamento de clientes, servicos, ordens e contratos. Inclui painel do colaborador com confirmacao e finalizacao de ordens, mapa de geolocalizacao, exportacao financeira em CSV, PDF e Excel, notificacoes por e-mail, historico de servicos com filtros e exportacao em CSV, contratos ativos, agenda de ordens confirmadas e mapa de tecnicos com atribuicao automatica pelo GPS. A versao 0.9 considerava tambem o custo por Km do colaborador e definia o agendamento automaticamente. A versao 1.0 adicionou relatorio financeiro individual e justificativa obrigatoria ao recusar servicos. A versao 1.1 ampliou o historico com filtros por data e tecnico. A versao 1.2 traz controle de despesas com relatorio e saldo liquido. A versao 1.3 inclui o framework Bootstrap para deixar o painel responsivo. A versao 1.4 permite exportar o financeiro individual em PDF. A versao 1.5 adiciona notificacoes internas sobre ordens e atualizacoes de status. A versao 1.6 inclui uma pagina de Notificacoes para administradores gerenciarem alertas dos colaboradores.
- A versao 1.7 adiciona limpeza completa de dados ao desinstalar o plugin.
- A versao 1.8 permite configurar o percentual de comissao na pagina de configuracoes do plugin.
- A versao 1.9 traz um widget de resumo no painel inicial do WordPress exibindo quantas ordens estao pendentes, confirmadas e concluidas.
- A versao 2.0 permite filtrar o Relatorio Financeiro por datas antes de exportar os arquivos.
- A versao 2.1 permite definir comissao individual para cada colaborador.
- A versao 2.2 apresenta um painel analitico com graficos interativos.
+ - **Bolao X** (v3.8.2): plugin WordPress localizado em `bolao-x/`.
+   Principais recursos:
+   - Cadastro manual ou importação de apostas via CSV
+   - Shortcodes `[bolao_x_form]`, `[bolao_x_results]`, `[bolao_x_history]`, `[bolao_x_my_bets]` e `[bolao_x_stats]`
+   - Exportação dos resultados em CSV, Excel ou PDF
+   - Histórico de concursos e estatísticas de frequência
+   - Horários limite configuráveis para recebimento de novas apostas
+   - Pagamento via Pix com QR Code e barra de progresso animada no relatório
+   - Chave Pix pode ser trocada no admin conforme necessário
+   - Botão para copiar a chave Pix após enviar a aposta
+   - QR Code gerado com payload padrão para leitura correta
+   - Integração Pix reescrita do zero para gerar códigos válidos
+   - Formulário de perfil para atualizar seus dados
+   - Login estilizado com link "Perdeu a senha?" e formulário para troca de senha
+  - Shortcode `[bolao_x_login]` permite login e cadastro usando apenas telefone
+  - Após login ou cadastro o usuário é redirecionado para a página /participe
+   - Status de pagamento mostrado em "Minhas Apostas"
+   - Contagem regressiva até o horário limite
+   - Estatísticas exibem gráfico de barras para cada dezena
+   - Interface moderna com efeito de vidro, botões em gradiente e layout responsivo estilo aplicativo
+   - Áreas dos shortcodes claras e com animações de entrada
+   - Todos os shortcodes agora são renderizados em um contêiner “app” para visual de aplicativo
+   - Seleção visual das dezenas em grade clicável, agora com área ampliada e animações
+   - Pronto para tradução via text domain `bolao-x` (arquivos em `bolao-x/languages`)
+   - Tradução brasileira disponível com o arquivo-fonte `bolao-x-pt_BR.po`; gere o `.mo` fora do repositório com `msgfmt`
+   - Widget de resumo no painel e envio automático de e-mails aos participantes
+   - Sistema de premiação por "Menos Pontos" com acúmulo em caso de empate
+   - Confirmação automatica de pagamentos via webhook Pix assinado (segredo configuravel no admin)
+   - Todos os dados (incluindo a chave Pix) são removidos na desinstalação
 
 ## Development
-Run `scripts/test.sh` to lint all PHP files.
-
+Instale o PHP CLI (`apt-get install php-cli`) e execute `scripts/test.sh` para validar os arquivos PHP.
