@@ -1,3 +1,7 @@
 #!/bin/bash
 set -e
-find zxtec-intranet -name '*.php' -print0 | xargs -0 -n1 php -l
+if ! command -v php >/dev/null; then
+  echo "php not found"
+  exit 1
+fi
+find bolao-x -name '*.php' -print0 | xargs -0 -n1 php -l
