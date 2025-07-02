@@ -2,7 +2,7 @@
 /*
 Plugin Name: Bolao X
 Description: Sistema de gerenciamento de bolão com conferência automática, histórico de resultados, exportação em PDF e Excel, notificação por e-mail e visual moderno.
-Version: 3.7.5
+Version: 3.7.6
 Text Domain: bolao-x
 Domain Path: /languages
 Author: Bolao X
@@ -17,7 +17,7 @@ class BOLAOX_Plugin {
     private static $instance = null;
     private $notice = '';
     const TEXT_DOMAIN = 'bolao-x';
-    const VERSION = '3.7.5';
+    const VERSION = '3.7.6';
 
     public static function instance() {
         if ( null === self::$instance ) {
@@ -121,8 +121,9 @@ class BOLAOX_Plugin {
         $payload .= '6304';
 
         $crc = 0xFFFF;
-        for ( $i = 0; $i < strlen( $payload ); $i++ ) {
-            $crc ^= ord( $payload[ $i ] ) << 8;
+        $calc = $payload . '0000';
+        for ( $i = 0; $i < strlen( $calc ); $i++ ) {
+            $crc ^= ord( $calc[ $i ] ) << 8;
             for ( $j = 0; $j < 8; $j++ ) {
                 if ( $crc & 0x8000 ) {
                     $crc = ( $crc << 1 ) ^ 0x1021;

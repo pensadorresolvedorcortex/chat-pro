@@ -3,7 +3,7 @@ Contributors: bolaox
 Tags: lottery, bolao, pix, csv, pdf, excel
 Requires at least: 6.0
 Tested up to: 6.5
-Stable tag: 3.7.5
+Stable tag: 3.7.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,8 @@ Sistema completo para gerenciamento de bolão semanal. Permite cadastro de apost
 3. Acesse o menu Bolao X para configurar e começar a usar.
 
 == Changelog ==
+= 3.7.6 =
+* Correção no cálculo do CRC do QR Code Pix
 = 3.7.5 =
 * QR Code Pix gerado com payload padrao e imagem maior para melhor leitura
 = 3.7.4 =
