@@ -60,8 +60,11 @@ class BOLAOX_Plugin {
 
     public function register_settings() {
         register_setting( 'bolaox', 'bolaox_cutoffs' );
-        register_setting( 'bolaox', 'bolaox_mp_tokens' );
-        register_setting( 'bolaox', 'bolaox_mp_active' );
+        register_setting( 'bolaox', 'bolaox_mp_prod_public' );
+        register_setting( 'bolaox', 'bolaox_mp_prod_token' );
+        register_setting( 'bolaox', 'bolaox_mp_test_public' );
+        register_setting( 'bolaox', 'bolaox_mp_test_token' );
+        register_setting( 'bolaox', 'bolaox_mp_mode' );
         register_setting( 'bolaox', 'bolaox_lowest_info' );
         register_setting( 'bolaox', 'bolaox_form_page' );
         register_setting( 'bolaox', 'bolaox_price' );
@@ -112,22 +115,20 @@ class BOLAOX_Plugin {
         return home_url( '/' );
     }
 
-    private function get_mp_tokens() {
-        $str = get_option( 'bolaox_mp_tokens', '' );
-        $tokens = array_filter( array_map( 'trim', explode( "\n", $str ) ) );
-        return $tokens;
+    private function get_mp_access_token() {
+        $mode = get_option( 'bolaox_mp_mode', 'test' );
+        if ( 'prod' === $mode ) {
+            return trim( get_option( 'bolaox_mp_prod_token', '' ) );
+        }
+        return trim( get_option( 'bolaox_mp_test_token', '' ) );
     }
 
-    private function get_active_mp_token() {
-        $tokens = $this->get_mp_tokens();
-        $active = trim( get_option( 'bolaox_mp_active', '' ) );
-        if ( ! $active ) {
-            $active = $tokens ? $tokens[0] : '';
+    private function get_mp_public_key() {
+        $mode = get_option( 'bolaox_mp_mode', 'test' );
+        if ( 'prod' === $mode ) {
+            return trim( get_option( 'bolaox_mp_prod_public', '' ) );
         }
-        if ( $active && ! in_array( $active, $tokens, true ) ) {
-            $tokens[] = $active;
-        }
-        return trim( $active );
+        return trim( get_option( 'bolaox_mp_test_public', '' ) );
     }
 
     private function log_mp_error( $msg ) {
@@ -138,24 +139,20 @@ class BOLAOX_Plugin {
         error_log( $entry, 3, $this->log_file );
     }
 
-    private function create_mp_preference( $post_id ) {
-        $token = $this->get_active_mp_token();
+    private function create_mp_pix_payment( $post_id ) {
+        $token = $this->get_mp_access_token();
         if ( ! $token ) {
-            return '';
+            return array();
         }
-        $url  = 'https://api.mercadopago.com/checkout/preferences';
+        $url   = 'https://api.mercadopago.com/v1/payments';
         $price = floatval( get_option( 'bolaox_price', 10 ) );
         $body  = array(
-            'items' => array(
-                array(
-                    'title'       => 'Aposta ' . $post_id,
-                    'quantity'    => 1,
-                    'unit_price'  => $price,
-                    'currency_id' => 'BRL',
-                ),
-            ),
+            'transaction_amount' => $price,
+            'description'        => 'Aposta ' . $post_id,
+            'payment_method_id'  => 'pix',
             'external_reference' => (string) $post_id,
             'notification_url'   => home_url( '/wp-json/bolao-x/v1/mp?token=' . self::MP_WEBHOOK_TOKEN ),
+            'payer'              => array( 'email' => 'apostador@example.com' ),
         );
         $args = array(
             'headers' => array(
@@ -167,16 +164,18 @@ class BOLAOX_Plugin {
         );
         $res = wp_remote_post( $url, $args );
         if ( is_wp_error( $res ) ) {
-            $this->log_mp_error( 'Erro ao criar preferência: ' . $res->get_error_message() );
-            return '';
+            $this->log_mp_error( 'Erro ao criar pagamento: ' . $res->get_error_message() );
+            return array();
         }
         $data = json_decode( wp_remote_retrieve_body( $res ), true );
-        if ( isset( $data['init_point'] ) ) {
+        if ( isset( $data['id'], $data['point_of_interaction']['transaction_data']['qr_code'] ) ) {
             update_post_meta( $post_id, '_bolaox_mp_pref', sanitize_text_field( $data['id'] ) );
-            return esc_url_raw( $data['init_point'] );
+            return array(
+                'qr_code' => $data['point_of_interaction']['transaction_data']['qr_code'],
+            );
         }
         $this->log_mp_error( 'Resposta inesperada da API: ' . wp_remote_retrieve_body( $res ) );
-        return '';
+        return array();
     }
 
     public function admin_notices() {
@@ -342,16 +341,12 @@ class BOLAOX_Plugin {
                 }
                 update_option( 'bolaox_cutoffs', $new );
             }
-            if ( isset( $_POST['bolaox_mp_tokens'] ) ) {
-                $tokens = sanitize_textarea_field( $_POST['bolaox_mp_tokens'] );
-                update_option( 'bolaox_mp_tokens', $tokens );
-                $keys_arr = array_filter( array_map( 'trim', explode( "\n", $tokens ) ) );
-                $active = isset( $_POST['bolaox_mp_active'] ) ? sanitize_text_field( $_POST['bolaox_mp_active'] ) : '';
-                if ( ! $active && $keys_arr ) {
-                    $active = $keys_arr[0];
-                }
-                update_option( 'bolaox_mp_active', $active );
-            }
+            update_option( 'bolaox_mp_prod_public', sanitize_text_field( $_POST['bolaox_mp_prod_public'] ?? '' ) );
+            update_option( 'bolaox_mp_prod_token', sanitize_text_field( $_POST['bolaox_mp_prod_token'] ?? '' ) );
+            update_option( 'bolaox_mp_test_public', sanitize_text_field( $_POST['bolaox_mp_test_public'] ?? '' ) );
+            update_option( 'bolaox_mp_test_token', sanitize_text_field( $_POST['bolaox_mp_test_token'] ?? '' ) );
+            $mode = in_array( $_POST['bolaox_mp_mode'] ?? 'test', array( 'prod', 'test' ), true ) ? $_POST['bolaox_mp_mode'] : 'test';
+            update_option( 'bolaox_mp_mode', $mode );
             if ( isset( $_POST['bolaox_price'] ) ) {
                 $price = floatval( sanitize_text_field( $_POST['bolaox_price'] ) );
                 if ( $price <= 0 ) {
@@ -362,8 +357,11 @@ class BOLAOX_Plugin {
             echo '<div class="updated"><p>' . esc_html__( 'Configurações salvas.', self::TEXT_DOMAIN ) . '</p></div>';
         }
         $cutoffs = get_option( 'bolaox_cutoffs', array() );
-        $tokens = get_option( 'bolaox_mp_tokens', '' );
-        $active   = get_option( 'bolaox_mp_active', '' );
+        $prod_public = get_option( 'bolaox_mp_prod_public', '' );
+        $prod_token  = get_option( 'bolaox_mp_prod_token', '' );
+        $test_public = get_option( 'bolaox_mp_test_public', '' );
+        $test_token  = get_option( 'bolaox_mp_test_token', '' );
+        $mode        = get_option( 'bolaox_mp_mode', 'test' );
         $price = get_option( 'bolaox_price', 10 );
         echo '<div class="wrap"><h1>' . esc_html__( 'Configurações', self::TEXT_DOMAIN ) . '</h1>';
         echo '<form method="post">';
@@ -374,15 +372,18 @@ class BOLAOX_Plugin {
             echo '<tr><th scope="row">' . esc_html( $label ) . '</th><td>';
             echo '<input type="time" name="bolaox_cutoffs[' . $idx . ']" value="' . esc_attr( $val ) . '" /></td></tr>';
         }
-        echo '<tr><th scope="row">' . esc_html__( 'Tokens Mercado Pago', self::TEXT_DOMAIN ) . '</th><td><textarea name="bolaox_mp_tokens" rows="4" class="large-text">' . esc_textarea( $tokens ) . '</textarea></td></tr>';
-        $keys_arr = array_filter( array_map( 'trim', explode( "\n", $tokens ) ) );
-        if ( $keys_arr ) {
-            echo '<tr><th scope="row">' . esc_html__( 'Conta ativa', self::TEXT_DOMAIN ) . '</th><td><select name="bolaox_mp_active">';
-            foreach ( $keys_arr as $k ) {
-                echo '<option value="' . esc_attr( $k ) . '"' . selected( $active, $k, false ) . '>' . esc_html( $k ) . '</option>';
-            }
-            echo '</select></td></tr>';
-        }
+        echo '<tr><th scope="row">' . esc_html__( 'Credenciais de Produção', self::TEXT_DOMAIN ) . '</th><td>';
+        echo '<p><label>Public Key<br /><input type="text" name="bolaox_mp_prod_public" value="' . esc_attr( $prod_public ) . '" class="regular-text" /></label></p>';
+        echo '<p><label>Access Token<br /><input type="text" name="bolaox_mp_prod_token" value="' . esc_attr( $prod_token ) . '" class="regular-text" /></label></p>';
+        echo '</td></tr>';
+        echo '<tr><th scope="row">' . esc_html__( 'Credenciais de Teste', self::TEXT_DOMAIN ) . '</th><td>';
+        echo '<p><label>Public Key<br /><input type="text" name="bolaox_mp_test_public" value="' . esc_attr( $test_public ) . '" class="regular-text" /></label></p>';
+        echo '<p><label>Access Token<br /><input type="text" name="bolaox_mp_test_token" value="' . esc_attr( $test_token ) . '" class="regular-text" /></label></p>';
+        echo '</td></tr>';
+        echo '<tr><th scope="row">' . esc_html__( 'Modo ativo', self::TEXT_DOMAIN ) . '</th><td><select name="bolaox_mp_mode">';
+        echo '<option value="test"' . selected( $mode, 'test', false ) . '>Teste</option>';
+        echo '<option value="prod"' . selected( $mode, 'prod', false ) . '>Produção</option>';
+        echo '</select></td></tr>';
         echo '<tr><th scope="row">' . esc_html__( 'Preço da aposta (R$)', self::TEXT_DOMAIN ) . '</th><td><input type="number" step="0.01" name="bolaox_price" value="' . esc_attr( $price ) . '" /></td></tr>';
         echo '</tbody></table>';
         submit_button();
@@ -820,7 +821,7 @@ class BOLAOX_Plugin {
             if ( $post_id ) {
                 update_post_meta( $post_id, '_bolaox_numbers', $numbers );
                 update_post_meta( $post_id, '_bolaox_payment', 'pending' );
-                $url = $this->create_mp_preference( $post_id );
+                $pix = $this->create_mp_pix_payment( $post_id );
                 $msg  = '<h3 class="bolaox-success-title">' . esc_html__( 'Aposta registrada com sucesso!', self::TEXT_DOMAIN ) . '</h3>';
                 $msg .= '<p class="bolaox-success-label">' . esc_html__( 'Sua aposta:', self::TEXT_DOMAIN ) . '</p>';
                 $msg .= '<div class="bolaox-numlist">';
@@ -828,10 +829,12 @@ class BOLAOX_Plugin {
                     $msg .= '<span class="bolaox-number drawn">' . esc_html( $n ) . '</span>';
                 }
                 $msg .= '</div>';
-                if ( $url ) {
+                if ( $pix ) {
                     $msg .= '<p class="bolaox-price">' . sprintf( esc_html__( 'Valor da aposta: R$ %s', self::TEXT_DOMAIN ), number_format( $price, 2, ',', '.' ) ) . '</p>';
-                    $msg .= '<p class="bolaox-pay-label">' . esc_html__( 'Pague com Mercado Pago', self::TEXT_DOMAIN ) . '</p>';
-                    $msg .= '<p><a class="button" href="' . esc_url( $url ) . '" target="_blank">' . esc_html__( 'Realizar Pagamento', self::TEXT_DOMAIN ) . '</a></p>';
+                    $msg .= '<p class="bolaox-pay-label">' . esc_html__( 'Pague com Pix', self::TEXT_DOMAIN ) . '</p>';
+                    $urlqr = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' . rawurlencode( $pix['qr_code'] );
+                    $msg .= '<p><img src="' . esc_url( $urlqr ) . '" alt="Pix QR" /></p>';
+                    $msg .= '<p><input type="text" value="' . esc_attr( $pix['qr_code'] ) . '" readonly onclick="this.select();" class="bolaox-pix-code" /></p>';
                 }
                 return $this->wrap_app( $msg );
             }
@@ -1153,7 +1156,7 @@ class BOLAOX_Plugin {
         $url  = 'https://api.mercadopago.com/v1/payments/' . $payment_id;
         $args = array(
             'headers' => array(
-                'Authorization' => 'Bearer ' . $this->get_active_mp_token(),
+                'Authorization' => 'Bearer ' . $this->get_mp_access_token(),
             ),
             'timeout' => 20,
         );
