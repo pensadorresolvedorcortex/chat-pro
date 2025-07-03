@@ -21,7 +21,10 @@ Plugin para gerenciamento de bolão com cadastro de apostas e conferência autom
 * Escolha das dezenas em grade clicável
 * Widget de resumo no painel e envio de e-mails automáticos com barras de progresso
 * Premiação por "Menos Pontos" com acúmulo em caso de empate
+* Pagamento via Pix usando o e-mail do usuário logado
 * Valor da aposta configurável e logs de pagamento acessíveis no admin
+* Validador de credenciais do Mercado Pago e logs gerais no painel
+* Chave Pix configurável para exibição no modal de pagamento
 * Todos os dados são removidos na desinstalação
 * Pronto para tradução com arquivos `.pot` e `.po` em `/languages`
 * Tradução brasileira disponível com o arquivo-fonte `bolao-x-pt_BR.po`. O `.mo` gerado deve permanecer fora do repositório
@@ -33,12 +36,14 @@ Plugin para gerenciamento de bolão com cadastro de apostas e conferência autom
 
 == Usage ==
 1. No menu **Bolao X**, abra a tela **Configurações**.
-2. Insira os tokens do Mercado Pago (um por linha) e escolha qual conta ficará ativa.
-3. Defina o valor da aposta em reais e salve as alterações.
+2. Informe as credenciais do Mercado Pago para produção e teste (Public Key e Access Token).
+3. Escolha o modo ativo (Teste ou Produção) e defina o valor da aposta em reais.
+4. Opcionalmente, informe a chave Pix que será exibida ao gerar o QR Code.
+5. Valide as credenciais pelo botão disponível e salve as alterações.
 
 == Development ==
-Certifique-se de ter o PHP CLI e a extensão GD instalados (`apt-get install php-cli php8.3-gd`).
-Execute `scripts/test.sh` para validar o plugin.
+Instale o PHP CLI e extensões necessárias executando `../scripts/install-deps.sh`.
+Depois execute `scripts/test.sh` para validar o plugin.
 
 == Changelog ==
 = 2.8.2 =
