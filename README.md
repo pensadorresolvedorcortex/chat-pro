@@ -15,9 +15,10 @@ Todos os recursos listados abaixo estão disponíveis na release 2.8.2.
    - Histórico de concursos e estatísticas de frequência
    - Horários limite configuráveis para recebimento de novas apostas
    - Exportação também disponível em JSON
-  - Pagamento via Mercado Pago com criação automática do link de checkout
-  - Várias contas Mercado Pago com seleção da ativa nas configurações
+  - Pagamento via Mercado Pago com Pix e QR Code (usando o e-mail do usuário logado)
+  - Credenciais separadas para produção e teste com modo ativo
   - Valor da aposta configurável e página de logs de pagamento
+  - Validador de credenciais do Mercado Pago e logs gerais no painel
    - Formulário de perfil para atualizar seus dados
    - Login estilizado com link "Perdeu a senha?" e formulário para troca de senha
   - Shortcode `[bolao_x_login]` permite login e cadastro usando apenas telefone

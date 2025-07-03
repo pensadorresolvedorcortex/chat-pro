@@ -15,6 +15,22 @@ foreach ( $posts as $post ) {
 
 delete_option( 'bolaox_result' );
 delete_option( 'bolaox_cutoffs' );
-delete_option( 'bolaox_mp_tokens' );
-delete_option( 'bolaox_mp_active' );
+delete_option( 'bolaox_mp_prod_public' );
+delete_option( 'bolaox_mp_prod_token' );
+delete_option( 'bolaox_mp_test_public' );
+delete_option( 'bolaox_mp_test_token' );
+delete_option( 'bolaox_mp_mode' );
+delete_option( 'bolaox_price' );
+
+$upload = wp_upload_dir();
+$dir    = trailingslashit( $upload['basedir'] ) . 'bolao-x';
+if ( file_exists( $dir . '/mp-error.log' ) ) {
+    unlink( $dir . '/mp-error.log' );
+}
+if ( file_exists( $dir . '/general.log' ) ) {
+    unlink( $dir . '/general.log' );
+}
+if ( is_dir( $dir ) ) {
+    rmdir( $dir );
+}
 
