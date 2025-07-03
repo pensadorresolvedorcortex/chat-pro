@@ -423,4 +423,25 @@
         font-size: 0.85rem;
     }
 }
+.bolaox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.bolaox-modal.active { display: flex; }
+.bolaox-modal-content {
+    background: var(--bx-bg);
+    padding: 20px;
+    border-radius: var(--bx-radius);
+    text-align: center;
+}
+.bolaox-modal-content img { max-width: 260px; }
+.bolaox-modal-close { cursor: pointer; display: inline-block; margin-top: 10px; }
 .bolaox-widget .bolaox-progress{height:16px;}
