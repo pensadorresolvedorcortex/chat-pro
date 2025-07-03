@@ -102,5 +102,20 @@
         });
       });
     });
+
+    document.querySelectorAll('.bolaox-open-modal').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var target = btn.getAttribute('data-target');
+        var modal = document.querySelector(target);
+        if(modal) modal.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.bolaox-modal-close').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var modal = btn.closest('.bolaox-modal');
+        if(modal) modal.classList.remove('active');
+      });
+    });
   });
 })();
