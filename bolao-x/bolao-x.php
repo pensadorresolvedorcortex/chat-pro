@@ -39,6 +39,7 @@ class BOLAOX_Plugin {
         add_action( 'admin_init', array( $this, 'register_settings' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
         add_action( 'admin_notices', array( $this, 'admin_notices' ) );
         add_action( 'wp_dashboard_setup', array( $this, 'register_dashboard_widget' ) );
         add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
@@ -303,11 +304,30 @@ class BOLAOX_Plugin {
         wp_localize_script( 'bolaox-js', 'bolaoxData', array( 'nonce' => wp_create_nonce( 'wp_rest' ) ) );
     }
 
+    public function enqueue_admin_styles() {
+        if ( ! is_admin() ) {
+            return;
+        }
+        $screen = get_current_screen();
+        $pages = array( 'bolaox', 'bolaox-settings', 'bolaox-import', 'bolaox-history', 'bolaox-stats', 'bolaox-logs', 'bolaox-general-logs' );
+        if ( ( isset( $screen->post_type ) && in_array( $screen->post_type, array( 'bolaox_aposta', 'bolaox_result' ), true ) ) ||
+             ( isset( $_GET['page'] ) && in_array( $_GET['page'], $pages, true ) ) ) {
+            wp_enqueue_style(
+                'bolaox-admin-style',
+                plugin_dir_url( __FILE__ ) . 'assets/css/bolao-x-admin.css',
+                array(),
+                self::VERSION
+            );
+        }
+    }
+
     public function register_post_type() {
         register_post_type( 'bolaox_aposta', array(
             'labels' => array(
                 'name' => __( 'Apostas', self::TEXT_DOMAIN ),
                 'singular_name' => __( 'Aposta', self::TEXT_DOMAIN ),
+                'add_new' => __( 'Crie uma nova aposta', self::TEXT_DOMAIN ),
+                'add_new_item' => __( 'Crie uma nova aposta', self::TEXT_DOMAIN ),
             ),
             'public' => false,
             'show_ui' => true,
@@ -318,6 +338,8 @@ class BOLAOX_Plugin {
             'labels' => array(
                 'name' => __( 'Resultados', self::TEXT_DOMAIN ),
                 'singular_name' => __( 'Resultado', self::TEXT_DOMAIN ),
+                'add_new' => __( 'Adicionar Novo Resultado', self::TEXT_DOMAIN ),
+                'add_new_item' => __( 'Adicionar Novo Resultado', self::TEXT_DOMAIN ),
             ),
             'public' => false,
             'show_ui' => true,
@@ -403,7 +425,7 @@ class BOLAOX_Plugin {
                 $this->export_csv( $result );
             }
         }
-        echo '<div class="wrap"><h1>' . esc_html__( 'Resultado Semanal', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Resultado Semanal', self::TEXT_DOMAIN ) . '</h1>';
         echo '<form method="post">';
         wp_nonce_field( 'bolaox_result', 'bolaox_result_nonce' );
         echo '<input type="text" name="bolaox_result" value="' . esc_attr( $result ) . '" placeholder="' . esc_attr__( 'Ex: 05,19,28,36,44,59,66,71,86,96', self::TEXT_DOMAIN ) . '" style="width:100%" />';
@@ -467,7 +489,7 @@ class BOLAOX_Plugin {
         $mode        = get_option( 'bolaox_mp_mode', 'test' );
         $pix_key     = get_option( 'bolaox_pix_key', '' );
         $price       = get_option( 'bolaox_price', 10 );
-        echo '<div class="wrap"><h1>' . esc_html__( 'Configurações', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Configurações', self::TEXT_DOMAIN ) . '</h1>';
         echo '<form method="post">';
         wp_nonce_field( 'bolaox_settings', 'bolaox_nonce' );
         echo '<table class="form-table"><tbody>';
@@ -502,7 +524,7 @@ class BOLAOX_Plugin {
     }
 
     public function import_page() {
-        echo '<div class="wrap"><h1>' . esc_html__( 'Importar Apostas via CSV', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Importar Apostas via CSV', self::TEXT_DOMAIN ) . '</h1>';
         if ( isset( $_POST['bolaox_import_nonce'] ) && wp_verify_nonce( $_POST['bolaox_import_nonce'], 'bolaox_import' ) && ! empty( $_FILES['bolaox_csv']['tmp_name'] ) ) {
             $count = 0;
             $fh = fopen( $_FILES['bolaox_csv']['tmp_name'], 'r' );
@@ -553,7 +575,7 @@ class BOLAOX_Plugin {
             }
         }
         $posts = get_posts( array( 'post_type' => 'bolaox_result', 'numberposts' => -1, 'orderby' => 'date', 'order' => 'DESC' ) );
-        echo '<div class="wrap"><h1>' . esc_html__( 'Histórico de Resultados', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Histórico de Resultados', self::TEXT_DOMAIN ) . '</h1>';
         if ( ! $posts ) {
             echo '<p>' . esc_html__( 'Nenhum resultado cadastrado.', self::TEXT_DOMAIN ) . '</p></div>';
             return;
@@ -573,7 +595,7 @@ class BOLAOX_Plugin {
     public function stats_page() {
         $posts = get_posts( array( 'post_type' => 'bolaox_aposta', 'numberposts' => -1 ) );
         if ( ! $posts ) {
-            echo '<div class="wrap"><h1>' . esc_html__( 'Estatísticas', self::TEXT_DOMAIN ) . '</h1><p>' . esc_html__( 'Nenhuma aposta cadastrada.', self::TEXT_DOMAIN ) . '</p></div>';
+            echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Estatísticas', self::TEXT_DOMAIN ) . '</h1><p>' . esc_html__( 'Nenhuma aposta cadastrada.', self::TEXT_DOMAIN ) . '</p></div>';
             return;
         }
         $counts = array_fill( 0, 100, 0 );
@@ -588,7 +610,7 @@ class BOLAOX_Plugin {
             }
         }
         $total = array_sum( $counts );
-        echo '<div class="wrap"><h1>' . esc_html__( 'Estatísticas de Frequência', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Estatísticas de Frequência', self::TEXT_DOMAIN ) . '</h1>';
         echo '<table class="widefat"><thead><tr><th>' . esc_html__( 'Dezena', self::TEXT_DOMAIN ) . '</th><th>' . esc_html__( 'Ocorrências', self::TEXT_DOMAIN ) . '</th><th>%</th></tr></thead><tbody>';
         for ( $i = 0; $i < 100; $i++ ) {
             if ( $counts[ $i ] > 0 ) {
@@ -602,7 +624,7 @@ class BOLAOX_Plugin {
     }
 
     public function logs_page() {
-        echo '<div class="wrap"><h1>' . esc_html__( 'Logs de Pagamento', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Logs de Pagamento', self::TEXT_DOMAIN ) . '</h1>';
         if ( isset( $_POST['bolaox_clear_logs'] ) && check_admin_referer( 'bolaox_clear_logs' ) ) {
             if ( file_exists( $this->log_file ) ) {
                 file_put_contents( $this->log_file, '' );
@@ -623,7 +645,7 @@ class BOLAOX_Plugin {
     }
 
     public function general_logs_page() {
-        echo '<div class="wrap"><h1>' . esc_html__( 'Logs Gerais', self::TEXT_DOMAIN ) . '</h1>';
+        echo '<div class="wrap bolaox-admin"><h1>' . esc_html__( 'Logs Gerais', self::TEXT_DOMAIN ) . '</h1>';
         if ( isset( $_POST['bolaox_clear_general'] ) && check_admin_referer( 'bolaox_clear_general' ) ) {
             if ( file_exists( $this->general_log_file ) ) {
                 file_put_contents( $this->general_log_file, '' );
