@@ -3,7 +3,7 @@ Contributors: bolaox
 Tags: lottery, bolao, mercadopago, csv, pdf, excel
 Requires at least: 6.0
 Tested up to: 6.5
-Stable tag: 2.8.2
+Stable tag: 2.8.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,16 @@ Plugin para gerenciamento de bolão com cadastro de apostas e conferência autom
 * Escolha das dezenas em grade clicável
 * Widget de resumo no painel e envio de e-mails automáticos com barras de progresso
 * Premiação por "Menos Pontos" com acúmulo em caso de empate
+* Pagamento via Pix usando o e-mail do usuário logado
+* Credenciais de produção e teste (Public Key e Access Token) com modo ativo
 * Valor da aposta configurável e logs de pagamento acessíveis no admin
+* Validador de credenciais do Mercado Pago e logs gerais no painel
+* Chave Pix configurável para exibição no modal de pagamento
+* Pagamentos Pix usam X-Idempotency-Key único e logs são truncados para melhor
+  leitura
+* As chamadas usam a constante `MP_API_URL` que aponta para `https://api.mercadopago.com`
+* Botão "Pagar com Pix" mostra a chave e o QR Code em um modal com botão de "Pix Copia e Cola" antes de apostar
+* O QR Code é exibido usando a imagem base64 retornada pelo Mercado Pago
 * Todos os dados são removidos na desinstalação
 * Pronto para tradução com arquivos `.pot` e `.po` em `/languages`
 * Tradução brasileira disponível com o arquivo-fonte `bolao-x-pt_BR.po`. O `.mo` gerado deve permanecer fora do repositório
@@ -33,12 +42,14 @@ Plugin para gerenciamento de bolão com cadastro de apostas e conferência autom
 
 == Usage ==
 1. No menu **Bolao X**, abra a tela **Configurações**.
-2. Insira os tokens do Mercado Pago (um por linha) e escolha qual conta ficará ativa.
-3. Defina o valor da aposta em reais e salve as alterações.
+2. Informe as credenciais do Mercado Pago para produção e teste (Public Key e Access Token).
+3. Escolha o modo ativo (Teste ou Produção) e defina o valor da aposta em reais.
+4. Opcionalmente, informe a chave Pix que será exibida ao gerar o QR Code.
+5. Valide as credenciais pelo botão disponível e salve as alterações.
 
 == Development ==
-Certifique-se de ter o PHP CLI e a extensão GD instalados (`apt-get install php-cli php8.3-gd`).
-Execute `scripts/test.sh` para validar o plugin.
+Instale o PHP CLI e extensões necessárias executando `../scripts/install-deps.sh`.
+Depois execute `scripts/test.sh` para validar o plugin.
 
 == Changelog ==
 = 2.8.2 =

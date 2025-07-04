@@ -102,5 +102,57 @@
         });
       });
     });
+
+    document.querySelectorAll('.bolaox-open-modal').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var target = btn.getAttribute('data-target');
+        var modal = document.querySelector(target);
+        if(modal) modal.classList.add('active');
+      });
+    });
+    document.querySelectorAll('.bolaox-modal-close').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var modal = btn.closest('.bolaox-modal');
+        if(modal) modal.classList.remove('active');
+      });
+    });
+
+    document.querySelectorAll('.bolaox-copy').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var target = btn.getAttribute('data-target');
+        var input = document.querySelector(target);
+        if(input){
+          input.select();
+          if(window.navigator && navigator.clipboard){
+            navigator.clipboard.writeText(input.value).catch(function(){});
+          }else{
+            document.execCommand('copy');
+          }
+          btn.textContent = 'Copiado!';
+          setTimeout(function(){ btn.textContent = 'Copiar'; }, 1000);
+        }
+      });
+    });
+
+    document.querySelectorAll('.bolaox-validate-creds').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var msg = btn.nextElementSibling;
+        msg.textContent = '...';
+        var modeSel = document.querySelector('select[name="bolaox_mp_mode"]');
+        var mode = modeSel ? modeSel.value : 'test';
+        fetch('/wp-json/bolao-x/v1/validate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': btn.getAttribute('data-nonce')
+          },
+          body: JSON.stringify({mode: mode})
+        }).then(function(r){
+          if(r.ok){ msg.textContent = 'OK'; }
+          else{ msg.textContent = 'Inválido'; }
+        }).catch(function(){ msg.textContent = 'Erro'; });
+      });
+    });
   });
 })();

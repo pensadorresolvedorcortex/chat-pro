@@ -64,6 +64,35 @@
     font-weight: bold;
     transition: background 0.3s, transform 0.3s;
 }
+
+/* Pix button styled like the main action but in teal */
+.bolaox-pix-btn {
+    display: block;
+    width: 100%;
+    background: #03d0ad;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+}
+.bolaox-pix-btn::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23fff" d="M12 0L24 12L12 24L0 12Z"/><path fill="%2303d0ad" d="M12 4L20 12L12 20L4 12Z"/></svg>') no-repeat center/contain;
+}
+.bolaox-pix-btn:hover {
+    transform: scale(1.05);
+}
 .bolaox-countdown {
     margin-bottom: 10px;
     font-weight: 600;
@@ -423,4 +452,25 @@
         font-size: 0.85rem;
     }
 }
+.bolaox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.bolaox-modal.active { display: flex; }
+.bolaox-modal-content {
+    background: var(--bx-bg);
+    padding: 20px;
+    border-radius: var(--bx-radius);
+    text-align: center;
+}
+.bolaox-modal-content img { max-width: 200px; }
+.bolaox-modal-close { cursor: pointer; display: inline-block; margin-top: 10px; }
 .bolaox-widget .bolaox-progress{height:16px;}
