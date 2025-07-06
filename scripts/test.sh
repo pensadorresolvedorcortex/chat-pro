@@ -1,3 +1,3 @@
 #!/bin/bash
 set -e
-find zxtec-intranet -name '*.php' -print0 | xargs -0 -n1 php -l
+find bot wp-waba-bot -name '*.php' -not -path '*/vendor/*' -print0 | xargs -0 -n1 php -l
