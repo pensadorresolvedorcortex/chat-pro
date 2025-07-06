@@ -9,8 +9,9 @@ Este é o repositório inicial para o Codex do ChatGPT.
  A versao 1.8 permite configurar o percentual de comissao na pagina de configuracoes do plugin.
  A versao 1.9 traz um widget de resumo no painel inicial do WordPress exibindo quantas ordens estao pendentes, confirmadas e concluidas.
  A versao 2.0 permite filtrar o Relatorio Financeiro por datas antes de exportar os arquivos.
- A versao 2.1 permite definir comissao individual para cada colaborador.
- A versao 2.2 apresenta um painel analitico com graficos interativos.
+  A versao 2.1 permite definir comissao individual para cada colaborador.
+  A versao 2.2 apresenta um painel analitico com graficos interativos.
+- **WhatsApp Chat Module**: plugin Perfex localizado em `modules/whatsapp_chat/` que adiciona um botão de contato via WhatsApp nas áreas do cliente e de administração do CRM.
 
 ## Development
 Run `scripts/test.sh` to lint all PHP files.
