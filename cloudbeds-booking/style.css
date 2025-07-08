@@ -1,0 +1,13 @@
+.cloudbeds-booking-horizontal {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+.cloudbeds-booking-horizontal input,
+.cloudbeds-booking-horizontal button {
+    margin: 0;
+}
+
+.cloudbeds-booking-vertical p {
+    margin-bottom: 8px;
+}
