@@ -1,0 +1,59 @@
+.cloudbeds-booking-horizontal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-end;
+}
+.cloudbeds-booking-horizontal input[type="date"],
+.cloudbeds-booking-horizontal input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.cloudbeds-booking-horizontal button {
+    padding: 8px 16px;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+@media (max-width: 480px) {
+    .cloudbeds-booking-horizontal {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .cloudbeds-booking-horizontal button {
+        width: 100%;
+    }
+}
+
+.cloudbeds-booking-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.cloudbeds-booking-vertical label {
+    font-weight: 600;
+}
+.cloudbeds-booking-vertical input[type="date"],
+.cloudbeds-booking-vertical input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.cloudbeds-booking-vertical button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.cloudbeds-booking-vertical p {
+    margin: 0;
+}
