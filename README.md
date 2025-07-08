@@ -51,3 +51,7 @@ Todos os recursos listados abaixo estão disponíveis na release 2.8.3.
 ## Development
 Instale o PHP CLI e extensões necessárias executando `scripts/install-deps.sh`.
 Depois rode `scripts/test.sh` para validar o código PHP.
+
+## Test Site
+Um exemplo de site estático encontra-se em `test-site/`. Abra `index.html` para visualizar a página de demonstração.
+
