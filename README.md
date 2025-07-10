@@ -1,17 +1,51 @@
-# Chat-Pro
+# Elementor null settings fix
 
-Este é o repositório inicial para o Codex do ChatGPT.
+This repository provides a patch to handle a `TypeError` in the Elementor
+`Controls_Stack::sanitize_settings` method. The error occurs when `null`
+settings are passed to the method, resulting in an exception:
 
-## Plugins
+```
+Elementor\Controls_Stack::sanitize_settings(): Argument #1 ($settings) must be of type array, null given
+```
 
- - **ZX Tec**: plugin WordPress localizado em `zxtec-intranet/` com gerenciamento de clientes, servicos, ordens e contratos. Inclui painel do colaborador com confirmacao e finalizacao de ordens, mapa de geolocalizacao, exportacao financeira em CSV, PDF e Excel, notificacoes por e-mail, historico de servicos com filtros e exportacao em CSV, contratos ativos, agenda de ordens confirmadas e mapa de tecnicos com atribuicao automatica pelo GPS. A versao 0.9 considerava tambem o custo por Km do colaborador e definia o agendamento automaticamente. A versao 1.0 adicionou relatorio financeiro individual e justificativa obrigatoria ao recusar servicos. A versao 1.1 ampliou o historico com filtros por data e tecnico. A versao 1.2 traz controle de despesas com relatorio e saldo liquido. A versao 1.3 inclui o framework Bootstrap para deixar o painel responsivo. A versao 1.4 permite exportar o financeiro individual em PDF. A versao 1.5 adiciona notificacoes internas sobre ordens e atualizacoes de status. A versao 1.6 inclui uma pagina de Notificacoes para administradores gerenciarem alertas dos colaboradores.
- A versao 1.7 adiciona limpeza completa de dados ao desinstalar o plugin.
- A versao 1.8 permite configurar o percentual de comissao na pagina de configuracoes do plugin.
- A versao 1.9 traz um widget de resumo no painel inicial do WordPress exibindo quantas ordens estao pendentes, confirmadas e concluidas.
- A versao 2.0 permite filtrar o Relatorio Financeiro por datas antes de exportar os arquivos.
- A versao 2.1 permite definir comissao individual para cada colaborador.
- A versao 2.2 apresenta um painel analitico com graficos interativos.
+The included patch updates the method signature to accept a nullable array and
+defaults to an empty array when `null` is provided.
 
-## Development
-Run `scripts/test.sh` to lint all PHP files.
+## Applying the patch
 
+1. Copy `patches/elementor-fix.patch` to your WordPress installation.
+   The patch assumes the standard plugin path `wp-content/plugins/elementor/`.
+   Adjust the paths in the patch if your installation differs.
+2. From the WordPress root directory, run:
+
+```bash
+patch -p1 < /path/to/elementor-fix.patch
+```
+
+3. Clear caches and reload the page to verify that the error is resolved.
+
+## Where to modify
+
+Open `wp-content/plugins/elementor/includes/base/controls-stack.php` and
+locate the `sanitize_settings` method (around line 2513 in Elementor 2.1.5).
+Replace the PHPDoc and function signature with the following snippet and add the
+null check:
+
+```php
+/**
+ * @param array|null $settings Settings to sanitize.
+ * @param array      $controls Optional. An array of controls. Default is an
+ *                             empty array.
+ *
+ * @return array Sanitized settings.
+ */
+private function sanitize_settings( ?array $settings, array $controls = [] ) {
+    if ( null === $settings ) {
+        $settings = [];
+    }
+    if ( ! $controls ) {
+        $controls = $this->get_controls();
+    }
+    // ... rest of the method ...
+}
+```
