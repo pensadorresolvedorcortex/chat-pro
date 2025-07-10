@@ -1,0 +1,21 @@
+--- wp-content/plugins/elementor/includes/base/controls-stack.php	2025-07-10 02:19:37.000000000 +0000
++++ patches/controls-stack.php	2025-07-10 03:00:54.308291399 +0000
+@@ -2513,13 +2513,16 @@
+ 	 * @since 2.1.5
+ 	 * @access private
+ 	 *
+-	 * @param array $settings Settings to sanitize.
++ * @param array|null $settings Settings to sanitize.
+ 	 * @param array $controls Optional. An array of controls. Default is an
+ 	 *                        empty array.
+ 	 *
+ 	 * @return array Sanitized settings.
+ 	 */
+-	private function sanitize_settings( array $settings, array $controls = [] ) {
++       private function sanitize_settings( ?array $settings, array $controls = [] ) {
++               if ( null === $settings ) {
++                       $settings = [];
++               }
+ 		if ( ! $controls ) {
+ 			$controls = $this->get_controls();
+ 		}
