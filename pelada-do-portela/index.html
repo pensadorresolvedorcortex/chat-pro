@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelada do Portela - Sorteio de Times</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="preloader">
+    <img class="preloader-logo" src="https://raw.githubusercontent.com/DheniellGuimaraes/projetos/main/Pelada%20do%20Portela.png" alt="Logo">
+    <div class="player"></div>
+  </div>
+  <header>
+    <img class="logo" src="https://raw.githubusercontent.com/DheniellGuimaraes/projetos/main/Pelada%20do%20Portela.png" alt="Logo">
+    <h1>Pelada do Portela</h1>
+  </header>
+
+  <main>
+    <form id="players-form">
+      <h2>Jogadores</h2>
+      <div id="players-container">
+        <!-- Player rows inserted here -->
+      </div>
+      <button type="button" id="draw">Sortear Times</button>
+    </form>
+
+    <section id="teams" class="hidden">
+      <h2>Times Sorteados</h2>
+      <div id="team-list"></div>
+      <button type="button" id="redraw">Refazer Sorteio</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

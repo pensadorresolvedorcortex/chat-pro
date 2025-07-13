@@ -1,0 +1,140 @@
+:root {
+  --primary-color: #0d47a1;
+  --accent-color: #ffd700;
+  --background-color: #f0f2f5;
+  --text-color: #1a1a1a;
+}
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+header {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+header .logo {
+  height: auto;
+  width: min(25vw, 100px);
+}
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+#preloader .preloader-logo {
+  width: min(60vw, 180px);
+  height: auto;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+#preloader .player {
+  width: min(70vw, 220px);
+  height: min(70vw, 220px);
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBkPSJNMCAwaDUxMnY1MTJIMHoiLz48cGF0aCBmaWxsPSIjZmZmIiBkPSJNMjkwLjIgNDkuMDRjLTE1LjcuMS0zMi4zIDEzLjgzLTM4IDM1LjgxLTYuNSAyNS4xNSA0LjcgNDcuODUgMjIuMSA1Mi4zNSAxNy40IDQuNSAzOC4yLTkuOSA0NC43LTM1IDYuNS0yNS4xNi00LjYtNDcuODItMjIuMS01Mi4zMy0yLjItLjU2LTQuNC0uODQtNi43LS44M3pNODkuMDQgNjguM0w3Ny41IDg3LjMxYzMyLjQgMTUuOTkgNjMuMSAzMy40OSA5Ni40IDQ2LjQ5IDkuNS0zLjggMTguOC03LjggMjgtMTItNDAuMi0xNS40LTc2LjctMzMuNjktMTEyLjg2LTUzLjV6bTE0OC4wNiA1Ni4xYy00Ny44IDI1LjQtOTcuOSA0MS42LTE1My42NCA2MS4xbDguMDggMTYuNGM1MS45Ni0xNi4xIDExMS4yNi0zMi45IDE2MS4xNi01Ni02LjktNS41LTEyLjEtMTIuOS0xNS42LTIxLjV6bTMwLjMgMzQuOGMtMjIuNSAxMC44LTQ2LjggMjAuMi03MS40IDI4LjctMjAuMyA0NS42LTI3LjcgOTQuOS0zNi44IDE0MC4xbC0yLjEgMTAuNS0xMDEuMDItMzkuNC0xNi4wMyAyNS40IDEzMC4yNSA2MC43YzEtMS40IDEuNy0yLjUgMi45LTQuNSAzLjktNi43IDkuMi0xNi42IDE1LjItMjguNiAxMS45LTIzLjggMjYuNy01NS45IDQwLjQtODguMSAxMy44LTMyLjEgMjYuNC02NC40IDMzLjktODguNCAxLjktNi4xIDMuNS0xMS42IDQuNy0xNi40em0tMzEuOSAxMzQuNmMtNS41IDEyLjUtMTEuMSAyNC44LTE2LjUgMzYuMyAyNSAzNy40IDU3IDc5IDk0LjkgMTA5LjJsMjMuMy0xNy42Yy0zNS44LTM5LjctNzIuOS04NC4zLTEwMS43LTEyNy45ek00MjMuOSAzNjdhNDggNDggMCAwIDAtNDggNDggNDggNDggMCAwIDAgNDggNDggNDggNDggMCAwIDAgNDgtNDggNDggNDggMCAwIDAtNDgtNDh6Ii8+PC9zdmc>") no-repeat center/contain;
+  margin-top: 1rem;
+  animation: kick 1.2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+}
+@keyframes kick {
+  0% { transform: rotate(-15deg); }
+  50% { transform: rotate(15deg); }
+  100% { transform: rotate(-15deg); }
+}
+
+
+
+h1 {
+  margin: 0;
+  color: var(--primary-color);
+}
+h2 {
+  margin-top: 0;
+}
+#players-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.player-row {
+  display: contents;
+}
+.player-row input,
+.player-row select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+button:hover {
+  background: var(--accent-color);
+}
+#teams {
+  margin-top: 2rem;
+}
+#team-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.hidden { display: none; }
+.team {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+.team:hover {
+  transform: translateY(-4px);
+}
+.team h3 {
+  margin-top: 0;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+.player {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+}
+.player span.pedra-1 { color: #28a745; }
+.player span.pedra-2 { color: #fd7e14; }
+.player span.pedra-3 { color: #dc3545; }
+.team .total {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
