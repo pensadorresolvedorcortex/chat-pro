@@ -1,0 +1,97 @@
+:root {
+  --primary-color: #005b96;
+  --secondary-color: #001f3f;
+  --background-color: #f4f6f9;
+}
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  margin: 0;
+  background: var(--background-color);
+  color: var(--secondary-color);
+}
+header {
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+header .logo {
+  height: 60px;
+}
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 1rem;
+}
+h1 {
+  margin: 0;
+}
+h2 {
+  margin-top: 0;
+}
+#players-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.player-row {
+  display: contents;
+}
+.player-row input,
+.player-row select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+}
+button:hover {
+  background: #00467c;
+}
+#teams {
+  margin-top: 2rem;
+}
+#team-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+.hidden { display: none; }
+.team {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.team h3 {
+  margin-top: 0;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+}
+.player {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+}
+.player span.pedra-1 { color: #28a745; }
+.player span.pedra-2 { color: #fd7e14; }
+.player span.pedra-3 { color: #dc3545; }
+.team .total {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
