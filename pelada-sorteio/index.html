@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pelada do Portela - Sorteio de Times</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://studioprivilege.com.br/portela/icone.png" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <img src="https://studioprivilege.com.br/portela/icone.png" alt="Logo" class="logo">
+        <h1>Pelada do Portela - Sorteio de Times</h1>
+        <p class="tagline">Monte seus times de forma justa e divertida!</p>
+    </header>
+
+    <main>
+    <table id="tabela-jogadores">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Posição</th>
+                <th>Pedra</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linhas inseridas via JS -->
+        </tbody>
+    </table>
+
+    <div class="botoes">
+        <button id="sortear">⚽ Sortear Times</button>
+        <button id="salvar">💾 Salvar Alterações</button>
+        <button id="resetar">🔄 Resetar Nomes</button>
+    </div>
+
+    <div id="resultado"></div>
+    </main>
+
+    <footer class="repo">Pelada do Portela</footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
