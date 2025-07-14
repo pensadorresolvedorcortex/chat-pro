@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 4px;
+    text-align: left;
+}
+
+.botoes {
+    margin-top: 10px;
+}
+
+.botoes button {
+    margin-right: 5px;
+}
+
+.pedra-1 {
+    background-color: #c8e6c9;
+}
+
+.pedra-2 {
+    background-color: #fff9c4;
+}
+
+.pedra-3 {
+    background-color: #ffcdd2;
+}
