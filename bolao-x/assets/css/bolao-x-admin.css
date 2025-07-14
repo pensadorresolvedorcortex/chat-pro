@@ -1,0 +1,43 @@
+/* Admin styles for Bolao X plugin - modern 2025 look */
+.bolaox-admin {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(180deg, #e8f5e9, #f1f8e9);
+    border-radius: 12px;
+}
+.bolaox-admin h1 {
+    background: linear-gradient(45deg, #006e2c, #4caf50);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+.bolaox-admin table.form-table input,
+.bolaox-admin table.form-table select {
+    border-radius: 6px;
+}
+.bolaox-admin .button-primary {
+    background: linear-gradient(135deg, #1e734c, #259f3c);
+    border: none;
+}
+.bolaox-cutoffs input[type="time"] {
+    width: 6rem;
+}
+@media (max-width: 782px) {
+    .bolaox-admin {
+        margin: 10px;
+        padding: 15px;
+    }
+    .bolaox-admin table.form-table input,
+    .bolaox-admin table.form-table select {
+        width: 100%;
+    }
+    .bolaox-cutoffs th,
+    .bolaox-cutoffs td {
+        display: block;
+        width: 100%;
+    }
+    .bolaox-cutoffs input[type="time"] {
+        width: 100%;
+    }
+}
