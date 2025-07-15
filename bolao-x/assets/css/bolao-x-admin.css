@@ -1,0 +1,86 @@
+/* Admin styles for Bolao X plugin - modern 2025 look */
+:root {
+    --bx-primary: #1e734c;
+    --bx-secondary: #259f3c;
+    --bx-highlight: #b9d938;
+    --bx-bg: #ffffff;
+    --bx-text: #333333;
+    --bx-glass: rgba(255,255,255,0.9);
+    --bx-radius: 12px;
+}
+.bolaox-admin {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(180deg, #e8f5e9, #f1f8e9);
+    border-radius: var(--bx-radius);
+}
+.bolaox-admin h1 {
+    background: linear-gradient(45deg, var(--bx-primary), var(--bx-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+.bolaox-admin table.form-table input,
+.bolaox-admin table.form-table select {
+    border-radius: 6px;
+}
+.bolaox-admin .button-primary {
+    background: linear-gradient(135deg, var(--bx-primary), var(--bx-secondary));
+    border: none;
+}
+.bolaox-cutoffs input[type="time"] {
+    width: 6rem;
+}
+@media (max-width: 782px) {
+    .bolaox-admin {
+        margin: 10px;
+        padding: 15px;
+    }
+    .bolaox-admin table.form-table input,
+    .bolaox-admin table.form-table select {
+        width: 100%;
+    }
+    .bolaox-cutoffs th,
+    .bolaox-cutoffs td {
+        display: block;
+        width: 100%;
+    }
+    .bolaox-cutoffs input[type="time"] {
+        width: 100%;
+    }
+}
+.bolaox-dashboard-analytics{
+    margin-top:20px;
+    padding:20px;
+    background:var(--bx-bg);
+    border-radius:var(--bx-radius);
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+    border:1px solid var(--bx-primary);
+}
+.bolaox-dashboard-analytics .bolaox-graphs{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+}
+.bolaox-dashboard-analytics .bolaox-graph{
+    flex:1 1 300px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+.bolaox-dashboard-analytics .bolaox-graph h3{
+    margin:0 0 10px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--bx-primary);
+}
+.bolaox-dashboard-analytics canvas{
+    display:block;
+    width:100%;
+    max-width:100%;
+    height:200px;
+    background:var(--bx-glass);
+    border-radius:var(--bx-radius);
+    border:1px solid var(--bx-secondary);
+}
