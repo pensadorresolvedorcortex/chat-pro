@@ -1,0 +1,49 @@
+/* Modern enhancements for WordPress admin (2025 style) */
+:root {
+  --admin-accent: #0d6efd;
+  --admin-background: #f8f9fa;
+  --admin-radius: 6px;
+  --admin-font: "Inter", Roboto, "Helvetica Neue", sans-serif;
+}
+
+body.wp-admin {
+  font-family: var(--admin-font);
+  background-color: var(--admin-background);
+}
+
+#adminmenu .wp-menu-name {
+  padding: 10px 0;
+  font-weight: 500;
+}
+
+/* Ensure icons display correctly */
+#adminmenu .dashicons {
+  color: var(--admin-accent);
+}
+
+@media (max-width: 782px) {
+  #adminmenu .wp-menu-name {
+    font-size: 14px;
+  }
+}
+/* additional responsive tweaks */
+.wrap h1 {
+  letter-spacing: -0.5px;
+}
+
+#adminmenu .wp-submenu a:hover {
+  background-color: var(--admin-accent);
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .wrap h1 {
+    font-size: 24px;
+  }
+  #adminmenuwrap {
+    width: 100%;
+  }
+  #wpcontent {
+    margin-left: 0;
+  }
+}
