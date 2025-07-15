@@ -1,0 +1,41 @@
+{
+	"name": "ultimate-dashboard-pro",
+	"version": "3.10.4",
+	"description": "Development tooling for Ultimate Dashboard PRO",
+	"repository": {
+		"type": "git",
+		"url": "git+https://bitbucket.org/mapsteps/ultimate-dashboard-pro.git"
+	},
+	"keywords": [
+		"ultimate-dashboard-pro"
+	],
+	"author": "David Vongries",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": "https://github.com/MapSteps/Ultimate-Dashboard/issues"
+	},
+	"homepage": "https://github.com/MapSteps/Ultimate-Dashboard#readme",
+	"alias": {
+		"jquery": {
+			"global": "jQuery"
+		},
+		"wp": {
+			"global": "wp"
+		},
+		"@wordpress/blocks": {
+			"global": "wp.blocks"
+		},
+		"udbLoginCustomizer": {
+			"global": "udbLoginCustomizer"
+		}
+	},
+	"devDependencies": {
+		"@types/jquery": "^3.5.30",
+		"@types/wordpress__customize-browser": "^5.5.5",
+		"parcel": "^2.12.0"
+	},
+	"scripts": {
+		"watch-login-customizer": "parcel watch ./modules/login-customizer/src/js/controls.ts ./modules/login-customizer/src/js/preview.ts --dist-dir ./modules/login-customizer/assets/js",
+		"build-login-customizer": "parcel build ./modules/login-customizer/src/js/controls.ts ./modules/login-customizer/src/js/preview.ts --dist-dir ./modules/login-customizer/assets/js"
+	}
+}
