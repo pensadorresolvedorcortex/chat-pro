@@ -1,0 +1,658 @@
+/* Modern 2025 style for Bolao X forms */
+/* Poppins font is optional and will fall back to system fonts */
+
+:root {
+    --bx-primary: #1e734c;
+    --bx-secondary: #259f3c;
+    --bx-highlight: #b9d938;
+    --bx-bg: #ffffff;
+    --bx-text: #333333;
+    --bx-glass: rgba(255, 255, 255, 0.9);
+    --bx-radius: 12px;
+}
+
+.bolaox-app {
+    max-width: 960px;
+    margin: 30px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeInUp 0.5s ease-out;
+}
+.bx-logged-in .bolaox-guest { display: none; }
+.bx-logged-out .bolaox-user { display: none; }
+
+@media (min-width: 1024px) {
+    .bolaox-app {
+        max-width: 1200px;
+    }
+}
+.bolaox-center { text-align: center; }
+
+.bolaox-result {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bolaox-form {
+    max-width: 720px;
+    margin: 10px 150px;
+    background: var(--bx-bg);
+    padding: 40px;
+    border-radius: var(--bx-radius);
+    color: var(--bx-text);
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+}
+.bolaox-form-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.bolaox-field label {
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.bolaox-field input[type="text"],
+.bolaox-field input[type="number"] {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+.bolaox-field input[type="submit"],
+.bolaox-field .button {
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.bolaox-add-bet {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.bolaox-add-bet:hover {
+    transform: scale(1.05);
+}
+
+/* Pix button styled like the main action but in teal */
+.bolaox-pix-btn {
+    display: block;
+    width: 100%;
+    background: #03d0ad;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+}
+.bolaox-pix-btn::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+    vertical-align: middle;
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAeCAYAAADU8sWcAAACaUlEQVRIia2XuWsVURyFv5cFwSAIRgQRF7RxCcRSbTRYiIKNC2KlKCpWwUaIVtoIIigW1grBxj9AomhhIxIsjCAuKLjHJRglcUn0kwsz+DKZmTf3mQPTvPdmvsO959z5vZpKE1oMbAKWAJ+AO8BQ9GMCPPLarj5U//hPb9RetT3mWbHgHep78/VDPRFjYKbAqaIMzCQ42sBMg6MMVAEPR4JTTagn1VlFz28pKUINGAFOAdeAsYgSPQcuAs+A9kJAQc83AiuBSWAYuA/0AOeAzgbgW0BvaDHQBXQAH4DrwK8pvyxY6nd1yzep3lZXq7vVjyVLfVNdrh5Iup9qTD2utpXteVm47qlrSgyk4EPq15zvv2cNxKa6yEAjcK6BFLxefd0AnGcgLO1ARXCqcXV/Cm9VL1cE1xvoVlepi9QjFcGpBtXOkPbOJKFdEVUKepokeAGwLUl1VY0Cm9uSPrdGgoPmAsuAecCsyHsDsyUcMl+AR5E3PwH2AEeBXcDpaR0u1yvgZRq4LepIxf16rG5Qe9ShJC8Lk6P0Z4X7w7lxrD7tYe8Pq6MR4Bd1n/dXNPBbPa/Ozva8lqS2yEARuKqBFNxRdMLVCmozlJwFReCsgb7MM6aBw5X3Ygkh3Al0AxPJi2UAWAFcApY2CNNVoC8ZLtcBc4C3wBXg25TIF7zVSOrQXTep7gXmV0zzINAPPADuAuO5vyoZJIKxfREtyCpMt2fTcDUzybQ0CGGRwh5fyO5xMzNcoxZklRuu/5leqxqoDI6Bl9WwKXAsPDVwMDMiBQVDZ2LART2vorXA1qTLn4EbyZ/FcC5UE/AXeRkchGS668MAAAAASUVORK5CYII=') no-repeat center/contain;
+}
+.bolaox-pix-btn:hover {
+    transform: scale(1.05);
+}
+.bolaox-countdown {
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-align: center;
+    animation: pulse 1s infinite alternate;
+    font-variant-numeric: tabular-nums;
+}
+
+@keyframes pulse {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.bolaox-profile,
+.bolaox-pass-form {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.bolaox-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background: #fafafa;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    margin-bottom: 12px;
+    font-size: 1rem;
+    transition: box-shadow 0.3s, border-color 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+.bolaox-input::placeholder {
+    color: #999;
+}
+.bolaox-input:focus {
+    outline: none;
+    border-color: var(--bx-highlight);
+    box-shadow: 0 0 0 2px var(--bx-highlight);
+}
+.bolaox-avatar-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.bolaox-avatar-img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.bolaox-avatar-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.bolaox-delete-avatar {
+    background: transparent;
+    color: var(--bx-primary);
+    border: 1px solid var(--bx-primary);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.bolaox-delete-avatar:hover {
+    background: var(--bx-primary);
+    color: #fff;
+}
+.bolaox-submit,
+.bolaox-submit.button {
+    width: 100%;
+    text-transform: uppercase;
+    text-align: center;
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.3s;
+    position: relative;
+    z-index: 2;
+}
+.bolaox-pay-label {
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+}
+.bolaox-price {
+    font-weight: 600;
+    margin: 10px 0;
+    text-align: center;
+}
+.bolaox-copy {
+    margin-left: 8px;
+}
+.bolaox-login,
+.bolaox-profile,
+.bolaox-pass-form {
+    background: var(--bx-glass);
+    padding: 20px;
+    border-radius: var(--bx-radius);
+    animation: fadeInUp 0.5s ease-out;
+}
+.bolaox-login-tabs { display: flex; flex-direction: column; gap: 15px; }
+.bolaox-tabs { list-style: none; padding: 0; margin: 0; display: flex; gap: 10px; }
+.bolaox-tabs li { flex: 1; text-align: center; padding: 8px; border-radius: var(--bx-radius); cursor: pointer; background: var(--bx-glass); }
+.bolaox-tabs li.active { background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%); color:#fff; }
+.bolaox-tab-content { display: none; }
+.bolaox-tab-content.active { display: block; }
+.bolaox-error {
+    color: #d32f2f;
+    margin-bottom: 10px;
+}
+.bolaox-success {
+    color: var(--bx-primary);
+    margin-bottom: 10px;
+}
+.bolaox-lost {
+    text-align: right;
+}
+.bolaox-field input[type="submit"]:hover,
+.bolaox-field .button:hover {
+    transform: scale(1.05);
+}
+.bolaox-table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    background: rgba(255,255,255,0.6);
+}
+.bolaox-table thead th {
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    color: #fff;
+}
+.bolaox-table th,
+.bolaox-table td {
+    padding: 8px 10px;
+    border: 1px solid #eee;
+}
+.bolaox-table .col-index{width:40px;text-align:center;font-weight:600;}
+.bolaox-table .col-name{width:30%;text-align:left;}
+.bolaox-table .col-percent{width:160px;}
+.bolaox-table tbody tr:hover {
+    background: rgba(0,0,0,0.05);
+}
+.bolaox-hit-10 { background: #3ccf4e; color: #fff; }
+.bolaox-hit-9 { background: #ff9800; color: #fff; }
+.bolaox-hit-8 { background: #ff5722; color: #fff; }
+.bolaox-lowest {
+    background: linear-gradient(135deg, var(--bx-highlight) 0%, #fff176 100%);
+    color: #000;
+    font-weight: 600;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.bolaox-low-card {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--bx-secondary) 0%, var(--bx-primary) 100%);
+    color: #fff;
+    border-radius: var(--bx-radius);
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.bolaox-res-num {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+.bolaox-table-wrapper {
+    overflow-x: auto;
+    margin: 0 auto;
+    width: 100%;
+}
+.bolaox-scroll .bolaox-table {
+    width: 100%;
+}
+
+.bolaox-progress {
+    position: relative;
+    width: 100%;
+    height: 24px;
+    background-color: #b9d938b5;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.05);
+}
+
+.bolaox-progress::before {
+    content: attr(data-progress);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    z-index: 1;
+}
+
+.bolaox-progress span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--bx-primary), var(--bx-secondary));
+    background-size: 200% 100%;
+    animation: bx-shift 3s linear infinite;
+    transition: width 1s ease-out;
+}
+
+@keyframes bx-shift {
+    from { background-position: 0 0; }
+    to { background-position: 200% 0; }
+}
+
+.bolaox-dup {
+    color: #ff3b3b;
+    font-weight: bold;
+}
+
+/* number styling in result tables */
+.bolaox-number.hit,
+.bolaox-number.drawn {
+    background: var(--bx-highlight);
+    border-color: var(--bx-highlight);
+    color: #000;
+}
+
+.bolaox-number.dup {
+    background: #ffcdd2;
+    border-color: #ff3b3b;
+    color: #000;
+}
+
+.bolaox-board .bolaox-number {
+    cursor: default;
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    margin: 2px;
+}
+.bolaox-board { display: flex; flex-wrap: wrap; justify-content: center; }
+.bolaox-scroll .bolaox-board { width: 100%; }
+
+.bolaox-numlist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    justify-content: center;
+}
+.bolaox-scroll .bolaox-numlist { width: 100%; }
+
+.bolaox-numlist .bolaox-number {
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 0.9rem;
+}
+
+.bolaox-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.bolaox-card {
+    background: var(--bx-glass);
+    border-radius: var(--bx-radius);
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+.bolaox-card span {
+    display: block;
+}
+.bolaox-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.bolaox-card .dashicons {
+    font-size: 32px;
+    color: var(--bx-primary);
+    margin-bottom: 6px;
+}
+.bolaox-section {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+
+.bolaox-success-title {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--bx-primary);
+}
+.bolaox-success-label {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.bolaox-result h3 {
+    margin-top: 20px;
+}
+
+.bolaox-history {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.bolaox-history-item {
+    background: var(--bx-glass);
+    padding: 15px;
+    border-radius: var(--bx-radius);
+}
+
+.bolaox-history-date {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--bx-primary);
+}
+
+.bolaox-stats tr:nth-child(odd) {
+    background: rgba(255,255,255,0.05);
+}
+.bolaox-stats th {
+    text-align: center;
+}
+.bolaox-stats td:nth-child(3),
+.bolaox-stats th:nth-child(3) {
+    min-width: 200px;
+}
+
+/* number picker */
+.bolaox-numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 12px;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.bolaox-number {
+    color: var(--bx-primary);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 1.1rem;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.3s, transform 0.3s;
+    font-weight: 600;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%) border-box;
+}
+
+.bolaox-number:hover {
+    transform: scale(1.1);
+    background:
+        linear-gradient(#f0f0f0, #f0f0f0) padding-box,
+        linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%) border-box;
+}
+
+.bolaox-number.selected {
+    background: linear-gradient(135deg, var(--bx-primary) 0%, var(--bx-secondary) 100%);
+    transform: scale(1.15);
+    color: #fff;
+    border-color: transparent;
+    animation: pop 0.3s ease;
+}
+
+.bolaox-cart {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.bolaox-cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bx-glass);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.bolaox-remove-bet {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .bolaox-app {
+        margin: 10px;
+        padding: 10px;
+    }
+    .bolaox-form {
+        margin: 10px;
+        padding: 20px;
+    }
+    .bolaox-numbers {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    }
+    .bolaox-number {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 0.9rem;
+    }
+    .bolaox-table {
+        font-size: 0.85rem;
+    }
+    .bolaox-stats td:nth-child(3),
+    .bolaox-stats th:nth-child(3) {
+        min-width: 200px;
+    }
+    .bolaox-scroll .bolaox-table,
+    .bolaox-scroll .bolaox-board,
+    .bolaox-scroll .bolaox-numlist {
+        width: max-content;
+    }
+}
+.bolaox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+.bolaox-modal.active { display: flex; }
+.bolaox-modal-content {
+    background: var(--bx-bg);
+    padding: 20px;
+    border-radius: var(--bx-radius);
+    text-align: center;
+}
+.bolaox-modal-close { cursor: pointer; display: inline-block; margin-top: 10px; }
+.bolaox-widget .bolaox-progress{height:16px;}
+
+.bolaox-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 600px) {
+    .bolaox-scroll {
+        overflow-x: visible;
+    }
+    .bolaox-scroll .bolaox-table,
+    .bolaox-scroll .bolaox-board,
+    .bolaox-scroll .bolaox-numlist {
+        width: 100%;
+    }
+}
+
+/* results and history pages use theme typography */
+.bolaox-result,
+.bolaox-history,
+.bolaox-table,
+.bolaox-stats,
+.bolaox-res-num {
+    color: #000;
+    font-weight: 800;
+    font-family: inherit;
+}
+
+/* Logo shown only on small screens */
+.bolaox-mobile-logo {
+    display: block;
+    width: 160px;
+    margin: 0 auto 20px;
+}
+@media (min-width: 783px) {
+    .bolaox-mobile-logo {
+        display: none;
+    }
+}
