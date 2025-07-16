@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Novo Agendamento</h2>
+<form method="post">
+  <div class="mb-3">
+    <label class="form-label">Cliente</label>
+    <select class="form-select" name="client_id">
+      {% for c in clients %}
+      <option value="{{ c.id }}">{{ c.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Funcionário</label>
+    <select class="form-select" name="employee_id">
+      {% for e in employees %}
+      <option value="{{ e.id }}">{{ e.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Data e Hora</label>
+    <input type="datetime-local" class="form-control" name="date" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Notas</label>
+    <input type="text" class="form-control" name="notes">
+  </div>
+  <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+{% endblock %}

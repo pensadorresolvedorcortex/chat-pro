@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Financeiro</h2>
+<a class="btn btn-primary" href="/finances/expense">Adicionar Despesa</a>
+<a class="btn btn-success" href="/finances/revenue">Adicionar Receita</a>
+<h3 class="mt-4">Resumo</h3>
+<p>Receitas: R$ {{ total_revenue }}</p>
+<p>Despesas: R$ {{ total_expense }}</p>
+<p>Lucro Líquido: R$ {{ total_revenue - total_expense }}</p>
+<table class="table mt-3">
+  <thead><tr><th>Tipo</th><th>Nome</th><th>Valor</th><th>Data</th></tr></thead>
+  <tbody>
+    {% for r in revenues %}
+    <tr><td>Receita</td><td>{{ r.name }}</td><td>{{ r.amount }}</td><td>{{ r.date.strftime('%d/%m/%Y') }}</td></tr>
+    {% endfor %}
+    {% for e in expenses %}
+    <tr><td>Despesa</td><td>{{ e.name }}</td><td>{{ e.amount }}</td><td>{{ e.date.strftime('%d/%m/%Y') }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
