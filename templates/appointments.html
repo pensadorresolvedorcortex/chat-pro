@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Agendamentos</h2>
+<a class="btn btn-primary" href="/appointments/new">Novo Agendamento</a>
+<table class="table mt-3">
+  <thead><tr><th>Cliente</th><th>Funcionário</th><th>Data</th><th>Notas</th></tr></thead>
+  <tbody>
+    {% for a in appointments %}
+    <tr>
+      <td>{{ a.client.name }}</td>
+      <td>{{ a.employee.name }}</td>
+      <td>{{ a.date.strftime('%d/%m/%Y %H:%M') }}</td>
+      <td>{{ a.notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

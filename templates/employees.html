@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Funcionários</h2>
+<a class="btn btn-primary" href="/employees/new">Novo Funcionário</a>
+<table class="table mt-3">
+  <thead><tr><th>Nome</th><th>CPF</th><th>Telefone</th><th>Função</th></tr></thead>
+  <tbody>
+    {% for e in employees %}
+    <tr>
+      <td>{{ e.name }}</td>
+      <td>{{ e.cpf }}</td>
+      <td>{{ e.phone }}</td>
+      <td>{{ e.role }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
