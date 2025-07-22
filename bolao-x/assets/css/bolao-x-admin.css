@@ -1,0 +1,170 @@
+/* Admin styles for Bolao X plugin - modern 2025 look */
+:root {
+    --bx-primary: #1e734c;
+    --bx-secondary: #259f3c;
+    --bx-highlight: #b9d938;
+    --bx-bg: #ffffff;
+    --bx-text: #333333;
+    --bx-glass: rgba(255,255,255,0.9);
+    --bx-radius: 12px;
+    --bx-color1: #bb2649; /* Viva Magenta */
+    --bx-color2: #ffbe98; /* Peach Fuzz */
+    --bx-color3: #6667ab; /* Very Peri */
+    --bx-color4: var(--bx-secondary);
+    --bx-color5: var(--bx-highlight);
+}
+.bolaox-admin {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background: linear-gradient(180deg, #e8f5e9, #f1f8e9);
+    border-radius: var(--bx-radius);
+}
+.bolaox-admin h1 {
+    background: linear-gradient(45deg, var(--bx-primary), var(--bx-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', sans-serif;
+}
+.bolaox-admin table.form-table input,
+.bolaox-admin table.form-table select {
+    border-radius: 6px;
+}
+.bolaox-admin .button-primary {
+    background: linear-gradient(135deg, var(--bx-primary), var(--bx-secondary));
+    border: none;
+}
+.bolaox-cutoffs input[type="time"] {
+    width: 6rem;
+}
+@media (max-width: 782px) {
+    .bolaox-admin {
+        margin: 10px;
+        padding: 15px;
+    }
+    .bolaox-admin table.form-table input,
+    .bolaox-admin table.form-table select {
+        width: 100%;
+    }
+    .bolaox-cutoffs th,
+    .bolaox-cutoffs td {
+        display: block;
+        width: 100%;
+    }
+    .bolaox-cutoffs input[type="time"] {
+        width: 100%;
+    }
+}
+.bolaox-dashboard-analytics{
+    margin-top:20px;
+}
+.bx-info-circle{
+    margin:20px auto;
+    width:320px;
+    height:320px;
+    border-radius:50%;
+    border:8px solid var(--bx-secondary);
+    background:var(--bx-glass);
+    box-shadow:0 4px 12px rgba(0,0,0,0.06);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:600;
+}
+.bx-info-circle div{
+    position:absolute;
+    left:10%;
+    width:80%;
+    text-align:center;
+    color:var(--bx-primary);
+}
+.bx-info-circle .bx-ci-visits{top:10%;}
+.bx-info-circle .bx-ci-users{top:25%;}
+.bx-info-circle .bx-ci-today{top:40%;}
+.bx-info-circle .bx-ci-country{top:58%;}
+.bx-info-circle .bx-ci-platform{top:73%;}
+.bx-info-circle .bx-ci-browser{top:88%;}
+
+/* rectangular analytics tabs replacing circular style */
+.bx-info-tabs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    margin:30px 0;
+}
+.bx-info-tab{
+    padding:20px;
+    border-radius:var(--bx-radius);
+    color:#fff;
+    text-align:center;
+    font-weight:600;
+    box-shadow:0 6px 12px rgba(0,0,0,0.15);
+}
+.bx-info-tab span{
+    display:block;
+    font-size:14px;
+    margin-bottom:8px;
+    text-transform:uppercase;
+}
+.bx-info-tab strong{
+    display:block;
+    font-size:20px;
+}
+.bx-info-tab:nth-child(1){background:var(--bx-color1);}
+.bx-info-tab:nth-child(2){background:var(--bx-color2);}
+.bx-info-tab:nth-child(3){background:var(--bx-color3);}
+.bx-info-tab:nth-child(4){background:var(--bx-color4);}
+.bx-info-tab:nth-child(5){background:var(--bx-color5);}
+
+.bolaox-stats{
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+}
+.bolaox-stats li{
+    margin-bottom: 4px;
+}
+
+.bolaox-graphs{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+    margin-top:20px;
+}
+.bolaox-graph{
+    background:var(--bx-glass);
+    padding:15px;
+    border-radius:var(--bx-radius);
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+}
+.bolaox-graph h2{
+    text-align:center;
+    margin:0 0 10px;
+    font-size:16px;
+    color:var(--bx-primary);
+}
+.bolaox-graph canvas{
+    width:100%!important;
+    height:250px!important;
+    display:block;
+}
+
+.bolaox-legend{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:10px 0;
+    flex-wrap:wrap;
+}
+.bolaox-legend .bolaox-number{
+    width:24px;
+    height:24px;
+    line-height:24px;
+    font-size:0.8rem;
+}
+.bolaox-legend .legend-hit{
+    background:#b9d938;
+    border-color:#b9d938;
+    color:#000;
+}
