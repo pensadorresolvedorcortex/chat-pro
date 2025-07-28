@@ -1,0 +1,168 @@
+.kalil-container{
+    max-width:1200px;
+    margin:20px auto;
+    padding:20px;
+    background:#fff;
+    border:1px solid #ccc;
+    border-radius:8px;
+    color:#333;
+    font-family:Arial, sans-serif;
+    font-weight:600;
+}
+.kalil-menu{
+    margin-bottom:15px;
+    border-bottom:1px solid #ccc;
+}
+.kalil-menu ul{
+    list-style:none;
+    padding:0;
+    display:flex;
+    gap:15px;
+}
+.kalil-menu li{
+    padding:8px 12px;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    color:#333;
+    transition:all .3s;
+}
+.kalil-menu li:hover{
+    background:#f0f0f0;
+}
+.kalil-menu li.active{
+    border-color:#408b3f;
+    font-weight:bold;
+}
+.kalil-patient-select{
+    margin-bottom:10px;
+}
+.kalil-patient-select select{
+    width:100%;
+    padding:8px;
+    border-radius:4px;
+    border:1px solid #ccc;
+}
+#kalil-messages .kalil-msg{
+    background:#fff;
+    color:#333;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius:4px;
+}
+#kalil-messages .kalil-msg-admin{
+    background:#dff0ff;
+    text-align:right;
+}
+#kalil-messages .kalil-msg-patient{
+    background:#fff;
+    text-align:left;
+}
+.kalil-msg-time{
+    display:block;
+    font-size:0.8em;
+    color:#666;
+    margin-top:4px;
+}
+.kalil-container textarea{
+    width:100%;
+    height:80px;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius:4px;
+    border:none;
+}
+.kalil-container button{
+    background:linear-gradient(90deg,#3b8c3d 0%,#408b3f 100%) !important;
+    color:#fff !important;
+    box-shadow:0 0 0 rgba(0,0,0,.1) !important;
+    padding:1em 1.6em !important;
+    display:flex !important;
+    flex-flow:row nowrap !important;
+    justify-content:center !important;
+    align-items:stretch !important;
+    align-content:flex-start !important;
+    text-align:center !important;
+    border:none !important;
+    border-radius:4px !important;
+    cursor:pointer !important;
+}
+
+.kalil-register-form button{
+    background:linear-gradient(90deg,#3b8c3d 0%,#408b3f 100%) !important;
+    color:#fff !important;
+    box-shadow:0 0 0 rgba(0,0,0,.1) !important;
+    padding:0.8em 1.6em !important;
+    display:flex !important;
+    flex-flow:row nowrap !important;
+    justify-content:center !important;
+    align-items:stretch !important;
+    align-content:flex-start !important;
+    text-align:center !important;
+    border:none !important;
+    border-radius:35px !important;
+    cursor:pointer !important;
+}
+
+.kalil-register-form input{
+    width:100% !important;
+    margin-bottom:10px !important;
+    padding:10px !important;
+    border-radius:4px !important;
+    border:1px solid #ccc !important;
+}
+.kalil-error{
+    color:#ffeb3b;
+    margin-top:10px;
+}
+#kalil-messages{
+    max-height:400px;
+    overflow-y:auto;
+    background:#f9f9f9;
+    color:#333;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:4px;
+}
+
+.kalil-register-tabs{
+    margin-bottom:15px;
+}
+.kalil-register-tabs ul{
+    list-style:none;
+    padding:0;
+    display:flex;
+    gap:10px;
+}
+.kalil-register-tabs li{
+    padding:8px 12px;
+    cursor:pointer;
+    border-bottom:3px solid transparent;
+    transition:all .3s;
+}
+.kalil-register-tabs li.active{
+    border-color:#408b3f;
+    font-weight:bold;
+}
+.kalil-register-content{display:none;}
+#kalil-login-form{display:block;}
+
+.kalil-login-form input{
+    width:100% !important;
+    margin-bottom:10px !important;
+    padding:10px !important;
+    border-radius:4px !important;
+    border:1px solid #ccc !important;
+}
+
+.kalil-login-form button{
+    background:linear-gradient(90deg,#3b8c3d 0%,#408b3f 100%) !important;
+    color:#fff !important;
+    box-shadow:0 0 0 rgba(0,0,0,.1) !important;
+    padding:1em 1.6em !important;
+    display:flex !important;
+    justify-content:center !important;
+    border:none !important;
+    border-radius:35px !important;
+    cursor:pointer !important;
+}
+
