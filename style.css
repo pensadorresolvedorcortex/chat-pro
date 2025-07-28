@@ -1,0 +1,62 @@
+body {
+    font-family: 'Outfit', sans-serif;
+    background: #f5f6fa;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 960px;
+    margin: auto;
+}
+#tabela-jogadores {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+#tabela-jogadores th, #tabela-jogadores td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+#tabela-jogadores th {
+    background: #e5e5f7;
+}
+.botoes button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    background: #845ef7;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+.botoes button:hover {
+    background: #6f4bd8;
+}
+.pedra1 { background: #d3f9d8; }
+.pedra2 { background: #fff3bf; }
+.pedra3 { background: #ffa8a8; }
+.times {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.time {
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 30%;
+    min-width: 250px;
+}
+.time h3 {
+    margin-top: 0;
+    background:#e5e5f7;
+    padding:5px;
+    border-radius:4px;
+    text-align:center;
+}
+.reservas {
+    margin-top:20px;
+}
