@@ -1,0 +1,75 @@
+#logo {
+  display: block;
+  margin: 20px auto;
+  width: 120px;
+  max-width: 60%;
+}
+
+header { text-align: center; }
+
+@media (min-width: 600px) {
+  #logo { width: 160px; }
+}
+
+@media (min-width: 992px) {
+  #logo { width: 200px; }
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background-attachment: fixed;
+  color: #fff;
+  padding: 20px;
+  min-height: 100vh;
+}
+#tabela-jogadores {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 8px;
+  overflow: hidden;
+}
+#tabela-jogadores th,
+#tabela-jogadores td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  color: #333;
+}
+#tabela-jogadores th {
+  background: rgba(76,77,218,0.8);
+  color: #fff;
+}
+.p1 { background: #bef264; color: #000; }
+.p2 { background: #fde047; color: #000; }
+.p3 { background: #fca5a5; color: #000; }
+.botoes { text-align: center; margin-bottom: 20px; }
+.botoes button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(45deg, #4c4dda, #9164ff);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 4px;
+}
+.botoes button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+#resultado { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px; }
+.time {
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  width: 30%;
+  border-radius: 8px;
+  color: #333;
+}
+.time h3 { text-align: center; margin-top: 0; }
+.time ul { list-style: none; padding: 0; }
+.time li { margin: 5px 0; }
