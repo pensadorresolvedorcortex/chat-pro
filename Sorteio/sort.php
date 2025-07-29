@@ -6,7 +6,7 @@ if (!is_array($data) || count($data) !== 17) {
     exit;
 }
 
-$posicoes = ['Goleiro', 'Fixo', 'LD', 'LE', 'Meia', 'Pivô'];
+$posicoes = ['Goleiro', 'Fixo', 'Lateral Direito', 'Lateral Esquerdo', 'Meia', 'Pivô'];
 $positions = array_fill_keys($posicoes, []);
 foreach ($data as $p) {
     if ($p['nome'] === '' || $p['posicao'] === '' || $p['pedra'] === '') continue;
@@ -38,7 +38,7 @@ for ($i = 0; $i < 2; $i++) {
 }
 
 // distribuir demais posições de forma rotativa respeitando capacidades
-$order = ['Fixo', 'LD', 'LE', 'Meia', 'Pivô'];
+$order = ['Fixo', 'Lateral Direito', 'Lateral Esquerdo', 'Meia', 'Pivô'];
 foreach ($order as $pos) {
     $t = 0;
     while (!empty($positions[$pos])) {

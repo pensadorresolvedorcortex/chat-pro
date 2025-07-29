@@ -45,12 +45,12 @@ $players = [
 <td>
 <select class="posicao">
 <option value="">--Selecione--</option>
-<option>Goleiro</option>
-<option>Fixo</option>
-<option>LD</option>
-<option>LE</option>
-<option>Meia</option>
-<option>Pivô</option>
+        <option>Goleiro</option>
+        <option>Fixo</option>
+        <option>Lateral Direito</option>
+        <option>Lateral Esquerdo</option>
+        <option>Meia</option>
+        <option>Pivô</option>
 </select>
 </td>
 <td>
