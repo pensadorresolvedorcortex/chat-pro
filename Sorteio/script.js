@@ -33,7 +33,8 @@ function exibirTimes(data) {
   data.times.forEach((time, idx)=>{
     const div = document.createElement('div');
     div.className='time fade-in';
-    div.innerHTML = `<h3>Time ${idx+1}</h3><ul>` +
+    const titulo = idx === 2 ? 'Time 3 (Reservas)' : `Time ${idx+1}`;
+    div.innerHTML = `<h3>${titulo}</h3><ul>` +
       time.map(j=>`<li>${j.nome} - ${j.posicao} - Pedra ${j.pedra}</li>`).join('')+
       '</ul>';
     resultadoDiv.appendChild(div);
@@ -41,7 +42,7 @@ function exibirTimes(data) {
   if(data.extras.length){
     const div=document.createElement('div');
     div.className='time fade-in';
-    div.innerHTML='<h3>Reservas</h3><ul>'+
+    div.innerHTML='<h3>Extras</h3><ul>'+
       data.extras.map(j=>`<li>${j.nome} - ${j.posicao} - Pedra ${j.pedra}</li>`).join('')+
       '</ul>';
     resultadoDiv.appendChild(div);
