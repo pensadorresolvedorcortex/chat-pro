@@ -28,7 +28,9 @@ $players = [
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<img src="https://raw.githubusercontent.com/pensadorresolvedorcortex/chat-pro/main/icone.png" alt="Logo" id="logo">
+<header>
+    <img src="https://raw.githubusercontent.com/pensadorresolvedorcortex/chat-pro/main/icone.png" alt="Logo" id="logo">
+</header>
 <table id="tabela-jogadores">
 <thead>
 <tr><th>Nº</th><th>Nome</th><th>Posição</th><th>Pedra</th></tr>

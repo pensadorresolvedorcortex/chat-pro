@@ -1,7 +1,18 @@
 #logo {
   display: block;
   margin: 20px auto;
-  width: 200px;
+  width: 120px;
+  max-width: 60%;
+}
+
+header { text-align: center; }
+
+@media (min-width: 600px) {
+  #logo { width: 160px; }
+}
+
+@media (min-width: 992px) {
+  #logo { width: 200px; }
 }
 
 body {
