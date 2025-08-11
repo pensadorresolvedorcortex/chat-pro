@@ -1,0 +1,6 @@
+{
+  "appId": "com.example.sorteio",
+  "appName": "Sorteio",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}

@@ -1,0 +1,6 @@
+*.zip
+*.png
+sorteio/jogadores.json
+node_modules/
+mobile/node_modules/
+mobile/build/
