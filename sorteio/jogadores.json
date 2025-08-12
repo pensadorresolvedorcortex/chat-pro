@@ -1,0 +1,87 @@
+[
+    {
+        "nome": "Dheniell",
+        "posicao": "Pivô",
+        "pedra": "1"
+    },
+    {
+        "nome": "Dario",
+        "posicao": "Pivô",
+        "pedra": "2"
+    },
+    {
+        "nome": "Papel",
+        "posicao": "Lateral Direito",
+        "pedra": "2"
+    },
+    {
+        "nome": "Wallace",
+        "posicao": "Lateral Direito",
+        "pedra": "2"
+    },
+    {
+        "nome": "Matheus",
+        "posicao": "Meia",
+        "pedra": "1"
+    },
+    {
+        "nome": "Kloh",
+        "posicao": "Fixo",
+        "pedra": "1"
+    },
+    {
+        "nome": "Bebeto",
+        "posicao": "Fixo",
+        "pedra": "1"
+    },
+    {
+        "nome": "Costela",
+        "posicao": "Fixo",
+        "pedra": "2"
+    },
+    {
+        "nome": "Diego",
+        "posicao": "Lateral Esquerdo",
+        "pedra": "2"
+    },
+    {
+        "nome": "Matheus MP",
+        "posicao": "Lateral Esquerdo",
+        "pedra": "2"
+    },
+    {
+        "nome": "Gabriel",
+        "posicao": "Meia",
+        "pedra": "1"
+    },
+    {
+        "nome": "Bolo",
+        "posicao": "Pivô",
+        "pedra": "3"
+    },
+    {
+        "nome": "Flavinho",
+        "posicao": "Meia",
+        "pedra": "1"
+    },
+    {
+        "nome": "Caputo",
+        "posicao": "Lateral Esquerdo",
+        "pedra": "2"
+    },
+    {
+        "nome": "Fred",
+        "posicao": "Pivô",
+        "pedra": "2"
+    },
+    {
+        "nome": "Darlan",
+        "posicao": "Goleiro",
+        "pedra": "1"
+    },
+    {
+        "nome": "Baiano",
+        "posicao": "Goleiro",
+        "pedra": "2"
+    }
+]
