@@ -1,0 +1,63 @@
+{
+  "version": "0.4",
+  "title": "IdeaZarvos Slider Vertical",
+  "type": "section",
+  "content": [
+    {
+      "id": "sec001",
+      "elType": "section",
+      "settings": {
+        "layout": "full_width"
+      },
+      "elements": [
+        {
+          "id": "cnt001",
+          "elType": "container",
+          "isInner": false,
+          "settings": {},
+          "elements": [
+            {
+              "id": "wdg001",
+              "elType": "widget",
+              "widgetType": "slides",
+              "settings": {
+                "slides_per_view": 1,
+                "height": {
+                  "unit": "vh",
+                  "size": 100
+                },
+                "autoplay": "no",
+                "transition": "slide",
+                "direction": "vertical",
+                "navigation": "arrows",
+                "slides": [
+                  {
+                    "heading": "01 Tripé Idea!Zarvos",
+                    "description": "<h3>Estética</h3><p>O rigor estético é premissa Idea!Zarvos. Todo e qualquer projeto tem que ser belo para quem usa, &#8203;para quem vê e para o cenário arquitetônico da cidade.&#8203;</p><h3>Uso</h3><p>Os usos e tipologias do projetos Idea!Zarvos são pensados &#8203;de forma a proporcionar para os bairros elementos que os &#8203;tornem mais completos e plurais.&#8203;</p><h3>Entorno</h3><p>Seja por meio de uma gentileza urbana ou de fachadas ativas,&#8203; a arquitetura autoral contribui para que os projetos Idea!Zarvos dialoguem de maneira equilibrada entre o público e o privado.</p>",
+                    "background_image": {
+                      "url": "https://www.ideazarvos.com.br/static/46f81d8f23af160d9ac4ec02d54d7739/9f19b/Sobre01_Oka_d90fea6ccc.jpg"
+                    }
+                  },
+                  {
+                    "heading": "02 Valores Idea!Zarvos",
+                    "description": "<h3>Criatividade</h3><p>Fugir do óbvio. Pensar no que ninguém pensou. Fazer o que ninguém fez. Inovar sempre. Evoluir sempre.</p><h3>Excelência</h3><p>Fazer. Testar. Ajustar. Aperfeiçoar. Refazer quantas vezes forem necessárias. Recomeçar quando preciso.</p><h3>Flexibilidade</h3><p>Não ficar preso a fórmulas. Repensar. Reconsiderar. Corrigir a rota. Criar novos modelos. Espírito colaborativo Valorizar talentos e não currículos. Estimular a paixão pela boa arquitetura. Oferecer ambientes receptivos e aspiracionais. Crescer, mas não sozinho.</p>",
+                    "background_image": {
+                      "url": "https://www.ideazarvos.com.br/static/0ed4906362247ad0cc10f6bca7170d15/9f19b/Sobre02_360_d4ec617e00.jpg"
+                    }
+                  },
+                  {
+                    "heading": "03 Como nasce um Idea!Zarvos?",
+                    "description": "<h3>Imaginamos</h3><p>Os projetos surgem da imaginação do nosso time criativo, que desenvolve obras capazes de transformar o morar.</p><h3>Planejamos</h3><p>Nos dedicamos a cada uma das etapas da incorporação para que os projetos sigam um padrão único, diferente de tudo o que se vê no mercado imobiliário.</p><h3>Executamos</h3><p>Junto a construtoras parceiras, materializamos os projetos de arquitetura autoral com muito rigor técnico.</p><h3>Comercializamos</h3><p>Através das Galeria Idea!Zarvos, vendemos e alugamos nosso portfólio. Também atuamos na revenda e locação de unidades de nossos clientes.</p>",
+                    "background_image": {
+                      "url": "https://www.ideazarvos.com.br/static/77bf6ea166f9c3f61f5ec80fcb7cc3dd/9f19b/Sobre03_POPXYZ_7871a61be5.jpg"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
