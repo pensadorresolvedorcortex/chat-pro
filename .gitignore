@@ -1,0 +1,7 @@
+# Ignore binary assets not supported in repository
+*.zip
+*.mp3
+*.ttf
+*.woff
+*.png
+*.mo

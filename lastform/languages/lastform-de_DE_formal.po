@@ -1,0 +1,545 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Lastform\n"
+"POT-Creation-Date: 2017-07-27 07:39+0100\n"
+"PO-Revision-Date: 2017-07-29 13:10+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: lastform.php\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: admin/class-lastform-admin.php:133 admin/class-lastform-admin.php:142
+#: admin/class-lastform-admin.php:149 admin/class-lastform-admin.php:156
+msgid "Lastform version"
+msgstr "Lastform Version"
+
+#: admin/class-lastform-admin.php:133
+msgid ""
+"Since Lastform already has color options this will only affect pure "
+"\"Gravity Forms\" forms."
+msgstr ""
+"Da Lastform bereits die Möglichkeit der Farbanpassung bietet wird dies nur "
+"auf reine \"Gravity Forms\" Formulare angewandt."
+
+#: admin/class-lastform-admin.php:142
+msgid "This option will be integrated with Lastform soon."
+msgstr "Diese Option wird bald für Lastform verfügbar sein."
+
+#: admin/class-lastform-admin.php:149
+msgid "Lastform already has its own enhanced UI."
+msgstr "Lastform hat bereits ein eigenes verbessertes User Interface."
+
+#: admin/class-lastform-admin.php:156
+msgid "Lastform already has its own calendar widget."
+msgstr "Lastform hat bereits ein eigenes Kalender Widget."
+
+#: includes/class-lastform-activator.php:28
+msgid "You need to install and activate Gravity Form first."
+msgstr "Sie müssen erst \"Gravity Forms\" installieren und aktivieren."
+
+#: includes/class-lastform.php:338
+msgid "The slug between your site URL and the form id. E.g.: "
+msgstr ""
+"Das Schlagwort zwischen der URL Ihrer Website und der Formular ID, z.B.: "
+
+#: includes/class-lastform.php:338 includes/class-lastform.php:575
+#: includes/class-lastform.php:583
+msgid "WARNING:"
+msgstr "WARNUNG:"
+
+#: includes/class-lastform.php:338
+msgid "You need to flush your Rewrite Rules after changing it. Go to the"
+msgstr ""
+"Sie müssen Ihre Rewrite Regeln nach einer Änderung leeren. Gehen Sie zu"
+
+#: includes/class-lastform.php:338
+msgid "Permalinks page"
+msgstr "Permalinks-Seite"
+
+#: includes/class-lastform.php:338
+msgid "and click \"Save Changes\" to flush the rules."
+msgstr "und klicken Sie \"Änderungen speichern\", um die Regeln zu leeren."
+
+#: includes/class-lastform.php:339
+msgid "Form URL Slug"
+msgstr "Formular URL Schlagwort"
+
+#: includes/class-lastform.php:351
+msgid "Lastform settings"
+msgstr "Lastform Einstellungen"
+
+#: includes/class-lastform.php:355
+msgid "Welcome screen"
+msgstr "Willkommen-Screen"
+
+#: includes/class-lastform.php:358
+msgid "Enable Welcome Screen?"
+msgstr "Willkommen-Screen aktivieren?"
+
+#: includes/class-lastform.php:363
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: includes/class-lastform.php:370 includes/class-lastform.php:439
+msgid "Image URL"
+msgstr "Bild-URL"
+
+#: includes/class-lastform.php:373 includes/class-lastform.php:442
+msgid "Paste the FULL image URL"
+msgstr "Fügen Sie die VOLLSTÄNDIGE Bild-URL ein"
+
+#: includes/class-lastform.php:378
+msgid "Text"
+msgstr "Text"
+
+#: includes/class-lastform.php:384
+msgid "Start button text"
+msgstr "Start Button Text"
+
+#: includes/class-lastform.php:391
+msgid "Colors"
+msgstr "Farben"
+
+#: includes/class-lastform.php:394
+msgid "Question color"
+msgstr "Farbe für Frage"
+
+#: includes/class-lastform.php:397 includes/class-lastform.php:405
+#: includes/class-lastform.php:413 includes/class-lastform.php:421
+#: includes/class-lastform.php:429
+msgid "HEX color code"
+msgstr "HEX Farbcode"
+
+#: includes/class-lastform.php:402
+msgid "Answer color"
+msgstr "Farbe für Antwort"
+
+#: includes/class-lastform.php:410
+msgid "Button color"
+msgstr "Farbe für Button"
+
+#: includes/class-lastform.php:418
+msgid "Background color"
+msgstr "Hintergrundfarbe"
+
+#: includes/class-lastform.php:426
+msgid "Warning color"
+msgstr "Farbe für Warnungen"
+
+#: includes/class-lastform.php:436
+msgid "Background image"
+msgstr "Hintergrundbild"
+
+#: includes/class-lastform.php:447
+msgid "Scaling"
+msgstr "Größe"
+
+#: includes/class-lastform.php:450
+msgid "How the image will be displayed in your form background."
+msgstr "Wie das Bild im Formularhintergrund angezeigt wird"
+
+#: includes/class-lastform.php:455
+msgid "Fullscreen"
+msgstr "Vollbild"
+
+#: includes/class-lastform.php:459
+msgid "Repeat"
+msgstr "Wiederholen"
+
+#: includes/class-lastform.php:463
+msgid "No repeat"
+msgstr "Nicht wiederholen"
+
+#: includes/class-lastform.php:469
+msgid "Luminosity"
+msgstr "Helligkeit"
+
+#: includes/class-lastform.php:472
+msgid ""
+"Depending of your image, you will need to configure this to improve "
+"readability."
+msgstr ""
+"Je nach Bild müssen Sie hier nachjustieren, um Lesbarkeit zu gewährleisten."
+
+#: includes/class-lastform.php:477
+msgid "Darker"
+msgstr "Dunkler"
+
+#: includes/class-lastform.php:481
+msgid "Lighter"
+msgstr "Heller"
+
+#: includes/class-lastform.php:487
+msgid "Luminosity level %"
+msgstr "Helligkeit in %"
+
+#: includes/class-lastform.php:490
+msgid "The amount of luminosity to apply over your image. From 0 to 100."
+msgstr "Grad der Helligkeit für Ihr Bild auf einer Skala von 0 bis 100."
+
+#: includes/class-lastform.php:491 includes/class-lastform.php:547
+msgid "0 to 100"
+msgstr "0 bis 100"
+
+#: includes/class-lastform.php:496
+msgid "Fonts"
+msgstr "Schriften"
+
+#: includes/class-lastform.php:499
+msgid "Google Font Code"
+msgstr "Google Font Code"
+
+#: includes/class-lastform.php:502 includes/class-lastform.php:511
+msgid "Get your here: "
+msgstr "Bekommen Sie Ihren Code: "
+
+#: includes/class-lastform.php:502
+msgid "How to find the code?"
+msgstr "Wie findet man den Code?"
+
+#: includes/class-lastform.php:505
+msgid "E.g.: Some+Font+Name:300,300i,600,600i"
+msgstr "Z.B.: Ein+Font+Name:300,300i,600,600i"
+
+#: includes/class-lastform.php:508
+msgid "Font Family Name"
+msgstr "Schriftfamilie"
+
+#: includes/class-lastform.php:511
+msgid "How to find the font family name?"
+msgstr "Wie findet man den Namen der Schriftfamilie?"
+
+#: includes/class-lastform.php:513
+msgid "E.g.: Source Sans Pro"
+msgstr "Z.B.: Source Sans Pro"
+
+#: includes/class-lastform.php:518
+msgid "General"
+msgstr "Allgemein"
+
+#: includes/class-lastform.php:521
+msgid "Progress box"
+msgstr "Fortschrittsanzeige"
+
+#: includes/class-lastform.php:527
+msgid "Percentage % (E.g.: 66% completed)"
+msgstr "Prozent % (z.B.: 66% ausgefüllt)"
+
+#: includes/class-lastform.php:531
+msgid "Proportional (4 of 6 answered)"
+msgstr "Proportional (4 von 6 beantwortet)"
+
+#: includes/class-lastform.php:535
+msgid "None"
+msgstr "Keine"
+
+#: includes/class-lastform.php:542
+msgid "Unfocused fields transparency level %"
+msgstr "Transparenz der inaktiven Felder in %"
+
+#: includes/class-lastform.php:545
+msgid ""
+"The amount of transparency to apply over unfocused fields. From 0 to 100."
+msgstr "Transparenz für inaktive Felder (0 bis 100)"
+
+#: includes/class-lastform.php:550
+msgid "Favicon"
+msgstr "Favicon"
+
+#: includes/class-lastform.php:553
+msgid "Your favicon URL"
+msgstr "Ihre Favicon URL"
+
+#: includes/class-lastform.php:555
+msgid "http://some-site.com/favicon.png"
+msgstr "http://some-site.com/favicon.png"
+
+#: includes/class-lastform.php:560
+msgid "Custom code"
+msgstr "Eigener Code"
+
+#: includes/class-lastform.php:563
+msgid "Analytics, Pixel Code etc..."
+msgstr "Analytics, Pixel Code etc..."
+
+#: includes/class-lastform.php:566
+msgid "Paste here your custom HTML code."
+msgstr "Fügen Sie hier eigenen HTML Code ein."
+
+#: includes/class-lastform.php:569
+msgid ""
+"Paste here your FB Pixel Code, Google Analytcs code or any other code "
+"snippet you want."
+msgstr ""
+"Fügen Sie hier eigene Code-Snippets ein, z.B. Ihren Facebook Pixel Code oder "
+"Google Analytics Code."
+
+#: includes/class-lastform.php:572
+msgid "CSS code"
+msgstr "CSS"
+
+#: includes/class-lastform.php:575
+msgid "Paste here your custom CSS code."
+msgstr "Fügen Sie hier eigenen CSS Code ein."
+
+#: includes/class-lastform.php:575 includes/class-lastform.php:583
+msgid "Without "
+msgstr "Ohne"
+
+#: includes/class-lastform.php:577 includes/class-lastform.php:585
+msgid "E.g.: body { background-color: #c0ffee; }"
+msgstr "Z.B.: body { background-color: #c0ffee; }"
+
+#: includes/class-lastform.php:580
+msgid "JavaScript code"
+msgstr "JavaScript Code"
+
+#: includes/class-lastform.php:583
+msgid "Paste here your custom JavaScript code."
+msgstr "Geben Sie hier eigenen JavaScript Code ein."
+
+#: includes/class-lastform.php:606
+msgid "Open Lastform"
+msgstr "Lastform öffnen"
+
+#: includes/class-lastform.php:608
+msgid "View this form in Lastform"
+msgstr "Dieses Formular mit Lastform anzeigen"
+
+#: public/class-lastform-public.php:175
+#: public/partials/lastform-public-display.php:132
+msgid "Send Email"
+msgstr "Email absenden"
+
+#: public/class-lastform-public.php:176
+#: public/partials/lastform-public-display.php:156
+msgid "Please enter a valid email address."
+msgstr "Bitte geben Sie eine gültige Mailadresse ein."
+
+#: public/partials/lastform-public-display.php:44
+msgid "Invalid value"
+msgstr "Ungültiger Wert"
+
+#: public/partials/lastform-public-display.php:115
+msgid "Start"
+msgstr "Start"
+
+#: public/partials/lastform-public-display.php:118
+#, php-format
+msgid "Choose as many as you like and %s press ENTER %s"
+msgstr "Wählen Sie beliebig viele Optionen und %s drücken Sie ENTER %s"
+
+#: public/partials/lastform-public-display.php:119
+#: public/partials/lastform-public-display.php:126
+msgid "Choose as many as you like"
+msgstr "Wählen Sie beliebig viele Optionen"
+
+#: public/partials/lastform-public-display.php:120
+msgctxt "keyboard key"
+msgid "Key"
+msgstr "Taste"
+
+#: public/partials/lastform-public-display.php:121
+#, php-format
+msgid "To add a paragraph, press %s SHIFT + ENTER %s"
+msgstr "Drücken Sie %s SHIFT + ENTER %s, um einen Textabsatz zu erzeugen."
+
+#: public/partials/lastform-public-display.php:122
+msgid "Upload"
+msgstr "Hochladen"
+
+#: public/partials/lastform-public-display.php:123
+msgid "Allowed file extensions:"
+msgstr "Erlaubte Dateitypen:"
+
+#: public/partials/lastform-public-display.php:124
+msgid "Rejected files:"
+msgstr ""
+"Die Datei konnte nicht hochgeladen werden. Bitte prüfen Sie die erlaubten "
+"Dateitypen und die Dateigröße."
+
+#: public/partials/lastform-public-display.php:125
+#, php-format
+msgid "press %s ENTER %s"
+msgstr "Drücken Sie %s ENTER %s"
+
+#: public/partials/lastform-public-display.php:127
+#, php-format
+msgid "Press %s SHIFT + ENTER %s and choose as many as you like"
+msgstr ""
+"Drücken Sie %s SHIFT + ENTER %s und wählen Sie so viele Optionen, wie Sie "
+"mögen."
+
+#: public/partials/lastform-public-display.php:128
+msgid "$1 completed"
+msgstr "$1 geschafft"
+
+#: public/partials/lastform-public-display.php:129
+msgid "$1 of $2 answered"
+msgstr "$1 von $2 beantwortet"
+
+#: public/partials/lastform-public-display.php:130
+msgid "Step $1 of $2"
+msgstr "Schritt $1 von $2"
+
+#: public/partials/lastform-public-display.php:131
+msgid "Submit"
+msgstr "Absenden"
+
+#: public/partials/lastform-public-display.php:133
+msgid "Select file"
+msgstr "Datei auswählen"
+
+#: public/partials/lastform-public-display.php:134
+msgid "Select files"
+msgstr "Dateien auswählen"
+
+#: public/partials/lastform-public-display.php:135
+msgid "Drop files here or"
+msgstr "Ziehen Sie Ihre Dateien hierhin"
+
+#: public/partials/lastform-public-display.php:136
+msgid "Today"
+msgstr "Heute"
+
+#: public/partials/lastform-public-display.php:137
+msgid "or"
+msgstr "oder"
+
+#: public/partials/lastform-public-display.php:138
+msgid "Previous"
+msgstr "Zurück"
+
+#: public/partials/lastform-public-display.php:139
+msgid "Next"
+msgstr "Vor"
+
+#: public/partials/lastform-public-display.php:140
+msgid "Select"
+msgstr "Bitte wählen Sie"
+
+#: public/partials/lastform-public-display.php:141
+msgid "Yes"
+msgstr "Ja"
+
+#: public/partials/lastform-public-display.php:142
+msgid "No"
+msgstr "Nein"
+
+#: public/partials/lastform-public-display.php:143
+msgid "Price"
+msgstr "Preis"
+
+#: public/partials/lastform-public-display.php:144
+msgid "Quantity"
+msgstr "Anzahl"
+
+#: public/partials/lastform-public-display.php:148
+msgid "Some fields needs to be reviewed."
+msgstr "Bitte überprüfen Sie Ihre Eingaben."
+
+#: public/partials/lastform-public-display.php:149
+msgid "You forgot to fill out this field."
+msgstr "Sie haben vergessen dieses Feld auszufüllen."
+
+#: public/partials/lastform-public-display.php:150
+msgid "Review Fields"
+msgstr "Eingaben überprüfen"
+
+#: public/partials/lastform-public-display.php:151
+msgid "It already exists."
+msgstr "Das gibt es schon."
+
+#: public/partials/lastform-public-display.php:152
+msgid "Enter a valid Website URL, like $1"
+msgstr "Geben Sie eine gültige Website-URL ein, wie $1"
+
+#: public/partials/lastform-public-display.php:153
+msgid "Enter a value between $1 and $2."
+msgstr "Der Wert muss zwischen $1 und $2 liegen."
+
+#: public/partials/lastform-public-display.php:154
+msgid "Enter a value greater than or equal to $1."
+msgstr "Der Wert muss größer oder gleich $1 sein."
+
+#: public/partials/lastform-public-display.php:155
+msgid "Enter a value less than or equal to $1."
+msgstr "Der Wert muss kleiner oder gleich $1 sein."
+
+#: public/partials/lastform-public-display.php:157
+msgid "Your emails do not match."
+msgstr "Ihre Mailadressen stimmen nicht überein."
+
+#: public/partials/lastform-public-display.php:158
+msgid "Maximum number of files reached"
+msgstr "Sie haben die maximale Anzahl erlaubter Dateien erreicht."
+
+#: public/partials/lastform-public-display.php:159
+msgid "File exceeds size limit"
+msgstr "Die Datei ist zu groß."
+
+#: public/partials/lastform-public-display.php:160
+msgid "There was an problem while verifying your file."
+msgstr "Es gab ein Problem beim Verifizieren Ihrer Datei."
+
+#: public/partials/lastform-public-display.php:161
+msgid "Sorry, this file extension is not permitted for security reasons."
+msgstr ""
+"Entschuldigung, diese Dateiendung ist aus Sicherheitsgründen nicht erlaubt."
+
+#: public/partials/lastform-public-display.php:162
+msgid "Sorry, this file type is not permitted for security reasons."
+msgstr ""
+"Entschuldigung, dieser Dateityp ist aus Sicherheitsgründen nicht erlaubt."
+
+#: public/partials/lastform-public-display.php:163
+msgid "There was a problem while saving the file on the server"
+msgstr "Es gab ein Problem beim Speichern der Datei auf dem Server."
+
+#: public/partials/lastform-public-display.php:246
+msgid "State"
+msgstr "Bundesland"
+
+#: public/partials/lastform-public-display.php:256
+msgid "Province"
+msgstr "Provinz"
+
+#: public/partials/lastform-public-display.php:483
+msgid "Other"
+msgstr "Sonstiges"
+
+#. Plugin Name of the plugin/theme
+msgid "Lastform"
+msgstr "Lastform"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://codecanyon.net/item/lastform-affordable-typeform-"
+"alternative/17870313?ref=meydjer"
+msgstr ""
+"https://codecanyon.net/item/lastform-affordable-typeform-"
+"alternative/17870313?ref=meydjer"
+
+#. Description of the plugin/theme
+msgid "Affordable Typeform alternative"
+msgstr "Die bezahlbare Typeform Alternative"
+
+#. Author of the plugin/theme
+msgid "Meydjer Windmüller"
+msgstr "Meydjer Windmüller"
+
+#. Author URI of the plugin/theme
+msgid "http://meydjer.com"
+msgstr "http://meydjer.com"
