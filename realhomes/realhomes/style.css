@@ -1,0 +1,67 @@
+/*
+	Theme Name: RealHomes
+	Theme URI: http://themeforest.net/item/real-homes-wordpress-real-estate-theme/5373914
+	Author: InspiryThemes
+	Author URI: https://www.inspirythemes.com/
+	Description: RealHomes is a handcrafted WordPress theme for real estate websites. It offers purpose-oriented design with all the essential features that a real estate website needs. RealHomes theme facilitates its users on both the front-end and admin-side, making property management a breeze.
+    Requires at least: 6.0
+    Tested up to: 6.8.2
+    Requires PHP: 8.3
+	Version: 4.4.2
+	Text Domain: framework
+    Domain Path: /languages
+	License: GNU General Public License version 3.0
+	License URI: http://www.gnu.org/licenses/gpl-3.0.html
+	Tags: custom-background, light, one-column, two-columns, three-columns, four-columns, right-sidebar, flexible-header, custom-colors, custom-header, custom-menu, custom-logo, editor-style, featured-images, footer-widgets, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
+
+        ----------------------------------------------------------------------------------------------------------------*/
+
+/* Fullscreen search overlay styles */
+.rh-search-toggle {
+    background: none;
+    border: 0;
+    margin-left: 10px;
+    color: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+}
+
+.rh-search-toggle svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.rh-search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.rh-search-overlay.is-active {
+    display: flex;
+}
+
+.rh-search-overlay-form {
+    width: 80%;
+    max-width: 600px;
+}
+
+.rh-search-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+}
