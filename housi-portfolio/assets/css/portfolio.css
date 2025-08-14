@@ -1,0 +1,21 @@
+.housi-portfolio-grid {
+    display: grid;
+    gap: 30px;
+}
+
+.housi-portfolio-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.housi-portfolio-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.housi-portfolio-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.housi-portfolio-title {
+    margin-top: 15px;
+    text-align: center;
+}
