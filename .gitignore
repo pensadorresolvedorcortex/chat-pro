@@ -1,0 +1,15 @@
+wp-content/*
+!wp-content/wp-content/
+wp-content/wp-content/*
+!wp-content/wp-content/plugins/
+wp-content/wp-content/plugins/*
+!wp-content/wp-content/plugins/easy-real-estate/
+wp-content/wp-content/plugins/easy-real-estate/*
+!wp-content/wp-content/plugins/easy-real-estate/includes/
+wp-content/wp-content/plugins/easy-real-estate/includes/*
+!wp-content/wp-content/plugins/easy-real-estate/includes/widgets/
+!wp-content/wp-content/plugins/easy-real-estate/includes/functions/
+wp-content/wp-content/plugins/easy-real-estate/includes/widgets/*
+wp-content/wp-content/plugins/easy-real-estate/includes/functions/*
+!wp-content/wp-content/plugins/easy-real-estate/includes/widgets/property-filters.php
+!wp-content/wp-content/plugins/easy-real-estate/includes/functions/basic.php
