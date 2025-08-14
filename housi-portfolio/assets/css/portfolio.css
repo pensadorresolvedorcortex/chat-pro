@@ -1,0 +1,105 @@
+.housi-portfolio-filters {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.housi-portfolio-filters button {
+    background: none;
+    border: none;
+    padding: 6px 15px;
+    margin: 0 5px 10px;
+    cursor: pointer;
+    color: #333;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.housi-portfolio-filters button.active,
+.housi-portfolio-filters button:hover {
+    border-color: #333;
+}
+
+.housi-portfolio-grid {
+    display: grid;
+    gap: 30px;
+}
+
+.housi-portfolio-grid.columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.housi-portfolio-grid.columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.housi-portfolio-grid.columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.housi-portfolio-item {
+    position: relative;
+    overflow: hidden;
+}
+
+.housi-portfolio-thumb img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.housi-portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    text-align: center;
+}
+
+.housi-portfolio-item:hover .housi-portfolio-overlay {
+    opacity: 1;
+}
+
+.housi-portfolio-cats {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.housi-portfolio-cats li:not(:last-child):after {
+    content: ',';
+}
+
+.housi-portfolio-title {
+    margin: 0;
+}
+
+.housi-portfolio-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.housi-portfolio-wrapper {
+    max-width: 960px;
+    margin: 40px auto;
+}
+
+.housi-portfolio-single .housi-portfolio-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.housi-portfolio-content {
+    line-height: 1.6;
+}
