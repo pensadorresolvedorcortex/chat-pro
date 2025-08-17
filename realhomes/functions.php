@@ -3,6 +3,8 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Bootstrap theme and provide PHP 8.3 compatibility shims.
+
 // Ensure the theme's text domain constant is available.
 if ( ! defined( 'RH_TEXT_DOMAIN' ) ) {
     define( 'RH_TEXT_DOMAIN', 'framework' );
