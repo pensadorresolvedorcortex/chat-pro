@@ -35,6 +35,14 @@ if ( ! defined( 'INSPIRY_FRAMEWORK' ) ) {
     define( 'INSPIRY_FRAMEWORK', get_template_directory() . '/framework/' );
 }
 
+// Provide common path constants used by various framework utilities.
+if ( ! defined( 'INSPIRY_COMMON_DIR' ) ) {
+    define( 'INSPIRY_COMMON_DIR', get_template_directory() . '/framework/common/' );
+}
+if ( ! defined( 'INSPIRY_COMMON_URI' ) ) {
+    define( 'INSPIRY_COMMON_URI', get_template_directory_uri() . '/framework/common/' );
+}
+
 $framework = INSPIRY_FRAMEWORK . 'load.php';
 if ( file_exists( $framework ) ) {
     require_once $framework;
