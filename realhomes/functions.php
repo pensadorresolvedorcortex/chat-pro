@@ -10,13 +10,13 @@ if ( ! defined( 'RH_TEXT_DOMAIN' ) ) {
     define( 'RH_TEXT_DOMAIN', 'framework' );
 }
 
-// Preload theme translations so strings used during framework loading don't
-// trigger `_load_textdomain_just_in_time` notices on PHP 8.3. Although current
-// WordPress guidelines suggest loading text domains on `init`, the framework
-// executes translatable strings earlier in the lifecycle. Loading the domain
-// here ensures those calls have translations available without emitting
-// warnings.
-load_theme_textdomain( RH_TEXT_DOMAIN, get_template_directory() . '/languages' );
+// Load translations on the `init` hook so WordPress initializes the "framework"
+// text domain at the recommended point in its lifecycle and avoids
+// `_load_textdomain_just_in_time` notices that can corrupt early output.
+function realhomes_load_translations() {
+    load_theme_textdomain( RH_TEXT_DOMAIN, get_template_directory() . '/languages' );
+}
+add_action( 'init', 'realhomes_load_translations' );
 
 /**
  * Fallback check for WooCommerce activation.
