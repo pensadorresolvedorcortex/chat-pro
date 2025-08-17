@@ -43,6 +43,11 @@ if ( ! defined( 'INSPIRY_COMMON_URI' ) ) {
     define( 'INSPIRY_COMMON_URI', get_template_directory_uri() . '/framework/common/' );
 }
 
+// Default design variation used by various helpers.
+if ( ! defined( 'INSPIRY_DESIGN_VARIATION' ) ) {
+    define( 'INSPIRY_DESIGN_VARIATION', 'classic' );
+}
+
 $framework = INSPIRY_FRAMEWORK . 'load.php';
 if ( file_exists( $framework ) ) {
     require_once $framework;
