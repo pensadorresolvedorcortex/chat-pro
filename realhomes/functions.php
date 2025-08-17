@@ -65,6 +65,23 @@ if ( ! function_exists( 'get_property_price' ) ) {
 }
 
 /**
+ * Fallback wrapper that echoes a property's price.
+ *
+ * The original theme provides a `property_price()` helper which prints the
+ * property price. Some templates call this function directly, so we supply a
+ * minimal implementation that simply echoes the result of
+ * `get_property_price()` when the original helper is missing.
+ *
+ * @param int|false $property_id Optional property ID. Defaults to the current
+ *                               post inside the Loop.
+ */
+if ( ! function_exists( 'property_price' ) ) {
+    function property_price( $property_id = false ) {
+        echo esc_html( get_property_price( $property_id ) );
+    }
+}
+
+/**
  * Fallback for figure captions when image utilities are missing.
  *
  * Outputs the featured image caption for a given post if available. This keeps
