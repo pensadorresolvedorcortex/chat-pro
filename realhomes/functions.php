@@ -63,3 +63,27 @@ if ( ! function_exists( 'get_property_price' ) ) {
         return $price ? $price : '';
     }
 }
+
+/**
+ * Fallback for figure captions when image utilities are missing.
+ *
+ * Outputs the featured image caption for a given post if available. This keeps
+ * templates like `property-for-home.php` from triggering fatal errors when the
+ * original helper isn't bundled with the theme.
+ *
+ * @param int $post_id Optional. Post ID to retrieve the caption for.
+ */
+if ( ! function_exists( 'display_figcaption' ) ) {
+    function display_figcaption( $post_id = 0 ) {
+        $post_id      = $post_id ?: get_the_ID();
+        $attachment_id = get_post_thumbnail_id( $post_id );
+        if ( ! $attachment_id ) {
+            return;
+        }
+
+        $caption = wp_get_attachment_caption( $attachment_id );
+        if ( $caption ) {
+            echo '<figcaption>' . esc_html( $caption ) . '</figcaption>';
+        }
+    }
+}
