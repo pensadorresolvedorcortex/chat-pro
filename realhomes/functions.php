@@ -8,13 +8,14 @@ if ( ! defined( 'RH_TEXT_DOMAIN' ) ) {
     define( 'RH_TEXT_DOMAIN', 'framework' );
 }
 
-// Load theme translations at the proper time to avoid early translation notices.
+// Load theme translations as early as possible so no code triggers
+// `_load_textdomain_just_in_time` before the text domain is available.
 if ( ! function_exists( 'realhomes_load_textdomain' ) ) {
     function realhomes_load_textdomain() {
         load_theme_textdomain( RH_TEXT_DOMAIN, get_template_directory() . '/languages' );
     }
-    add_action( 'init', 'realhomes_load_textdomain' );
 }
+add_action( 'after_setup_theme', 'realhomes_load_textdomain', 0 );
 
 /**
  * Fallback check for WooCommerce activation.
