@@ -8,14 +8,16 @@ if ( ! defined( 'RH_TEXT_DOMAIN' ) ) {
     define( 'RH_TEXT_DOMAIN', 'framework' );
 }
 
-// Load theme translations as early as possible so no code triggers
-// `_load_textdomain_just_in_time` before the text domain is available.
+// Load theme translations on the `init` hook to satisfy WordPress 6.7+ which
+// no longer allows text domains to be loaded earlier in the request lifecycle.
+// Hooking into `init` ensures translations are available before any front-end
+// output while avoiding `_load_textdomain_just_in_time` notices.
 if ( ! function_exists( 'realhomes_load_textdomain' ) ) {
     function realhomes_load_textdomain() {
         load_theme_textdomain( RH_TEXT_DOMAIN, get_template_directory() . '/languages' );
     }
 }
-add_action( 'after_setup_theme', 'realhomes_load_textdomain', 0 );
+add_action( 'init', 'realhomes_load_textdomain', 0 );
 
 /**
  * Fallback check for WooCommerce activation.
