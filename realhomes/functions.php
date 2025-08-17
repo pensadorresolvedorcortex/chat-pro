@@ -104,3 +104,25 @@ if ( ! function_exists( 'display_figcaption' ) ) {
         }
     }
 }
+
+/**
+ * Fallback pagination renderer.
+ *
+ * Generates a basic numeric pagination using WordPress core functions when the
+ * original theme helper is unavailable, preventing template errors.
+ *
+ * @param int $max_num_pages Optional. Total number of pages. Defaults to the
+ *                           current global query's max pages.
+ */
+if ( ! function_exists( 'theme_pagination' ) ) {
+    function theme_pagination( $max_num_pages = 0 ) {
+        $total = $max_num_pages;
+        if ( ! $total && isset( $GLOBALS['wp_query'] ) ) {
+            $total = (int) $GLOBALS['wp_query']->max_num_pages;
+        }
+
+        if ( $total > 1 && function_exists( 'paginate_links' ) ) {
+            echo '<nav class="pagination">' . paginate_links( [ 'total' => $total ] ) . '</nav>';
+        }
+    }
+}
