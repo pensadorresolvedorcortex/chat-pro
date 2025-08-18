@@ -1574,10 +1574,12 @@ const VERSION = '2.8.80';
             foreach ( $nums as $n ) {
                 $seen[ $n ] = true;
             }
-            $entries[] = array(
-                'date'    => get_the_date( 'd/m', $p ),
-                'numbers' => $repeats,
-            );
+            if ( $repeats ) {
+                $entries[] = array(
+                    'date'    => get_the_date( 'd/m', $p ),
+                    'numbers' => $repeats,
+                );
+            }
         }
         $entries = array_reverse( $entries );
         $lines   = array();
@@ -1839,10 +1841,10 @@ const VERSION = '2.8.80';
     }
 
     private function build_overview_section( $total, $avg, $rate ) {
-        $out  = '<div class="bolaox-overview">';
-        $out .= '<div class="bx-overview"><strong class="bx-value">' . intval( $total ) . '</strong><span class="bx-label">' . esc_html__( 'Participantes', self::TEXT_DOMAIN ) . '</span></div>';
-        $out .= '<div class="bx-overview"><strong class="bx-value">' . number_format( $avg, 2, ',', '' ) . '</strong><span class="bx-label">' . esc_html__( 'Média de Pontos', self::TEXT_DOMAIN ) . '</span></div>';
-        $out .= '<div class="bx-overview"><strong class="bx-value">' . round( $rate ) . '%</strong><span class="bx-label">' . esc_html__( 'Taxa de Acerto', self::TEXT_DOMAIN ) . '</span></div>';
+        $out  = '<div class="bolaox-summary">';
+        $out .= '<div class="bx-summary"><span class="bx-summary-label">' . esc_html__( 'Participantes', self::TEXT_DOMAIN ) . '</span><strong class="bx-summary-value">' . intval( $total ) . '</strong></div>';
+        $out .= '<div class="bx-summary"><span class="bx-summary-label">' . esc_html__( 'Média de Pontos', self::TEXT_DOMAIN ) . '</span><strong class="bx-summary-value">' . number_format( $avg, 2, ',', '' ) . '</strong></div>';
+        $out .= '<div class="bx-summary"><span class="bx-summary-label">' . esc_html__( 'Taxa de Acerto', self::TEXT_DOMAIN ) . '</span><strong class="bx-summary-value">' . round( $rate ) . '%</strong></div>';
         $out .= '</div>';
         return $out;
     }
@@ -2342,20 +2344,26 @@ const VERSION = '2.8.80';
                 foreach ( $nums as $n ) {
                     $seen[ $n ] = true;
                 }
-                $entries[] = array(
-                    'date'    => get_the_date( 'd/m', $p ),
-                    'numbers' => array_values( $repeats ),
-                );
+                if ( $repeats ) {
+                    $entries[] = array(
+                        'date'    => get_the_date( 'd/m', $p ),
+                        'numbers' => array_values( $repeats ),
+                    );
+                }
             }
             $entries = array_reverse( $entries );
         }
         $out  = '<h3 class="bolaox-section-title">' . esc_html__( 'NÚMEROS REPETIDOS', self::TEXT_DOMAIN ) . '</h3>';
-        foreach ( $entries as $entry ) {
-            $list = '';
-            foreach ( $entry['numbers'] as $n ) {
-                $list .= '<span class="bolaox-number">' . esc_html( $n ) . '</span>';
+        if ( $entries ) {
+            foreach ( $entries as $entry ) {
+                $list = '';
+                foreach ( $entry['numbers'] as $n ) {
+                    $list .= '<span class="bolaox-number">' . esc_html( $n ) . '</span>';
+                }
+                $out .= '<div class="bolaox-repeat-date"><strong>' . esc_html( $entry['date'] ) . '</strong>: ' . $list . '</div>';
             }
-            $out .= '<div class="bolaox-repeat-date"><strong>' . esc_html( $entry['date'] ) . '</strong>: ' . ( $list ? $list : esc_html__( 'Nenhum', self::TEXT_DOMAIN ) ) . '</div>';
+        } else {
+            $out .= '<p>' . esc_html__( 'Nenhum número repetido.', self::TEXT_DOMAIN ) . '</p>';
         }
         if ( current_user_can( 'manage_options' ) ) {
             $value = $manual;
@@ -2384,10 +2392,12 @@ const VERSION = '2.8.80';
             $date  = $parts[0] ?? '';
             $nums  = $parts[1] ?? '';
             $numbers = $nums ? array_filter( array_map( 'trim', explode( ',', $nums ) ), 'strlen' ) : array();
-            $entries[] = array(
-                'date'    => $date,
-                'numbers' => $numbers,
-            );
+            if ( $date && $numbers ) {
+                $entries[] = array(
+                    'date'    => $date,
+                    'numbers' => $numbers,
+                );
+            }
         }
         return $entries;
     }

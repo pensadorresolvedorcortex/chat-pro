@@ -766,28 +766,29 @@
     margin: 2px;
 }
 
-.bolaox-overview {
+.bolaox-summary {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin: 20px 0;
 }
-.bolaox-overview .bx-overview {
+.bx-summary {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
-    padding: 10px 20px;
+    padding: 15px 25px;
     text-align: center;
-    min-width: 140px;
+    min-width: 150px;
 }
-.bolaox-overview .bx-label {
+.bx-summary-label {
     display: block;
     font-size: 0.85rem;
     color: #555;
 }
-.bolaox-overview .bx-value {
+.bx-summary-value {
     display: block;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: 600;
     margin-bottom: 2px;
 }
