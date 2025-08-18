@@ -1,0 +1,121 @@
+{
+  "title": "Dra. Greice Landing Page",
+  "type": "page",
+  "version": "0.4",
+  "content": [
+    {
+      "id": "hero",
+      "elType": "section",
+      "settings": { "css_classes": "hero" },
+      "elements": [
+        {
+          "id": "hero_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "hero_logo", "elType": "widget", "widgetType": "image", "settings": { "image": { "url": "https://greicekronbauer.com.br/wp-content/uploads/2018/09/logo-site.png" }, "image_size": "full", "align": "center" } },
+            { "id": "hero_title", "elType": "widget", "widgetType": "heading", "settings": { "title": "Dra. Greice Kronbauer", "align": "center" } },
+            { "id": "hero_subtitle", "elType": "widget", "widgetType": "heading", "settings": { "title": "Dentista em Porto Alegre", "header_size": "h3", "align": "center" } },
+            { "id": "hero_button", "elType": "widget", "widgetType": "button", "settings": { "text": "Agende seu horário", "link": { "url": "#agendamento" }, "align": "center", "css_classes": "btn" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "about",
+      "elType": "section",
+      "settings": { "css_classes": "about", "anchor": "sobre" },
+      "elements": [
+        {
+          "id": "about_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "about_heading", "elType": "widget", "widgetType": "heading", "settings": { "title": "Sobre a Dra. Greice Kronbauer", "align": "center" } },
+            { "id": "about_text", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<p>Cirurgiã-dentista graduada em Odontologia pela PUCRS (2009). Especialista em Implantodontia pela PUCRS (2013). Pós-graduação em Prótese e Reabilitação Oral pelo CeAo (2018). A Dra. Greice Kronbauer atende em Porto Alegre, no bairro Menino Deus, sendo sua opção ideal para Dentista em Porto Alegre.</p><p>Me chamo Greice Kronbauer, sou cirurgiã-dentista graduada em Odontologia pela PUCRS (2009). Após alguns cursos de atualização na área de prótese e implantes dentários, a paixão pela odontologia me fez dar um passo importante na construção do meu caminho profissional. No final de 2013, concluí o curso de Especialização em Implantodontia pela PUCRS. Durante todo o ano de 2018 me aperfeiçoei prática e teoricamente no curso de Prótese e Reabilitação Oral no Ceao. Nos últimos anos tenho me dedicado ao estudo da odontologia digital, lentes de contato dentais, odontologia estética, laminados cerâmicos, próteses em cerâmica pura e estética do sorriso. Com atendimento no bairro Menino Deus, possuo localização de fácil acesso para quem busca dentista em Porto Alegre. Será um imenso prazer atendê-los e juntos encontrarmos mais do que saúde bucal: felicidade e conforto ao sorrir.</p>" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "specialties",
+      "elType": "section",
+      "settings": { "css_classes": "specialties", "anchor": "especialidades" },
+      "elements": [
+        {
+          "id": "spec_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "spec_heading", "elType": "widget", "widgetType": "heading", "settings": { "title": "Especialidades", "align": "center" } },
+            { "id": "spec_list", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<ul class='specialties-list'><li>Odontologia Estética</li><li>Laminados Cerâmicos</li><li>Próteses Dentárias</li><li>Clareamento</li><li>Implantes</li><li>Cirurgias de Implante e Próteses sobre Implante</li><li>Clínica Geral</li><li>Prevenção, Profilaxia e Restaurações Estéticas</li></ul>" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testimonials",
+      "elType": "section",
+      "settings": { "css_classes": "testimonials", "anchor": "depoimentos" },
+      "elements": [
+        {
+          "id": "test_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "test_heading", "elType": "widget", "widgetType": "heading", "settings": { "title": "Depoimentos", "align": "center" } },
+            { "id": "test_text", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<p class='placeholder'>Área onde anexaremos prints de depoimentos feitos por clientes.</p>" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beforeafter",
+      "elType": "section",
+      "settings": { "css_classes": "before-after", "anchor": "antes-depois" },
+      "elements": [
+        {
+          "id": "before_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "before_heading", "elType": "widget", "widgetType": "heading", "settings": { "title": "Antes e Depois", "align": "center" } },
+            { "id": "before_text", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<p class='placeholder'>Área onde anexaremos prints de pacientes antes e depois dos tratamentos.</p>" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "elType": "section",
+      "settings": { "css_classes": "contact", "anchor": "agendamento" },
+      "elements": [
+        {
+          "id": "contact_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "contact_heading", "elType": "widget", "widgetType": "heading", "settings": { "title": "Agendamento", "align": "center" } },
+            { "id": "contact_address", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<address><strong>Consultório Mont’Serrat:</strong><br>Av. Carlos Gomes, 281 - Sala 304<br>Mont'Serrat - Porto Alegre - RS<br>(51) 98059-7027</address>" } },
+            { "id": "contact_social", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<h3>Redes Sociais</h3><ul><li><a href='https://instagram.com/greice_kronbauer_' target='_blank' rel='noopener'>@greice_kronbauer_</a></li><li><a href='https://instagram.com/dragreicekronbauer' target='_blank' rel='noopener'>@dragreicekronbauer</a></li></ul><p>E-mail: <a href='mailto:contato@greicekronbauer.com.br'>contato@greicekronbauer.com.br</a></p><p><a href='https://wa.me/5551980597027' class='btn whatsapp' target='_blank' rel='noopener'>Agende pelo WhatsApp</a></p>" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "footer",
+      "elType": "section",
+      "settings": { "css_classes": "site-footer" },
+      "elements": [
+        {
+          "id": "footer_col",
+          "elType": "column",
+          "settings": { "_column_size": 100 },
+          "elements": [
+            { "id": "footer_text", "elType": "widget", "widgetType": "text-editor", "settings": { "editor": "<p>&copy; 2024 Dra. Greice Kronbauer. Todos os direitos reservados.</p>" } }
+          ]
+        }
+      ]
+    }
+  ]
+}
