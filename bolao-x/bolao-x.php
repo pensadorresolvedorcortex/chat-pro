@@ -56,6 +56,7 @@ const VERSION = '2.8.80';
         add_action( 'init', array( $this, 'register_meta_fields' ) );
         add_action( 'save_post_bolaox_result', array( $this, 'clear_pending_payments' ), 10, 3 );
         add_action( 'save_post_bolaox_result', array( $this, 'recompute_scores_after_edit' ), 20, 3 );
+        add_action( 'save_post_bolaox_result', array( $this, 'update_repeats_after_edit' ), 30, 3 );
         add_action( 'save_post_bolaox_concurso', array( $this, 'auto_create_result' ), 10, 3 );
         add_action( 'admin_menu', array( $this, 'pending_payments_menu' ) );
         add_action( 'admin_menu', array( $this, 'import_bets_menu' ) );
@@ -1543,6 +1544,49 @@ const VERSION = '2.8.80';
         }
     }
 
+    public function update_repeats_after_edit( $post_id, $post, $update ) {
+        if ( 'bolaox_result' !== $post->post_type || 'publish' !== $post->post_status ) {
+            return;
+        }
+        $contest = intval( get_post_meta( $post_id, '_bolaox_concurso', true ) );
+        if ( ! $contest ) {
+            return;
+        }
+        $args = array(
+            'post_type'   => 'bolaox_result',
+            'post_status' => 'publish',
+            'orderby'     => 'date',
+            'order'       => 'ASC',
+            'meta_query'  => array(
+                array( 'key' => '_bolaox_concurso', 'value' => $contest ),
+            ),
+        );
+        $posts   = get_posts( $args );
+        $seen    = array();
+        $entries = array();
+        foreach ( $posts as $p ) {
+            $nums_str = get_post_meta( $p->ID, '_bolaox_result', true );
+            if ( ! $nums_str ) {
+                $nums_str = get_post_meta( $p->ID, '_bolaox_numbers', true );
+            }
+            $nums    = array_filter( array_map( 'trim', explode( ',', $nums_str ) ), 'strlen' );
+            $repeats = array_intersect( $nums, array_keys( $seen ) );
+            foreach ( $nums as $n ) {
+                $seen[ $n ] = true;
+            }
+            $entries[] = array(
+                'date'    => get_the_date( 'd/m', $p ),
+                'numbers' => $repeats,
+            );
+        }
+        $entries = array_reverse( $entries );
+        $lines   = array();
+        foreach ( $entries as $e ) {
+            $lines[] = $e['date'] . ':' . implode( ',', $e['numbers'] );
+        }
+        update_post_meta( $post_id, '_bolaox_repeats', implode( "\n", $lines ) );
+    }
+
     private function update_bet_scores( $contest_id, $numbers ) {
         $res = array_filter( array_map( 'trim', explode( ',', $numbers ) ), 'strlen' );
         if ( ! $res ) {
@@ -1748,7 +1792,7 @@ const VERSION = '2.8.80';
         $total = count( $rows );
         $avg   = $total ? array_sum( wp_list_pluck( $rows, 'hits' ) ) / $total : 0;
         $rate  = $avg ? ( $avg / 10 ) * 100 : 0;
-        $out .= $this->build_stats_cards( $total, $avg, $rate );
+        $out .= $this->build_overview_section( $total, $avg, $rate );
 
         $out .= '<div class="bolaox-legend">';
         $out .= '<span class="bolaox-number legend-hit"></span>';
@@ -1794,11 +1838,11 @@ const VERSION = '2.8.80';
         return $out;
     }
 
-    private function build_stats_cards( $total, $avg, $rate ) {
-        $out  = '<div class="bolaox-stats-cards">';
-        $out .= '<div class="bx-card"><span class="bx-label">' . esc_html__( 'Participantes', self::TEXT_DOMAIN ) . '</span><strong>' . intval( $total ) . '</strong></div>';
-        $out .= '<div class="bx-card"><span class="bx-label">' . esc_html__( 'Média de Pontos', self::TEXT_DOMAIN ) . '</span><strong>' . number_format( $avg, 2, ',', '' ) . '</strong></div>';
-        $out .= '<div class="bx-card"><span class="bx-label">' . esc_html__( 'Taxa de Acerto', self::TEXT_DOMAIN ) . '</span><strong>' . round( $rate ) . '%</strong></div>';
+    private function build_overview_section( $total, $avg, $rate ) {
+        $out  = '<div class="bolaox-overview">';
+        $out .= '<div class="bx-overview"><strong class="bx-value">' . intval( $total ) . '</strong><span class="bx-label">' . esc_html__( 'Participantes', self::TEXT_DOMAIN ) . '</span></div>';
+        $out .= '<div class="bx-overview"><strong class="bx-value">' . number_format( $avg, 2, ',', '' ) . '</strong><span class="bx-label">' . esc_html__( 'Média de Pontos', self::TEXT_DOMAIN ) . '</span></div>';
+        $out .= '<div class="bx-overview"><strong class="bx-value">' . round( $rate ) . '%</strong><span class="bx-label">' . esc_html__( 'Taxa de Acerto', self::TEXT_DOMAIN ) . '</span></div>';
         $out .= '</div>';
         return $out;
     }
@@ -2311,7 +2355,7 @@ const VERSION = '2.8.80';
             foreach ( $entry['numbers'] as $n ) {
                 $list .= '<span class="bolaox-number">' . esc_html( $n ) . '</span>';
             }
-            $out .= '<div class="bolaox-repeat-date"><strong>' . esc_html( $entry['date'] ) . '</strong> - ' . ( $list ? $list : esc_html__( 'Nenhum', self::TEXT_DOMAIN ) ) . '</div>';
+            $out .= '<div class="bolaox-repeat-date"><strong>' . esc_html( $entry['date'] ) . '</strong>: ' . ( $list ? $list : esc_html__( 'Nenhum', self::TEXT_DOMAIN ) ) . '</div>';
         }
         if ( current_user_can( 'manage_options' ) ) {
             $value = $manual;

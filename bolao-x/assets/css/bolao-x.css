@@ -766,28 +766,28 @@
     margin: 2px;
 }
 
-.bolaox-stats-cards {
+.bolaox-overview {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
     margin: 20px 0;
 }
-.bolaox-stats-cards .bx-card {
+.bolaox-overview .bx-overview {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px 20px;
     text-align: center;
-    min-width: 120px;
+    min-width: 140px;
 }
-.bolaox-stats-cards .bx-label {
+.bolaox-overview .bx-label {
     display: block;
     font-size: 0.85rem;
     color: #555;
 }
-.bolaox-stats-cards strong {
+.bolaox-overview .bx-value {
     display: block;
-    font-size: 1.2rem;
-    margin-top: 4px;
+    font-size: 1.4rem;
+    margin-bottom: 2px;
 }
