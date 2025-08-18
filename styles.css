@@ -1,0 +1,261 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+  --primary: #93c4e8;
+  --primary-dark: #86bde5;
+  --accent: #f5f9fc;
+  --dark: #333;
+  --light: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: var(--dark);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark)),
+    url('https://images.unsplash.com/photo-1588776814546-1ed98a797e4e?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+  color: var(--light);
+  text-align: center;
+  padding: 150px 20px 120px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--light);
+  border-top-left-radius: 100% 100%;
+  border-top-right-radius: 100% 100%;
+}
+
+.hero .container {
+  max-width: 900px;
+}
+
+.hero .logo {
+  max-width: 160px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 10px 0;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin: 0 0 30px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--light);
+  color: var(--primary-dark);
+  padding: 14px 40px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+  background: var(--primary-dark);
+  color: var(--light);
+  transform: translateY(-2px);
+}
+
+section {
+  padding: 100px 0;
+  position: relative;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: var(--primary-dark);
+}
+
+.specialties,
+.before-after {
+  background: var(--accent);
+}
+
+/* Sobre */
+.about-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.about-photo {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-text {
+  flex: 1;
+}
+
+/* Grades de Imagem */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.image-grid img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.specialties::before,
+.testimonials::before,
+.before-after::before,
+.contact::before,
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -60px;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  border-bottom-left-radius: 100% 100%;
+  border-bottom-right-radius: 100% 100%;
+  z-index: -1;
+}
+
+.specialties::before { background: var(--light); }
+.testimonials::before { background: var(--accent); }
+.before-after::before { background: var(--light); }
+.contact::before { background: var(--accent); }
+.site-footer::before { background: var(--light); }
+
+.specialties-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.specialties-list li {
+  background: var(--light);
+  color: var(--primary-dark);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.specialties-list li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.placeholder {
+  text-align: center;
+  color: #777;
+}
+
+.contact address {
+  font-style: normal;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.contact .social ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+.contact .social ul li {
+  margin-bottom: 5px;
+}
+
+.contact .social a {
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.contact .social a:hover {
+  text-decoration: underline;
+}
+
+.btn.whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+
+.site-footer {
+  background: var(--primary-dark);
+  color: var(--light);
+  text-align: center;
+  padding: 40px 0;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+  .hero p {
+    font-size: 1.75rem;
+  }
+  .about-content {
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 120px 20px 100px;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+  }
+  .btn {
+    padding: 12px 30px;
+  }
+}
