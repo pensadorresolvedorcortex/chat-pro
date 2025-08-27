@@ -1,11 +1,12 @@
 /* Custom CSS File for Buyers to Modify */
 
-/* Place "Alugar" and "Comprar" buttons inside the search box above the keyword field */
-.rh-ultra-search-form .rh-top-search-fields .rh-top-search-box {
+/* Place "Alugar" and "Comprar" buttons inside the keyword search field */
+
+.rh-ultra-search-form .rh_keyword_field_wrapper {
     position: relative;
+    padding-top: 50px; /* provide space for the buttons */
 }
 
-.rh-ultra-search-form .rh-status-field-wrapper,
 .rh-ultra-search-form .rh_status_field_wrapper {
     position: absolute;
     top: 10px;
@@ -13,8 +14,4 @@
     display: flex;
     gap: 10px;
     z-index: 2;
-}
-
-.rh-ultra-search-form .rh_keyword_field_wrapper {
-    padding-top: 50px; /* provide space for the buttons */
 }
