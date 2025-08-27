@@ -1,0 +1,20 @@
+/* Custom CSS File for Buyers to Modify */
+
+/* Place "Alugar" and "Comprar" buttons inside the keyword search field */
+
+.rhea_ultra_search_form_wrapper {
+    position: relative;
+}
+
+.rhea_ultra_search_form_wrapper .rhea-search-top-tabs-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.rhea_ultra_search_form_wrapper .rhea_keyword_field .rhea-text-field-wrapper {
+    padding-top: 50px; /* provide space for the buttons */
+}
