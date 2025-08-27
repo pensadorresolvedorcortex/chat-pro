@@ -1936,8 +1936,8 @@ const VERSION = '2.8.80';
         if ( ! $posts ) {
             return;
         }
-        $rows = array();
-        $drawn = implode( ' ', $res_numbers );
+        $rows  = array();
+        $drawn = $res_numbers;
         foreach ( $posts as $p ) {
             $numbers   = get_post_meta( $p->ID, '_bolaox_numbers', true );
             $nums      = array_filter( array_map( 'trim', explode( ',', $numbers ) ), 'strlen' );
@@ -1945,10 +1945,10 @@ const VERSION = '2.8.80';
             if ( 8 === $hits ) {
                 continue;
             }
-            $rows[]    = array(
+            $rows[] = array(
                 'name'    => $p->post_title,
                 'contest' => $contest_title,
-                'numbers' => implode( ' ', $nums ),
+                'numbers' => $nums,
                 'drawn'   => $drawn,
                 'hits'    => $hits,
                 'date'    => $p->post_date,
@@ -2150,14 +2150,48 @@ const VERSION = '2.8.80';
         foreach ( $rows as $r ) {
             $pdf->Cell( 50, 8, $r['name'], 1 );
             $pdf->Cell( 30, 8, $r['contest'], 1 );
-            $pdf->Cell( 40, 8, $r['numbers'], 1 );
-            $pdf->Cell( 50, 8, $r['drawn'], 1 );
+
+            // Render bet numbers with hit highlighting and duplicate counters.
+            $x = $pdf->GetX();
+            $y = $pdf->GetY();
+            $pdf->Cell( 40, 8, '', 1 );
+            $pdf->SetXY( $x, $y );
+            $this->pdf_numbers_line( $pdf, $r['numbers'], $r['drawn'] );
+            $pdf->SetXY( $x + 40, $y );
+
+            // Render drawn numbers with duplicate counters.
+            $x = $pdf->GetX();
+            $y = $pdf->GetY();
+            $pdf->Cell( 50, 8, '', 1 );
+            $pdf->SetXY( $x, $y );
+            $this->pdf_numbers_line( $pdf, $r['drawn'], $r['drawn'], true );
+            $pdf->SetXY( $x + 50, $y );
+
             if ( $r['hits'] >= 9 ) {
                 $pdf->SetTextColor( 0, 128, 0 );
             }
             $pdf->Cell( 20, 8, $r['hits'], 1, 0, 'C' );
             $pdf->SetTextColor( 0, 0, 0 );
             $pdf->Ln();
+        }
+    }
+
+    private function pdf_numbers_line( $pdf, $numbers, $drawn, $is_drawn = false ) {
+        $drawn_counts = array_count_values( $drawn );
+        $counts       = array_count_values( $numbers );
+        foreach ( $numbers as $n ) {
+            if ( ! $is_drawn && isset( $drawn_counts[ $n ] ) && $drawn_counts[ $n ] > 0 ) {
+                $pdf->SetTextColor( 0, 128, 0 );
+                $drawn_counts[ $n ]--;
+            } else {
+                $pdf->SetTextColor( 0, 0, 0 );
+            }
+            $pdf->Write( 8, sprintf( '%02d', $n ) );
+            if ( $counts[ $n ] > 1 ) {
+                $pdf->Write( 8, 'x' . intval( $counts[ $n ] ) );
+            }
+            $pdf->Write( 8, ' ' );
+            $pdf->SetTextColor( 0, 0, 0 );
         }
     }
 
