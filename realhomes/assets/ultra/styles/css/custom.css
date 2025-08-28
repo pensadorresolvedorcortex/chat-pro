@@ -18,3 +18,16 @@
 .rhea_ultra_search_form_wrapper .rhea_keyword_field .rhea-text-field-wrapper {
     padding-top: 50px; /* provide space for the buttons */
 }
+
+/* Replace default search icon with new arrow icon */
+.search-ultra-plus svg {
+    display: none;
+}
+
+.search-ultra-plus::before {
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20320%20512%27%3E%3Cpath%20fill%3D%27currentColor%27%20d%3D%27M41%20288h238c21.4%200%2032.1%2025.9%2017%2041L177%20448c-9.4%209.4-24.6%209.4-33.9%200L24%20329c-15.1-15.1-4.4-41%2017-41zm255-105L177%2064c-9.4-9.4-24.6-9.4-33.9%200L24%20183c-15.1%2015.1-4.4%2041%2017%2041h238c21.4%200%2032.1-25.9%2017-41z%27/%3E%3C/svg%3E") no-repeat center/contain;
+}
