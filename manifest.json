@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "FB Post Like Inviter",
+  "version": "1.0",
+  "description": "Invite users who liked a Facebook post to like the page.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://*.facebook.com/*"],
+  "action": {
+    "default_title": "Invite post likers"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
