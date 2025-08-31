@@ -1,0 +1,21 @@
+/* Custom WhatsApp button image and pulsating animation */
+div[id^="eapps-whatsapp-chat"] [role="button"] {
+    background-image: url('https://studioprivilege.com.br/wp-content/uploads/2025/08/Agencia-Bot.png') !important;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: privilege-bot-pulse 2s infinite;
+}
+
+/* Hide default icon inside button */
+div[id^="eapps-whatsapp-chat"] [role="button"] svg,
+div[id^="eapps-whatsapp-chat"] [role="button"] img {
+    opacity: 0;
+}
+
+/* Pulsing animation */
+@keyframes privilege-bot-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
