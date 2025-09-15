@@ -1445,6 +1445,41 @@ const VERSION = '2.8.80';
     public function contemplados_page() {
         $selected = isset( $_GET['contest'] ) ? intval( $_GET['contest'] ) : 0;
         $order    = isset( $_GET['orderby'] ) && 'date' === $_GET['orderby'] ? 'date' : 'score';
+
+        $active   = intval( get_option( 'bolaox_active_concurso', 0 ) );
+        if ( ! $selected ) {
+            $selected = $active;
+        }
+
+        // Handle PDF export before any output to avoid header issues.
+        if ( isset( $_GET['export_pdf'] ) ) {
+            $result_post = get_posts( array(
+                'post_type'   => 'bolaox_result',
+                'numberposts' => 1,
+                'post_status' => 'publish',
+                'meta_query'  => array(
+                    array( 'key' => '_bolaox_concurso', 'value' => $selected ),
+                ),
+            ) );
+            if ( $result_post ) {
+                $numbers = get_post_meta( $result_post[0]->ID, '_bolaox_result', true );
+                if ( ! $numbers ) {
+                    $numbers = get_post_meta( $result_post[0]->ID, '_bolaox_numbers', true );
+                }
+                $prize_values  = get_post_meta( $result_post[0]->ID, '_bolaox_prize_values', true );
+                if ( ! is_array( $prize_values ) ) {
+                    $prize_values = array();
+                }
+                $prize_winners = get_post_meta( $result_post[0]->ID, '_bolaox_prize_winners', true );
+                if ( ! is_array( $prize_winners ) ) {
+                    $prize_winners = array();
+                }
+                $fundo_caixa = get_post_meta( $result_post[0]->ID, '_bolaox_fundo_caixa', true );
+                $this->export_winners_pdf( $numbers, $selected, get_the_title( $selected ), $order, $prize_values, $prize_winners, $fundo_caixa );
+            }
+            return;
+        }
+
         $ids = $this->get_recent_result_contests( 15 );
         if ( $ids ) {
             $contests = get_posts( array(
@@ -1457,12 +1492,6 @@ const VERSION = '2.8.80';
         } else {
             $contests = array();
         }
-
-        $active   = intval( get_option( 'bolaox_active_concurso', 0 ) );
-        if ( ! $selected ) {
-            $selected = $active;
-        }
-
 
         echo '<div class="wrap bolaox-contemplados"><h1>' . esc_html__( 'Contemplados', self::TEXT_DOMAIN ) . '</h1>';
 
@@ -1526,9 +1555,6 @@ const VERSION = '2.8.80';
             $prize_winners = array();
         }
         $fundo_caixa = get_post_meta( $result_post[0]->ID, '_bolaox_fundo_caixa', true );
-        if ( isset( $_GET['export_pdf'] ) ) {
-            $this->export_winners_pdf( $numbers, $selected, get_the_title( $selected ), $order, $prize_values, $prize_winners, $fundo_caixa );
-        }
         $export_link = add_query_arg( 'export_pdf', 1 );
         echo '<p><a href="' . esc_url( $export_link ) . '" class="button bolaox-export-pdf">' . esc_html__( 'Gerar PDF', self::TEXT_DOMAIN ) . '</a></p>';
         echo '<h2>' . sprintf( esc_html__( 'Resultado do Concurso %s', self::TEXT_DOMAIN ), get_the_title( $selected ) ) . '</h2>';
