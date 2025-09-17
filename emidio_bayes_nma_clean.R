@@ -39,7 +39,13 @@ ensure_package <- function(pkg,
 }
 
 core_packages <- c(
-  "tidyverse",
+  "ggplot2",
+  "dplyr",
+  "tidyr",
+  "readr",
+  "purrr",
+  "tibble",
+  "forcats",
   "readxl",
   "janitor",
   "stringr",
@@ -56,37 +62,13 @@ core_packages <- c(
   "scales",
   "png",
   "ggdist",
-  "ggrepel"
+  "ggrepel",
+  "ggridges",
+  "glue"
 )
 
-core_handled_packages <- unique(c(
-  core_packages,
-  "ggplot2",
-  "dplyr",
-  "tidyr",
-  "readr",
-  "purrr",
-  "tibble",
-  "forcats"
-))
-
-for (pkg in core_packages) {
+for (pkg in unique(core_packages)) {
   ensure_package(pkg)
-}
-
-ensure_additional_packages <- function(pkgs) {
-  pkgs <- setdiff(pkgs, core_handled_packages)
-  if (!length(pkgs)) {
-    return(invisible(NULL))
-  }
-  for (pkg in pkgs) {
-    if (!requireNamespace(pkg, quietly = TRUE)) {
-      ensure_package(pkg)
-    } else if (!paste0("package:", pkg) %in% search()) {
-      suppressPackageStartupMessages(library(pkg, character.only = TRUE))
-    }
-  }
-  invisible(NULL)
 }
 
 if (Sys.info()[["sysname"]] == "Windows") {
@@ -456,7 +438,6 @@ summarise_nma <- function(fit,
 
 save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
   if (is.null(tbl) || !nrow(tbl)) {
-    message("[pairwise forest] Tabela vazia — nada a plotar.")
     return(invisible(NULL))
   }
   
@@ -474,7 +455,6 @@ save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
   ucl_v <- pick(c("97.5%", "upper", "ucl", "ci_upper", "Upper", "upper.95"))
   
   if (is.null(mean_v) || is.null(lcl_v) || is.null(ucl_v)) {
-    message("[pairwise forest] Não encontrei colunas de média/IC — pulando.")
     return(invisible(NULL))
   }
   
@@ -507,7 +487,6 @@ save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
     mutate(label = factor(label, levels = unique(label)))
   
   if (!nrow(df)) {
-    message("[pairwise forest] Tabela vazia após limpeza — nada a plotar.")
     return(invisible(NULL))
   }
   
@@ -914,9 +893,6 @@ nodesplit_check <- function(net,
                             is_binary,
                             mcmc = settings$mcmc) {
   plan <- try(multinma::get_nodesplits(net), silent = TRUE)
-  if (!inherits(plan, "try-error")) {
-    message("[Node-splitting] Total de splits: ", nrow(plan))
-  }
 
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
@@ -1111,17 +1087,6 @@ if (!is.null(res_opioid_free$nodesplit$table) && nrow(res_opioid_free$nodesplit$
 # ============================================================
 # [ETAPA 10] Padrão de plots para node-splitting
 # ============================================================
-ensure_additional_packages(c(
-  "ggplot2",
-  "dplyr",
-  "tidyr",
-  "stringr",
-  "forcats",
-  "scales",
-  "ggrepel",
-  "ggdist"
-))
-
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
 
@@ -1162,7 +1127,6 @@ plot_nodesplit_dumbbell <- function(ns_input, is_binary, outcome_key, label_tag)
   base <- ex$base
   long <- ex$long
   if (!nrow(long)) {
-    message("[nodesplit] Sem estimativas diretas/indiretas — gráfico dumbbell não gerado.")
     return(invisible(NULL))
   }
   
@@ -1238,13 +1202,11 @@ plot_nodesplit_scatter <- function(ns_input, is_binary, outcome_key, label_tag) 
   
   req <- c("d_dir_mean", "d_ind_mean")
   if (!all(req %in% names(base))) {
-    message("[nodesplit] Colunas ausentes para scatter — gráfico não gerado.")
     return(invisible(NULL))
   }
   
   have <- is.finite(base$d_dir_mean) & is.finite(base$d_ind_mean)
   if (!any(have)) {
-    message("[nodesplit] Sem pares direto/indireto finitos — scatter não gerado.")
     return(invisible(NULL))
   }
   
@@ -1297,7 +1259,6 @@ plot_nodesplit_scatter <- function(ns_input, is_binary, outcome_key, label_tag) 
 plot_nodesplit_heatmap <- function(ns_input, outcome_key, label_tag) {
   wide <- .ns_to_wide(ns_input)
   if (is.null(wide) || !nrow(wide) || !("p_value" %in% names(wide))) {
-    message("[nodesplit] Sem p_value — heatmap não gerado.")
     return(invisible(NULL))
   }
   
@@ -1321,7 +1282,6 @@ plot_nodesplit_heatmap <- function(ns_input, outcome_key, label_tag) {
     ) %>%
     distinct(t_low, t_high, .keep_all = TRUE)
   if (!nrow(df)) {
-    message("[nodesplit] p_value ausente — heatmap não gerado.")
     return(invisible(NULL))
   }
   p <- ggplot2::ggplot(df, ggplot2::aes(x = t_low, y = t_high, fill = p_value)) +
@@ -1349,8 +1309,6 @@ nodesplit_plot_suite <- function(res, outcome_id, timepoint, is_binary) {
   tag <- paste0(outcome_id, " @ ", timepoint %||% "NA")
   if (!is.null(res$nodesplit$summary)) {
     plot_nodesplit_builtin(res$nodesplit$summary, is_binary, key, tag)
-  } else {
-    message("[nodesplit] Sem summary — plots built-in pulados para ", key)
   }
   ns_input <- if (!is.null(res$nodesplit$table) && nrow(res$nodesplit$table)) {
     res$nodesplit$table
@@ -1418,7 +1376,6 @@ compute_ni_esmolol <- function(fit,
   for (comp in comparators) {
     draws <- .get_draws_vs_ref(fit, trt_ref = comp, trt_target = trt_test)
     if (is.null(draws)) {
-      message("[NI] Sem draws para '", trt_test, "' vs '", comp, "' — pulando.")
       next
     }
     draws <- draws[is.finite(draws)]
@@ -1465,7 +1422,6 @@ compute_ni_esmolol <- function(fit,
 
 plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   if (is.null(ni_tbl) || !nrow(ni_tbl)) {
-    message("[Forest NI] Tabela vazia — nada a plotar.")
     return(invisible(NULL))
   }
   lab_up <- function(x) toupper(gsub("_", " ", x))
@@ -1534,7 +1490,6 @@ plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   invisible(p)
 }
 
-stopifnot(!is.null(res_mme_24h$fit))
 ni_mme_esmolol <- compute_ni_esmolol(
   fit = res_mme_24h$fit,
   delta_mg = NI_DELTA,
@@ -1548,23 +1503,12 @@ if (nrow(ni_mme_esmolol)) {
     delta_mg = NI_DELTA,
     out_path = file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png")
   )
-  message("[NI] Tabela:  ", file.path(DOCS_DIR, "NI_esmolol_vs_others_MME_24h.csv"))
-  message("[NI] Figura:   ", file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png"))
-} else {
-  message("[NI] Sem comparadores válidos para esmolol em MME 24h.")
 }
 
 
 # ============================================================
 # [Subsessão] Forests por referência (X vs others)
 # ============================================================
-ensure_additional_packages(c(
-  "posterior",
-  "ggridges",
-  "glue",
-  "forcats"
-))
-
 VERBOSE <- TRUE
 say <- function(fmt, ...) {
   if (isTRUE(VERBOSE)) {
@@ -1889,11 +1833,3 @@ if (pass_all) {
 # ============================================================
 # [Revisão final]
 # ============================================================
-stopifnot(
-  exists("res_mme_24h"),
-  exists("res_pain_vas_6h"),
-  exists("res_opioid_free"),
-  is.list(res_mme_24h),
-  is.list(res_pain_vas_6h),
-  is.list(res_opioid_free)
-)
