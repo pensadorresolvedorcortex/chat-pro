@@ -1,6 +1,6 @@
 # ============================================================
 # Emidio - Bayes NMA (multinma): execução limpa e organizada
-# Alinhado ao multinma; SIDE robusto; priors definidos por YAML
+# Alinhado ao multinma; SIDE robusto; priors padrão do multinma
 # Versão desta revisão: 2025-08-31
 # ============================================================
 
@@ -39,7 +39,13 @@ ensure_package <- function(pkg,
 }
 
 core_packages <- c(
-  "tidyverse",
+  "ggplot2",
+  "dplyr",
+  "tidyr",
+  "readr",
+  "purrr",
+  "tibble",
+  "forcats",
   "readxl",
   "janitor",
   "stringr",
@@ -56,10 +62,12 @@ core_packages <- c(
   "scales",
   "png",
   "ggdist",
-  "ggrepel"
+  "ggrepel",
+  "ggridges",
+  "glue"
 )
 
-for (pkg in core_packages) {
+for (pkg in unique(core_packages)) {
   ensure_package(pkg)
 }
 
@@ -147,42 +155,6 @@ settings <- read_yaml_or(
   )
 )
 
-priors_default <- list(
-  priors = list(
-    mme_24h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 10),
-      tau = list(dist = "half_normal", scale = 5)
-    ),
-    pain_vas_6h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 5),
-      tau = list(dist = "half_normal", scale = 2)
-    ),
-    opioid_free_pacu = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 2.5),
-      tau = list(dist = "half_normal", scale = 0.7)
-    )
-  ),
-  intercepts = list(
-    binomial_logit = list(dist = "normal", location = 0, scale = 10),
-    normal_identity = list(dist = "normal", location = 0, scale = 1000)
-  )
-)
-
-priors_yaml <- read_yaml_or(file.path(CFG_DIR, "priors.yml"), default = priors_default)
-
-get_prior <- function(key) {
-  if (!is.null(priors_yaml$priors[[key]])) {
-    return(priors_yaml$priors[[key]])
-  }
-  if (!is.null(priors_yaml$intercepts[[key]])) {
-    return(priors_yaml$intercepts[[key]])
-  }
-  stop("Prior não encontrado para a chave: ", key)
-}
-
-INTERCEPT_KEY_BIN <- "binomial_logit"
-INTERCEPT_KEY_CONT <- "normal_identity"
-
 # ============================================================
 # [ETAPA 3] Importação e saneamento dos dados
 # ============================================================
@@ -223,12 +195,8 @@ outcomes <- outcomes_raw %>%
   )
 
 # ============================================================
-# [ETAPA 4] Priors helpers
+# [ETAPA 4] Helpers numéricos e conversões
 # ============================================================
-.is_scalar_numeric <- function(x) {
-  is.numeric(x) && length(x) == 1L && is.finite(x)
-}
-
 .as_num_chr <- function(x) {
   if (is.null(x)) {
     return(NA_real_)
@@ -269,62 +237,6 @@ outcomes <- outcomes_raw %>%
     }, numeric(1)))
   }
   suppressWarnings(as.numeric(as.character(x)))
-}
-
-.assert_pos <- function(x, label, ctx = "") {
-  if (!.is_scalar_numeric(x) || x <= 0) {
-    stop(sprintf("'%s' deve ser numérico escalar > 0 %s (valor atual: %s)",
-                 label,
-                 if (nzchar(ctx)) paste0(" em ", ctx) else "",
-                 deparse(x)))
-  }
-}
-
-.build_prior <- function(pr, ctx = "") {
-  if (is.null(pr$dist)) {
-    return(list(
-      effect = .build_prior(pr$effect, paste0(ctx, "/effect")),
-      tau = .build_prior(pr$tau, paste0(ctx, "/tau"))
-    ))
-  }
-  pr$dist <- gsub("-", "_", tolower(pr$dist))
-  if (pr$dist == "normal") {
-    m <- .as_num_chr(pr$location %||% pr$mean %||% 0)
-    s <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(s, "normal$scale", ctx)
-    return(multinma::normal(location = m, scale = s))
-  }
-  if (pr$dist == "student_t") {
-    lc <- .as_num_chr(pr$location %||% pr$loc %||% 0)
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "student_t$scale", ctx)
-    .assert_pos(df, "student_t$df", ctx)
-    return(multinma::student_t(location = lc, scale = sc, df = df))
-  }
-  if (pr$dist == "half_normal") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(sc, "half_normal$scale", ctx)
-    return(multinma::half_normal(scale = sc))
-  }
-  if (pr$dist == "half_student_t") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "half_student_t$scale", ctx)
-    .assert_pos(df, "half_student_t$df", ctx)
-    return(multinma::half_student_t(scale = sc, df = df))
-  }
-  stop("Distribuição não suportada: ", pr$dist, if (nzchar(ctx)) paste0(" em ", ctx))
-}
-
-.build_intercept_prior <- function(is_binary) {
-  if (is_binary) {
-    .build_prior(get_prior(INTERCEPT_KEY_BIN), "intercept_binomial")
-  } else if (!is.null(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]])) {
-    .build_prior(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]], "intercept_normal")
-  } else {
-    multinma::normal(location = 0, scale = 1000)
-  }
 }
 
 # ============================================================
@@ -526,7 +438,6 @@ summarise_nma <- function(fit,
 
 save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
   if (is.null(tbl) || !nrow(tbl)) {
-    message("[pairwise forest] Tabela vazia — nada a plotar.")
     return(invisible(NULL))
   }
   
@@ -544,7 +455,6 @@ save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
   ucl_v <- pick(c("97.5%", "upper", "ucl", "ci_upper", "Upper", "upper.95"))
   
   if (is.null(mean_v) || is.null(lcl_v) || is.null(ucl_v)) {
-    message("[pairwise forest] Não encontrei colunas de média/IC — pulando.")
     return(invisible(NULL))
   }
   
@@ -577,7 +487,6 @@ save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
     mutate(label = factor(label, levels = unique(label)))
   
   if (!nrow(df)) {
-    message("[pairwise forest] Tabela vazia após limpeza — nada a plotar.")
     return(invisible(NULL))
   }
   
@@ -984,25 +893,17 @@ nodesplit_check <- function(net,
                             is_binary,
                             mcmc = settings$mcmc) {
   plan <- try(multinma::get_nodesplits(net), silent = TRUE)
-  if (!inherits(plan, "try-error")) {
-    message("[Node-splitting] Total de splits: ", nrow(plan))
-  }
-  
-  pr <- get_prior(outcome_key)
-  pr_int <- .build_intercept_prior(is_binary)
+
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
     ctrl$max_treedepth <- mcmc$max_treedepth
   }
-  
+
   fit_ns <- multinma::nma(
     net,
     trt_effects = "random",
     consistency = "nodesplit",
-    prior_intercept = pr_int,
-    prior_trt = .build_prior(pr$effect, paste0(outcome_key, " (effect)")),
-    prior_het = .build_prior(pr$tau, paste0(outcome_key, " (tau)")),
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -1065,10 +966,6 @@ nodesplit_check <- function(net,
 
 fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
   message(">> Ajustando NMA para ", outcome_key)
-  pr <- get_prior(outcome_key)
-  pr_tau <- .build_prior(pr$tau, paste0(outcome_key, " (tau)"))
-  pr_eff <- .build_prior(pr$effect, paste0(outcome_key, " (effect)"))
-  pr_int <- .build_intercept_prior(is_binary)
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
@@ -1077,9 +974,6 @@ fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
   multinma::nma(
     net,
     trt_effects = "random",
-    prior_intercept = pr_int,
-    prior_trt = pr_eff,
-    prior_het = pr_tau,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -1193,15 +1087,6 @@ if (!is.null(res_opioid_free$nodesplit$table) && nrow(res_opioid_free$nodesplit$
 # ============================================================
 # [ETAPA 10] Padrão de plots para node-splitting
 # ============================================================
-ensure_package("ggplot2")
-ensure_package("dplyr")
-ensure_package("tidyr")
-ensure_package("stringr")
-ensure_package("forcats")
-ensure_package("scales")
-ensure_package("ggrepel")
-ensure_package("ggdist")
-
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
 
@@ -1242,7 +1127,6 @@ plot_nodesplit_dumbbell <- function(ns_input, is_binary, outcome_key, label_tag)
   base <- ex$base
   long <- ex$long
   if (!nrow(long)) {
-    message("[nodesplit] Sem estimativas diretas/indiretas — gráfico dumbbell não gerado.")
     return(invisible(NULL))
   }
   
@@ -1318,13 +1202,11 @@ plot_nodesplit_scatter <- function(ns_input, is_binary, outcome_key, label_tag) 
   
   req <- c("d_dir_mean", "d_ind_mean")
   if (!all(req %in% names(base))) {
-    message("[nodesplit] Colunas ausentes para scatter — gráfico não gerado.")
     return(invisible(NULL))
   }
   
   have <- is.finite(base$d_dir_mean) & is.finite(base$d_ind_mean)
   if (!any(have)) {
-    message("[nodesplit] Sem pares direto/indireto finitos — scatter não gerado.")
     return(invisible(NULL))
   }
   
@@ -1377,7 +1259,6 @@ plot_nodesplit_scatter <- function(ns_input, is_binary, outcome_key, label_tag) 
 plot_nodesplit_heatmap <- function(ns_input, outcome_key, label_tag) {
   wide <- .ns_to_wide(ns_input)
   if (is.null(wide) || !nrow(wide) || !("p_value" %in% names(wide))) {
-    message("[nodesplit] Sem p_value — heatmap não gerado.")
     return(invisible(NULL))
   }
   
@@ -1401,7 +1282,6 @@ plot_nodesplit_heatmap <- function(ns_input, outcome_key, label_tag) {
     ) %>%
     distinct(t_low, t_high, .keep_all = TRUE)
   if (!nrow(df)) {
-    message("[nodesplit] p_value ausente — heatmap não gerado.")
     return(invisible(NULL))
   }
   p <- ggplot2::ggplot(df, ggplot2::aes(x = t_low, y = t_high, fill = p_value)) +
@@ -1429,8 +1309,6 @@ nodesplit_plot_suite <- function(res, outcome_id, timepoint, is_binary) {
   tag <- paste0(outcome_id, " @ ", timepoint %||% "NA")
   if (!is.null(res$nodesplit$summary)) {
     plot_nodesplit_builtin(res$nodesplit$summary, is_binary, key, tag)
-  } else {
-    message("[nodesplit] Sem summary — plots built-in pulados para ", key)
   }
   ns_input <- if (!is.null(res$nodesplit$table) && nrow(res$nodesplit$table)) {
     res$nodesplit$table
@@ -1451,21 +1329,6 @@ nodesplit_plot_suite(res_opioid_free, "opioid_free", "pacu", is_binary = TRUE)
 # ============================================================
 # [MÓDULO DE NI] — Esmolol vs Outros (MME 24h)
 # ============================================================
-suppressPackageStartupMessages({
-  if (!requireNamespace("ggplot2", quietly = TRUE)) stop("Falta ggplot2.")
-  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Falta dplyr.")
-  if (!requireNamespace("tibble", quietly = TRUE)) stop("Falta tibble.")
-  if (!requireNamespace("readr", quietly = TRUE)) stop("Falta readr.")
-})
-
-if (!exists("FIG_DIR", inherits = TRUE) || is.null(FIG_DIR) || !nzchar(FIG_DIR)) {
-  FIG_DIR <- file.path(getwd(), "figures")
-}
-if (!exists("DOCS_DIR", inherits = TRUE) || is.null(DOCS_DIR) || !nzchar(DOCS_DIR)) {
-  DOCS_DIR <- file.path(getwd(), "docs")
-}
-dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
-dir.create(DOCS_DIR, showWarnings = FALSE, recursive = TRUE)
 
 if (exists("settings", inherits = TRUE) && !is.null(settings$ni)) {
   NI_DELTA <- settings$ni$delta_mg %||% 4
@@ -1513,7 +1376,6 @@ compute_ni_esmolol <- function(fit,
   for (comp in comparators) {
     draws <- .get_draws_vs_ref(fit, trt_ref = comp, trt_target = trt_test)
     if (is.null(draws)) {
-      message("[NI] Sem draws para '", trt_test, "' vs '", comp, "' — pulando.")
       next
     }
     draws <- draws[is.finite(draws)]
@@ -1560,7 +1422,6 @@ compute_ni_esmolol <- function(fit,
 
 plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   if (is.null(ni_tbl) || !nrow(ni_tbl)) {
-    message("[Forest NI] Tabela vazia — nada a plotar.")
     return(invisible(NULL))
   }
   lab_up <- function(x) toupper(gsub("_", " ", x))
@@ -1629,7 +1490,6 @@ plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   invisible(p)
 }
 
-stopifnot(!is.null(res_mme_24h$fit))
 ni_mme_esmolol <- compute_ni_esmolol(
   fit = res_mme_24h$fit,
   delta_mg = NI_DELTA,
@@ -1643,21 +1503,12 @@ if (nrow(ni_mme_esmolol)) {
     delta_mg = NI_DELTA,
     out_path = file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png")
   )
-  message("[NI] Tabela:  ", file.path(DOCS_DIR, "NI_esmolol_vs_others_MME_24h.csv"))
-  message("[NI] Figura:   ", file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png"))
-} else {
-  message("[NI] Sem comparadores válidos para esmolol em MME 24h.")
 }
 
 
 # ============================================================
 # [Subsessão] Forests por referência (X vs others)
 # ============================================================
-ensure_package("posterior")
-ensure_package("ggridges")
-ensure_package("glue")
-ensure_package("forcats")
-
 VERBOSE <- TRUE
 say <- function(fmt, ...) {
   if (isTRUE(VERBOSE)) {
@@ -1886,8 +1737,6 @@ REFS <- if (exists("TRT_LEVELS", inherits = TRUE) && length(TRT_LEVELS)) {
   sort(refs_from_draws)
 }
 say("REFS alvo: %s", if (length(REFS)) paste(REFS, collapse = ", ") else "<vazio>")
-FIG_DIR <- if (exists("FIG_DIR", inherits = TRUE) && nzchar(FIG_DIR)) FIG_DIR else file.path(getwd(), "figures")
-dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 plots_by_ref <- list()
 out_paths <- character(0)
 if (!length(REFS)) {
@@ -1984,11 +1833,3 @@ if (pass_all) {
 # ============================================================
 # [Revisão final]
 # ============================================================
-stopifnot(
-  exists("res_mme_24h"),
-  exists("res_pain_vas_6h"),
-  exists("res_opioid_free"),
-  is.list(res_mme_24h),
-  is.list(res_pain_vas_6h),
-  is.list(res_opioid_free)
-)
