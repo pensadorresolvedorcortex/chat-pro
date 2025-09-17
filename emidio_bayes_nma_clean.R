@@ -503,139 +503,24 @@ summarise_nma <- function(fit,
 }
 
 # ============================================================
-# [ETAPA 7] Forest pairwise — estilo “RevMan”
+# [ETAPA 7] Forest pairwise — estilo multinma
 # ============================================================
-.revman_theme <- function(base_size = 12) {
-  ggplot2::theme_minimal(base_size = base_size) +
-    ggplot2::theme(
-      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
-      plot.background = ggplot2::element_rect(fill = "white", colour = NA),
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor = ggplot2::element_blank(),
-      panel.grid.major.x = ggplot2::element_line(colour = "grey85", linewidth = 0.4),
-      axis.title.y = ggplot2::element_blank(),
-      axis.ticks.y = ggplot2::element_blank(),
-      axis.text.y = ggplot2::element_text(hjust = 0),
-      plot.margin = ggplot2::margin(10, 80, 35, 10)
-    )
-}
+save_forest_pairwise <- function(fit, is_binary, outcome_id, timepoint, ref) {
+  if (is.null(fit)) {
+    message("[pairwise forest] Objeto 'fit' ausente — nada a plotar.")
+    return(invisible(NULL))
+  }
 
-.fmt_ <- function(x, k = 2) {
-  formatC(x, digits = k, format = "f", drop0trailing = FALSE)
-}
+  rel <- multinma::relative_effects(fit, trt_ref = ref)
+  p <- plot(rel, ref_line = if (is_binary) 1 else 0)
 
-save_forest_pairwise <- function(tbl, is_binary, outcome_id, timepoint, ref) {
-  if (is.null(tbl) || !nrow(tbl)) {
-    message("[pairwise forest] Tabela vazia — nada a plotar.")
-    return(invisible(NULL))
-  }
-  
-  cn <- names(tbl)
-  pick <- function(opts) {
-    nm <- intersect(opts, cn)
-    if (length(nm) == 0L) {
-      return(NULL)
-    }
-    tbl[[nm[1]]]
-  }
-  
-  mean_v <- pick(c("mean", "Mean", "estimate", "Estimate", "est"))
-  lcl_v <- pick(c("2.5%", "lower", "lcl", "ci_lower", "Lower", "lower.95"))
-  ucl_v <- pick(c("97.5%", "upper", "ucl", "ci_upper", "Upper", "upper.95"))
-  
-  if (is.null(mean_v) || is.null(lcl_v) || is.null(ucl_v)) {
-    message("[pairwise forest] Não encontrei colunas de média/IC — pulando.")
-    return(invisible(NULL))
-  }
-  
-  has_trtb <- ".trtb" %in% cn
-  trtb_chr <- if (has_trtb) as.character(tbl$.trtb) else NULL
-  label <- if (has_trtb) {
-    paste0(trtb_chr, " vs ", ref)
-  } else if ("contrast" %in% cn) {
-    as.character(tbl$contrast)
-  } else if ("treatment" %in% cn) {
-    paste0(as.character(tbl$treatment), " vs ", ref)
-  } else if ("trt" %in% cn) {
-    paste0(as.character(tbl$trt), " vs ", ref)
-  } else {
-    paste0("trt_", seq_len(nrow(tbl)), " vs ", ref)
-  }
-  
-  df <- tibble::tibble(
-    label = label,
-    mean = as.numeric(mean_v),
-    lcl = as.numeric(lcl_v),
-    ucl = as.numeric(ucl_v)
-  ) %>%
-    filter(is.finite(mean), is.finite(lcl), is.finite(ucl)) %>%
-    mutate(
-      trt_name = sub("\\s+vs\\s+.*$", "", label),
-      ord = if (exists("TRT_LEVELS", inherits = TRUE)) match(tolower(trt_name), tolower(TRT_LEVELS)) else NA_real_
-    ) %>%
-    arrange(coalesce(ord, Inf), label) %>%
-    mutate(label = factor(label, levels = unique(label)))
-  
-  if (!nrow(df)) {
-    message("[pairwise forest] Tabela vazia após limpeza — nada a plotar.")
-    return(invisible(NULL))
-  }
-  
-  df <- df %>%
-    mutate(
-      txt_effect = sprintf("%s  [%s; %s]", .fmt_(mean, 2), .fmt_(lcl, 2), .fmt_(ucl, 2)),
-      y = as.numeric(label)
-    )
-  
-  stripes <- df %>%
-    mutate(ymin = y - 0.5, ymax = y + 0.5) %>%
-    filter((y %% 2) == 0) %>%
-    select(ymin, ymax)
-  
-  x0 <- if (is_binary) 1 else 0
-  xmin <- min(c(df$lcl, x0), na.rm = TRUE)
-  xmax <- max(c(df$ucl, x0), na.rm = TRUE)
-  span <- xmax - xmin + 1e-9
-  pad <- 0.10 * span
-  x_txt <- xmax + 0.45 * span
-  
-  p <- ggplot2::ggplot(df, ggplot2::aes(y = label)) +
-    ggplot2::geom_rect(
-      data = stripes,
-      ggplot2::aes(ymin = ymin, ymax = ymax),
-      xmin = -Inf,
-      xmax = Inf,
-      inherit.aes = FALSE,
-      fill = "grey97",
-      colour = NA
-    ) +
-    ggplot2::geom_vline(xintercept = x0, linetype = "solid", linewidth = 0.7, alpha = 0.9) +
-    ggplot2::geom_segment(ggplot2::aes(x = lcl, xend = ucl, yend = label), linewidth = 0.8) +
-    ggplot2::geom_point(
-      ggplot2::aes(x = mean),
-      shape = 22,
-      size = 3.6,
-      stroke = 0.6,
-      colour = "black",
-      fill = "grey70"
-    ) +
-    ggplot2::geom_point(
-      ggplot2::aes(x = mean),
-      shape = 3,
-      size = 2.2,
-      stroke = 0.7,
-      colour = "black"
-    ) +
-    ggplot2::geom_text(ggplot2::aes(x = x_txt, label = txt_effect), hjust = 0, size = 3.4) +
-    ggplot2::coord_cartesian(xlim = c(xmin - pad, x_txt + 0.25 * span), clip = "off") +
-    .revman_theme(base_size = 12) +
-    ggplot2::labs(
-      title = sprintf("Contrastes vs %s — %s @ %s", ref, outcome_id, timepoint %||% "NA"),
-      x = if (is_binary) "OR (vs ref)" else "MD (vs ref)"
-    )
-  
+  p <- p + ggplot2::labs(
+    title = sprintf("Contrastes vs %s — %s @ %s", ref, outcome_id, timepoint %||% "NA"),
+    x = if (is_binary) "OR (vs ref)" else "MD (vs ref)"
+  )
+
   print(p)
-  
+
   out_path <- file.path(
     FOREST_DIR,
     sprintf("forest_%s_%s_vsref_%s.png", outcome_id, timepoint %||% "NA", ref)
@@ -1120,7 +1005,7 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     is_binary = (agd_info$family == "binomial")
   )
   save_forest_pairwise(
-    sm$pairwise,
+    fit,
     is_binary = (agd_info$family == "binomial"),
     outcome_id = outcome_id,
     timepoint = timepoint,
@@ -1571,7 +1456,12 @@ plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   df <- ni_tbl %>%
     mutate(
       comp_label = factor(lab_up(comparator), levels = lab_up(comparator)[order(mean_MD)]),
-      eff_txt = sprintf("%s  [%s; %s]", .fmt_(mean_MD, 2), .fmt_(q2.5_MD, 2), .fmt_(q97.5_MD, 2)),
+      eff_txt = sprintf(
+        "%s  [%s; %s]",
+        formatC(mean_MD, digits = 2, format = "f", drop0trailing = FALSE),
+        formatC(q2.5_MD, digits = 2, format = "f", drop0trailing = FALSE),
+        formatC(q97.5_MD, digits = 2, format = "f", drop0trailing = FALSE)
+      ),
       pni_txt = sprintf("P(NI)=%.2f", p_NI),
       sq_size = prec
     ) %>%
@@ -1618,7 +1508,18 @@ plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
     ggplot2::geom_text(ggplot2::aes(x = x_txt1, label = eff_txt), hjust = 0, size = 3.6) +
     ggplot2::geom_text(ggplot2::aes(x = x_txt2, label = pni_txt), hjust = 0, size = 3.6) +
     ggplot2::coord_cartesian(xlim = c(xmin - pad, x_txt2 + 0.18 * span), clip = "off") +
-    .revman_theme(base_size = 12) +
+    ggplot2::theme_minimal(base_size = 12) +
+    ggplot2::theme(
+      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+      plot.background = ggplot2::element_rect(fill = "white", colour = NA),
+      panel.grid.major.y = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.grid.major.x = ggplot2::element_line(colour = "grey85", linewidth = 0.4),
+      axis.title.y = ggplot2::element_blank(),
+      axis.ticks.y = ggplot2::element_blank(),
+      axis.text.y = ggplot2::element_text(hjust = 0),
+      plot.margin = ggplot2::margin(10, 80, 35, 10)
+    ) +
     ggplot2::labs(
       title = sprintf("'%s' vs other", trt_header),
       x = "MD (Esmolol − Comparador) em MME (mg)"
