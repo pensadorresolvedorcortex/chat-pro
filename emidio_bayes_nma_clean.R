@@ -685,309 +685,28 @@ qc_nma <- function(fit, qa = settings$qa, outcome_key = "<na>") {
   list(fail = FALSE, rhat = rhat_max, ess_min = ess_min, divergences = n_div)
 }
 
-.ns_pick1 <- function(df, cand) {
-  nm <- cand[cand %in% names(df)]
-  if (length(nm)) nm[1] else ""
-}
-
-
-.ns_to_wide <- function(ns_input) {
-  if (is.null(ns_input)) {
-    return(tibble::tibble())
-  }
-  
-  tb <- NULL
-  if (inherits(ns_input, "nodesplit_summary")) {
-    tb <- suppressWarnings(try(tibble::as_tibble(ns_input, nest = FALSE), silent = TRUE))
-    if (inherits(tb, "try-error")) {
-      tb <- suppressWarnings(try(tibble::as_tibble(ns_input), silent = TRUE))
-    }
-  } else if (is.data.frame(ns_input)) {
-    tb <- tibble::as_tibble(ns_input)
-  } else {
-    tb <- suppressWarnings(try(tibble::as_tibble(ns_input, nest = FALSE), silent = TRUE))
-    if (inherits(tb, "try-error")) {
-      tb <- suppressWarnings(try(tibble::as_tibble(ns_input), silent = TRUE))
-    }
-  }
-  if (inherits(tb, "try-error") || is.null(tb)) {
-    return(tibble::tibble())
-  }
-  
-  if (!"comparison" %in% names(tb)) {
-    if (all(c("trt1", "trt2") %in% names(tb))) {
-      tb$comparison <- paste(tb$trt2, "vs", tb$trt1)
-    } else {
-      tb$comparison <- paste0("cmp_", seq_len(nrow(tb)))
-    }
-  }
-  
-  get_trts <- function(df) {
-    tmp <- df
-    if (!"trt1" %in% names(tmp)) tmp$trt1 <- NA_character_
-    if (!"trt2" %in% names(tmp)) tmp$trt2 <- NA_character_
-    dplyr::distinct(tmp, comparison, trt1, trt2)
-  }
-  
-  if ("parameter" %in% names(tb)) {
-    par_raw <- as.character(tb$parameter)
-    par_low <- tolower(par_raw)
-    src_col <- .ns_pick1(tb, c("source", "component", "group", "subset", "type", "evidence", "d_source"))
-    
-    if (any(par_low == "d") && nzchar(src_col)) {
-      mean_col <- .ns_pick1(tb, c("mean", "Mean", "estimate", "Estimate", "est"))
-      lcl_col <- .ns_pick1(tb, c("2.5%", "lower", "Lower", "lcl", "ci_lower", "Lower..95.", "lower.95"))
-      ucl_col <- .ns_pick1(tb, c("97.5%", "upper", "Upper", "ucl", "ci_upper", "Upper..95.", "upper.95"))
-      
-      tbd <- tb[par_low == "d", , drop = FALSE]
-      src_vals <- tolower(as.character(tbd[[src_col]]))
-      src_code <- ifelse(grepl("^dir", src_vals), "d_dir",
-                         ifelse(grepl("^ind", src_vals), "d_ind",
-                                ifelse(grepl("net|overall|comb|network", src_vals), "d_net", NA_character_)))
-      tbd$src_code <- src_code
-      tbd$mean_std <- .as_num_chr(tbd[[if (nzchar(mean_col)) mean_col else "mean"]])
-      tbd$lcl_std <- if (nzchar(lcl_col)) .as_num_chr(tbd[[lcl_col]]) else NA_real_
-      tbd$ucl_std <- if (nzchar(ucl_col)) .as_num_chr(tbd[[ucl_col]]) else NA_real_
-      
-      keep <- tbd[!is.na(tbd$src_code), c("comparison", "src_code", "mean_std", "lcl_std", "ucl_std"), drop = FALSE]
-      wide <- tidyr::pivot_wider(
-        tibble::as_tibble(keep),
-        names_from = src_code,
-        values_from = c(mean_std, lcl_std, ucl_std),
-        names_glue = "{src_code}_{.value}"
-      )
-      
-      pv_col <- .ns_pick1(tb, c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"))
-      if (any(par_low == "omega")) {
-        tpv <- tb[par_low == "omega", , drop = FALSE]
-        pv <- tibble::tibble(
-          comparison = paste(tpv$trt2, "vs", tpv$trt1),
-          p_value = .as_num_chr(tpv[[if (nzchar(pv_col)) pv_col else "p_value"]])
-        )
-        wide <- dplyr::left_join(wide, pv, by = "comparison")
-      }
-      
-      wide <- dplyr::left_join(wide, get_trts(tb), by = "comparison")
-      names(wide) <- gsub("mean_std", "mean", names(wide))
-      names(wide) <- gsub("lcl_std", "lcl", names(wide))
-      names(wide) <- gsub("ucl_std", "ucl", names(wide))
-      return(as.data.frame(wide))
-    }
-    
-    is_bracketed <- grepl("^(d_(dir|ind|net)|omega)\\[", par_low)
-    if (any(is_bracketed)) {
-      mean_col <- .ns_pick1(tb, c("mean", "Mean", "estimate", "Estimate", "est"))
-      lcl_col <- .ns_pick1(tb, c("2.5%", "lower", "Lower", "lcl", "ci_lower", "Lower..95.", "lower.95"))
-      ucl_col <- .ns_pick1(tb, c("97.5%", "upper", "Upper", "ucl", "ci_upper", "Upper..95.", "upper.95"))
-      pv_col <- .ns_pick1(tb, c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"))
-      
-      tbb <- tb[is_bracketed, , drop = FALSE]
-      kind <- ifelse(grepl("^d_dir\\[", par_low[is_bracketed]), "d_dir",
-                     ifelse(grepl("^d_ind\\[", par_low[is_bracketed]), "d_ind",
-                            ifelse(grepl("^d_net\\[", par_low[is_bracketed]), "d_net",
-                                   ifelse(grepl("^omega\\[", par_low[is_bracketed]), "omega", NA_character_))))
-      comp <- sub("^.*\\[|\\]$", "", par_raw[is_bracketed])
-      sp <- strsplit(comp, "\\s+vs\\.?\\s+", perl = TRUE)
-      trt2 <- vapply(sp, function(v) if (length(v) >= 1) v[1] else NA_character_, "")
-      trt1 <- vapply(sp, function(v) if (length(v) >= 2) v[2] else NA_character_, "")
-      
-      tbb$kind <- kind
-      tbb$comparison <- comp
-      tbb$trt1 <- trt1
-      tbb$trt2 <- trt2
-      tbb$mean_std <- .as_num_chr(tbb[[if (nzchar(mean_col)) mean_col else "mean"]])
-      tbb$lcl_std <- if (nzchar(lcl_col)) .as_num_chr(tbb[[lcl_col]]) else NA_real_
-      tbb$ucl_std <- if (nzchar(ucl_col)) .as_num_chr(tbb[[ucl_col]]) else NA_real_
-      tbb$pval_std <- if (nzchar(pv_col)) .as_num_chr(tbb[[pv_col]]) else NA_real_
-      
-      keep <- tbb[, c("comparison", "trt1", "trt2", "kind", "mean_std", "lcl_std", "ucl_std", "pval_std"), drop = FALSE]
-      wide <- tidyr::pivot_wider(
-        tibble::as_tibble(keep),
-        names_from = kind,
-        values_from = c(mean_std, lcl_std, ucl_std),
-        names_glue = "{kind}_{.value}"
-      )
-      pv <- keep[keep$kind == "omega", c("comparison", "pval_std"), drop = FALSE]
-      if (nrow(pv)) {
-        names(pv)[names(pv) == "pval_std"] <- "p_value"
-        wide <- dplyr::left_join(wide, pv, by = "comparison")
-      }
-      if (!"trt1" %in% names(wide)) {
-        wide$trt1 <- keep$trt1[match(wide$comparison, keep$comparison)]
-      }
-      if (!"trt2" %in% names(wide)) {
-        wide$trt2 <- keep$trt2[match(wide$comparison, keep$comparison)]
-      }
-      
-      names(wide) <- gsub("mean_std", "mean", names(wide))
-      names(wide) <- gsub("lcl_std", "lcl", names(wide))
-      names(wide) <- gsub("ucl_std", "ucl", names(wide))
-      return(as.data.frame(wide))
-    }
-    
-    if (any(par_low %in% c("d_dir", "d_ind", "d_net", "omega"))) {
-      mean_col <- .ns_pick1(tb, c("mean", "Mean", "estimate", "Estimate", "est"))
-      lcl_col <- .ns_pick1(tb, c("2.5%", "lower", "Lower", "lcl", "ci_lower", "Lower..95.", "lower.95"))
-      ucl_col <- .ns_pick1(tb, c("97.5%", "upper", "Upper", "ucl", "ci_upper", "Upper..95.", "upper.95"))
-      
-      tb$mean_std <- .as_num_chr(tb[[if (nzchar(mean_col)) mean_col else "mean"]])
-      tb$lcl_std <- if (nzchar(lcl_col)) .as_num_chr(tb[[lcl_col]]) else NA_real_
-      tb$ucl_std <- if (nzchar(ucl_col)) .as_num_chr(tb[[ucl_col]]) else NA_real_
-      
-      keep <- tb %>%
-        filter(par_low %in% c("d_dir", "d_ind", "d_net")) %>%
-        select(comparison, parameter, mean = mean_std, lcl = lcl_std, ucl = ucl_std)
-      wide <- tidyr::pivot_wider(
-        keep,
-        names_from = parameter,
-        values_from = c(mean, lcl, ucl),
-        names_glue = "{parameter}_{.value}"
-      )
-      
-      pv_col <- .ns_pick1(tb, c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"))
-      pv <- tb %>%
-        filter(par_low == "omega") %>%
-        transmute(
-          comparison,
-          p_value = .as_num_chr(.data[[if (nzchar(pv_col)) pv_col else "p_value"]])
-        ) %>%
-        distinct()
-      
-      wide <- dplyr::left_join(wide, pv, by = "comparison")
-      wide <- dplyr::left_join(wide, get_trts(tb), by = "comparison")
-      return(as.data.frame(wide))
-    }
-  }
-  
-  wide <- as.data.frame(tb)
-  mapping <- list(
-    d_dir_mean = c("d_dir_mean", "mean_d_dir", "d.dir.mean", "d_dir", "d.dir"),
-    d_dir_lcl = c("d_dir_lcl", "d_dir_2.5%", "lcl_d_dir", "d.dir.2.5.", "d_dir_lower", "lower_d_dir"),
-    d_dir_ucl = c("d_dir_ucl", "d_dir_97.5%", "ucl_d_dir", "d.dir.97.5.", "d_dir_upper", "upper_d_dir"),
-    d_ind_mean = c("d_ind_mean", "mean_d_ind", "d.ind.mean", "d_ind", "d.ind"),
-    d_ind_lcl = c("d_ind_lcl", "d_ind_2.5%", "lcl_d_ind", "d.ind.2.5.", "d_ind_lower", "lower_d_ind"),
-    d_ind_ucl = c("d_ind_ucl", "d_ind_97.5%", "ucl_d_ind", "d.ind.97.5.", "d_ind_upper", "upper_d_ind"),
-    d_net_mean = c("d_net_mean", "mean_d_net", "d.net.mean", "d_net", "d.net"),
-    d_net_lcl = c("d_net_lcl", "d_net_2.5%", "lcl_d_net", "d.net.2.5.", "d_net_lower", "lower_d_net"),
-    d_net_ucl = c("d_net_ucl", "d_net_97.5%", "ucl_d_net", "d.net.97.5.", "d_net_upper", "upper_d_net"),
-    omega_mean = c("omega_mean", "mean_omega", "omega.mean", "omega"),
-    omega_lcl = c("omega_lcl", "omega_2.5%", "omega.lower", "omega.2.5."),
-    omega_ucl = c("omega_ucl", "omega_97.5%", "omega.upper", "omega.97.5."),
-    p_value = c("p_value", "p.value", "p", "pval", "pval_std", "pval-std")
-  )
-  for (k in names(mapping)) {
-    if (!k %in% names(wide)) {
-      src <- mapping[[k]][mapping[[k]] %in% names(wide)]
-      if (length(src)) {
-        wide[[k]] <- .as_num_chr(wide[[src[1]]])
-      } else {
-        wide[[k]] <- NA_real_
-      }
-    } else {
-      wide[[k]] <- .as_num_chr(wide[[k]])
-    }
-  }
-  if (!"comparison" %in% names(wide) || all(is.na(wide$comparison))) {
-    if (all(c("trt1", "trt2") %in% names(wide))) {
-      wide$comparison <- paste(wide$trt2, "vs", wide$trt1)
-    } else if ("contrast" %in% names(wide)) {
-      wide$comparison <- as.character(wide$contrast)
-    } else {
-      wide$comparison <- paste0("cmp_", seq_len(nrow(wide)))
-    }
-  } else {
-    wide$comparison <- as.character(wide$comparison)
-  }
-  
-  if (!("trt1" %in% names(wide) && "trt2" %in% names(wide))) {
-    sp <- strsplit(as.character(wide$comparison), "\\s+vs\\.?\\s+", perl = TRUE)
-    trt2 <- vapply(sp, function(v) if (length(v) >= 1) v[1] else NA_character_, "")
-    trt1 <- vapply(sp, function(v) if (length(v) >= 2) v[2] else NA_character_, "")
-    if (!"trt1" %in% names(wide)) wide$trt1 <- trt1
-    if (!"trt2" %in% names(wide)) wide$trt2 <- trt2
-  }
-  wide
-}
-
-
-.ns_build_long <- function(wide_tbl, is_binary) {
-  if (is.null(wide_tbl) || !nrow(wide_tbl)) {
-    return(list(base = tibble::tibble(), long = tibble::tibble()))
-  }
-  n <- nrow(wide_tbl)
-  sc <- function(nm) {
-    if (nm %in% names(wide_tbl)) {
-      .as_num_chr(wide_tbl[[nm]])
-    } else {
-      rep(NA_real_, n)
-    }
-  }
-  
-  base <- tibble::tibble(
-    comparison = as.character(wide_tbl$comparison),
-    d_dir_mean = sc("d_dir_mean"),
-    d_dir_lcl = sc("d_dir_lcl"),
-    d_dir_ucl = sc("d_dir_ucl"),
-    d_ind_mean = sc("d_ind_mean"),
-    d_ind_lcl = sc("d_ind_lcl"),
-    d_ind_ucl = sc("d_ind_ucl"),
-    d_net_mean = sc("d_net_mean"),
-    d_net_lcl = sc("d_net_lcl"),
-    d_net_ucl = sc("d_net_ucl"),
-    omega_mean = sc("omega_mean"),
-    omega_lcl = sc("omega_lcl"),
-    omega_ucl = sc("omega_ucl"),
-    p_value = sc("p_value")
-  )
-  
-  if (isTRUE(is_binary)) {
-    for (nm in c(
-      "d_dir_mean", "d_dir_lcl", "d_dir_ucl",
-      "d_ind_mean", "d_ind_lcl", "d_ind_ucl",
-      "d_net_mean", "d_net_lcl", "d_net_ucl"
-    )) {
-      base[[nm]] <- exp(base[[nm]])
-    }
-  }
-  
-  mk_long <- function(lbl, m, l, u) {
-    keep <- rowSums(is.finite(cbind(base[[m]], base[[l]], base[[u]]))) >= 2
-    if (!any(keep)) {
-      return(NULL)
-    }
-    tibble::tibble(
-      comparison = base$comparison[keep],
-      type = lbl,
-      estimate = base[[m]][keep],
-      lower = base[[l]][keep],
-      upper = base[[u]][keep]
-    )
-  }
-  
-  long <- dplyr::bind_rows(
-    mk_long("Direto", "d_dir_mean", "d_dir_lcl", "d_dir_ucl"),
-    mk_long("Indireto", "d_ind_mean", "d_ind_lcl", "d_ind_ucl"),
-    mk_long("Network", "d_net_mean", "d_net_lcl", "d_net_ucl")
-  )
-  if (is.null(long)) {
-    long <- tibble::tibble()
-  }
-  if (nrow(long)) {
-    long$type <- factor(long$type, levels = c("Direto", "Indireto", "Network"))
-  }
-  
-  list(base = base, long = long)
-}
 
 nodesplit_check <- function(net,
                             outcome_key,
                             is_binary,
-                            mcmc = settings$mcmc) {
-  plan <- try(multinma::get_nodesplits(net), silent = TRUE)
-  if (!inherits(plan, "try-error")) {
-    message("[Node-splitting] Total de splits: ", nrow(plan))
+                            mcmc = settings$mcmc,
+                            consistency_fit = NULL) {
+  plan <- tryCatch(
+    multinma::get_nodesplits(net),
+    error = function(err) {
+      message("[Node-splitting] Falha ao obter comparações: ", conditionMessage(err))
+      NULL
+    }
+  )
+
+  plan_rows <- if (is.data.frame(plan)) nrow(plan) else 0L
+  if (plan_rows == 0L) {
+    message("[Node-splitting] Nenhuma comparação disponível para split em ", outcome_key)
+    return(list(object = NULL, summary = NULL, plan = plan))
   }
-  
+
+  message("[Node-splitting] Total de splits: ", plan_rows)
+
   pr <- get_prior(outcome_key)
   pr_int <- .build_intercept_prior(is_binary)
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
@@ -995,11 +714,12 @@ nodesplit_check <- function(net,
   if (!is.null(mcmc$max_treedepth)) {
     ctrl$max_treedepth <- mcmc$max_treedepth
   }
-  
+
   fit_ns <- multinma::nma(
     net,
     trt_effects = "random",
     consistency = "nodesplit",
+    nodesplit = plan,
     prior_intercept = pr_int,
     prior_trt = .build_prior(pr$effect, paste0(outcome_key, " (effect)")),
     prior_het = .build_prior(pr$tau, paste0(outcome_key, " (tau)")),
@@ -1010,56 +730,22 @@ nodesplit_check <- function(net,
     seed = mcmc$seed,
     control = ctrl
   )
-  
-  sm <- summary(fit_ns)
-  top_p <- NULL
-  if (all(c("trt1", "trt2", "parameter") %in% names(sm))) {
-    pcol_top <- intersect(c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"), names(sm))[1]
-    if (length(pcol_top) == 1L && nzchar(pcol_top)) {
-      par_low <- tolower(as.character(sm$parameter))
-      tmp <- tibble::tibble(
-        comparison = paste(sm$trt2, "vs", sm$trt1),
-        trt1 = as.character(sm$trt1),
-        trt2 = as.character(sm$trt2),
-        p_value_top = .as_num_chr(sm[[pcol_top]]),
-        is_omega = par_low == "omega"
-      ) %>%
-        filter(is_omega, is.finite(p_value_top)) %>%
-        distinct(comparison, .keep_all = TRUE)
-      if (nrow(tmp)) {
-        top_p <- tmp
+
+  nodesplit_summary <- tryCatch(
+    {
+      if (!is.null(consistency_fit)) {
+        summary(fit_ns, consistency = consistency_fit)
+      } else {
+        summary(fit_ns)
       }
+    },
+    error = function(err) {
+      message("[Node-splitting] Falha ao resumir splits: ", conditionMessage(err))
+      NULL
     }
-  }
-  
-  tbl <- try(.ns_to_wide(sm), silent = TRUE)
-  if (inherits(tbl, "try-error")) {
-    tbl <- NULL
-  }
-  
-  if (!is.null(top_p)) {
-    if (is.null(tbl) || !nrow(tbl)) {
-      tbl <- top_p %>%
-        transmute(comparison, trt1, trt2, p_value = p_value_top)
-    } else {
-      if (!"p_value" %in% names(tbl)) {
-        tbl$p_value <- NA_real_
-      }
-      tbl <- tbl %>%
-        dplyr::left_join(
-          dplyr::select(top_p, comparison, p_value_top),
-          by = "comparison"
-        ) %>%
-        mutate(p_value = dplyr::coalesce(.as_num_chr(p_value), .as_num_chr(p_value_top))) %>%
-        select(-p_value_top)
-    }
-  }
-  
-  if (!is.null(tbl) && "p_value" %in% names(tbl)) {
-    tbl$p_value <- .as_num_chr(tbl$p_value)
-  }
-  
-  list(object = fit_ns, summary = sm, table = tbl, plan = plan)
+  )
+
+  list(object = fit_ns, summary = nodesplit_summary, plan = plan)
 }
 
 
@@ -1117,7 +803,8 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
   ns <- nodesplit_check(
     net,
     outcome_key = key,
-    is_binary = (agd_info$family == "binomial")
+    is_binary = (agd_info$family == "binomial"),
+    consistency_fit = fit
   )
   save_forest_pairwise(
     sm$pairwise,
@@ -1141,6 +828,31 @@ writetbl <- function(x, path) {
   readr::write_csv(dplyr::as_tibble(x), path)
 }
 
+write_nodesplit_outputs <- function(ns_res, file_stub) {
+  if (is.null(ns_res) || is.null(ns_res$summary)) {
+    return(invisible(NULL))
+  }
+
+  summary_path <- file.path(DOCS_DIR, paste0("nodesplit_", file_stub, ".txt"))
+  capture.output(
+    print(ns_res$summary),
+    file = summary_path
+  )
+
+  ns_tbl <- tryCatch(
+    tibble::as_tibble(ns_res$summary, nest = FALSE),
+    error = function(err) {
+      tryCatch(tibble::as_tibble(ns_res$summary), error = function(e) NULL)
+    }
+  )
+  if (!is.null(ns_tbl) && nrow(ns_tbl)) {
+    csv_path <- file.path(DOCS_DIR, paste0("nodesplit_", file_stub, ".csv"))
+    readr::write_csv(ns_tbl, csv_path)
+  }
+
+  invisible(NULL)
+}
+
 
 # ============================================================
 # [ETAPA 9] Execução principal + exportação
@@ -1161,33 +873,9 @@ writetbl(res_opioid_free$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_opi
 # -----------------------------
 # Node-splitting — TXT + CSV achatado
 # -----------------------------
-if (!is.null(res_mme_24h$nodesplit$summary)) {
-  capture.output(
-    print(res_mme_24h$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_mme_24h.txt")
-  )
-}
-if (!is.null(res_mme_24h$nodesplit$table) && nrow(res_mme_24h$nodesplit$table)) {
-  readr::write_csv(res_mme_24h$nodesplit$table, file.path(DOCS_DIR, "nodesplit_mme_24h.csv"))
-}
-if (!is.null(res_pain_vas_6h$nodesplit$summary)) {
-  capture.output(
-    print(res_pain_vas_6h$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_pain_vas_6h.txt")
-  )
-}
-if (!is.null(res_pain_vas_6h$nodesplit$table) && nrow(res_pain_vas_6h$nodesplit$table)) {
-  readr::write_csv(res_pain_vas_6h$nodesplit$table, file.path(DOCS_DIR, "nodesplit_pain_vas_6h.csv"))
-}
-if (!is.null(res_opioid_free$nodesplit$summary)) {
-  capture.output(
-    print(res_opioid_free$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_opioid_free_pacu.txt")
-  )
-}
-if (!is.null(res_opioid_free$nodesplit$table) && nrow(res_opioid_free$nodesplit$table)) {
-  readr::write_csv(res_opioid_free$nodesplit$table, file.path(DOCS_DIR, "nodesplit_opioid_free_pacu.csv"))
-}
+write_nodesplit_outputs(res_mme_24h$nodesplit, "mme_24h")
+write_nodesplit_outputs(res_pain_vas_6h$nodesplit, "pain_vas_6h")
+write_nodesplit_outputs(res_opioid_free$nodesplit, "opioid_free_pacu")
 
 
 # ============================================================
@@ -1205,247 +893,66 @@ ensure_package("ggdist")
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
 
-.save_plot <- function(p, file, w = 8, h = 5.2) {
-  ggplot2::ggsave(filename = file, plot = p, width = w, height = h, dpi = 300, bg = "white")
+save_nodesplit_plot <- function(ns_summary, file, width = 8, height = 5.2, ...) {
+  if (is.null(ns_summary)) {
+    return(invisible(NULL))
+  }
+  plt <- tryCatch(
+    plot(ns_summary, ...),
+    error = function(err) {
+      message("[nodesplit] Falha ao gerar plot para ", basename(file), ": ", conditionMessage(err))
+      NULL
+    }
+  )
+  if (is.null(plt)) {
+    return(invisible(NULL))
+  }
+  ggplot2::ggsave(filename = file, plot = plt, width = width, height = height, dpi = 300, bg = "white")
   message("[nodesplit] Figura salva em: ", file)
+  invisible(plt)
 }
 
-plot_nodesplit_builtin <- function(ns_summary, is_binary, outcome_key, label_tag) {
-  if (missing(ns_summary) || is.null(ns_summary)) {
+export_nodesplit_plots <- function(ns_res, outcome_id, timepoint) {
+  if (is.null(ns_res) || is.null(ns_res$summary)) {
+    message("[nodesplit] Sem resultados para ", outcome_id, " @ ", timepoint %||% "NA")
     return(invisible(NULL))
   }
-  p_dens <- plot(ns_summary, pars = "d", stat = "dens_overlay", orientation = "vertical", ref_line = 0) +
-    ggplot2::labs(
-      title = paste0("Node-splitting — d (", label_tag, ")"),
-      x = if (is_binary) "log(OR)" else "Efeito"
-    )
-  .save_plot(p_dens, file.path(NODE_DIR, paste0("nodesplit_dens_", outcome_key, ".png")), w = 8.4, h = 6.2)
-  
-  p_omega <- plot(ns_summary, pars = "omega", stat = "halfeye", orientation = "vertical", ref_line = 0) +
-    ggplot2::labs(
-      title = paste0("Node-splitting — ω = d_dir − d_ind (", label_tag, ")"),
-      x = expression(omega)
-    )
-  .save_plot(p_omega, file.path(NODE_DIR, paste0("nodesplit_omega_", outcome_key, ".png")), w = 8.4, h = 6.2)
-  
-  p_tau <- try(plot(ns_summary, pars = "tau", stat = "pointinterval"), silent = TRUE)
-  if (!inherits(p_tau, "try-error")) {
-    p_tau <- p_tau + ggplot2::labs(title = paste0("Heterogeneidade (τ) — ", label_tag))
-    .save_plot(p_tau, file.path(NODE_DIR, paste0("nodesplit_tau_", outcome_key, ".png")), w = 6.8, h = 4.8)
-  }
-  invisible(list(dens = p_dens, omega = p_omega, tau = p_tau))
-}
-
-plot_nodesplit_dumbbell <- function(ns_input, is_binary, outcome_key, label_tag) {
-  wide <- .ns_to_wide(ns_input)
-  ex <- .ns_build_long(wide, is_binary)
-  base <- ex$base
-  long <- ex$long
-  if (!nrow(long)) {
-    message("[nodesplit] Sem estimativas diretas/indiretas — gráfico dumbbell não gerado.")
-    return(invisible(NULL))
-  }
-  
-  x0 <- if (is_binary) 1 else 0
-  cores <- c("Direto" = "#2c7fb8", "Indireto" = "#f03b20", "Network" = "black")
-  
-  base <- base %>%
-    mutate(
-      se_dir = ifelse(is.finite(d_dir_ucl - d_dir_lcl), abs(d_dir_ucl - d_dir_lcl) / (2 * 1.96), NA_real_),
-      se_ind = ifelse(is.finite(d_ind_ucl - d_ind_lcl), abs(d_ind_ucl - d_ind_lcl) / (2 * 1.96), NA_real_),
-      prec = 1 / (se_dir^2 + se_ind^2)
-    )
-  rng <- range(base$prec, na.rm = TRUE)
-  size_map <- if (diff(rng) <= 0 || !all(is.finite(rng))) {
-    rep(4, nrow(base))
-  } else {
-    scales::rescale(base$prec, to = c(2.2, 6.2), from = rng)
-  }
-  size_df <- tibble::tibble(comparison = base$comparison, size_pt = size_map, p_value = base$p_value)
-  long <- dplyr::left_join(long, size_df, by = "comparison")
-  
-  net_pts <- dplyr::filter(long, type == "Network")
-  segs <- tidyr::pivot_wider(
-    dplyr::filter(long, type %in% c("Direto", "Indireto")),
-    id_cols = "comparison",
-    names_from = "type",
-    values_from = c("estimate", "lower", "upper")
-  )
-  segs <- segs[stats::complete.cases(segs[c("estimate_Direto", "estimate_Indireto")]), , drop = FALSE]
-  
-  p <- ggplot2::ggplot() +
-    ggplot2::geom_vline(xintercept = x0, linewidth = 0.8) +
-    ggplot2::geom_segment(
-      data = segs,
-      ggplot2::aes(
-        y = comparison,
-        yend = comparison,
-        x = estimate_Direto,
-        xend = estimate_Indireto
-      ),
-      linewidth = 1,
-      colour = "grey50"
-    ) +
-    ggplot2::geom_point(
-      data = dplyr::filter(long, type %in% c("Direto", "Indireto")),
-      ggplot2::aes(x = estimate, y = comparison, colour = type, shape = type),
-      size = 3
-    ) +
-    { if (nrow(net_pts)) ggplot2::geom_point(
-      data = net_pts,
-      ggplot2::aes(x = estimate, y = comparison),
-      shape = 18,
-      size = pmin(net_pts$size_pt, 6.5),
-      colour = "black"
-    ) } +
-    ggplot2::scale_colour_manual(values = cores, drop = TRUE) +
-    ggplot2::scale_shape_manual(values = c("Direto" = 16, "Indireto" = 17, "Network" = 18), drop = TRUE) +
-    ggplot2::labs(
-      title = paste0("Node-splitting — Dumbbell (", label_tag, ")"),
-      x = if (is_binary) "OR" else "Efeito (escala original)",
-      y = NULL,
-      caption = "Linha: efeito nulo (0=contínuo; 1=binário). Diamante: rede (se disponível)."
-    ) +
-    ggplot2::theme_minimal()
-  .save_plot(p, file.path(NODE_DIR, paste0("nodesplit_dumbbell_", outcome_key, ".png")), w = 8.6, h = 6.4)
-  invisible(p)
-}
-
-plot_nodesplit_scatter <- function(ns_input, is_binary, outcome_key, label_tag) {
-  wide <- .ns_to_wide(ns_input)
-  ex <- .ns_build_long(wide, is_binary)
-  base <- ex$base
-  
-  req <- c("d_dir_mean", "d_ind_mean")
-  if (!all(req %in% names(base))) {
-    message("[nodesplit] Colunas ausentes para scatter — gráfico não gerado.")
-    return(invisible(NULL))
-  }
-  
-  have <- is.finite(base$d_dir_mean) & is.finite(base$d_ind_mean)
-  if (!any(have)) {
-    message("[nodesplit] Sem pares direto/indireto finitos — scatter não gerado.")
-    return(invisible(NULL))
-  }
-  
-  df <- dplyr::transmute(
-    base[have, , drop = FALSE],
-    comparison,
-    x = d_ind_mean,
-    y = d_dir_mean,
-    p_value = p_value,
-    se = sqrt(((d_dir_ucl - d_dir_lcl) / (2 * 1.96))^2 + ((d_ind_ucl - d_ind_lcl) / (2 * 1.96))^2),
-    prec = 1 / se^2
-  )
-  rng <- range(df$prec, na.rm = TRUE)
-  df$size_pt <- if (diff(rng) <= 0 || !all(is.finite(rng))) {
-    4
-  } else {
-    scales::rescale(df$prec, to = c(2.2, 6.0), from = rng)
-  }
-  
-  ref <- if (is_binary) 1 else 0
-  p <- ggplot2::ggplot(df, ggplot2::aes(x = x, y = y)) +
-    ggplot2::geom_abline(slope = 1, intercept = 0, linetype = "dashed", linewidth = 0.8, alpha = 0.8) +
-    ggplot2::geom_vline(xintercept = ref, linewidth = 0.5, alpha = 0.6) +
-    ggplot2::geom_hline(yintercept = ref, linewidth = 0.5, alpha = 0.6) +
-    ggplot2::geom_point(ggplot2::aes(size = size_pt, colour = p_value), alpha = 0.9) +
-    ggplot2::scale_size_identity() +
-    ggplot2::scale_colour_gradient2(
-      low = "#2166ac",
-      mid = "grey60",
-      high = "#b2182b",
-      midpoint = 0.10,
-      name = "p (Bayes)"
-    ) +
-    ggrepel::geom_text_repel(
-      data = dplyr::filter(df, is.finite(p_value) & p_value < 0.10),
-      ggplot2::aes(label = comparison),
-      size = 3.1,
-      max.overlaps = 15
-    ) +
-    ggplot2::labs(
-      title = paste0("Direto vs Indireto — ", label_tag),
-      x = if (is_binary) "OR (indireto)" else "Efeito indireto",
-      y = if (is_binary) "OR (direto)" else "Efeito direto"
-    ) +
-    ggplot2::theme_minimal()
-  .save_plot(p, file.path(NODE_DIR, paste0("nodesplit_scatter_", outcome_key, ".png")), w = 7.8, h = 6.0)
-  invisible(p)
-}
-
-plot_nodesplit_heatmap <- function(ns_input, outcome_key, label_tag) {
-  wide <- .ns_to_wide(ns_input)
-  if (is.null(wide) || !nrow(wide) || !("p_value" %in% names(wide))) {
-    message("[nodesplit] Sem p_value — heatmap não gerado.")
-    return(invisible(NULL))
-  }
-  
-  pv_num <- .as_num_chr(wide$p_value)
-  df <- tibble::tibble(
-    comparison = as.character(wide$comparison),
-    trt1 = if ("trt1" %in% names(wide)) as.character(wide$trt1) else NA_character_,
-    trt2 = if ("trt2" %in% names(wide)) as.character(wide$trt2) else NA_character_,
-    p_value = pv_num
-  )
-  if (all(is.na(df$trt1) | is.na(df$trt2))) {
-    sp <- stringr::str_split_fixed(df$comparison, "\\s+vs\\s+", 2)
-    df$trt2 <- sp[, 1]
-    df$trt1 <- sp[, 2]
-  }
-  df <- df %>%
-    filter(is.finite(p_value)) %>%
-    mutate(
-      t_low = pmin(trt1, trt2, na.rm = TRUE),
-      t_high = pmax(trt1, trt2, na.rm = TRUE)
-    ) %>%
-    distinct(t_low, t_high, .keep_all = TRUE)
-  if (!nrow(df)) {
-    message("[nodesplit] p_value ausente — heatmap não gerado.")
-    return(invisible(NULL))
-  }
-  p <- ggplot2::ggplot(df, ggplot2::aes(x = t_low, y = t_high, fill = p_value)) +
-    ggplot2::geom_tile(color = "white") +
-    ggplot2::scale_fill_gradientn(
-      colours = c("#2166ac", "#67a9cf", "#fddbc7", "#ef8a62", "#b2182b"),
-      values = scales::rescale(c(0, 0.05, 0.10, 0.25, 1.0)),
-      limits = c(0, 1),
-      name = "p (Bayes)"
-    ) +
-    ggplot2::coord_equal() +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45, hjust = 1)) +
-    ggplot2::labs(
-      title = paste0("Heatmap de p (Bayes) — ", label_tag),
-      x = NULL,
-      y = NULL
-    )
-  .save_plot(p, file.path(NODE_DIR, paste0("nodesplit_heatmap_", outcome_key, ".png")), w = 7.6, h = 6.8)
-  invisible(p)
-}
-
-nodesplit_plot_suite <- function(res, outcome_id, timepoint, is_binary) {
   key <- tolower(paste0(outcome_id, "_", timepoint %||% "NA"))
-  tag <- paste0(outcome_id, " @ ", timepoint %||% "NA")
-  if (!is.null(res$nodesplit$summary)) {
-    plot_nodesplit_builtin(res$nodesplit$summary, is_binary, key, tag)
-  } else {
-    message("[nodesplit] Sem summary — plots built-in pulados para ", key)
-  }
-  ns_input <- if (!is.null(res$nodesplit$table) && nrow(res$nodesplit$table)) {
-    res$nodesplit$table
-  } else {
-    res$nodesplit$summary
-  }
-  plot_nodesplit_dumbbell(ns_input, is_binary, key, tag)
-  plot_nodesplit_scatter(ns_input, is_binary, key, tag)
-  plot_nodesplit_heatmap(ns_input, key, tag)
-  invisible(TRUE)
+  save_nodesplit_plot(
+    ns_res$summary,
+    file.path(NODE_DIR, paste0("nodesplit_dens_", key, ".png")),
+    width = 8.4,
+    height = 6.2,
+    pars = "d",
+    stat = "dens_overlay",
+    orientation = "vertical",
+    ref_line = 0
+  )
+  save_nodesplit_plot(
+    ns_res$summary,
+    file.path(NODE_DIR, paste0("nodesplit_omega_", key, ".png")),
+    width = 8.4,
+    height = 6.2,
+    pars = "omega",
+    stat = "halfeye",
+    orientation = "vertical",
+    ref_line = 0
+  )
+  save_nodesplit_plot(
+    ns_res$summary,
+    file.path(NODE_DIR, paste0("nodesplit_tau_", key, ".png")),
+    width = 6.8,
+    height = 4.8,
+    pars = "tau",
+    stat = "pointinterval"
+  )
+  invisible(NULL)
 }
 
-nodesplit_plot_suite(res_mme_24h, "mme", "24h", is_binary = FALSE)
-nodesplit_plot_suite(res_pain_vas_6h, "pain_vas", "6h", is_binary = FALSE)
-nodesplit_plot_suite(res_opioid_free, "opioid_free", "pacu", is_binary = TRUE)
+export_nodesplit_plots(res_mme_24h$nodesplit, "mme", "24h")
+export_nodesplit_plots(res_pain_vas_6h$nodesplit, "pain_vas", "6h")
+export_nodesplit_plots(res_opioid_free$nodesplit, "opioid_free", "pacu")
+
 
 
 # ============================================================
