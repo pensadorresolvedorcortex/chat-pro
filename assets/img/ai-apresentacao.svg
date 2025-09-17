@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="320" viewBox="0 0 420 320" fill="none">
+  <defs>
+    <linearGradient id="apresentacao-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#071022" />
+      <stop offset="100%" stop-color="#101f3f" />
+    </linearGradient>
+    <radialGradient id="apresentacao-glow" cx="0.6" cy="0.2" r="0.9">
+      <stop offset="0%" stop-color="#3da9fc" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#071022" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="stage-light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5c518" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#f5c518" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <rect width="420" height="320" rx="28" fill="url(#apresentacao-bg)" />
+  <rect width="420" height="320" rx="28" fill="url(#apresentacao-glow)" />
+  <g opacity="0.4">
+    <circle cx="78" cy="80" r="60" fill="rgba(61, 169, 252, 0.35)" />
+    <circle cx="340" cy="68" r="76" fill="rgba(245, 197, 24, 0.28)" />
+  </g>
+  <path d="M50 230h320" stroke="rgba(255, 255, 255, 0.08)" stroke-width="2" />
+  <ellipse cx="210" cy="244" rx="150" ry="34" fill="#03060f" opacity="0.55" />
+  <ellipse cx="210" cy="232" rx="120" ry="26" fill="rgba(61, 169, 252, 0.25)" opacity="0.4" />
+  <g opacity="0.65">
+    <path d="M120 240L70 120" stroke="url(#stage-light)" stroke-width="10" stroke-linecap="round" />
+    <path d="M300 240l50-120" stroke="url(#stage-light)" stroke-width="10" stroke-linecap="round" />
+  </g>
+  <g>
+    <path d="M160 160c0-24 18-42 41-42s41 18 41 42-18 42-41 42-41-18-41-42z" fill="#14274d" stroke="#2b4782" stroke-width="4" />
+    <circle cx="203" cy="122" r="30" fill="#121b36" />
+    <path d="M182 116c6-12 18-20 32-20s26 8 32 20c-8 8-20 12-32 12s-24-4-32-12z" fill="#1c2649" />
+    <circle cx="212" cy="118" r="10" fill="#3da9fc" />
+    <path d="M186 162c-6 0-10 5-10 10v18c0 5 4 9 9 9h42c10 0 20 5 26 12l16 18c4 5 11 6 16 4h1c7-3 9-12 5-18l-15-30c-10-19-30-31-52-31z" fill="#3b4f9b" />
+  </g>
+  <g opacity="0.8">
+    <rect x="60" y="60" width="120" height="70" rx="18" fill="rgba(10, 16, 36, 0.8)" stroke="rgba(61, 169, 252, 0.4)" stroke-width="2" />
+    <rect x="76" y="78" width="88" height="12" rx="6" fill="#3da9fc" opacity="0.7" />
+    <rect x="76" y="100" width="56" height="10" rx="5" fill="#3da9fc" opacity="0.4" />
+  </g>
+  <g opacity="0.8">
+    <rect x="240" y="56" width="130" height="80" rx="20" fill="rgba(10, 16, 36, 0.8)" stroke="rgba(245, 197, 24, 0.4)" stroke-width="2" />
+    <rect x="258" y="78" width="94" height="12" rx="6" fill="#f5c518" opacity="0.75" />
+    <rect x="258" y="100" width="70" height="10" rx="5" fill="#f5c518" opacity="0.4" />
+  </g>
+  <g opacity="0.3">
+    <circle cx="134" cy="210" r="8" fill="#3da9fc" />
+    <circle cx="282" cy="206" r="8" fill="#f5c518" />
+    <circle cx="340" cy="210" r="10" fill="#7b5bff" />
+  </g>
+  <text x="210" y="282" fill="#f4f6ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle">
+    Palco presencial com plateia engajada
+  </text>
+</svg>
