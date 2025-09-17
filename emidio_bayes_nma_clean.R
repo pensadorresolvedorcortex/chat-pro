@@ -448,32 +448,6 @@ exp_quantiles_if_binary <- function(df, is_binary) {
   df
 }
 
-compute_sucra_tbl <- function(fit, lower_better = TRUE) {
-  rk <- multinma::posterior_ranks(fit, lower_better = lower_better, summary = FALSE)
-  arr <- rk$sims
-  stopifnot(is.array(arr) && length(dim(arr)) == 3L)
-  pnames <- dimnames(arr)[[3]]
-  if (is.null(pnames)) {
-    stop("Sem nomes de parâmetros nos ranks.")
-  }
-  mat <- matrix(arr, nrow = dim(arr)[1] * dim(arr)[2], ncol = dim(arr)[3])
-  colnames(mat) <- pnames
-  df <- as.data.frame(mat)
-  rank_cols <- grep("^rank\\[|^rank_", names(df), value = TRUE)
-  if (!length(rank_cols)) {
-    stop("Não encontrei colunas de ranks nos draws.")
-  }
-  means <- vapply(df[rank_cols], function(v) mean(as.numeric(v), na.rm = TRUE), numeric(1))
-  trt <- gsub("^rank\\[|\\]$|^rank_", "", rank_cols)
-  K <- length(means)
-  sucra <- (K - means) / (K - 1)
-  tibble::tibble(
-    treatment = trt,
-    mean_rank = as.numeric(means),
-    SUCRA = as.numeric(sucra)
-  )
-}
-
 summarise_nma <- function(fit,
                           ref = "placebo",
                           is_binary = FALSE,
@@ -487,18 +461,24 @@ summarise_nma <- function(fit,
   all_contrasts_tbl <- exp_quantiles_if_binary(all_contrasts_tbl, is_binary)
   
   lower_better <- !(tolower(outcome_id %||% "") %in% c("opioid_free", "opioid_free_pacu"))
-  ranks_summary <- multinma::posterior_ranks(fit, lower_better = lower_better)
-  ranks_tbl <- tryCatch(
-    tibble::as_tibble(ranks_summary),
-    error = function(e) tibble::as_tibble(as.data.frame(ranks_summary))
+  ranks_summary <- multinma::posterior_ranks(
+    fit,
+    lower_better = lower_better,
+    summary = TRUE,
+    sucra = TRUE
   )
-  sucra_tbl <- compute_sucra_tbl(fit, lower_better = lower_better)
-  
+  ranks_tbl <- ranks_summary$summary
+  if (is.null(ranks_tbl)) {
+    stop("posterior_ranks() não retornou resumo de ranks.")
+  }
+  if (!inherits(ranks_tbl, "tbl_df")) {
+    ranks_tbl <- tibble::as_tibble(ranks_tbl)
+  }
+
   list(
     pairwise = pairwise_tbl,
     all_contrasts = all_contrasts_tbl,
-    ranks = ranks_tbl,
-    sucra = sucra_tbl
+    ranks = ranks_tbl
   )
 }
 
@@ -1132,7 +1112,6 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     pairwise = sm$pairwise,
     all_contrasts = sm$all_contrasts,
     ranks = sm$ranks,
-    sucra = sm$sucra,
     nodesplit = ns
   )
 }
@@ -1152,7 +1131,15 @@ res_opioid_free <- run_one(outcome_id = "opioid_free", timepoint = "pacu", ref =
 writetbl(res_mme_24h$pairwise, file.path(DOCS_DIR, "re_vs_ref_mme_24h.csv"))
 writetbl(res_mme_24h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_mme_24h.csv"))
 writetbl(res_mme_24h$ranks, file.path(DOCS_DIR, "ranks_mme_24h.csv"))
-writetbl(res_mme_24h$sucra, file.path(DOCS_DIR, "sucra_mme_24h.csv"))
+writetbl(
+  dplyr::transmute(
+    res_mme_24h$ranks,
+    treatment = rlang::.data$.trt,
+    mean_rank = rlang::.data$mean,
+    SUCRA = rlang::.data$sucra
+  ),
+  file.path(DOCS_DIR, "sucra_mme_24h.csv")
+)
 writetbl(res_pain_vas_6h$pairwise, file.path(DOCS_DIR, "re_vs_ref_pain_vas_6h.csv"))
 writetbl(res_pain_vas_6h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_pain_vas_6h.csv"))
 writetbl(res_opioid_free$pairwise, file.path(DOCS_DIR, "re_vs_ref_opioid_free_pacu.csv"))
