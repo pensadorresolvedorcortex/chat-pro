@@ -105,6 +105,9 @@ FOREST_DIR <- file.path(FIG_DIR, "forests")
 dir.create(FOREST_DIR, showWarnings = FALSE, recursive = TRUE)
 options(FOREST_DIR = FOREST_DIR)
 
+LEAGUE_DIR <- file.path(FIG_DIR, "league_tables")
+dir.create(LEAGUE_DIR, showWarnings = FALSE, recursive = TRUE)
+
 DATA_XLSX <- "/Users/MAC/Desktop/Doutorado/Planos Estatísticos/Network Meta Analysis/Emidio-Bayes-NMA_data.xlsx"
 
 if (!file.exists(DATA_XLSX)) {
@@ -301,7 +304,7 @@ summarise_nma <- function(fit,
   relative_ref <- multinma::relative_effects(fit, trt_ref = ref)
   pairwise_tbl <- tibble::as_tibble(relative_ref)
   pairwise_tbl <- exp_quantiles_if_binary(pairwise_tbl, is_binary)
-  
+
   relative_all <- multinma::relative_effects(fit, all_contrasts = TRUE)
   all_contrasts_tbl <- tibble::as_tibble(relative_all)
   all_contrasts_tbl <- exp_quantiles_if_binary(all_contrasts_tbl, is_binary)
@@ -323,6 +326,159 @@ summarise_nma <- function(fit,
     all_contrasts = all_contrasts_tbl,
     ranks = ranks_tbl
   )
+}
+
+fmt_league_number <- function(x, digits = 2) {
+  ifelse(
+    is.na(x),
+    NA_character_,
+    formatC(as.numeric(x), digits = digits, format = "f", drop0trailing = FALSE)
+  )
+}
+
+make_league_table <- function(all_contrasts_tbl,
+                              treatments = TRT_LEVELS,
+                              stat = "mean",
+                              digits = 2,
+                              diag_label = "\u2014") {
+  if (is.null(all_contrasts_tbl) || !nrow(all_contrasts_tbl)) {
+    empty_tbl <- tibble::tibble()
+    return(list(long = empty_tbl, wide = empty_tbl, stat = stat))
+  }
+
+  available <- unique(c(as.character(all_contrasts_tbl$.trta), as.character(all_contrasts_tbl$.trtb)))
+  available <- available[!is.na(available)]
+  if (missing(treatments) || is.null(treatments)) {
+    treatments <- available
+  } else {
+    treatments <- unique(c(treatments[treatments %in% available], setdiff(available, treatments)))
+  }
+  if (!length(treatments)) {
+    empty_tbl <- tibble::tibble()
+    return(list(long = empty_tbl, wide = empty_tbl, stat = stat))
+  }
+
+  stat_candidates <- c(stat, "mean", "Median", "median")
+  stat_col <- stat_candidates[stat_candidates %in% names(all_contrasts_tbl)]
+  stat_col <- stat_col[1]
+  if (is.na(stat_col)) {
+    stop("Coluna de estatística não encontrada em all_contrasts_tbl.")
+  }
+
+  low_candidates <- c("2.5%", "2.5 %", "lower", "lcl", "ci_lower")
+  low_col <- low_candidates[low_candidates %in% names(all_contrasts_tbl)]
+  low_col <- low_col[1]
+
+  high_candidates <- c("97.5%", "97.5 %", "upper", "ucl", "ci_upper")
+  high_col <- high_candidates[high_candidates %in% names(all_contrasts_tbl)]
+  high_col <- high_col[1]
+
+  contrasts <- all_contrasts_tbl %>%
+    dplyr::mutate(
+      trt_row = factor(.data$.trta, levels = treatments),
+      trt_col = factor(.data$.trtb, levels = treatments),
+      idx_row = as.integer(trt_row),
+      idx_col = as.integer(trt_col)
+    ) %>%
+    dplyr::filter(!is.na(idx_row), !is.na(idx_col), idx_row < idx_col)
+
+  if (!nrow(contrasts)) {
+    empty_tbl <- tibble::tibble()
+    return(list(long = empty_tbl, wide = empty_tbl, stat = stat_col))
+  }
+
+  contrasts <- contrasts %>%
+    dplyr::mutate(
+      est = fmt_league_number(.data[[stat_col]], digits),
+      low = if (!is.na(low_col)) fmt_league_number(.data[[low_col]], digits) else NA_character_,
+      high = if (!is.na(high_col)) fmt_league_number(.data[[high_col]], digits) else NA_character_,
+      cell = dplyr::case_when(
+        !is.na(low) && !is.na(high) ~ sprintf("%s (%s; %s)", est, low, high),
+        TRUE ~ est
+      )
+    ) %>%
+    dplyr::select(trt_row, trt_col, idx_row, idx_col, cell)
+
+  grid <- tidyr::expand_grid(
+    trt_row = factor(treatments, levels = treatments),
+    trt_col = factor(treatments, levels = treatments)
+  ) %>%
+    dplyr::mutate(
+      idx_row = as.integer(trt_row),
+      idx_col = as.integer(trt_col)
+    ) %>%
+    dplyr::left_join(contrasts, by = c("trt_row", "trt_col", "idx_row", "idx_col")) %>%
+    dplyr::mutate(
+      cell_display = dplyr::case_when(
+        idx_row == idx_col ~ diag_label,
+        idx_row > idx_col ~ "",
+        TRUE ~ cell
+      )
+    )
+
+  wide_tbl <- grid %>%
+    dplyr::select(trt_row, trt_col, cell_display) %>%
+    tidyr::pivot_wider(
+      id_cols = trt_row,
+      names_from = trt_col,
+      values_from = cell_display
+    ) %>%
+    dplyr::arrange(trt_row) %>%
+    dplyr::mutate(trt_row = as.character(trt_row)) %>%
+    dplyr::rename(treatment = trt_row)
+
+  list(long = grid, wide = wide_tbl, stat = stat_col)
+}
+
+plot_league_table <- function(league_long,
+                              outcome_id,
+                              timepoint = NULL,
+                              stat_label = "Mean (95% CrI)",
+                              out_path = NULL) {
+  if (is.null(league_long) || !nrow(league_long)) {
+    return(invisible(NULL))
+  }
+
+  df_plot <- league_long %>%
+    dplyr::filter(.data$idx_row < .data$idx_col)
+
+  if (!nrow(df_plot)) {
+    return(invisible(NULL))
+  }
+
+  row_levels <- levels(league_long$trt_row)
+  col_levels <- levels(league_long$trt_col)
+
+  df_plot <- df_plot %>%
+    dplyr::mutate(
+      trt_row = forcats::fct_rev(factor(trt_row, levels = row_levels)),
+      trt_col = factor(trt_col, levels = col_levels)
+    )
+
+  title_suffix <- if (!is.null(timepoint)) paste0(" @ ", timepoint) else ""
+  p <- ggplot2::ggplot(df_plot, ggplot2::aes(x = trt_col, y = trt_row)) +
+    ggplot2::geom_tile(fill = "grey96", colour = "white") +
+    ggplot2::geom_text(ggplot2::aes(label = cell), size = 3.3, lineheight = 0.95) +
+    ggplot2::scale_y_discrete(drop = FALSE) +
+    ggplot2::scale_x_discrete(position = "top", drop = FALSE) +
+    ggplot2::labs(
+      title = paste0("League table — ", outcome_id, title_suffix),
+      subtitle = stat_label,
+      x = NULL,
+      y = NULL
+    ) +
+    ggplot2::theme_minimal(base_size = 11) +
+    ggplot2::theme(
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      axis.text.x = ggplot2::element_text(angle = 45, hjust = 0, vjust = 0)
+    )
+
+  if (!is.null(out_path)) {
+    ggplot2::ggsave(out_path, p, width = 7.2, height = 5.8, dpi = 300, bg = "white")
+  }
+
+  invisible(p)
 }
 
 # ============================================================
@@ -477,6 +633,10 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     is_binary = (agd_info$family == "binomial"),
     outcome_id = outcome_id
   )
+  league <- make_league_table(
+    sm$all_contrasts,
+    treatments = TRT_LEVELS
+  )
   ns <- nodesplit_check(
     net,
     fit_consistent = fit
@@ -494,6 +654,7 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     pairwise = sm$pairwise,
     all_contrasts = sm$all_contrasts,
     ranks = sm$ranks,
+    league = league,
     nodesplit = ns,
     is_binary = (agd_info$family == "binomial")
   )
@@ -534,6 +695,16 @@ writetbl(res_pain_vas_6h$pairwise, file.path(DOCS_DIR, "re_vs_ref_pain_vas_6h.cs
 writetbl(res_pain_vas_6h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_pain_vas_6h.csv"))
 writetbl(res_opioid_free$pairwise, file.path(DOCS_DIR, "re_vs_ref_opioid_free_pacu.csv"))
 writetbl(res_opioid_free$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_opioid_free_pacu.csv"))
+
+if (!is.null(res_mme_24h$league$wide) && nrow(res_mme_24h$league$wide)) {
+  writetbl(res_mme_24h$league$wide, file.path(DOCS_DIR, "league_mme_24h.csv"))
+}
+if (!is.null(res_pain_vas_6h$league$wide) && nrow(res_pain_vas_6h$league$wide)) {
+  writetbl(res_pain_vas_6h$league$wide, file.path(DOCS_DIR, "league_pain_vas_6h.csv"))
+}
+if (!is.null(res_opioid_free$league$wide) && nrow(res_opioid_free$league$wide)) {
+  writetbl(res_opioid_free$league$wide, file.path(DOCS_DIR, "league_opioid_free_pacu.csv"))
+}
 
 # -----------------------------
 # Node-splitting — TXT + CSV achatado
@@ -844,3 +1015,25 @@ save_reference_forests <- function(fit,
 save_reference_forests(res_mme_24h$fit, "mme", "24h", res_mme_24h$is_binary, NI_DELTA)
 save_reference_forests(res_pain_vas_6h$fit, "pain_vas", "6h", res_pain_vas_6h$is_binary)
 save_reference_forests(res_opioid_free$fit, "opioid_free", "pacu", res_opioid_free$is_binary)
+
+plot_league_table(
+  res_mme_24h$league$long,
+  outcome_id = "MME",
+  timepoint = "24h",
+  stat_label = if (res_mme_24h$is_binary) "OR (95% CrI)" else "MD (95% CrI)",
+  out_path = file.path(LEAGUE_DIR, "league_mme_24h.png")
+)
+plot_league_table(
+  res_pain_vas_6h$league$long,
+  outcome_id = "Pain VAS",
+  timepoint = "6h",
+  stat_label = if (res_pain_vas_6h$is_binary) "OR (95% CrI)" else "MD (95% CrI)",
+  out_path = file.path(LEAGUE_DIR, "league_pain_vas_6h.png")
+)
+plot_league_table(
+  res_opioid_free$league$long,
+  outcome_id = "Opioid-free",
+  timepoint = "PACU",
+  stat_label = if (res_opioid_free$is_binary) "OR (95% CrI)" else "MD (95% CrI)",
+  out_path = file.path(LEAGUE_DIR, "league_opioid_free_pacu.png")
+)
