@@ -685,7 +685,6 @@ qc_nma <- function(fit, qa = settings$qa, outcome_key = "<na>") {
   list(fail = FALSE, rhat = rhat_max, ess_min = ess_min, divergences = n_div)
 }
 
-
 nodesplit_check <- function(net,
                             outcome_key,
                             is_binary,
@@ -828,6 +827,23 @@ writetbl <- function(x, path) {
   readr::write_csv(dplyr::as_tibble(x), path)
 }
 
+
+# ============================================================
+# [ETAPA 9] Execução principal + exportação
+# ============================================================
+res_mme_24h <- run_one(outcome_id = "mme", timepoint = "24h", ref = "placebo")
+res_pain_vas_6h <- run_one(outcome_id = "pain_vas", timepoint = "6h", ref = "placebo")
+res_opioid_free <- run_one(outcome_id = "opioid_free", timepoint = "pacu", ref = "placebo")
+
+writetbl(res_mme_24h$pairwise, file.path(DOCS_DIR, "re_vs_ref_mme_24h.csv"))
+writetbl(res_mme_24h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_mme_24h.csv"))
+writetbl(res_mme_24h$ranks, file.path(DOCS_DIR, "ranks_mme_24h.csv"))
+writetbl(res_mme_24h$sucra, file.path(DOCS_DIR, "sucra_mme_24h.csv"))
+writetbl(res_pain_vas_6h$pairwise, file.path(DOCS_DIR, "re_vs_ref_pain_vas_6h.csv"))
+writetbl(res_pain_vas_6h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_pain_vas_6h.csv"))
+writetbl(res_opioid_free$pairwise, file.path(DOCS_DIR, "re_vs_ref_opioid_free_pacu.csv"))
+writetbl(res_opioid_free$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_opioid_free_pacu.csv"))
+
 write_nodesplit_outputs <- function(ns_res, file_stub) {
   if (is.null(ns_res) || is.null(ns_res$summary)) {
     return(invisible(NULL))
@@ -853,26 +869,6 @@ write_nodesplit_outputs <- function(ns_res, file_stub) {
   invisible(NULL)
 }
 
-
-# ============================================================
-# [ETAPA 9] Execução principal + exportação
-# ============================================================
-res_mme_24h <- run_one(outcome_id = "mme", timepoint = "24h", ref = "placebo")
-res_pain_vas_6h <- run_one(outcome_id = "pain_vas", timepoint = "6h", ref = "placebo")
-res_opioid_free <- run_one(outcome_id = "opioid_free", timepoint = "pacu", ref = "placebo")
-
-writetbl(res_mme_24h$pairwise, file.path(DOCS_DIR, "re_vs_ref_mme_24h.csv"))
-writetbl(res_mme_24h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_mme_24h.csv"))
-writetbl(res_mme_24h$ranks, file.path(DOCS_DIR, "ranks_mme_24h.csv"))
-writetbl(res_mme_24h$sucra, file.path(DOCS_DIR, "sucra_mme_24h.csv"))
-writetbl(res_pain_vas_6h$pairwise, file.path(DOCS_DIR, "re_vs_ref_pain_vas_6h.csv"))
-writetbl(res_pain_vas_6h$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_pain_vas_6h.csv"))
-writetbl(res_opioid_free$pairwise, file.path(DOCS_DIR, "re_vs_ref_opioid_free_pacu.csv"))
-writetbl(res_opioid_free$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_opioid_free_pacu.csv"))
-
-# -----------------------------
-# Node-splitting — TXT + CSV achatado
-# -----------------------------
 write_nodesplit_outputs(res_mme_24h$nodesplit, "mme_24h")
 write_nodesplit_outputs(res_pain_vas_6h$nodesplit, "pain_vas_6h")
 write_nodesplit_outputs(res_opioid_free$nodesplit, "opioid_free_pacu")
@@ -882,33 +878,26 @@ write_nodesplit_outputs(res_opioid_free$nodesplit, "opioid_free_pacu")
 # [ETAPA 10] Padrão de plots para node-splitting
 # ============================================================
 ensure_package("ggplot2")
-ensure_package("dplyr")
-ensure_package("tidyr")
-ensure_package("stringr")
-ensure_package("forcats")
-ensure_package("scales")
-ensure_package("ggrepel")
-ensure_package("ggdist")
 
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
 
-save_nodesplit_plot <- function(ns_summary, file, width = 8, height = 5.2, ...) {
+save_nodesplit_plot <- function(ns_summary, filename, width = 8, height = 5.2, ...) {
   if (is.null(ns_summary)) {
     return(invisible(NULL))
   }
   plt <- tryCatch(
     plot(ns_summary, ...),
     error = function(err) {
-      message("[nodesplit] Falha ao gerar plot para ", basename(file), ": ", conditionMessage(err))
+      message("[nodesplit] Falha ao gerar plot para ", basename(filename), ": ", conditionMessage(err))
       NULL
     }
   )
   if (is.null(plt)) {
     return(invisible(NULL))
   }
-  ggplot2::ggsave(filename = file, plot = plt, width = width, height = height, dpi = 300, bg = "white")
-  message("[nodesplit] Figura salva em: ", file)
+  ggplot2::ggsave(filename = filename, plot = plt, width = width, height = height, dpi = 300, bg = "white")
+  message("[nodesplit] Figura salva em: ", filename)
   invisible(plt)
 }
 
@@ -952,8 +941,6 @@ export_nodesplit_plots <- function(ns_res, outcome_id, timepoint) {
 export_nodesplit_plots(res_mme_24h$nodesplit, "mme", "24h")
 export_nodesplit_plots(res_pain_vas_6h$nodesplit, "pain_vas", "6h")
 export_nodesplit_plots(res_opioid_free$nodesplit, "opioid_free", "pacu")
-
-
 
 # ============================================================
 # [MÓDULO DE NI] — Esmolol vs Outros (MME 24h)
