@@ -1,7 +1,7 @@
 # ============================================================
 # Emidio - Bayes NMA (multinma): execução limpa e organizada
-# Alinhado ao multinma; SIDE robusto; priors definidos por YAML
-# Versão desta revisão: 2025-08-31
+# Alinhado ao multinma; SIDE robusto; priors padrão explícitos
+# Versão desta revisão: 2025-09-01
 # ============================================================
 
 # ----------------------------
@@ -153,41 +153,13 @@ settings <- read_yaml_or(
   )
 )
 
-priors_default <- list(
-  priors = list(
-    mme_24h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 10),
-      tau = list(dist = "half_normal", scale = 5)
-    ),
-    pain_vas_6h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 5),
-      tau = list(dist = "half_normal", scale = 2)
-    ),
-    opioid_free_pacu = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 2.5),
-      tau = list(dist = "half_normal", scale = 0.7)
-    )
-  ),
-  intercepts = list(
-    binomial_logit = list(dist = "normal", location = 0, scale = 10),
-    normal_identity = list(dist = "normal", location = 0, scale = 1000)
+default_priors <- function() {
+  list(
+    intercept = multinma::normal(scale = 100),
+    trt = multinma::normal(scale = 10),
+    het = multinma::half_normal(scale = 5)
   )
-)
-
-priors_yaml <- read_yaml_or(file.path(CFG_DIR, "priors.yml"), default = priors_default)
-
-get_prior <- function(key) {
-  if (!is.null(priors_yaml$priors[[key]])) {
-    return(priors_yaml$priors[[key]])
-  }
-  if (!is.null(priors_yaml$intercepts[[key]])) {
-    return(priors_yaml$intercepts[[key]])
-  }
-  stop("Prior não encontrado para a chave: ", key)
 }
-
-INTERCEPT_KEY_BIN <- "binomial_logit"
-INTERCEPT_KEY_CONT <- "normal_identity"
 
 # ============================================================
 # [ETAPA 3] Importação e saneamento dos dados
@@ -229,112 +201,7 @@ outcomes <- outcomes_raw %>%
   )
 
 # ============================================================
-# [ETAPA 4] Priors helpers
-# ============================================================
-.is_scalar_numeric <- function(x) {
-  is.numeric(x) && length(x) == 1L && is.finite(x)
-}
-
-.as_num_chr <- function(x) {
-  if (is.null(x)) {
-    return(NA_real_)
-  }
-  if (is.data.frame(x)) {
-    candidates <- intersect(c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"), names(x))
-    if (length(candidates) > 0) {
-      return(suppressWarnings(as.numeric(x[[candidates[1]]])))
-    }
-    return(suppressWarnings(as.numeric(unlist(x, use.names = FALSE))))
-  }
-  if (is.list(x)) {
-    return(vapply(x, function(el) {
-      if (is.null(el)) {
-        return(NA_real_)
-      }
-      if (is.data.frame(el)) {
-        candidates <- intersect(c("p_value", "p.value", "p", "pval", "pval_std", "pval-std"), names(el))
-        if (length(candidates) > 0) {
-          val <- suppressWarnings(as.numeric(el[[candidates[1]]][1]))
-          return(if (length(val)) val else NA_real_)
-        }
-        return(NA_real_)
-      }
-      if (length(el) == 0) {
-        return(NA_real_)
-      }
-      if (is.list(el)) {
-        flat <- unlist(el, recursive = TRUE, use.names = FALSE)
-        if (!length(flat)) {
-          return(NA_real_)
-        }
-        val <- suppressWarnings(as.numeric(flat[1]))
-        return(if (length(val)) val else NA_real_)
-      }
-      val <- suppressWarnings(as.numeric(el[1]))
-      if (length(val)) val else NA_real_
-    }, numeric(1)))
-  }
-  suppressWarnings(as.numeric(as.character(x)))
-}
-
-.assert_pos <- function(x, label, ctx = "") {
-  if (!.is_scalar_numeric(x) || x <= 0) {
-    stop(sprintf("'%s' deve ser numérico escalar > 0 %s (valor atual: %s)",
-                 label,
-                 if (nzchar(ctx)) paste0(" em ", ctx) else "",
-                 deparse(x)))
-  }
-}
-
-.build_prior <- function(pr, ctx = "") {
-  if (is.null(pr$dist)) {
-    return(list(
-      effect = .build_prior(pr$effect, paste0(ctx, "/effect")),
-      tau = .build_prior(pr$tau, paste0(ctx, "/tau"))
-    ))
-  }
-  pr$dist <- gsub("-", "_", tolower(pr$dist))
-  if (pr$dist == "normal") {
-    m <- .as_num_chr(pr$location %||% pr$mean %||% 0)
-    s <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(s, "normal$scale", ctx)
-    return(multinma::normal(location = m, scale = s))
-  }
-  if (pr$dist == "student_t") {
-    lc <- .as_num_chr(pr$location %||% pr$loc %||% 0)
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "student_t$scale", ctx)
-    .assert_pos(df, "student_t$df", ctx)
-    return(multinma::student_t(location = lc, scale = sc, df = df))
-  }
-  if (pr$dist == "half_normal") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(sc, "half_normal$scale", ctx)
-    return(multinma::half_normal(scale = sc))
-  }
-  if (pr$dist == "half_student_t") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "half_student_t$scale", ctx)
-    .assert_pos(df, "half_student_t$df", ctx)
-    return(multinma::half_student_t(scale = sc, df = df))
-  }
-  stop("Distribuição não suportada: ", pr$dist, if (nzchar(ctx)) paste0(" em ", ctx))
-}
-
-.build_intercept_prior <- function(is_binary) {
-  if (is_binary) {
-    .build_prior(get_prior(INTERCEPT_KEY_BIN), "intercept_binomial")
-  } else if (!is.null(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]])) {
-    .build_prior(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]], "intercept_normal")
-  } else {
-    multinma::normal(location = 0, scale = 1000)
-  }
-}
-
-# ============================================================
-# [ETAPA 5] Rede AGD-arm e conectividade
+# [ETAPA 4] Rede AGD-arm e conectividade
 # ============================================================
 .edges_from_dat <- function(dat) {
   required_cols <- c("study_id", "treatment")
@@ -431,7 +298,7 @@ make_network <- function(agd_obj) {
 }
 
 # ============================================================
-# [ETAPA 6] Resumos + SUCRA
+# [ETAPA 5] Resumos + SUCRA
 # ============================================================
 exp_quantiles_if_binary <- function(df, is_binary) {
   if (!is_binary) {
@@ -476,7 +343,7 @@ summarise_nma <- function(fit,
 }
 
 # ============================================================
-# [ETAPA 7] Forest pairwise — estilo “RevMan”
+# [ETAPA 6] Forest pairwise — estilo “RevMan”
 # ============================================================
 save_forest_pairwise <- function(fit, is_binary, outcome_id, timepoint, ref) {
   rel <- try(multinma::relative_effects(fit, trt_ref = ref), silent = TRUE)
@@ -503,7 +370,7 @@ save_forest_pairwise <- function(fit, is_binary, outcome_id, timepoint, ref) {
 }
 
 # ============================================================
-# [ETAPA 8] Ajuste do modelo, QC e node-splitting (SIDE)
+# [ETAPA 7] Ajuste do modelo, QC e node-splitting (SIDE)
 # ============================================================
 .get_stanfit <- function(fit) {
   sf <- try(as.stanfit(fit), silent = TRUE)
@@ -544,8 +411,6 @@ qc_nma <- function(fit, qa = settings$qa, outcome_key = "<na>") {
 
 nodesplit_check <- function(net,
                             fit_consistent,
-                            outcome_key,
-                            is_binary,
                             mcmc = settings$mcmc) {
   plan <- try(multinma::get_nodesplits(net), silent = TRUE)
   if (inherits(plan, "try-error") || is.null(plan)) {
@@ -557,8 +422,7 @@ nodesplit_check <- function(net,
     return(list(object = NULL, summary = NULL, table = tibble::tibble(), plan = plan))
   }
 
-  pr <- get_prior(outcome_key)
-  pr_int <- .build_intercept_prior(is_binary)
+  priors <- default_priors()
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
@@ -570,9 +434,9 @@ nodesplit_check <- function(net,
     trt_effects = "random",
     consistency = "nodesplit",
     nodesplit = plan,
-    prior_intercept = pr_int,
-    prior_trt = .build_prior(pr$effect, paste0(outcome_key, " (effect)")),
-    prior_het = .build_prior(pr$tau, paste0(outcome_key, " (tau)")),
+    prior_intercept = priors$intercept,
+    prior_trt = priors$trt,
+    prior_het = priors$het,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -592,11 +456,8 @@ nodesplit_check <- function(net,
 }
 
 
-fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
-  pr <- get_prior(outcome_key)
-  pr_tau <- .build_prior(pr$tau, paste0(outcome_key, " (tau)"))
-  pr_eff <- .build_prior(pr$effect, paste0(outcome_key, " (effect)"))
-  pr_int <- .build_intercept_prior(is_binary)
+fit_nma <- function(net, mcmc = settings$mcmc) {
+  priors <- default_priors()
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
@@ -605,9 +466,9 @@ fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
   multinma::nma(
     net,
     trt_effects = "random",
-    prior_intercept = pr_int,
-    prior_trt = pr_eff,
-    prior_het = pr_tau,
+    prior_intercept = priors$intercept,
+    prior_trt = priors$trt,
+    prior_het = priors$het,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -633,7 +494,7 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     dpi = 300,
     bg = "white"
   )
-  fit <- fit_nma(net, outcome_key = key, is_binary = (agd_info$family == "binomial"))
+  fit <- fit_nma(net)
   qc_nma(fit, outcome_key = key)
   sm <- summarise_nma(
     fit,
@@ -643,9 +504,7 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
   )
   ns <- nodesplit_check(
     net,
-    fit_consistent = fit,
-    outcome_key = key,
-    is_binary = (agd_info$family == "binomial")
+    fit_consistent = fit
   )
   save_forest_pairwise(
     fit,
@@ -687,7 +546,7 @@ export_nodesplit <- function(nodesplit, tag) {
 
 
 # ============================================================
-# [ETAPA 9] Execução principal + exportação
+# [ETAPA 8] Execução principal + exportação
 # ============================================================
 res_mme_24h <- run_one(outcome_id = "mme", timepoint = "24h", ref = "placebo")
 res_pain_vas_6h <- run_one(outcome_id = "pain_vas", timepoint = "6h", ref = "placebo")
@@ -710,7 +569,7 @@ export_nodesplit(res_opioid_free$nodesplit, "opioid_free_pacu")
 
 
 # ============================================================
-# [ETAPA 10] Node-splitting — plots básicos
+# [ETAPA 9] Node-splitting — plots básicos
 # ============================================================
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
