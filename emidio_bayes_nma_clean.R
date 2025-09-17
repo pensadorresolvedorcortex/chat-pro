@@ -13,28 +13,34 @@ ensure_package <- function(pkg,
                            min_version = NULL,
                            prefer_github = FALSE,
                            github = NULL) {
-  have_pkg <- requireNamespace(pkg, quietly = TRUE)
-  if (!have_pkg) {
-    message("Instalando pacote: ", pkg)
-    install.packages(pkg, dependencies = TRUE)
-    have_pkg <- requireNamespace(pkg, quietly = TRUE)
+  pkg_ready <- function() {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      return(FALSE)
+    }
+    if (is.null(min_version)) {
+      return(TRUE)
+    }
+    utils::compareVersion(
+      as.character(utils::packageVersion(pkg)),
+      min_version
+    ) >= 0
   }
-  if (!is.null(min_version) && have_pkg) {
-    cur <- utils::packageVersion(pkg)
-    if (utils::compareVersion(as.character(cur), min_version) < 0) {
-      have_pkg <- FALSE
+
+  if (!pkg_ready()) {
+    if (!is.null(github) && (prefer_github || !requireNamespace(pkg, quietly = TRUE))) {
+      if (!requireNamespace("remotes", quietly = TRUE)) {
+        install.packages("remotes", dependencies = TRUE)
+      }
+      remotes::install_github(github, dependencies = TRUE, upgrade = "never")
+    } else {
+      install.packages(pkg, dependencies = TRUE)
     }
   }
-  if ((prefer_github || !have_pkg) && !is.null(github)) {
-    if (!requireNamespace("remotes", quietly = TRUE)) {
-      install.packages("remotes", dependencies = TRUE)
-    }
-    message("Instalando/atualizando ", pkg, " via GitHub: ", github)
-    remotes::install_github(github, dependencies = TRUE, upgrade = "always")
+
+  if (!pkg_ready()) {
+    stop("Falha ao preparar o pacote '", pkg, "'.")
   }
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    stop("Falha ao carregar o pacote '", pkg, "'.")
-  }
+
   suppressPackageStartupMessages(library(pkg, character.only = TRUE))
 }
 
@@ -382,7 +388,6 @@ make_agd_arm <- function(outcome_id, tp = NULL) {
   is_binary <- all(c("events", "n") %in% names(dat)) && any(!is.na(dat$events))
   
   if (is_binary) {
-    n_before <- nrow(dat)
     dat <- dat %>%
       filter(!is.na(events), !is.na(n)) %>%
       mutate(
@@ -391,10 +396,6 @@ make_agd_arm <- function(outcome_id, tp = NULL) {
       )
     if (any(dat$events < 0 | dat$events > dat$n)) {
       stop("Eventos inválidos em desfecho binário (fora de [0, n]).")
-    }
-    removed <- n_before - nrow(dat)
-    if (removed > 0) {
-      message("Braços binários removidos (dados ausentes): ", removed)
     }
     agd <- multinma::set_agd_arm(
       data = dat,
@@ -411,13 +412,8 @@ make_agd_arm <- function(outcome_id, tp = NULL) {
   if (!all(required_cont %in% names(dat))) {
     stop("Para contínuos são necessários mean, sd, n em ", outcome_id, " @", tp)
   }
-  n_before <- nrow(dat)
   dat <- dat %>%
     filter(is.finite(mean), is.finite(se), is.finite(n), se > 0)
-  removed <- n_before - nrow(dat)
-  if (removed > 0) {
-    message("Braços contínuos removidos (dados inválidos): ", removed)
-  }
   agd <- multinma::set_agd_arm(
     data = dat,
     study = study_id,
@@ -485,13 +481,11 @@ summarise_nma <- function(fit,
 save_forest_pairwise <- function(fit, is_binary, outcome_id, timepoint, ref) {
   rel <- try(multinma::relative_effects(fit, trt_ref = ref), silent = TRUE)
   if (inherits(rel, "try-error")) {
-    message("[pairwise forest] Falha ao obter efeitos relativos — pulando.")
     return(invisible(NULL))
   }
 
   p <- try(plot(rel, ref_line = if (is_binary) 1 else 0), silent = TRUE)
   if (inherits(p, "try-error")) {
-    message("[pairwise forest] plot() indisponível para o objeto retornado — pulando.")
     return(invisible(NULL))
   }
 
@@ -522,7 +516,6 @@ save_forest_pairwise <- function(fit, is_binary, outcome_id, timepoint, ref) {
 qc_nma <- function(fit, qa = settings$qa, outcome_key = "<na>") {
   sf <- .get_stanfit(fit)
   if (is.null(sf)) {
-    message("[QC] Objeto stanfit não acessível via as.stanfit() para ", outcome_key)
     return(list(fail = FALSE, rhat = NA_real_, ess_min = NA_real_, divergences = NA_integer_))
   }
   sm <- rstan::summary(sf)$summary
@@ -556,12 +549,10 @@ nodesplit_check <- function(net,
                             mcmc = settings$mcmc) {
   plan <- try(multinma::get_nodesplits(net), silent = TRUE)
   if (inherits(plan, "try-error") || is.null(plan)) {
-    message("[Node-splitting] Plano indisponível — pulando ajuste.")
     return(list(object = NULL, summary = NULL, table = tibble::tibble(), plan = NULL))
   }
 
   n_plan <- NROW(plan)
-  message("[Node-splitting] Total de splits: ", n_plan)
   if (n_plan == 0L) {
     return(list(object = NULL, summary = NULL, table = tibble::tibble(), plan = plan))
   }
@@ -591,27 +582,17 @@ nodesplit_check <- function(net,
   )
 
   ns_summary <- try(summary(fit_ns, consistency = fit_consistent), silent = TRUE)
-  if (inherits(ns_summary, "try-error")) {
-    cond <- attr(ns_summary, "condition")
-    msg <- if (inherits(cond, "condition")) conditionMessage(cond) else "erro desconhecido"
-    message("[Node-splitting] summary() falhou: ", msg)
-    ns_summary <- NULL
+  ns_tbl <- if (inherits(ns_summary, "try-error") || is.null(ns_summary)) {
+    tibble::tibble()
+  } else {
+    tryCatch(tibble::as_tibble(ns_summary), error = function(e) tibble::tibble())
   }
 
-  ns_table <- tibble::tibble()
-  if (!is.null(ns_summary)) {
-    ns_table <- try(tibble::as_tibble(ns_summary), silent = TRUE)
-    if (inherits(ns_table, "try-error")) {
-      ns_table <- tibble::tibble()
-    }
-  }
-
-  list(object = fit_ns, summary = ns_summary, table = ns_table, plan = plan)
+  list(object = fit_ns, summary = if (inherits(ns_summary, "try-error")) NULL else ns_summary, table = ns_tbl, plan = plan)
 }
 
 
 fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
-  message(">> Ajustando NMA para ", outcome_key)
   pr <- get_prior(outcome_key)
   pr_tau <- .build_prior(pr$tau, paste0(outcome_key, " (tau)"))
   pr_eff <- .build_prior(pr$effect, paste0(outcome_key, " (effect)"))
@@ -638,7 +619,6 @@ fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
 
 run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
   key <- tolower(paste0(outcome_id, if (!is.null(timepoint)) paste0("_", timepoint) else ""))
-  message(">> Executando rotina para ", key)
   agd_info <- make_agd_arm(outcome_id, timepoint)
   if (network_is_disconnected(agd_info$dat)) {
     stop("Rede desconectada para ", key, " — verifique tratamentos/estudos.")
@@ -680,12 +660,29 @@ run_one <- function(outcome_id, timepoint = NULL, ref = "placebo") {
     pairwise = sm$pairwise,
     all_contrasts = sm$all_contrasts,
     ranks = sm$ranks,
-    nodesplit = ns
+    nodesplit = ns,
+    is_binary = (agd_info$family == "binomial")
   )
 }
 
 writetbl <- function(x, path) {
   readr::write_csv(dplyr::as_tibble(x), path)
+}
+
+export_nodesplit <- function(nodesplit, tag) {
+  if (is.null(nodesplit)) {
+    return(invisible(NULL))
+  }
+  if (!is.null(nodesplit$summary)) {
+    capture.output(
+      print(nodesplit$summary),
+      file = file.path(DOCS_DIR, paste0("nodesplit_", tag, ".txt"))
+    )
+  }
+  if (!is.null(nodesplit$table) && nrow(nodesplit$table)) {
+    readr::write_csv(nodesplit$table, file.path(DOCS_DIR, paste0("nodesplit_", tag, ".csv")))
+  }
+  invisible(NULL)
 }
 
 
@@ -707,33 +704,9 @@ writetbl(res_opioid_free$all_contrasts, file.path(DOCS_DIR, "re_allcontrasts_opi
 # -----------------------------
 # Node-splitting — TXT + CSV achatado
 # -----------------------------
-if (!is.null(res_mme_24h$nodesplit$summary)) {
-  capture.output(
-    print(res_mme_24h$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_mme_24h.txt")
-  )
-}
-if (!is.null(res_mme_24h$nodesplit$table) && nrow(res_mme_24h$nodesplit$table)) {
-  readr::write_csv(res_mme_24h$nodesplit$table, file.path(DOCS_DIR, "nodesplit_mme_24h.csv"))
-}
-if (!is.null(res_pain_vas_6h$nodesplit$summary)) {
-  capture.output(
-    print(res_pain_vas_6h$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_pain_vas_6h.txt")
-  )
-}
-if (!is.null(res_pain_vas_6h$nodesplit$table) && nrow(res_pain_vas_6h$nodesplit$table)) {
-  readr::write_csv(res_pain_vas_6h$nodesplit$table, file.path(DOCS_DIR, "nodesplit_pain_vas_6h.csv"))
-}
-if (!is.null(res_opioid_free$nodesplit$summary)) {
-  capture.output(
-    print(res_opioid_free$nodesplit$summary),
-    file = file.path(DOCS_DIR, "nodesplit_opioid_free_pacu.txt")
-  )
-}
-if (!is.null(res_opioid_free$nodesplit$table) && nrow(res_opioid_free$nodesplit$table)) {
-  readr::write_csv(res_opioid_free$nodesplit$table, file.path(DOCS_DIR, "nodesplit_opioid_free_pacu.csv"))
-}
+export_nodesplit(res_mme_24h$nodesplit, "mme_24h")
+export_nodesplit(res_pain_vas_6h$nodesplit, "pain_vas_6h")
+export_nodesplit(res_opioid_free$nodesplit, "opioid_free_pacu")
 
 
 # ============================================================
@@ -744,16 +717,12 @@ dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
 
 save_nodesplit_plots <- function(ns_summary, outcome_id, timepoint = NULL) {
   if (is.null(ns_summary)) {
-    message("[nodesplit] Resumo inexistente — gráficos não gerados.")
     return(invisible(NULL))
   }
 
   base_tag <- tolower(paste0(outcome_id, "_", timepoint %||% "NA"))
   plots_obj <- try(plot(ns_summary), silent = TRUE)
   if (inherits(plots_obj, "try-error")) {
-    cond <- attr(plots_obj, "condition")
-    msg <- if (inherits(cond, "condition")) conditionMessage(cond) else "erro desconhecido"
-    message("[nodesplit] plot() falhou: ", msg)
     return(invisible(NULL))
   }
 
@@ -779,7 +748,7 @@ save_nodesplit_plots <- function(ns_summary, outcome_id, timepoint = NULL) {
     suffix <- if (!is.null(nm) && nzchar(nm)) nm else sprintf("plot%02d", idx)
     out_path <- file.path(NODE_DIR, paste0("nodesplit_", base_tag, "_", suffix, ".png"))
     ggplot2::ggsave(out_path, obj, width = 8, height = 6, dpi = 300, bg = "white")
-    message("[nodesplit] Figura salva em: ", out_path)
+    invisible(out_path)
   }
 
   invisible(NULL)
@@ -795,13 +764,6 @@ save_nodesplit_plots(res_opioid_free$nodesplit$summary, "opioid_free", "pacu")
 # ============================================================
 # [MÓDULO DE NI] — Esmolol vs Outros (MME 24h)
 # ============================================================
-suppressPackageStartupMessages({
-  if (!requireNamespace("ggplot2", quietly = TRUE)) stop("Falta ggplot2.")
-  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Falta dplyr.")
-  if (!requireNamespace("tibble", quietly = TRUE)) stop("Falta tibble.")
-  if (!requireNamespace("readr", quietly = TRUE)) stop("Falta readr.")
-})
-
 if (!exists("FIG_DIR", inherits = TRUE) || is.null(FIG_DIR) || !nzchar(FIG_DIR)) {
   FIG_DIR <- file.path(getwd(), "figures")
 }
@@ -857,7 +819,6 @@ compute_ni_esmolol <- function(fit,
   for (comp in comparators) {
     draws <- .get_draws_vs_ref(fit, trt_ref = comp, trt_target = trt_test)
     if (is.null(draws)) {
-      message("[NI] Sem draws para '", trt_test, "' vs '", comp, "' — pulando.")
       next
     }
     draws <- draws[is.finite(draws)]
@@ -904,7 +865,6 @@ compute_ni_esmolol <- function(fit,
 
 plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   if (is.null(ni_tbl) || !nrow(ni_tbl)) {
-    message("[Forest NI] Tabela vazia — nada a plotar.")
     return(invisible(NULL))
   }
   lab_up <- function(x) toupper(gsub("_", " ", x))
@@ -983,7 +943,6 @@ plot_forest_ni_esmolol <- function(ni_tbl, delta_mg = 4, out_path = NULL) {
   invisible(p)
 }
 
-stopifnot(!is.null(res_mme_24h$fit))
 ni_mme_esmolol <- compute_ni_esmolol(
   fit = res_mme_24h$fit,
   delta_mg = NI_DELTA,
@@ -997,350 +956,61 @@ if (nrow(ni_mme_esmolol)) {
     delta_mg = NI_DELTA,
     out_path = file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png")
   )
-  message("[NI] Tabela:  ", file.path(DOCS_DIR, "NI_esmolol_vs_others_MME_24h.csv"))
-  message("[NI] Figura:   ", file.path(FIG_DIR, "forest_NI_esmolol_MME_24h.png"))
-} else {
-  message("[NI] Sem comparadores válidos para esmolol em MME 24h.")
 }
 
 
 # ============================================================
 # [Subsessão] Forests por referência (X vs others)
 # ============================================================
-ensure_package("ggridges")
-ensure_package("glue")
-
-VERBOSE <- TRUE
-say <- function(fmt, ...) {
-  if (isTRUE(VERBOSE)) {
-    cat(">> ", sprintf(fmt, ...), "\n", sep = "")
+save_reference_forests <- function(fit,
+                                   outcome_id,
+                                   timepoint,
+                                   is_binary = FALSE,
+                                   ni_value = NA_real_) {
+  trts <- try(fit$network$treatments, silent = TRUE)
+  if (inherits(trts, "try-error") || is.null(trts)) {
+    return(invisible(character()))
   }
-}
-
-WHICH_RES <- res_mme_24h
-OUTCOME_ID <- "mme"
-TP_LABEL <- "24h"
-OUTCOME_IS_BINARY <- FALSE
-NI_VALUE <- if (exists("NI_DELTA", inherits = TRUE)) NI_DELTA else 4
-ALPHA_RIDGES <- 0.35
-
-.sanitize_trt <- function(x) {
-  gsub("\\s+", " ", trimws(x))
-}
-
-.escape_regex <- function(x) {
-  gsub("([][()^$.|?*+{}\\\\])", "\\\\\\1", x)
-}
-
-.get_all_contrasts_draws <- function(fit) {
-  say("Extraindo draws: all_contrasts=TRUE, summary=FALSE")
-  re_all <- multinma::relative_effects(fit, all_contrasts = TRUE, summary = FALSE)
-  arr <- re_all$sims
-  stopifnot(is.array(arr) && length(dim(arr)) == 3L)
-  p <- dimnames(arr)[[3]]
-  if (is.null(p)) {
-    stop("Não há nomes de parâmetros nos draws (all_contrasts).")
+  trt_levels <- levels(forcats::fct_drop(trts))
+  if (length(trt_levels) <= 1L) {
+    return(invisible(character()))
   }
-  labs <- .sanitize_trt(gsub("^d\\[|^delta_new\\[|\\]$", "", p))
-  list(arr = arr, labs = labs)
-}
 
-.long_for_ref <- function(arr, labs, REF) {
-  stopifnot(is.array(arr), length(dim(arr)) == 3L)
-  pat_ref <- paste0("\\s+vs\\.?\\s*", .escape_regex(REF), "$")
-  keep <- grepl(pat_ref, labs, ignore.case = TRUE)
-  if (!any(keep)) {
-    return(NULL)
-  }
-  arrK <- arr[, , keep, drop = FALSE]
-  labsK <- labs[keep]
-  if (length(labsK) != dim(arrK)[3]) {
-    dn <- dimnames(arrK)[[3]]
-    if (!is.null(dn)) {
-      labsK <- .sanitize_trt(gsub("^d\\[|^delta_new\\[|\\]$", "", dn))
-    }
-  }
-  labsK <- make.unique(labsK, sep = "..dup")
-  dims <- dim(arrK)
-  mat <- matrix(arrK, nrow = dims[1] * dims[2], ncol = dims[3], byrow = FALSE)
-  dfw <- as.data.frame(mat)
-  if (ncol(dfw) != length(labsK)) {
-    stop(sprintf(
-      "Inconsistência nos rótulos: ncol(dfw)=%d, length(labsK)=%d.",
-      ncol(dfw),
-      length(labsK)
-    ))
-  }
-  names(dfw) <- labsK
-  dfw$.draw <- seq_len(nrow(dfw))
-  tidyr::pivot_longer(dfw, cols = - .draw, names_to = "Author", values_to = "b_Intercept") %>%
-    mutate(Author = .sanitize_trt(Author))
-}
+  out_paths <- character(0)
+  ref_line <- if (is_binary) 1 else 0
 
-.pure_density_or_null <- function(x, n = 512, bw = "nrd0") {
-  x <- as.numeric(x)
-  x <- x[is.finite(x)]
-  if (length(unique(x)) < 2L) {
-    return(NULL)
-  }
-  d <- stats::density(x, n = n, bw = bw)
-  if (!all(is.finite(d$y))) {
-    return(NULL)
-  }
-  d
-}
-
-.make_ridge_df <- function(forest.data, q_lo = 0.025, q_hi = 0.975, n = 512) {
-  by_author <- split(forest.data$b_Intercept, forest.data$Author, drop = TRUE)
-  out <- vector("list", length(by_author))
-  k <- 0L
-  for (nm in names(by_author)) {
-    v <- by_author[[nm]]
-    d <- .pure_density_or_null(v, n = n)
-    if (is.null(d)) {
-      say("   - [ridge: %s] sem densidade (variância insuficiente)", nm)
+  for (ref in trt_levels) {
+    rel <- try(multinma::relative_effects(fit, trt_ref = ref), silent = TRUE)
+    if (inherits(rel, "try-error")) {
       next
     }
-    qs <- stats::quantile(v[is.finite(v)], c(q_lo, q_hi))
-    seg <- ifelse(d$x < qs[1], "L", ifelse(d$x > qs[2], "R", "M"))
-    zone <- ifelse(seg == "M", "body", "tail")
-    k <- k + 1L
-    out[[k]] <- tibble::tibble(
-      Author = nm,
-      x = d$x,
-      height = d$y,
-      seg = seg,
-      zone = zone,
-      seg_id = paste(nm, seg, sep = "::")
-    )
-  }
-  if (k == 0L) {
-    tibble::tibble(Author = character(), x = double(), height = double(), seg = character(), zone = character(), seg_id = character())
-  } else {
-    dplyr::bind_rows(out)
-  }
-}
-
-.plot_forest_for_ref <- function(forest.data,
-                                 REF,
-                                 outcome_id,
-                                 tp_label,
-                                 outcome_is_binary,
-                                 ni_value,
-                                 fig_dir,
-                                 file_tag = NULL) {
-  if (outcome_is_binary) {
-    forest.data$b_Intercept <- exp(forest.data$b_Intercept)
-  }
-  forest.data.summary <- forest.data %>%
-    dplyr::group_by(Author) %>%
-    dplyr::summarise(
-      b_Intercept = mean(b_Intercept, na.rm = TRUE),
-      .lower = stats::quantile(b_Intercept, 0.025, na.rm = TRUE),
-      .upper = stats::quantile(b_Intercept, 0.975, na.rm = TRUE),
-      .groups = "drop"
-    )
-  x0 <- if (outcome_is_binary) 1 else 0
-  xlab <- if (outcome_is_binary) sprintf("Odds Ratio (vs %s)", REF) else sprintf("Mean Difference (vs %s)", REF)
-  ni_vals <- if (is.finite(ni_value)) ni_value else numeric(0)
-  rng <- range(c(forest.data.summary$.lower, forest.data.summary$.upper, x0, ni_vals), na.rm = TRUE)
-  xmin <- rng[1]
-  xmax <- rng[2]
-  span <- xmax - xmin + 1e-9
-  pad <- 0.10 * span
-  x_text <- xmax + 0.40 * span
-  lbl_df <- forest.data.summary %>%
-    dplyr::mutate(
-      b_Intercept = round(b_Intercept, 2),
-      .lower = round(.lower, 2),
-      .upper = round(.upper, 2),
-      lbl = glue::glue("{b_Intercept} [{.lower}, {.upper}]")
-    )
-  ridge_df <- .make_ridge_df(forest.data, q_lo = 0.025, q_hi = 0.975, n = 512)
-  layer_NI <- if (is.finite(ni_value)) {
-    ggplot2::geom_vline(xintercept = ni_value, linetype = "dashed", linewidth = 0.9, alpha = 0.95)
-  } else {
-    NULL
-  }
-  p <- ggplot2::ggplot() +
-    ggplot2::geom_vline(xintercept = x0, color = "black", linewidth = 1) +
-    layer_NI +
-    ggridges::geom_ridgeline(
-      data = ridge_df[ridge_df$zone == "body", , drop = FALSE],
-      ggplot2::aes(x = x, y = forcats::fct_inorder(Author), height = height, group = seg_id),
-      fill = "grey70",
-      alpha = ALPHA_RIDGES,
-      color = NA,
-      scale = 1
-    ) +
-    ggridges::geom_ridgeline(
-      data = ridge_df[ridge_df$zone == "tail", , drop = FALSE],
-      ggplot2::aes(x = x, y = forcats::fct_inorder(Author), height = height, group = seg_id),
-      fill = "red3",
-      alpha = ALPHA_RIDGES,
-      color = NA,
-      scale = 1
-    ) +
-    ggplot2::geom_segment(
-      data = forest.data.summary,
-      ggplot2::aes(
-        y = forcats::fct_inorder(Author),
-        yend = forcats::fct_inorder(Author),
-        x = .lower,
-        xend = .upper
-      ),
-      linewidth = 0.9
-    ) +
-    ggplot2::geom_point(
-      data = forest.data.summary,
-      ggplot2::aes(y = forcats::fct_inorder(Author), x = b_Intercept),
-      shape = 21,
-      size = 2.8,
-      stroke = 0.6,
-      fill = "white"
-    ) +
-    ggplot2::geom_text(
-      data = lbl_df,
-      ggplot2::aes(x = x_text, y = forcats::fct_inorder(Author), label = lbl),
-      hjust = 0,
-      size = 3.3
-    ) +
-    ggplot2::labs(
-      title = sprintf("Forest (posterior) — %s @ %s — %s vs others", outcome_id, tp_label, toupper(REF)),
-      x = xlab,
-      y = NULL
-    ) +
-    ggplot2::coord_cartesian(xlim = c(xmin - pad, x_text + 0.2 * span), clip = "off") +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(plot.margin = ggplot2::margin(10, 80, 10, 10))
-  forest_dir <- getOption("FOREST_DIR", default = file.path(fig_dir, "forests"))
-  dir.create(forest_dir, showWarnings = FALSE, recursive = TRUE)
-  tag <- if (length(file_tag) && nzchar(file_tag)) paste0("__", file_tag) else ""
-  ref_safe <- gsub("[^a-z0-9]+", "_", tolower(REF))
-  out_path <- file.path(
-    forest_dir,
-    sprintf("forest_like_%s_%s%s__ref_%s.png", outcome_id, tp_label, tag, ref_safe)
-  )
-  ggplot2::ggsave(out_path, p, width = 8, height = 6, dpi = 300, bg = "white")
-  say("[REF=%s] %d contrastes; salvo em: %s", REF, nrow(forest.data.summary), out_path)
-  list(plot = p, out_path = out_path, n = nrow(forest.data.summary))
-}
-
-say("=== Gerando forests: %s @ %s (binário=%s, NI=%s) ===", OUTCOME_ID, TP_LABEL, OUTCOME_IS_BINARY, as.character(NI_VALUE))
-ac <- .get_all_contrasts_draws(WHICH_RES$fit)
-arr_all <- ac$arr
-labs_all <- ac$labs
-refs_from_draws <- unique(sub(".*\\s+vs\\.?\\s*", "", labs_all))
-say("Referências detectadas: %s", if (length(refs_from_draws)) paste(refs_from_draws, collapse = ", ") else "<nenhuma>")
-REFS <- if (exists("TRT_LEVELS", inherits = TRUE) && length(TRT_LEVELS)) {
-  unique(c(intersect(TRT_LEVELS, refs_from_draws), setdiff(refs_from_draws, TRT_LEVELS)))
-} else {
-  sort(refs_from_draws)
-}
-say("REFS alvo: %s", if (length(REFS)) paste(REFS, collapse = ", ") else "<vazio>")
-FIG_DIR <- if (exists("FIG_DIR", inherits = TRUE) && nzchar(FIG_DIR)) FIG_DIR else file.path(getwd(), "figures")
-dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
-plots_by_ref <- list()
-out_paths <- character(0)
-if (!length(REFS)) {
-  say("ATENÇÃO: nenhum REF detectado. Verifique rótulos 'X vs Y'.")
-} else {
-  for (REF in REFS) {
-    df_ref <- .long_for_ref(arr_all, labs_all, REF)
-    if (is.null(df_ref) || !nrow(df_ref)) {
-      say("[REF=%s] Sem contrastes -> pulando.", REF)
+    p <- try(plot(rel, ref_line = ref_line), silent = TRUE)
+    if (inherits(p, "try-error")) {
       next
     }
-    res <- .plot_forest_for_ref(df_ref, REF, OUTCOME_ID, TP_LABEL, OUTCOME_IS_BINARY, NI_VALUE, FIG_DIR, NULL)
-    plots_by_ref[[REF]] <- res$plot
-    out_paths[REF] <- res$out_path
+    if (!is_binary && is.finite(ni_value)) {
+      p <- p + ggplot2::geom_vline(xintercept = ni_value, linetype = "dashed")
+    }
+    out_path <- file.path(
+      FOREST_DIR,
+      sprintf(
+        "forest_ref_%s_%s_%s.png",
+        outcome_id,
+        timepoint %||% "NA",
+        gsub("[^a-z0-9]+", "_", tolower(ref))
+      )
+    )
+    ggplot2::ggsave(out_path, p, width = 7.8, height = 5.2, dpi = 300, bg = "white")
+    out_paths[ref] <- out_path
   }
-}
-say("=== Concluído. Total de gráficos gerados: %d ===", length(out_paths))
 
-.selfcheck_ref <- function(fit, REF, is_binary = FALSE, tol = 1e-6) {
-  ac <- .get_all_contrasts_draws(fit)
-  d1 <- .long_for_ref(ac$arr, ac$labs, REF)
-  if (is.null(d1) || !nrow(d1)) {
-    return(list(pass = FALSE, reason = sprintf("Sem contrastes p/ REF=%s", REF)))
-  }
-  if (is_binary) {
-    d1$b_Intercept <- exp(d1$b_Intercept)
-  }
-  s1 <- d1 %>%
-    dplyr::group_by(Author) %>%
-    dplyr::summarise(
-      mean_f = mean(b_Intercept),
-      lcl_f = stats::quantile(b_Intercept, 0.025),
-      ucl_f = stats::quantile(b_Intercept, 0.975),
-      .groups = "drop"
-    )
-  rb <- multinma::relative_effects(fit, trt_ref = REF, summary = FALSE)
-  arr <- if (is.list(rb) && !is.null(rb$sims)) rb$sims else rb
-  p2 <- dimnames(arr)[[3]]
-  if (is.null(p2)) {
-    return(list(pass = FALSE, reason = "Sem nomes de parâmetros"))
-  }
-  labs_raw <- gsub("^d\\[|^delta_new\\[|\\]$", "", p2)
-  labs <- ifelse(grepl(" vs ", labs_raw), labs_raw, paste0(labs_raw, " vs ", REF))
-  dims <- dim(arr)
-  mat <- matrix(arr, nrow = dims[1] * dims[2], ncol = dims[3])
-  dfw <- as.data.frame(mat)
-  names(dfw) <- labs
-  dfw$.draw <- seq_len(nrow(dfw))
-  d2 <- tidyr::pivot_longer(dfw, cols = - .draw, names_to = "Author", values_to = "val")
-  if (is_binary) {
-    d2$val <- exp(d2$val)
-  }
-  s2 <- d2 %>%
-    dplyr::group_by(Author) %>%
-    dplyr::summarise(
-      mean_m = mean(val),
-      lcl_m = stats::quantile(val, 0.025),
-      ucl_m = stats::quantile(val, 0.975),
-      .groups = "drop"
-    )
-  cmp <- dplyr::full_join(s1, s2, by = "Author") %>%
-    dplyr::mutate(
-      d_mean = abs(mean_f - mean_m),
-      d_lcl = abs(lcl_f - lcl_m),
-      d_ucl = abs(ucl_f - ucl_m)
-    )
-  bad <- dplyr::filter(cmp, d_mean > tol | d_lcl > tol | d_ucl > tol)
-  list(pass = nrow(bad) == 0, diffs = bad, cmp = cmp)
+  invisible(out_paths)
 }
 
-tol <- 1e-6
-pass_all <- TRUE
-for (REF in names(plots_by_ref)) {
-  chk <- .selfcheck_ref(WHICH_RES$fit, REF, OUTCOME_IS_BINARY, tol = tol)
-  if (!isTRUE(chk$pass)) {
-    pass_all <- FALSE
-    cat(sprintf("CHECK FAILED [REF=%s]\n", REF))
-    if (!is.null(chk$diffs) && nrow(chk$diffs)) {
-      print(chk$diffs, n = 50)
-    }
-    if (!is.null(chk$reason)) {
-      cat("  Motivo: ", chk$reason, "\n", sep = "")
-    }
-  }
-}
-if (pass_all) {
-  cat("OK\n")
-  flush.console()
-} else {
-  cat("CHECK FAILED\n")
-  flush.console()
-}
+save_reference_forests(res_mme_24h$fit, "mme", "24h", res_mme_24h$is_binary, NI_DELTA)
+save_reference_forests(res_pain_vas_6h$fit, "pain_vas", "6h", res_pain_vas_6h$is_binary)
+save_reference_forests(res_opioid_free$fit, "opioid_free", "pacu", res_opioid_free$is_binary)
 
 # ============================================================
 # [Revisão final]
 # ============================================================
-stopifnot(
-  exists("res_mme_24h"),
-  exists("res_pain_vas_6h"),
-  exists("res_opioid_free"),
-  is.list(res_mme_24h),
-  is.list(res_pain_vas_6h),
-  is.list(res_opioid_free)
-)
