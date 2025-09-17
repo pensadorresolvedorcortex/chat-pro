@@ -59,8 +59,34 @@ core_packages <- c(
   "ggrepel"
 )
 
+core_handled_packages <- unique(c(
+  core_packages,
+  "ggplot2",
+  "dplyr",
+  "tidyr",
+  "readr",
+  "purrr",
+  "tibble",
+  "forcats"
+))
+
 for (pkg in core_packages) {
   ensure_package(pkg)
+}
+
+ensure_additional_packages <- function(pkgs) {
+  pkgs <- setdiff(pkgs, core_handled_packages)
+  if (!length(pkgs)) {
+    return(invisible(NULL))
+  }
+  for (pkg in pkgs) {
+    if (!requireNamespace(pkg, quietly = TRUE)) {
+      ensure_package(pkg)
+    } else if (!paste0("package:", pkg) %in% search()) {
+      suppressPackageStartupMessages(library(pkg, character.only = TRUE))
+    }
+  }
+  invisible(NULL)
 }
 
 if (Sys.info()[["sysname"]] == "Windows") {
@@ -1193,14 +1219,16 @@ if (!is.null(res_opioid_free$nodesplit$table) && nrow(res_opioid_free$nodesplit$
 # ============================================================
 # [ETAPA 10] Padrão de plots para node-splitting
 # ============================================================
-ensure_package("ggplot2")
-ensure_package("dplyr")
-ensure_package("tidyr")
-ensure_package("stringr")
-ensure_package("forcats")
-ensure_package("scales")
-ensure_package("ggrepel")
-ensure_package("ggdist")
+ensure_additional_packages(c(
+  "ggplot2",
+  "dplyr",
+  "tidyr",
+  "stringr",
+  "forcats",
+  "scales",
+  "ggrepel",
+  "ggdist"
+))
 
 NODE_DIR <- file.path(FIG_DIR, "nodesplit")
 dir.create(NODE_DIR, showWarnings = FALSE, recursive = TRUE)
@@ -1653,10 +1681,12 @@ if (nrow(ni_mme_esmolol)) {
 # ============================================================
 # [Subsessão] Forests por referência (X vs others)
 # ============================================================
-ensure_package("posterior")
-ensure_package("ggridges")
-ensure_package("glue")
-ensure_package("forcats")
+ensure_additional_packages(c(
+  "posterior",
+  "ggridges",
+  "glue",
+  "forcats"
+))
 
 VERBOSE <- TRUE
 say <- function(fmt, ...) {
