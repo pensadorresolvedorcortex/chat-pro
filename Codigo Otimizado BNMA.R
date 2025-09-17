@@ -393,7 +393,7 @@ make_league_table <- function(all_contrasts_tbl,
       low = if (!is.na(low_col)) fmt_league_number(.data[[low_col]], digits) else NA_character_,
       high = if (!is.na(high_col)) fmt_league_number(.data[[high_col]], digits) else NA_character_,
       cell = dplyr::case_when(
-        !is.na(low) && !is.na(high) ~ sprintf("%s (%s; %s)", est, low, high),
+        !is.na(low) & !is.na(high) ~ sprintf("%s (%s; %s)", est, low, high),
         TRUE ~ est
       )
     ) %>%
