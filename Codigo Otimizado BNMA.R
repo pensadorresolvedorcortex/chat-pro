@@ -49,7 +49,6 @@ core_packages <- c(
   "readxl",
   "janitor",
   "stringr",
-  "yaml",
   "writexl",
   "rlang",
   "posterior",
@@ -107,7 +106,6 @@ dir.create(FOREST_DIR, showWarnings = FALSE, recursive = TRUE)
 options(FOREST_DIR = FOREST_DIR)
 
 DATA_XLSX <- "/Users/MAC/Desktop/Doutorado/Planos Estatísticos/Network Meta Analysis/Emidio-Bayes-NMA_data.xlsx"
-CFG_DIR <- "/Users/MAC/Desktop/Doutorado/Planos Estatísticos/Network Meta Analysis/Yaml"
 
 if (!file.exists(DATA_XLSX)) {
   stop("Arquivo de dados não encontrado em:\n  ", DATA_XLSX)
@@ -123,43 +121,28 @@ TRT_LEVELS <- c(
 )
 
 # ============================================================
-# [ETAPA 2] Leitura de configurações (YAML)
+# [ETAPA 2] Configurações (defaults multinma)
 # ============================================================
-read_yaml_or <- function(path, default = list()) {
-  if (file.exists(path)) {
-    yaml::read_yaml(path)
-  } else {
-    default
-  }
-}
-
-settings <- read_yaml_or(
-  file.path(CFG_DIR, "settings.yml"),
-  default = list(
-    mcmc = list(
-      chains = 4,
-      iter_warmup = 1200,
-      iter_sampling = 2500,
-      adapt_delta = 0.98,
-      max_treedepth = 12,
-      seed = 20250816
-    ),
-    qa = list(
-      rhat_threshold = 1.01,
-      allow_divergences = 0,
-      min_ess_bulk = 400,
-      min_ess_tail = 200
-    )
+settings <- list(
+  mcmc = list(
+    chains = 4,
+    iter_warmup = 1200,
+    iter_sampling = 2500,
+    adapt_delta = 0.98,
+    max_treedepth = 12,
+    seed = 20250816
+  ),
+  qa = list(
+    rhat_threshold = 1.01,
+    allow_divergences = 0,
+    min_ess_bulk = 400,
+    min_ess_tail = 200
+  ),
+  ni = list(
+    delta_mg = 4,
+    prob_threshold = 0.90
   )
 )
-
-default_priors <- function() {
-  list(
-    intercept = multinma::normal(scale = 100),
-    trt = multinma::normal(scale = 10),
-    het = multinma::half_normal(scale = 5)
-  )
-}
 
 # ============================================================
 # [ETAPA 3] Importação e saneamento dos dados
@@ -422,21 +405,17 @@ nodesplit_check <- function(net,
     return(list(object = NULL, summary = NULL, table = tibble::tibble(), plan = plan))
   }
   
-  priors <- default_priors()
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
     ctrl$max_treedepth <- mcmc$max_treedepth
   }
-  
+
   fit_ns <- multinma::nma(
     net,
     trt_effects = "random",
     consistency = "nodesplit",
     nodesplit = plan,
-    prior_intercept = priors$intercept,
-    prior_trt = priors$trt,
-    prior_het = priors$het,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -457,7 +436,6 @@ nodesplit_check <- function(net,
 
 
 fit_nma <- function(net, mcmc = settings$mcmc) {
-  priors <- default_priors()
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
@@ -466,9 +444,6 @@ fit_nma <- function(net, mcmc = settings$mcmc) {
   multinma::nma(
     net,
     trt_effects = "random",
-    prior_intercept = priors$intercept,
-    prior_trt = priors$trt,
-    prior_het = priors$het,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
