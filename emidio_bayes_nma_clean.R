@@ -1,6 +1,6 @@
 # ============================================================
 # Emidio - Bayes NMA (multinma): execução limpa e organizada
-# Alinhado ao multinma; SIDE robusto; priors definidos por YAML
+# Alinhado ao multinma; SIDE robusto; priors padrão do multinma
 # Versão desta revisão: 2025-08-31
 # ============================================================
 
@@ -173,42 +173,6 @@ settings <- read_yaml_or(
   )
 )
 
-priors_default <- list(
-  priors = list(
-    mme_24h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 10),
-      tau = list(dist = "half_normal", scale = 5)
-    ),
-    pain_vas_6h = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 5),
-      tau = list(dist = "half_normal", scale = 2)
-    ),
-    opioid_free_pacu = list(
-      effect = list(dist = "student_t", df = 7, location = 0, scale = 2.5),
-      tau = list(dist = "half_normal", scale = 0.7)
-    )
-  ),
-  intercepts = list(
-    binomial_logit = list(dist = "normal", location = 0, scale = 10),
-    normal_identity = list(dist = "normal", location = 0, scale = 1000)
-  )
-)
-
-priors_yaml <- read_yaml_or(file.path(CFG_DIR, "priors.yml"), default = priors_default)
-
-get_prior <- function(key) {
-  if (!is.null(priors_yaml$priors[[key]])) {
-    return(priors_yaml$priors[[key]])
-  }
-  if (!is.null(priors_yaml$intercepts[[key]])) {
-    return(priors_yaml$intercepts[[key]])
-  }
-  stop("Prior não encontrado para a chave: ", key)
-}
-
-INTERCEPT_KEY_BIN <- "binomial_logit"
-INTERCEPT_KEY_CONT <- "normal_identity"
-
 # ============================================================
 # [ETAPA 3] Importação e saneamento dos dados
 # ============================================================
@@ -249,12 +213,8 @@ outcomes <- outcomes_raw %>%
   )
 
 # ============================================================
-# [ETAPA 4] Priors helpers
+# [ETAPA 4] Helpers numéricos e conversões
 # ============================================================
-.is_scalar_numeric <- function(x) {
-  is.numeric(x) && length(x) == 1L && is.finite(x)
-}
-
 .as_num_chr <- function(x) {
   if (is.null(x)) {
     return(NA_real_)
@@ -295,62 +255,6 @@ outcomes <- outcomes_raw %>%
     }, numeric(1)))
   }
   suppressWarnings(as.numeric(as.character(x)))
-}
-
-.assert_pos <- function(x, label, ctx = "") {
-  if (!.is_scalar_numeric(x) || x <= 0) {
-    stop(sprintf("'%s' deve ser numérico escalar > 0 %s (valor atual: %s)",
-                 label,
-                 if (nzchar(ctx)) paste0(" em ", ctx) else "",
-                 deparse(x)))
-  }
-}
-
-.build_prior <- function(pr, ctx = "") {
-  if (is.null(pr$dist)) {
-    return(list(
-      effect = .build_prior(pr$effect, paste0(ctx, "/effect")),
-      tau = .build_prior(pr$tau, paste0(ctx, "/tau"))
-    ))
-  }
-  pr$dist <- gsub("-", "_", tolower(pr$dist))
-  if (pr$dist == "normal") {
-    m <- .as_num_chr(pr$location %||% pr$mean %||% 0)
-    s <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(s, "normal$scale", ctx)
-    return(multinma::normal(location = m, scale = s))
-  }
-  if (pr$dist == "student_t") {
-    lc <- .as_num_chr(pr$location %||% pr$loc %||% 0)
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "student_t$scale", ctx)
-    .assert_pos(df, "student_t$df", ctx)
-    return(multinma::student_t(location = lc, scale = sc, df = df))
-  }
-  if (pr$dist == "half_normal") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    .assert_pos(sc, "half_normal$scale", ctx)
-    return(multinma::half_normal(scale = sc))
-  }
-  if (pr$dist == "half_student_t") {
-    sc <- .as_num_chr(pr$scale %||% pr$sd)
-    df <- .as_num_chr(pr$df)
-    .assert_pos(sc, "half_student_t$scale", ctx)
-    .assert_pos(df, "half_student_t$df", ctx)
-    return(multinma::half_student_t(scale = sc, df = df))
-  }
-  stop("Distribuição não suportada: ", pr$dist, if (nzchar(ctx)) paste0(" em ", ctx))
-}
-
-.build_intercept_prior <- function(is_binary) {
-  if (is_binary) {
-    .build_prior(get_prior(INTERCEPT_KEY_BIN), "intercept_binomial")
-  } else if (!is.null(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]])) {
-    .build_prior(priors_yaml$intercepts[[INTERCEPT_KEY_CONT]], "intercept_normal")
-  } else {
-    multinma::normal(location = 0, scale = 1000)
-  }
 }
 
 # ============================================================
@@ -1013,22 +917,17 @@ nodesplit_check <- function(net,
   if (!inherits(plan, "try-error")) {
     message("[Node-splitting] Total de splits: ", nrow(plan))
   }
-  
-  pr <- get_prior(outcome_key)
-  pr_int <- .build_intercept_prior(is_binary)
+
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
     ctrl$max_treedepth <- mcmc$max_treedepth
   }
-  
+
   fit_ns <- multinma::nma(
     net,
     trt_effects = "random",
     consistency = "nodesplit",
-    prior_intercept = pr_int,
-    prior_trt = .build_prior(pr$effect, paste0(outcome_key, " (effect)")),
-    prior_het = .build_prior(pr$tau, paste0(outcome_key, " (tau)")),
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -1091,10 +990,6 @@ nodesplit_check <- function(net,
 
 fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
   message(">> Ajustando NMA para ", outcome_key)
-  pr <- get_prior(outcome_key)
-  pr_tau <- .build_prior(pr$tau, paste0(outcome_key, " (tau)"))
-  pr_eff <- .build_prior(pr$effect, paste0(outcome_key, " (effect)"))
-  pr_int <- .build_intercept_prior(is_binary)
   iter_total <- mcmc$iter_warmup + mcmc$iter_sampling
   ctrl <- list()
   if (!is.null(mcmc$max_treedepth)) {
@@ -1103,9 +998,6 @@ fit_nma <- function(net, outcome_key, is_binary, mcmc = settings$mcmc) {
   multinma::nma(
     net,
     trt_effects = "random",
-    prior_intercept = pr_int,
-    prior_trt = pr_eff,
-    prior_het = pr_tau,
     adapt_delta = mcmc$adapt_delta,
     chains = mcmc$chains,
     iter = iter_total,
@@ -1479,21 +1371,6 @@ nodesplit_plot_suite(res_opioid_free, "opioid_free", "pacu", is_binary = TRUE)
 # ============================================================
 # [MÓDULO DE NI] — Esmolol vs Outros (MME 24h)
 # ============================================================
-suppressPackageStartupMessages({
-  if (!requireNamespace("ggplot2", quietly = TRUE)) stop("Falta ggplot2.")
-  if (!requireNamespace("dplyr", quietly = TRUE)) stop("Falta dplyr.")
-  if (!requireNamespace("tibble", quietly = TRUE)) stop("Falta tibble.")
-  if (!requireNamespace("readr", quietly = TRUE)) stop("Falta readr.")
-})
-
-if (!exists("FIG_DIR", inherits = TRUE) || is.null(FIG_DIR) || !nzchar(FIG_DIR)) {
-  FIG_DIR <- file.path(getwd(), "figures")
-}
-if (!exists("DOCS_DIR", inherits = TRUE) || is.null(DOCS_DIR) || !nzchar(DOCS_DIR)) {
-  DOCS_DIR <- file.path(getwd(), "docs")
-}
-dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
-dir.create(DOCS_DIR, showWarnings = FALSE, recursive = TRUE)
 
 if (exists("settings", inherits = TRUE) && !is.null(settings$ni)) {
   NI_DELTA <- settings$ni$delta_mg %||% 4
@@ -1916,8 +1793,6 @@ REFS <- if (exists("TRT_LEVELS", inherits = TRUE) && length(TRT_LEVELS)) {
   sort(refs_from_draws)
 }
 say("REFS alvo: %s", if (length(REFS)) paste(REFS, collapse = ", ") else "<vazio>")
-FIG_DIR <- if (exists("FIG_DIR", inherits = TRUE) && nzchar(FIG_DIR)) FIG_DIR else file.path(getwd(), "figures")
-dir.create(FIG_DIR, showWarnings = FALSE, recursive = TRUE)
 plots_by_ref <- list()
 out_paths <- character(0)
 if (!length(REFS)) {
