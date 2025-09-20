@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="520" viewBox="0 0 560 520" fill="none">
+  <defs>
+    <linearGradient id="metodo-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070c1d" />
+      <stop offset="100%" stop-color="#101c3f" />
+    </linearGradient>
+    <radialGradient id="metodo-glow" cx="0.5" cy="0.2" r="0.8">
+      <stop offset="0%" stop-color="#3da9fc" stop-opacity="0.38" />
+      <stop offset="100%" stop-color="#070c1d" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="pillar-blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3da9fc" />
+      <stop offset="100%" stop-color="#1d3f8f" />
+    </linearGradient>
+    <linearGradient id="pillar-gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5c518" />
+      <stop offset="100%" stop-color="#a47a12" />
+    </linearGradient>
+    <linearGradient id="pillar-purple" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7b5bff" />
+      <stop offset="100%" stop-color="#3a2ca0" />
+    </linearGradient>
+  </defs>
+  <rect width="560" height="520" rx="36" fill="url(#metodo-bg)" />
+  <rect width="560" height="520" rx="36" fill="url(#metodo-glow)" />
+  <ellipse cx="280" cy="420" rx="220" ry="60" fill="#03060f" opacity="0.55" />
+  <ellipse cx="280" cy="404" rx="180" ry="40" fill="rgba(61, 169, 252, 0.22)" opacity="0.35" />
+  <g opacity="0.65">
+    <circle cx="132" cy="110" r="80" fill="rgba(61, 169, 252, 0.25)" />
+    <circle cx="434" cy="96" r="96" fill="rgba(245, 197, 24, 0.22)" />
+  </g>
+  <g opacity="0.35">
+    <path d="M280 160c58 0 108 20 140 54 6 6 6 16 0 22-28 30-80 50-140 50s-112-20-140-50c-6-6-6-16 0-22 32-34 82-54 140-54z" fill="#101d3e" />
+  </g>
+  <g>
+    <rect x="138" y="204" width="100" height="180" rx="24" fill="rgba(10, 16, 36, 0.8)" stroke="rgba(61, 169, 252, 0.4)" stroke-width="3" />
+    <rect x="152" y="224" width="72" height="32" rx="16" fill="rgba(61, 169, 252, 0.18)" />
+    <rect x="152" y="268" width="52" height="12" rx="6" fill="#3da9fc" opacity="0.7" />
+    <rect x="152" y="286" width="68" height="12" rx="6" fill="#3da9fc" opacity="0.4" />
+    <text x="188" y="360" fill="#3da9fc" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Clareza
+    </text>
+  </g>
+  <g>
+    <rect x="230" y="156" width="100" height="232" rx="24" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(245, 197, 24, 0.4)" stroke-width="3" />
+    <rect x="244" y="178" width="72" height="32" rx="16" fill="rgba(245, 197, 24, 0.25)" />
+    <rect x="244" y="220" width="52" height="12" rx="6" fill="#f5c518" opacity="0.75" />
+    <rect x="244" y="238" width="68" height="12" rx="6" fill="#f5c518" opacity="0.45" />
+    <text x="280" y="356" fill="#f5c518" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Confiança
+    </text>
+  </g>
+  <g>
+    <rect x="322" y="232" width="100" height="152" rx="24" fill="rgba(10, 16, 36, 0.8)" stroke="rgba(123, 91, 255, 0.4)" stroke-width="3" />
+    <rect x="336" y="252" width="72" height="32" rx="16" fill="rgba(123, 91, 255, 0.22)" />
+    <rect x="336" y="296" width="52" height="12" rx="6" fill="#7b5bff" opacity="0.7" />
+    <rect x="336" y="314" width="68" height="12" rx="6" fill="#7b5bff" opacity="0.4" />
+    <text x="372" y="360" fill="#b7a4ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Convencimento
+    </text>
+  </g>
+  <g opacity="0.3">
+    <circle cx="160" cy="370" r="14" fill="#3da9fc" />
+    <circle cx="408" cy="182" r="10" fill="#f5c518" />
+    <circle cx="464" cy="340" r="12" fill="#7b5bff" />
+  </g>
+  <text x="280" y="96" fill="#f4f6ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="32" font-weight="700" text-anchor="middle">
+    Método dos 3 C's
+  </text>
+  <text x="280" y="130" fill="#c5c9e6" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="400" text-anchor="middle">
+    Clareza para se fazer entender • Confiança para sustentar a mensagem • Convencimento para mover pessoas
+  </text>
+</svg>
