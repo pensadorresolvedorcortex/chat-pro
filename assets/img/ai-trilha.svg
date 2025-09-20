@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="540" height="520" viewBox="0 0 540 520" fill="none">
+  <defs>
+    <linearGradient id="trilha-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#060f22" />
+      <stop offset="100%" stop-color="#101f3f" />
+    </linearGradient>
+    <radialGradient id="trilha-glow" cx="0.7" cy="0.2" r="0.9">
+      <stop offset="0%" stop-color="#3da9fc" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#060f22" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="540" height="520" rx="32" fill="url(#trilha-bg)" />
+  <rect width="540" height="520" rx="32" fill="url(#trilha-glow)" />
+  <g opacity="0.45">
+    <circle cx="110" cy="98" r="78" fill="rgba(61, 169, 252, 0.28)" />
+    <circle cx="420" cy="86" r="90" fill="rgba(245, 197, 24, 0.24)" />
+  </g>
+  <path d="M86 404c0-118 104-214 232-214 42 0 80 8 112 22" stroke="rgba(61, 169, 252, 0.5)" stroke-width="6" stroke-linecap="round" stroke-dasharray="12 18" />
+  <path d="M86 352c0-98 88-176 196-176 38 0 72 10 100 26" stroke="rgba(245, 197, 24, 0.45)" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 16" />
+  <g>
+    <rect x="112" y="188" width="120" height="120" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(61, 169, 252, 0.35)" stroke-width="3" />
+    <text x="172" y="226" fill="#3da9fc" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Start
+    </text>
+    <rect x="128" y="242" width="88" height="12" rx="6" fill="#3da9fc" opacity="0.7" />
+    <rect x="128" y="262" width="72" height="10" rx="5" fill="#3da9fc" opacity="0.4" />
+  </g>
+  <g>
+    <rect x="224" y="130" width="120" height="140" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(245, 197, 24, 0.35)" stroke-width="3" />
+    <text x="284" y="174" fill="#f5c518" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Fase 1
+    </text>
+    <rect x="240" y="190" width="88" height="12" rx="6" fill="#f5c518" opacity="0.7" />
+    <rect x="240" y="210" width="72" height="10" rx="5" fill="#f5c518" opacity="0.4" />
+  </g>
+  <g>
+    <rect x="348" y="184" width="120" height="150" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(123, 91, 255, 0.35)" stroke-width="3" />
+    <text x="408" y="230" fill="#b8a6ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Fase 2
+    </text>
+    <rect x="364" y="246" width="88" height="12" rx="6" fill="#7b5bff" opacity="0.65" />
+    <rect x="364" y="266" width="72" height="10" rx="5" fill="#7b5bff" opacity="0.35" />
+  </g>
+  <g>
+    <rect x="204" y="296" width="120" height="140" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(61, 169, 252, 0.35)" stroke-width="3" />
+    <text x="264" y="340" fill="#3da9fc" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Fase 3
+    </text>
+    <rect x="220" y="356" width="88" height="12" rx="6" fill="#3da9fc" opacity="0.7" />
+    <rect x="220" y="376" width="72" height="10" rx="5" fill="#3da9fc" opacity="0.4" />
+  </g>
+  <g>
+    <rect x="334" y="320" width="120" height="120" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(245, 197, 24, 0.35)" stroke-width="3" />
+    <text x="394" y="360" fill="#f5c518" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      Fase 4
+    </text>
+    <rect x="350" y="376" width="88" height="12" rx="6" fill="#f5c518" opacity="0.7" />
+    <rect x="350" y="396" width="72" height="10" rx="5" fill="#f5c518" opacity="0.4" />
+  </g>
+  <g>
+    <rect x="96" y="336" width="120" height="120" rx="26" fill="rgba(10, 16, 36, 0.82)" stroke="rgba(123, 91, 255, 0.35)" stroke-width="3" />
+    <text x="156" y="378" fill="#b8a6ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle">
+      End
+    </text>
+    <rect x="112" y="394" width="88" height="12" rx="6" fill="#7b5bff" opacity="0.65" />
+    <rect x="112" y="414" width="72" height="10" rx="5" fill="#7b5bff" opacity="0.35" />
+  </g>
+  <path d="M172 248l54-34" stroke="#3da9fc" stroke-width="4" stroke-linecap="round" />
+  <path d="M292 218l46 26" stroke="#f5c518" stroke-width="4" stroke-linecap="round" />
+  <path d="M270 332l40 32" stroke="#7b5bff" stroke-width="4" stroke-linecap="round" />
+  <path d="M206 360l-30 32" stroke="#3da9fc" stroke-width="4" stroke-linecap="round" />
+  <text x="270" y="84" fill="#f4f6ff" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="700" text-anchor="middle">
+    Jornada do aluno
+  </text>
+  <text x="270" y="116" fill="#c5c9e6" font-family="'Inter', 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" text-anchor="middle">
+    Da avaliação inicial ao plano de sustentação em trilha orientada
+  </text>
+</svg>
