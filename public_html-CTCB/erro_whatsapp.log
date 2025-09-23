@@ -1,0 +1,452 @@
+[2024-04-03 16:27:37] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:32:57] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:35:38] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:37:47] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:39:10] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:40:12] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:44:06] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:46:26] Erro na chamada cURL: error:14077410:SSL routines:SSL23_GET_SERVER_HELLO:sslv3 alert handshake failure
+[2024-04-03 16:52:36] Erro na chamada cURL: 
+[2024-04-03 16:53:46] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 06:06:54] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 06:51:21] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 06:57:52] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 07:48:30] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 07:50:00] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 10:29:10] {"statusCode":401,"message":"Unauthorized"}
+[2024-04-04 10:31:31] {"statusCode":401,"message":"Unauthorized"}
+[2024-04-04 10:33:29] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A9212DB777B7D5E2F0","timestamp":1712237606},"status":true}
+[2024-04-04 11:00:14] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB05DA5FDB8B191E37DD6","timestamp":1712239213},"status":true}
+[2024-04-04 11:01:40] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0397E9A560F8DE0A6C8","timestamp":1712239298},"status":true}
+[2024-04-04 11:06:37] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0C16E034E541D5C3DD2","timestamp":1712239595},"status":true}
+[2024-04-04 11:17:06] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB057A075DB5C7AEAF81A","timestamp":1712240224},"status":true}
+[2024-04-04 11:18:16] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08F7993E3C162030DC0","timestamp":1712240294},"status":true}
+[2024-04-04 11:19:53] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07C0C0FB465EC732681","timestamp":1712240391},"status":true}
+[2024-04-04 11:20:42] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03BC47C1087D3F8E295","timestamp":1712240441},"status":true}
+[2024-04-04 11:23:44] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D2DF357E6536C08D91","timestamp":1712240623},"status":true}
+[2024-04-04 11:41:03] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0C68971E3996937B9AE","timestamp":1712241662},"status":true}
+[2024-04-04 11:48:49] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB05697A7FEA4D9D69955","timestamp":1712242128},"status":true}
+[2024-04-04 11:50:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB09E769F4ACA83403FE4","timestamp":1712242221},"status":true}
+[2024-04-04 11:53:26] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB055046BBB52EF06B359","timestamp":1712242405},"status":true}
+[2024-04-04 11:55:13] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F3D55CAB96FA824F0F","timestamp":1712242512},"status":true}
+[2024-04-04 11:59:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06FB7B549C539A8DC72","timestamp":1712242746},"status":true}
+[2024-04-04 12:07:59] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB064DEE482433747A140","timestamp":1712243277},"status":true}
+[2024-04-04 12:09:03] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB086F0B341DEEBE0A4E0","timestamp":1712243342},"status":true}
+[2024-04-04 12:14:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0BD282F08CE757D9785","timestamp":1712243646},"status":true}
+[2024-04-04 14:42:49] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-04 14:43:01] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-04-09 14:20:26] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EC2DF79BFFAAA400E5","timestamp":1712683224},"status":true}
+[2024-04-09 14:20:41] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EC80BB3CB1C916B288","timestamp":1712683239},"status":true}
+[2024-04-09 14:34:29] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5517996078394 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-04-09 14:37:07] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5517981809087 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-04-09 14:37:13] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB050E5BC66A70DCE87D7","timestamp":1712684232},"status":true}
+[2024-04-11 10:59:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB017BB336FF5B9D21487","timestamp":1712843982},"status":true}
+[2024-04-11 16:48:11] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0150E77501F61F7B288","timestamp":1712864888},"status":true}
+[2024-04-11 17:07:01] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07162A9E5E3C5866A9B","timestamp":1712866021},"status":true}
+[2024-04-11 19:38:05] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0FEB42C4711700D6BD0","timestamp":1712875084},"status":true}
+[2024-04-11 19:40:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB018A665EB1F02A960EE","timestamp":1712875242},"status":true}
+[2024-04-11 19:41:01] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB00572E7F77A93EB43C2","timestamp":1712875259},"status":true}
+[2024-04-11 19:41:46] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08F6DD950AD0D1848FC","timestamp":1712875304},"status":true}
+[2024-04-11 19:42:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0723B30B95DF4B1F324","timestamp":1712875361},"status":true}
+[2024-04-12 16:35:05] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D0D4F8D0B75BD4131F","timestamp":1712950503},"status":true}
+[2024-04-15 10:06:27] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-15 13:27:09] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-15 13:34:57] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-15 16:59:32] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-15 17:03:43] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-15 17:26:42] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-16 11:27:38] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-16 17:51:00] <html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+[2024-04-17 10:50:04] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0505B2E9FCA4391A4F7","timestamp":1713361802},"status":true}
+[2024-04-17 11:06:34] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5567984144160 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-04-17 11:24:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DA33ACC12D40D30674","timestamp":1713363845},"status":true}
+[2024-04-17 15:02:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB01F24055297435EF74C","timestamp":1713376941},"status":true}
+[2024-04-18 09:52:13] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02383989436E5433920","timestamp":1713444731},"status":true}
+[2024-04-18 09:57:00] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03F0648EDD2AB1C0407","timestamp":1713445019},"status":true}
+[2024-04-18 09:57:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB029636A0BAE3C3A28F3","timestamp":1713445050},"status":true}
+[2024-04-18 11:53:43] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-04-18 12:26:36] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-04-18 12:58:41] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D9E2159D02BE7FD2B6","timestamp":1713455919},"status":true}
+[2024-04-24 10:34:54] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0992C6EF43D5BB55A70","timestamp":1713965692},"status":true}
+[2024-04-24 10:36:27] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB065C542CE2CDFB598DC","timestamp":1713965787},"status":true}
+[2024-04-24 10:45:36] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0184A3855B4A4754217","timestamp":1713966335},"status":true}
+[2024-04-26 09:14:53] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-04-26 09:25:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB00BDF82F0D3FBE018B6","timestamp":1714134319},"status":true}
+[2024-04-26 09:33:00] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08848AC9AA470D3ED23","timestamp":1714134778},"status":true}
+[2024-04-26 09:35:20] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B9DEBB3C224A515499","timestamp":1714134918},"status":true}
+[2024-04-26 09:40:34] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0788FF5C9818A46831E","timestamp":1714135232},"status":true}
+[2024-04-26 11:06:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07D8EC8405AD7315F57","timestamp":1714140382},"status":true}
+[2024-04-29 16:20:54] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB056F74B82776670C60C","timestamp":1714418452},"status":true}
+[2024-05-01 14:27:53] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5569981221701 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-01 14:37:12] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03B317C4C6FE66F5AFD","timestamp":1714585031},"status":true}
+[2024-05-01 14:41:05] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5569932522496 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-01 14:42:10] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08C29A29F48531A9E0F","timestamp":1714585329},"status":true}
+[2024-05-01 16:12:25] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0C5353EBD89B8738B5E","timestamp":1714590744},"status":true}
+[2024-05-02 19:31:10] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 552198001096 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-02 19:34:26] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-02 19:34:50] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-02 19:34:53] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-02 19:34:54] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-02 19:34:57] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-02 19:35:05] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-04 13:10:27] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB024AE2E3F0842719E4C","timestamp":1714839025},"status":true}
+[2024-05-04 13:12:25] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-04 13:13:03] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5555219643029 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-04 13:13:23] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5555219643029 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-04 13:14:02] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 552964302920 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-04 13:14:13] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-04 13:18:10] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D63AFD59595C4A499E","timestamp":1714839488},"status":true}
+[2024-05-04 13:24:49] {"statusCode":400,"message":"error: Error: wid error: invalid wid","error":"Bad Request"}
+[2024-05-04 13:25:18] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 552964599713 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-05-04 13:39:28] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DCADF206EBEA7101DE","timestamp":1714840767},"status":true}
+[2024-05-04 13:50:01] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB087FFA49B180E5759D9","timestamp":1714841400},"status":true}
+[2024-05-04 15:48:35] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08347003F9C193094E8","timestamp":1714848512},"status":true}
+[2024-05-04 15:56:47] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0C2F5FEE0B14F21BD0E","timestamp":1714849007},"status":true}
+[2024-05-06 21:18:59] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A790AACF280ADB3DFB","timestamp":1715041137},"status":true}
+[2024-05-06 21:24:51] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0787A54588A6343055B","timestamp":1715041489},"status":true}
+[2024-05-06 21:36:33] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B45E622C1D387C97E9","timestamp":1715042192},"status":true}
+[2024-05-07 21:38:47] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0E595F9BB0A8CCF4E10","timestamp":1715128725},"status":true}
+[2024-05-08 18:11:12] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-05-08 18:42:09] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B6498F9D96B80D61C0","timestamp":1715204526},"status":true}
+[2024-05-08 18:42:17] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB069C969E10384AD2C38","timestamp":1715204534},"status":true}
+[2024-05-10 14:49:58] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06FBBACF368EF00AD8F","timestamp":1715363396},"status":true}
+[2024-05-22 08:39:45] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D58AFF6160D86BEDDC","timestamp":1716377983},"status":true}
+[2024-05-24 09:58:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B9B64CB3115C4282F2","timestamp":1716555501},"status":true}
+[2024-05-24 09:58:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0995CD874496DB664BD","timestamp":1716555521},"status":true}
+[2024-05-25 09:42:11] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03690F37EFB640256B5","timestamp":1716640929},"status":true}
+[2024-05-25 11:11:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB065B151B07D784BC12A","timestamp":1716646301},"status":true}
+[2024-05-25 11:15:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F01717C10FEA8FA147","timestamp":1716646520},"status":true}
+[2024-05-25 11:20:08] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0E59C2652DCEAFADB4E","timestamp":1716646806},"status":true}
+[2024-05-31 13:08:52] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0BC51656B1C8D534F99","timestamp":1717171729},"status":true}
+[2024-06-01 19:32:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03AF141BE1D2A1C842E","timestamp":1717281139},"status":true}
+[2024-06-03 11:00:08] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-06-03 11:45:48] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-06-03 11:45:51] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551899782432 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-06-03 12:28:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB001B8916CAA6F4F1D46","timestamp":1717428534},"status":true}
+[2024-06-03 13:33:41] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB073E7B905CA2E46AFBB","timestamp":1717432419},"status":true}
+[2024-06-03 15:36:48] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03888B75E5618E0A3CD","timestamp":1717439806},"status":true}
+[2024-06-05 11:22:11] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551899782432 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-06-05 11:25:01] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03714C1A6596F1A943D","timestamp":1717597500},"status":true}
+[2024-06-05 11:45:06] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB09522DB9058E57E6FB0","timestamp":1717598704},"status":true}
+[2024-06-05 11:45:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D1B682DB2B75C24991","timestamp":1717598741},"status":true}
+[2024-06-05 16:07:33] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DE146CF81706A01195","timestamp":1717614452},"status":true}
+[2024-06-05 16:15:22] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F2826C42F63928E706","timestamp":1717614921},"status":true}
+[2024-06-05 16:26:28] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08D5C096744B11F51E7","timestamp":1717615586},"status":true}
+[2024-06-05 17:42:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB068A14F22C2C227C68F","timestamp":1717620160},"status":true}
+[2024-06-05 17:54:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07698E480F1E89EF1B4","timestamp":1717620844},"status":true}
+[2024-06-06 09:49:47] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07209F50B05F82A3E2B","timestamp":1717678185},"status":true}
+[2024-06-07 11:18:32] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08F94F57DAAB7041F2F","timestamp":1717769910},"status":true}
+[2024-06-07 15:09:08] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0AD6BC3149787A33D19","timestamp":1717783746},"status":true}
+[2024-06-07 15:35:44] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB089B72FF3696D7F2462","timestamp":1717785342},"status":true}
+[2024-06-11 09:06:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB097A3EC609B915F567E","timestamp":1718107581},"status":true}
+[2024-06-12 15:25:08] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0118B67D6E9FF64F157","timestamp":1718216705},"status":true}
+[2024-06-12 19:58:14] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB097B964CF13A696FB9B","timestamp":1718233091},"status":true}
+[2024-06-12 20:01:26] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DC0155FD1FD516680B","timestamp":1718233283},"status":true}
+[2024-06-14 09:49:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0108E71ED39E953571F","timestamp":1718369345},"status":true}
+[2024-06-14 10:31:11] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A66C6A425B480EC164","timestamp":1718371868},"status":true}
+[2024-06-20 18:39:03] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A66798D0E730EE8397","timestamp":1718919541},"status":true}
+[2024-06-21 17:30:54] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B0EFDA94351B2443DF","timestamp":1719001851},"status":true}
+[2024-06-24 12:57:46] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5521995380359 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-06-24 12:57:50] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0BC36CF3381143D296F","timestamp":1719244669},"status":true}
+[2024-06-24 13:08:35] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F9E3789DF97388FCEB","timestamp":1719245314},"status":true}
+[2024-06-25 15:25:15] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EF5CE7E128DD31A599","timestamp":1719339912},"status":true}
+[2024-06-25 15:30:59] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EC6D89CA235CA43C4B","timestamp":1719340258},"status":true}
+[2024-06-26 10:45:57] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08AF2BBF7275D0808EE","timestamp":1719409554},"status":true}
+[2024-06-26 10:47:20] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06736AB9516DF32AFB1","timestamp":1719409636},"status":true}
+[2024-06-26 10:48:51] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0CBBFD164C3B767F85B","timestamp":1719409729},"status":true}
+[2024-06-27 11:27:57] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0744C6566995152C1BD","timestamp":1719498475},"status":true}
+[2024-07-01 18:49:07] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB01E126820A14F8A2D1E","timestamp":1719870545},"status":true}
+[2024-07-03 14:58:50] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0196B6EA7119BCEE9AA","timestamp":1720029527},"status":true}
+[2024-07-03 14:59:03] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551199131408 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-07-03 14:59:10] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551199131408 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-07-03 14:59:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0E212BB9D680DB49086","timestamp":1720029558},"status":true}
+[2024-07-03 15:01:25] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB04686B1089F0638D594","timestamp":1720029683},"status":true}
+[2024-07-17 19:09:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07FCE430D4456F88D49","timestamp":1721254169},"status":true}
+[2024-07-18 13:49:46] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-07-18 13:49:56] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-07-18 13:50:06] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB04EBF744516F5B54D6F","timestamp":1721321405},"status":true}
+[2024-07-18 13:50:30] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02FF1E41835BBF3A501","timestamp":1721321428},"status":true}
+[2024-07-19 10:17:38] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06F8366A446C34248E1","timestamp":1721395057},"status":true}
+[2024-07-29 11:19:12] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:19:25] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:19:45] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:25:14] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:25:29] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:29:09] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-29 11:33:47] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:02:50] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:02:53] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:03:36] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:04:08] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:04:34] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:05:32] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:05:33] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:05:37] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:05:52] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:06:17] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:06:38] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:07:25] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:07:37] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:08:22] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:08:23] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:08:26] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:08:27] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:09:04] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:09:16] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:09:48] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:10:12] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:10:30] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:11:24] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:12:10] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:17:58] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:18:50] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:19:12] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:19:59] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:20:06] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 17:21:08] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 18:38:30] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 18:39:55] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 18:40:03] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 18:40:29] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 18:44:40] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-07-31 20:30:01] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:29:25] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:38:50] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:38:57] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:39:40] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:39:45] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:39:58] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:41:12] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:41:14] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:41:19] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:41:29] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:41:47] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:42:28] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:44:31] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:50:06] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:50:28] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:50:46] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 09:51:23] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 10:38:34] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 10:38:53] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 10:39:49] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 11:02:55] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-08-01 12:13:57] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0739FDC57E0A96B44C4","timestamp":1722525235},"status":true}
+[2024-08-01 12:17:29] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB005E101E30E72D434BE","timestamp":1722525447},"status":true}
+[2024-08-01 14:03:58] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D294DEEB8BCB8C6E2A","timestamp":1722531837},"status":true}
+[2024-08-01 14:50:28] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB015EB30087D041B18C7","timestamp":1722534626},"status":true}
+[2024-08-06 14:23:42] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A1DEE3FB0DF4D6A618","timestamp":1722965019},"status":true}
+[2024-08-06 14:24:12] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08053D451FCB5813580","timestamp":1722965051},"status":true}
+[2024-08-07 09:04:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB05C070529626A56192A","timestamp":1723032259},"status":true}
+[2024-08-07 15:39:21] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B09A5B5903E5FC54A2","timestamp":1723055958},"status":true}
+[2024-08-07 16:16:10] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 556199695275 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-08-09 10:44:20] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0FF2BAF7100214BF137","timestamp":1723211058},"status":true}
+[2024-08-16 12:14:09] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB042E2513AD7A04F581C","timestamp":1723821246},"status":true}
+[2024-08-16 12:16:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F7D24618C390A6BC0A","timestamp":1723821414},"status":true}
+[2024-08-21 11:13:17] {"statusCode":400,"message":"error: Error: wid error: invalid wid","error":"Bad Request"}
+[2024-08-21 11:37:26] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0F61CA47E2AC99A8E69","timestamp":1724251044},"status":true}
+[2024-08-21 12:05:22] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0860516662C88A9D223","timestamp":1724252719},"status":true}
+[2024-08-22 18:07:52] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02C1BDFD3A5F42513C0","timestamp":1724360871},"status":true}
+[2024-08-23 15:11:11] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07E12BE888727A8662A","timestamp":1724436668},"status":true}
+[2024-08-26 11:45:05] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB003A49E05672DBAF84A","timestamp":1724683503},"status":true}
+[2024-08-26 11:48:57] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0851625BBDA9BEC5AEA","timestamp":1724683736},"status":true}
+[2024-08-26 11:52:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A94F9A233DADABE922","timestamp":1724683973},"status":true}
+[2024-08-26 11:55:06] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB026A41A3858EF35EA90","timestamp":1724684105},"status":true}
+[2024-08-26 13:08:53] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DD3F6B5540B24435E1","timestamp":1724688530},"status":true}
+[2024-08-26 13:14:06] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02EE06ECB279EBD86A2","timestamp":1724688843},"status":true}
+[2024-08-26 13:17:24] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0BA1B416A0B3CE652C8","timestamp":1724689042},"status":true}
+[2024-08-26 13:24:59] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06FBA273C9B30EFE81C","timestamp":1724689498},"status":true}
+[2024-08-26 13:29:49] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB004CF1291F0C6C2983E","timestamp":1724689788},"status":true}
+[2024-08-26 13:36:22] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB01E4A7650A1F11E7A28","timestamp":1724690181},"status":true}
+[2024-09-03 11:10:31] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-03 17:34:46] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-03 17:35:46] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-03 17:35:51] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-04 09:42:45] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-04 22:17:34] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-09 16:00:44] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-09 16:01:34] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 11:32:14] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 11:40:29] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 11:41:02] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 11:41:36] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 12:02:52] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-10 15:27:51] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-11 16:02:59] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-16 12:09:25] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-16 15:29:57] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 09:37:57] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 09:40:07] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 09:41:01] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 13:39:59] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 15:21:29] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 15:21:40] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 15:21:47] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 15:23:24] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 15:37:14] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 22:25:13] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 22:26:01] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-18 22:27:48] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-19 08:59:23] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2024-09-19 12:13:03] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B65215BB4A4565CDFB","timestamp":1726758780},"status":true}
+[2024-09-22 16:55:18] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EEC763A596F859D9AA","timestamp":1727034914},"status":true}
+[2024-09-22 16:55:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB000B0DDB0A50349A1F5","timestamp":1727034920},"status":true}
+[2024-09-22 17:14:16] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB027EFA5B93F55FC55C8","timestamp":1727036055},"status":true}
+[2024-09-23 09:31:24] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB000C3485DCABCF0B2A7","timestamp":1727094683},"status":true}
+[2024-09-23 09:53:06] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5577997013808 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-09-23 09:53:06] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 5577997013807 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-09-23 09:54:34] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0ECF290E9FA05434835","timestamp":1727096073},"status":true}
+[2024-09-23 10:00:36] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06013478DB5654EF7D4","timestamp":1727096434},"status":true}
+[2024-09-23 10:04:08] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0729D1CF57742CA1E8A","timestamp":1727096647},"status":true}
+[2024-09-23 10:04:18] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0E7BF22EA240C680B43","timestamp":1727096656},"status":true}
+[2024-09-23 15:11:17] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0E31B95C7418E65BCBB","timestamp":1727115075},"status":true}
+[2024-09-24 11:29:30] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 557499999996 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-09-24 11:32:36] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A0366B58BCC53C0BA8","timestamp":1727188353},"status":true}
+[2024-09-24 11:59:40] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B37A94A2D0321DF5C9","timestamp":1727189978},"status":true}
+[2024-09-24 12:59:48] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB070FC1107786D80DF63","timestamp":1727193585},"status":true}
+[2024-09-27 09:10:34] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02F3BDE48C253BC660B","timestamp":1727439033},"status":true}
+[2024-09-27 15:48:19] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-09-27 15:48:52] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-09-27 15:48:58] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB061D7B0A2206134C343","timestamp":1727462935},"status":true}
+[2024-09-28 12:35:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB01B20AB55F9F5187864","timestamp":1727537728},"status":true}
+[2024-10-03 09:58:14] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB079EECE5D06C0E3CFDA","timestamp":1727960291},"status":true}
+[2024-10-04 14:08:58] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0C2FA5E8BC1EAC3D88B","timestamp":1728061736},"status":true}
+[2024-10-04 14:10:34] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB02396D64DAADA1FFB88","timestamp":1728061832},"status":true}
+[2024-10-04 14:28:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB07245A034FAD9560B60","timestamp":1728062910},"status":true}
+[2024-10-04 14:28:50] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03BB65948887C4E67FA","timestamp":1728062928},"status":true}
+[2024-10-08 11:35:43] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EEFBEC312EEC34837A","timestamp":1728398140},"status":true}
+[2024-10-08 11:46:14] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D0FF901C63C8D6F8BA","timestamp":1728398772},"status":true}
+[2024-10-11 16:48:51] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB053B0AA129F6A82BC7D","timestamp":1728676128},"status":true}
+[2024-10-11 16:48:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB080D8824F221EB66A91","timestamp":1728676133},"status":true}
+[2024-10-14 20:19:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08CAF2502797097379C","timestamp":1728947968},"status":true}
+[2024-10-17 13:07:24] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-10-17 13:07:58] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551899141239 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-10-17 13:13:42] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551899141239 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-10-17 13:13:47] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 551899782432 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-10-17 13:14:17] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0706B8ED33D4F4A648E","timestamp":1729181656},"status":true}
+[2024-10-17 16:19:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0BA376334AE439ACDEF","timestamp":1729192770},"status":true}
+[2024-10-17 16:42:49] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB043D525F4B2660F88B7","timestamp":1729194167},"status":true}
+[2024-10-23 15:50:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B35252FB7C747E7E13","timestamp":1729709452},"status":true}
+[2024-10-24 15:20:30] Erro na chamada cURL: Failed to connect to 2606:4700:3036::6815:2c61: Network is unreachable
+[2024-10-24 15:22:47] Erro na chamada cURL: Failed to connect to 2606:4700:3035::ac43:c685: Network is unreachable
+[2024-10-24 15:22:50] Erro na chamada cURL: Failed to connect to 2606:4700:3036::6815:2c61: Network is unreachable
+[2024-10-28 14:48:28] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0EE815880919DD6D582","timestamp":1730137705},"status":true}
+[2024-10-28 14:56:50] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-10-28 14:57:54] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-10-28 14:58:37] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB09B8E6D3F283A004D8F","timestamp":1730138315},"status":true}
+[2024-10-28 15:00:38] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB019CF7C8295EBD51E9D","timestamp":1730138436},"status":true}
+[2024-10-28 15:05:23] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB00C5BD9C11046E841C6","timestamp":1730138720},"status":true}
+[2024-10-29 16:12:44] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB067F2700C56FC64E101","timestamp":1730229161},"status":true}
+[2024-10-29 16:13:26] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB00CB2D81AAC2D8DF05D","timestamp":1730229204},"status":true}
+[2024-11-08 09:14:20] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D8BC331B44A7D219DC","timestamp":1731068058},"status":true}
+[2024-11-08 10:34:47] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB036C402E0DD16398929","timestamp":1731072884},"status":true}
+[2024-11-08 11:33:33] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0210E293F0831B4076A","timestamp":1731076412},"status":true}
+[2024-11-08 15:56:50] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A8BBB9D7FD0EBD98A2","timestamp":1731092206},"status":true}
+[2024-11-21 17:49:55] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0DD91A540CB3C611BC9","timestamp":1732222189},"status":true}
+[2024-11-21 17:50:15] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB016B3275CCDFE08B825","timestamp":1732222212},"status":true}
+[2024-12-09 09:24:41] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB06450356EC7F22E8045","timestamp":1733747078},"status":true}
+[2024-12-16 12:00:28] {"statusCode":400,"message":"error: NotFoundException: getUserJid - O número 552199986187 não está cadastrado no WhatsApp","error":"Bad Request"}
+[2024-12-16 14:57:40] {"statusCode":400,"message":"error: TypeError: Cannot destructure property 'groups' of 'regexBR.exec(...)' as it is null.","error":"Bad Request"}
+[2024-12-16 14:57:59] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB030BF5CD95BF89988B7","timestamp":1734371876},"status":true}
+[2025-01-16 18:29:45] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-21 09:57:56] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-21 10:08:34] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-21 10:08:55] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-21 10:10:25] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-21 10:56:16] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-22 16:45:04] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-22 16:56:10] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-24 16:09:33] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-24 16:10:10] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-24 16:10:53] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-24 16:12:27] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:18:41] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:18:55] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:19:02] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:23:30] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:24:27] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:25:08] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:25:36] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:25:58] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:26:01] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-25 15:26:47] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-30 11:43:21] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-30 11:44:00] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-30 15:55:54] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-01-31 11:22:47] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0B3BEAD0D56286BC50C","timestamp":1738333365},"status":true}
+[2025-02-07 15:44:57] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A5374C5C12501C64B2","timestamp":1738953895},"status":true}
+[2025-02-26 15:47:03] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0587E2D3B076FCBCA5D","timestamp":1740595619},"status":true}
+[2025-02-27 15:13:34] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0ADEF8B89DAAE04F89F","timestamp":1740680012},"status":true}
+[2025-03-06 20:31:09] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-06 20:32:12] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-06 20:33:26] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:05:19] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:05:19] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:05:48] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:06:06] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:06:40] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:09:48] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:10:51] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:12:13] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:25:51] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:31:56] {"statusCode":405,"message":"WhatsApp Client não está conectado","error":"Method Not Allowed"}
+[2025-03-12 15:38:01] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0A51DDF632E6E752BE2","timestamp":1741804678},"status":true}
+[2025-03-17 19:23:31] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB08503E649106F8F03C4","timestamp":1742250208},"status":true}
+[2025-03-18 13:44:25] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB0D647FCF6E234762C0D","timestamp":1742316262},"status":true}
+[2025-03-22 22:02:29] {"message":"Mensagem Enviada","resposeMessage":{"id":"3EB03795B16B446ECA71BC","timestamp":1742691747},"status":true}

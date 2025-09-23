@@ -1,0 +1,3 @@
+# Ignore editor and OS artefacts not required in production
+css/.DS_Store
+js/jquery.maskedinput-master.zip
