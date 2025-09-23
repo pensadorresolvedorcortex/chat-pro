@@ -1,0 +1,34 @@
+# === Rewrites básicos ===
+RewriteEngine On
+Options -MultiViews
+
+# [OPCIONAL/DEFENSIVO] Se, por acaso, este .htaccess for lido em requests da intranet,
+# não aplicar nenhuma regra (só continua a request sem redirecionar).
+RewriteCond %{HTTP_HOST} ^intranet\.ctcb\.org\.br$ [NC]
+RewriteRule ^ - [L]
+
+# 1) Forçar HTTPS no site público
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# 2) Forçar domínio sem "www"
+RewriteCond %{HTTP_HOST} ^www\.ctcb\.org\.br$ [NC]
+RewriteRule ^ https://ctcb.org.br%{REQUEST_URI} [R=301,L]
+
+# (Se você usa "www" como canônico, inverta a lógica acima.)
+
+# === Segurança e cabeçalhos úteis ===
+# HSTS (NÃO usar includeSubDomains para não impactar subdomínios como a intranet)
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-XSS-Protection "1; mode=block"
+</IfModule>
+
+# === URLs amigáveis para arquivos PHP ===
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^([^/]+?)/?$ $1.php [L,QSA]
