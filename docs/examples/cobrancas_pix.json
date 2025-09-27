@@ -1,0 +1,71 @@
+{
+  "cobrancas": [
+    {
+      "id": "cob_8f32c1",
+      "planoId": "plano-mensal-plus",
+      "valor": 64.9,
+      "moeda": "BRL",
+      "status": "pendente",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/9f1a8b70abbf5203040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304A13B",
+      "qrCodeUrl": "https://cdn.academia.com/pix/cob_8f32c1.png",
+      "qrCodeBase64": "iVBORw0KGgoAAAANSUhEUgAA...",
+      "chavePix": "pix@academia.com.br",
+      "txid": "TX123ABC456",
+      "expiresAt": "2024-05-24T23:59:59Z",
+      "createdAt": "2024-05-24T20:00:00Z",
+      "updatedAt": "2024-05-24T20:00:00Z",
+      "assinaturaId": null,
+      "pagador": {
+        "nome": "Ana Paula Ribeiro",
+        "documento": "12345678909",
+        "email": "ana.paula@academia.com",
+        "telefone": "+55 11 99888-7766"
+      }
+    },
+    {
+      "id": "cob_9b77d2",
+      "planoId": "plano-anual-premium",
+      "valor": 529.0,
+      "moeda": "BRL",
+      "status": "pago",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/f41c2a9077b82f03040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304B44C",
+      "qrCodeUrl": "https://cdn.academia.com/pix/cob_9b77d2.png",
+      "qrCodeBase64": "iVBORw0KGgoAAAANSUhEUgAA...",
+      "chavePix": "pix@academia.com.br",
+      "txid": "TX987ZYX654",
+      "expiresAt": "2024-05-10T23:59:59Z",
+      "createdAt": "2024-05-08T14:21:00Z",
+      "updatedAt": "2024-05-08T14:24:18Z",
+      "assinaturaId": "assinatura-marcos-pix",
+      "pagador": {
+        "nome": "Marcos Vieira",
+        "documento": "98765432100",
+        "email": "marcos.vieira@academia.com",
+        "telefone": "+55 21 98877-6655"
+      }
+    },
+    {
+      "id": "cob_5c11aa",
+      "planoId": "plano-gratuito-jornalismo",
+      "valor": 0,
+      "moeda": "BRL",
+      "status": "expirado",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/1b34ad5c00ff8d03040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304C55D",
+      "qrCodeUrl": "https://cdn.academia.com/pix/cob_5c11aa.png",
+      "qrCodeBase64": "iVBORw0KGgoAAAANSUhEUgAA...",
+      "chavePix": "pix@academia.com.br",
+      "txid": "TX111FREE000",
+      "expiresAt": "2024-05-02T23:59:59Z",
+      "createdAt": "2024-05-01T10:00:00Z",
+      "updatedAt": "2024-05-02T23:59:59Z",
+      "assinaturaId": null,
+      "pagador": {
+        "nome": "Bruna Cavalcanti",
+        "documento": "55443322119",
+        "email": "bruna.cavalcanti@academia.com",
+        "telefone": "+55 31 97766-5544"
+      },
+      "observacoes": "Plano grátis expirado aguardando nova aprovação do super admin"
+    }
+  ]
+}

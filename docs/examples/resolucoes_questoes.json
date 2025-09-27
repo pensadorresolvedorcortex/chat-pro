@@ -1,0 +1,26 @@
+[
+  {
+    "id": "res-aluno-marina-qst-001",
+    "usuarioId": "user-aluno-marina",
+    "questaoId": "qst-constituicao-2023-001",
+    "simuladoId": null,
+    "alternativaMarcada": "B",
+    "correta": true,
+    "tempoSegundos": 74,
+    "respondidaEm": "2024-06-13T12:41:05Z",
+    "comentario": "Tema recorrente em provas da FGV, revisar com atenção a competência concorrente.",
+    "origem": "caderno-diario"
+  },
+  {
+    "id": "res-aluno-diego-qst-014",
+    "usuarioId": "user-aluno-diego",
+    "questaoId": "qst-portugues-interpretacao-014",
+    "simuladoId": "simulado-express-junho",
+    "alternativaMarcada": "D",
+    "correta": false,
+    "tempoSegundos": 49,
+    "respondidaEm": "2024-06-10T18:22:44Z",
+    "comentario": "Confundi com relação causal, revisar quadro mental de conjunções.",
+    "origem": "simulado"
+  }
+]
