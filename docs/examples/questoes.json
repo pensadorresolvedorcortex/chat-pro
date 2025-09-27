@@ -1,0 +1,98 @@
+[
+  {
+    "id": "qst-constituicao-2023-001",
+    "enunciado": "De acordo com a Constituição Federal de 1988, assinale a alternativa correta quanto às competências legislativas concorrentes.",
+    "alternativas": [
+      {
+        "letra": "A",
+        "descricao": "Compete privativamente à União legislar sobre orçamento.",
+        "correta": false
+      },
+      {
+        "letra": "B",
+        "descricao": "Compete concorrentemente à União, aos Estados e ao Distrito Federal legislar sobre direito tributário.",
+        "correta": true
+      },
+      {
+        "letra": "C",
+        "descricao": "Compete aos Municípios legislar privativamente sobre direito eleitoral.",
+        "correta": false
+      },
+      {
+        "letra": "D",
+        "descricao": "Compete concorrentemente aos Estados e aos Municípios legislar sobre trânsito e transporte.",
+        "correta": false
+      },
+      {
+        "letra": "E",
+        "descricao": "Compete privativamente ao Distrito Federal legislar sobre direito agrário.",
+        "correta": false
+      }
+    ],
+    "explicacao": "O artigo 24 da Constituição prevê a competência concorrente da União, Estados e Distrito Federal para legislar sobre direito tributário, financeiro, penitenciário, econômico e urbanístico.",
+    "dificuldade": "intermediaria",
+    "ano": 2023,
+    "disciplina": "Direito Constitucional",
+    "assuntos": [
+      "competencia-legislativa",
+      "constituicao-1988"
+    ],
+    "banca": "FGV",
+    "orgaosRelacionados": [
+      "tj-rj",
+      "mp-go"
+    ],
+    "estatisticas": {
+      "respondidas": 1850,
+      "acertos": 1240,
+      "erros": 610,
+      "tempoMedianoSegundos": 82
+    }
+  },
+  {
+    "id": "qst-portugues-interpretacao-014",
+    "enunciado": "No trecho 'embora ainda seja cedo, os candidatos já demonstram apreensão', a conjunção destacada indica relação de:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "descricao": "Concessão",
+        "correta": true
+      },
+      {
+        "letra": "B",
+        "descricao": "Adição",
+        "correta": false
+      },
+      {
+        "letra": "C",
+        "descricao": "Explicação",
+        "correta": false
+      },
+      {
+        "letra": "D",
+        "descricao": "Causa",
+        "correta": false
+      },
+      {
+        "letra": "E",
+        "descricao": "Alternância",
+        "correta": false
+      }
+    ],
+    "explicacao": "A conjunção 'embora' introduz uma oração subordinada concessiva, estabelecendo contraste em relação à oração principal.",
+    "dificuldade": "facil",
+    "ano": 2022,
+    "disciplina": "Língua Portuguesa",
+    "assuntos": [
+      "interpretacao-de-textos",
+      "conjuncoes"
+    ],
+    "banca": "CESPE",
+    "estatisticas": {
+      "respondidas": 2375,
+      "acertos": 1984,
+      "erros": 391,
+      "tempoMedianoSegundos": 54
+    }
+  }
+]

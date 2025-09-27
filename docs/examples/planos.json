@@ -1,0 +1,41 @@
+[
+  {
+    "id": "plano-pro-anual",
+    "nome": "Plano Pro Anual",
+    "tipo": "pago",
+    "periodicidade": "anual",
+    "preco": 599.9,
+    "moeda": "BRL",
+    "chavePix": "pix@academiadacomunicacao.com",
+    "beneficios": [
+      "Questões ilimitadas",
+      "Simulados express com estatísticas avançadas",
+      "Mentorias coletivas quinzenais",
+      "Biblioteca premium com materiais extras"
+    ],
+    "statusAprovacao": "aprovado",
+    "aprovadoPor": "user-gestora-luiza",
+    "aprovadoEm": "2024-06-14T10:20:00Z",
+    "createdAt": "2024-05-10T14:00:00Z",
+    "updatedAt": "2024-06-14T10:20:00Z"
+  },
+  {
+    "id": "plano-gratuito-alunos",
+    "nome": "Plano Grátis para Alunos",
+    "tipo": "gratis_aluno",
+    "periodicidade": "mensal",
+    "preco": 0,
+    "moeda": "BRL",
+    "chavePix": null,
+    "beneficios": [
+      "Acesso a 30 questões por dia",
+      "Rankings semanais",
+      "Cadernos ilimitados"
+    ],
+    "statusAprovacao": "pendente",
+    "aprovadoPor": null,
+    "aprovadoEm": null,
+    "createdAt": "2024-06-12T18:45:00Z",
+    "updatedAt": "2024-06-14T15:27:00Z"
+  }
+]
