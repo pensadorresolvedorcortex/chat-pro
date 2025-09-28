@@ -1,0 +1,99 @@
+{
+  "cobrancas": [
+    {
+      "id": "cob_8f32c1",
+      "txid": "TX123ABC456",
+      "planoId": "plano-mensal-plus",
+      "assinaturaId": null,
+      "usuarioId": "user-ana-ribeiro",
+      "valor": 64.9,
+      "moeda": "BRL",
+      "status": "pendente",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/9f1a8b70abbf5203040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304A13B",
+      "chavePix": "pix@academia.com.br",
+      "qrCode": {
+        "url": "https://cdn.academia.com/pix/cob_8f32c1.png",
+        "base64": "iVBORw0KGgoAAAANSUhEUgAA..."
+      },
+      "expiraEm": "2024-05-24T23:59:59Z",
+      "confirmadoEm": null,
+      "expiradoEm": null,
+      "canceladoEm": null,
+      "pagador": {
+        "nome": "Ana Paula Ribeiro",
+        "documento": "12345678909",
+        "email": "ana.paula@academia.com",
+        "telefone": "+55 11 99888-7766"
+      },
+      "metadata": {
+        "origem": "app-mobile"
+      },
+      "criadoEm": "2024-05-24T20:00:00Z",
+      "atualizadoEm": "2024-05-24T20:00:00Z"
+    },
+    {
+      "id": "cob_9b77d2",
+      "txid": "TX987ZYX654",
+      "planoId": "plano-pro-anual",
+      "assinaturaId": "assinatura-marcos-pix",
+      "usuarioId": "user-marcos-vieira",
+      "valor": 529.0,
+      "moeda": "BRL",
+      "status": "confirmado",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/f41c2a9077b82f03040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304B44C",
+      "chavePix": "pix@academia.com.br",
+      "qrCode": {
+        "url": "https://cdn.academia.com/pix/cob_9b77d2.png",
+        "base64": "iVBORw0KGgoAAAANSUhEUgAA..."
+      },
+      "expiraEm": "2024-05-10T23:59:59Z",
+      "confirmadoEm": "2024-05-08T14:24:16Z",
+      "expiradoEm": null,
+      "canceladoEm": null,
+      "pagador": {
+        "nome": "Marcos Vieira",
+        "documento": "98765432100",
+        "email": "marcos.vieira@academia.com",
+        "telefone": "+55 21 98877-6655"
+      },
+      "metadata": {
+        "origem": "dashboard",
+        "motivo": "renovacao-automatica"
+      },
+      "criadoEm": "2024-05-08T14:21:00Z",
+      "atualizadoEm": "2024-05-08T14:24:18Z"
+    },
+    {
+      "id": "cob_5c11aa",
+      "txid": "TX111FREE000",
+      "planoId": "plano-mensal-plus",
+      "assinaturaId": "assinatura-ana-pix",
+      "usuarioId": "user-ana-ribeiro",
+      "valor": 64.9,
+      "moeda": "BRL",
+      "status": "expirado",
+      "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/1b34ad5c00ff8d03040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304C55D",
+      "chavePix": "pix@academia.com.br",
+      "qrCode": {
+        "url": "https://cdn.academia.com/pix/cob_5c11aa.png",
+        "base64": "iVBORw0KGgoAAAANSUhEUgAA..."
+      },
+      "expiraEm": "2024-05-02T23:59:59Z",
+      "confirmadoEm": null,
+      "expiradoEm": "2024-05-03T00:00:00Z",
+      "canceladoEm": null,
+      "pagador": {
+        "nome": "Ana Paula Ribeiro",
+        "documento": "12345678909",
+        "email": "ana.paula@academia.com",
+        "telefone": "+55 11 99888-7766"
+      },
+      "metadata": {
+        "origem": "app-mobile",
+        "observacao": "cliente não finalizou pagamento"
+      },
+      "criadoEm": "2024-05-01T10:00:00Z",
+      "atualizadoEm": "2024-05-03T08:30:00Z"
+    }
+  ]
+}

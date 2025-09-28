@@ -1,0 +1,47 @@
+{
+  "etapas": [
+    {
+      "id": "objetivo",
+      "titulo": "Qual é o seu foco agora?",
+      "descricao": "Escolha para personalizarmos recomendações e planos.",
+      "opcoes": [
+        { "id": "concurso", "label": "Passar em um concurso específico" },
+        { "id": "explorar", "label": "Explorar áreas e descobrir oportunidades" },
+        { "id": "estudo_livre", "label": "Aprimorar conhecimentos gerais" }
+      ]
+    },
+    {
+      "id": "nivel",
+      "titulo": "Qual o seu nível atual?",
+      "descricao": "Isso nos ajuda a calibrar a dificuldade inicial.",
+      "opcoes": [
+        { "id": "iniciante", "label": "Iniciante" },
+        { "id": "intermediario", "label": "Intermediário" },
+        { "id": "avancado", "label": "Avançado" }
+      ]
+    },
+    {
+      "id": "disponibilidade",
+      "titulo": "Quanto tempo você pode estudar por semana?",
+      "descricao": "Definiremos metas realistas com base nessa carga horária.",
+      "opcoes": [
+        { "id": "ate_5h", "label": "Até 5 horas" },
+        { "id": "5a12h", "label": "Entre 5h e 12h" },
+        { "id": "12h+", "label": "Mais de 12 horas" }
+      ]
+    }
+  ],
+  "resumoFinal": {
+    "titulo": "Seu plano personalizado está pronto!",
+    "subtitulo": "Baseado no concurso do TJ-CE, nível intermediário e 12h semanais.",
+    "cta": {
+      "label": "Começar agora",
+      "rota": "/dashboard"
+    },
+    "beneficios": [
+      "Plano de estudos semanal automatizado",
+      "Seleção inicial de 40 questões alinhadas ao edital",
+      "Acesso imediato ao aulão de discursivas TJ-CE"
+    ]
+  }
+}

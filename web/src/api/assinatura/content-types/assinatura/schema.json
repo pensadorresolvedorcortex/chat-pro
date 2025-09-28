@@ -1,0 +1,69 @@
+{
+  "kind": "collectionType",
+  "collectionName": "assinaturas",
+  "info": {
+    "singularName": "assinatura",
+    "pluralName": "assinaturas",
+    "displayName": "Assinatura",
+    "description": "Assinaturas vinculadas aos planos Pix e planos gratuitos aprovados"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "usuarioId": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pendente", "ativa", "expirada", "cancelada"],
+      "default": "pendente",
+      "required": true
+    },
+    "metodoPagamento": {
+      "type": "enumeration",
+      "enum": ["pix", "gratis_aluno"],
+      "default": "pix",
+      "required": true
+    },
+    "iniciadaEm": {
+      "type": "datetime"
+    },
+    "expiraEm": {
+      "type": "datetime"
+    },
+    "canceladaEm": {
+      "type": "datetime"
+    },
+    "plano": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::plano.plano",
+      "inversedBy": "assinaturas"
+    },
+    "cobrancas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::cobranca-pix.cobranca-pix",
+      "mappedBy": "assinatura"
+    },
+    "pixChaveUsada": {
+      "type": "string"
+    },
+    "pixNomePagador": {
+      "type": "string"
+    },
+    "pixDocumentoPagador": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "json"
+    }
+  }
+}

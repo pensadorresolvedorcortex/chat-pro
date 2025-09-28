@@ -1,0 +1,40 @@
+[
+  {
+    "id": "ticket-8942",
+    "usuarioId": "user-juliana-matos",
+    "assunto": "Erro ao baixar PDF",
+    "categoria": "biblioteca",
+    "status": "em_atendimento",
+    "mensagens": [
+      {
+        "autor": "user-juliana-matos",
+        "conteudo": "Não consigo baixar o resumo de legislação, aparece erro 403.",
+        "enviadoEm": "2024-06-27T12:31:00Z"
+      },
+      {
+        "autor": "agente-suporte-isa",
+        "conteudo": "Já reenviamos o link atualizado, pode testar novamente?",
+        "enviadoEm": "2024-06-27T13:02:00Z"
+      }
+    ]
+  },
+  {
+    "id": "ticket-9010",
+    "usuarioId": "user-camila-andrade",
+    "assunto": "Dúvida sobre plano gratuito",
+    "categoria": "assinaturas",
+    "status": "resolvido",
+    "mensagens": [
+      {
+        "autor": "user-camila-andrade",
+        "conteudo": "O plano gratuito precisa ser renovado?",
+        "enviadoEm": "2024-06-24T09:10:00Z"
+      },
+      {
+        "autor": "agente-suporte-isa",
+        "conteudo": "Ele é renovado a cada 6 meses mediante avaliação do desempenho.",
+        "enviadoEm": "2024-06-24T09:45:00Z"
+      }
+    ]
+  }
+]

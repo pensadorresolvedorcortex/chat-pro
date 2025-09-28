@@ -1,0 +1,24 @@
+[
+  {
+    "id": "push-questoes",
+    "titulo": "12 novas questões para o TJ-CE",
+    "mensagem": "Camila, liberamos um bloco especial de interpretação com correções comentadas.",
+    "tipo": "personalizada",
+    "segmento": {
+      "grupo": "tjce",
+      "assinatura": "premium"
+    },
+    "agendadaPara": "2024-06-30T12:00:00Z"
+  },
+  {
+    "id": "push-live",
+    "titulo": "Aulão de revisão começa em 30 minutos",
+    "mensagem": "Garanta sua presença na live Discursivas TJ-CE com o prof. Henrique Porto.",
+    "tipo": "transmissao",
+    "segmento": {
+      "grupo": "tjce",
+      "assinatura": "todas"
+    },
+    "agendadaPara": "2024-07-02T22:30:00Z"
+  }
+]

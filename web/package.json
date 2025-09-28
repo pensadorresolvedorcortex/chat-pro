@@ -1,0 +1,37 @@
+{
+  "name": "academia-da-comunicacao-cms",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "yarn@1.22.19",
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=18 <19"
+  },
+  "dependencies": {
+    "@strapi/plugin-documentation": "^5.0.0",
+    "@strapi/plugin-i18n": "^5.0.0",
+    "@strapi/plugin-users-permissions": "^5.0.0",
+    "@strapi/plugin-email": "^5.0.0",
+    "@strapi/provider-email-nodemailer": "^5.0.0",
+    "@strapi/plugin-seo": "^5.0.0",
+    "@strapi/plugin-sentry": "^5.0.0",
+    "@strapi/strapi": "^5.0.0",
+    "pg": "^8.11.3",
+    "pg-connection-string": "^2.6.2",
+    "ioredis": "^5.3.2",
+    "meilisearch": "^0.37.1"
+  },
+  "devDependencies": {
+    "@strapi/types": "^5.0.0",
+    "@types/node": "^20.11.5",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "mentoria-discursiva-julho-1",
+    "mentorId": "user-henrique-porto",
+    "titulo": "Mentoria de discursivas TJ-CE",
+    "descricao": "Sessão individual com correção ao vivo de discursivas.",
+    "slots": [
+      { "inicio": "2024-07-05T13:00:00Z", "fim": "2024-07-05T14:00:00Z", "status": "reservado", "reservadoPor": "user-camila-andrade" },
+      { "inicio": "2024-07-05T14:30:00Z", "fim": "2024-07-05T15:30:00Z", "status": "disponivel" }
+    ],
+    "avaliacaoMedia": 4.9,
+    "alunosAtendidos": 112
+  },
+  {
+    "id": "mentoria-roteiro-estudos",
+    "mentorId": "user-henrique-porto",
+    "titulo": "Roteiro de estudos personalizado",
+    "descricao": "Planejamento de 6 semanas com acompanhamento no app.",
+    "slots": [
+      { "inicio": "2024-07-07T16:00:00Z", "fim": "2024-07-07T17:00:00Z", "status": "disponivel" }
+    ],
+    "avaliacaoMedia": 4.7,
+    "alunosAtendidos": 64
+  }
+]

@@ -1,0 +1,196 @@
+{
+  "usuario": {
+    "id": "user-camila-andrade",
+    "nome": "Camila Andrade",
+    "saudacao": "Bom dia",
+    "objetivo": "Tribunal de Justiça do Ceará",
+    "streakDias": 32,
+    "nivel": "Avançado",
+    "badge": "Top 5 TJ-CE",
+    "assinaturaAtual": {
+      "planoId": "plano-pro-anual",
+      "status": "ativa",
+      "renovaEm": "2025-06-14"
+    }
+  },
+  "atalhosRapidos": [
+    {
+      "icone": "rocket_launch",
+      "titulo": "Plano de estudos",
+      "descricao": "Monte sua semana em menos de 2 minutos.",
+      "rota": "/metas/criar"
+    },
+    {
+      "icone": "quiz",
+      "titulo": "Questões recomendadas",
+      "descricao": "Novas 12 questões de interpretação para hoje.",
+      "rota": "/questoes/recomendadas"
+    },
+    {
+      "icone": "military_tech",
+      "titulo": "Ranking TJ-CE",
+      "descricao": "Você está em 4º lugar esta semana.",
+      "rota": "/desafios/ranking"
+    },
+    {
+      "icone": "local_library",
+      "titulo": "Biblioteca",
+      "descricao": "Confira os novos mapas mentais liberados.",
+      "rota": "/biblioteca"
+    }
+  ],
+  "metricasSemana": [
+    {
+      "rotulo": "Questões",
+      "valor": "94/150",
+      "comentario": "+18 vs. semana passada"
+    },
+    {
+      "rotulo": "Horas",
+      "valor": "14h",
+      "comentario": "3h restantes na meta"
+    },
+    {
+      "rotulo": "Acertos",
+      "valor": "76%",
+      "comentario": "+4 pts. na última semana"
+    }
+  ],
+  "destaquesAlunos": [
+    {
+      "usuarioId": "user-juliana-matos",
+      "nome": "Juliana Matos",
+      "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/juliana-matos.png",
+      "objetivo": "SEFAZ Bahia",
+      "resumo": "215 questões • 58% de acerto",
+      "tendencia": "+32 questões nesta semana",
+      "badge": "Plano Grátis aprovado"
+    },
+    {
+      "usuarioId": "user-rodrigo-lima",
+      "nome": "Rodrigo Lima",
+      "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/rodrigo-lima.png",
+      "objetivo": "Polícia Civil do DF",
+      "resumo": "982 questões • 66% de acerto",
+      "tendencia": "+21 questões nesta semana",
+      "badge": "Top 3 PCDF"
+    },
+    {
+      "usuarioId": "user-larissa-gouveia",
+      "nome": "Larissa Gouveia",
+      "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/larissa-gouveia.png",
+      "objetivo": "INSS Analista",
+      "resumo": "144 questões • 61% de acerto",
+      "tendencia": "+17 questões nesta semana",
+      "badge": "Fila Planos Grátis"
+    }
+  ],
+  "planosDestaque": [
+    {
+      "planoId": "plano-mensal-plus",
+      "titulo": "Plano Plus Mensal",
+      "tag": "Recomendado",
+      "preco": 64.9,
+      "moeda": "BRL",
+      "statusAprovacao": "aprovado"
+    },
+    {
+      "planoId": "plano-pro-anual",
+      "titulo": "Plano Pro Anual",
+      "tag": "Melhor custo-benefício",
+      "preco": 529.0,
+      "moeda": "BRL",
+      "statusAprovacao": "aprovado"
+    },
+    {
+      "planoId": "plano-gratis-alunos",
+      "titulo": "Plano Grátis para Alunos",
+      "tag": "Aguardando aprovação",
+      "preco": 0,
+      "moeda": "BRL",
+      "statusAprovacao": "pendente"
+    }
+  ],
+  "assinaturasRecentes": [
+    {
+      "assinaturaId": "assinatura-ana-pix",
+      "usuarioId": "user-ana-ribeiro",
+      "planoId": "plano-mensal-plus",
+      "status": "ativa",
+      "statusPagamento": "pago"
+    },
+    {
+      "assinaturaId": "assinatura-marcos-pix",
+      "usuarioId": "user-marcos-vieira",
+      "planoId": "plano-pro-anual",
+      "status": "ativa",
+      "statusPagamento": "pago"
+    },
+    {
+      "assinaturaId": "assinatura-juliana-gratis",
+      "usuarioId": "user-juliana-matos",
+      "planoId": "plano-gratis-alunos",
+      "status": "ativa",
+      "statusPagamento": "pago"
+    }
+  ],
+  "modulos": [
+    {
+      "titulo": "Retome seus estudos",
+      "cards": [
+        {
+          "tipo": "caderno",
+          "titulo": "Caderno - Interpretação de Texto",
+          "descricao": "18 questões restantes",
+          "progresso": 0.62
+        },
+        {
+          "tipo": "simulado",
+          "titulo": "Simulado CEBRASPE 2023",
+          "descricao": "30 questões • 2h00",
+          "progresso": 0.2
+        }
+      ]
+    },
+    {
+      "titulo": "Cursos em destaque",
+      "cards": [
+        {
+          "tipo": "curso",
+          "titulo": "Discursivas TJ-CE",
+          "descricao": "Prof. Henrique Porto",
+          "tag": "Novo"
+        },
+        {
+          "tipo": "curso",
+          "titulo": "Pacote Comunicação",
+          "descricao": "+120 aulas • 34h",
+          "tag": "Top 1"
+        }
+      ]
+    }
+  ],
+  "proximasLives": [
+    {
+      "titulo": "Aulão de revisão TJ-CE",
+      "data": "2024-07-02T23:00:00Z",
+      "instrutor": "Henrique Porto",
+      "duracaoMinutos": 90,
+      "link": "https://lives.academiadacomunicacao.com/tjce-aulao"
+    }
+  ],
+  "noticias": [
+    {
+      "titulo": "Novo edital TJ-CE publicado",
+      "resumo": "Inscrições abrem em 15 de julho. Veja os detalhes do cronograma.",
+      "link": "https://blog.academiadacomunicacao.com/noticias/edital-tjce"
+    },
+    {
+      "titulo": "3 planos Pix atualizados",
+      "resumo": "Planos Plus, Pro e Grátis para Alunos revisados hoje pelo super admin.",
+      "link": "https://blog.academiadacomunicacao.com/noticias/planos-pix"
+    }
+  ],
+  "ultimaSincronizacao": "2024-06-21T16:00:00Z",
+  "fonte": "Sincronizado automaticamente com o CMS Strapi 5"
+}

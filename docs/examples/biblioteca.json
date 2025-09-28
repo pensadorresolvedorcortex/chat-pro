@@ -1,0 +1,24 @@
+[
+  {
+    "id": "material-mapa-mental-tjce",
+    "titulo": "Mapa Mental TJ-CE",
+    "descricao": "Resumo visual das principais leis cobradas no TJ-CE.",
+    "tipo": "pdf",
+    "url": "https://cdn.academiadacomunicacao.com/biblioteca/tjce/mapa-mental.pdf",
+    "disciplina": "Direito Administrativo",
+    "atualizadoEm": "2024-06-22T12:00:00Z",
+    "tags": ["mapa-mental", "tjce"],
+    "disponibilidade": "premium"
+  },
+  {
+    "id": "material-checklist-prova",
+    "titulo": "Checklist pré-prova",
+    "descricao": "Lista rápida do que revisar na véspera do exame.",
+    "tipo": "checklist",
+    "url": "https://cdn.academiadacomunicacao.com/biblioteca/checklists/pre-prova.docx",
+    "disciplina": "Planejamento",
+    "atualizadoEm": "2024-06-12T09:00:00Z",
+    "tags": ["organização", "planejamento"],
+    "disponibilidade": "gratuito"
+  }
+]

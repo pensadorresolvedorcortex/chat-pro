@@ -1,0 +1,39 @@
+[
+  {
+    "id": "desafio-tjce-semana26",
+    "titulo": "Maratona TJ-CE Semana 26",
+    "organizadorId": "user-henrique-porto",
+    "descricao": "Resolva 120 questões de Língua Portuguesa entre 24 e 30 de junho.",
+    "periodo": {
+      "inicio": "2024-06-24T03:00:00Z",
+      "fim": "2024-06-30T23:59:59Z"
+    },
+    "regras": {
+      "quantidadeQuestoes": 120,
+      "minimoAcertos": 84,
+      "bonus": "Badge Top 5 TJ-CE"
+    },
+    "participantes": [
+      { "usuarioId": "user-camila-andrade", "questoesResolvidas": 118, "acertos": 91, "posicao": 4 },
+      { "usuarioId": "user-juliana-matos", "questoesResolvidas": 76, "acertos": 41, "posicao": 21 }
+    ],
+    "status": "ativo"
+  },
+  {
+    "id": "desafio-oral-julho",
+    "titulo": "Sprint de Discursivas Julho",
+    "organizadorId": "user-henrique-porto",
+    "descricao": "Treino intensivo de discursivas com feedback individual.",
+    "periodo": {
+      "inicio": "2024-07-05T03:00:00Z",
+      "fim": "2024-07-21T23:59:59Z"
+    },
+    "regras": {
+      "entregasPorSemana": 2,
+      "avaliadores": ["user-henrique-porto"],
+      "bonus": "Mentoria exclusiva"
+    },
+    "participantes": [],
+    "status": "inscricoes_abertas"
+  }
+]
