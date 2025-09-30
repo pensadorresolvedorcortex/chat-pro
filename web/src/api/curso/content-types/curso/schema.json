@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cursos",
+  "info": {
+    "singularName": "curso",
+    "pluralName": "cursos",
+    "displayName": "Curso",
+    "description": "Cursos e trilhas de conteúdo com aulas e métricas de engajamento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "nivel": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "json"
+    },
+    "instrutores": {
+      "type": "json"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "cargaHorariaHoras": {
+      "type": "integer"
+    },
+    "alunosMatriculados": {
+      "type": "integer"
+    },
+    "aulas": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "caderno-interpretacao-texto",
+    "usuarioId": "user-camila-andrade",
+    "titulo": "Interpretação TJ-CE",
+    "descricao": "Questões focadas no último edital do TJ-CE.",
+    "questoes": [
+      { "id": "questao-interpretacao-001", "status": "resolvida", "correta": true },
+      { "id": "questao-interpretacao-002", "status": "pendente" },
+      { "id": "questao-interpretacao-003", "status": "rever", "correta": false }
+    ],
+    "progresso": 0.66,
+    "atualizadoEm": "2024-06-29T15:40:00Z"
+  },
+  {
+    "id": "caderno-legislacao",
+    "usuarioId": "user-juliana-matos",
+    "titulo": "Legislação SEFAZ",
+    "descricao": "Caderno para revisão de legislação tributária.",
+    "questoes": [
+      { "id": "questao-legislacao-010", "status": "resolvida", "correta": false },
+      { "id": "questao-legislacao-011", "status": "resolvida", "correta": true },
+      { "id": "questao-legislacao-012", "status": "pendente" }
+    ],
+    "progresso": 0.4,
+    "atualizadoEm": "2024-06-18T19:12:00Z"
+  }
+]

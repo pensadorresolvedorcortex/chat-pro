@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mentorias",
+  "info": {
+    "singularName": "mentoria",
+    "pluralName": "mentorias",
+    "displayName": "Mentoria",
+    "description": "Mentorias e sessões individuais com disponibilidade de slots"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "mentorId": {
+      "type": "string",
+      "required": true
+    },
+    "avaliacaoMedia": {
+      "type": "decimal"
+    },
+    "alunosAtendidos": {
+      "type": "integer"
+    },
+    "slots": {
+      "type": "json"
+    }
+  }
+}

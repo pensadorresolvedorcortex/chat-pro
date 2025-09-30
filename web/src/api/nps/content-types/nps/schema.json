@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nps_pesquisas",
+  "info": {
+    "singularName": "nps",
+    "pluralName": "nps",
+    "displayName": "Pesquisa NPS",
+    "description": "Pesquisas de satisfação com perguntas, respostas e KPIs consolidados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "kpis": {
+      "type": "json"
+    },
+    "perguntas": {
+      "type": "json"
+    },
+    "respostas": {
+      "type": "json"
+    }
+  }
+}

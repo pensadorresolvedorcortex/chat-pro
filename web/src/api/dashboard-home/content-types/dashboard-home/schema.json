@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "dashboard_home",
+  "info": {
+    "singularName": "dashboard-home",
+    "pluralName": "dashboard-home",
+    "displayName": "Dashboard Home",
+    "description": "Payload consolidado do dashboard mobile"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
+  "attributes": {}
+}

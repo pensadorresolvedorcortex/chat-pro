@@ -1,0 +1,22 @@
+{
+  "kind": "singleType",
+  "collectionName": "operations_readiness",
+  "info": {
+    "singularName": "operations-readiness",
+    "pluralName": "operations-readiness",
+    "displayName": "Operations Readiness",
+    "description": "Snapshot operacional consolidado das frentes Flutter, Strapi e Operações"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
+  "attributes": {}
+}

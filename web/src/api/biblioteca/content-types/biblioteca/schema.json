@@ -1,0 +1,85 @@
+{
+  "kind": "collectionType",
+  "collectionName": "materiais_biblioteca",
+  "info": {
+    "singularName": "biblioteca",
+    "pluralName": "bibliotecas",
+    "displayName": "Material de Biblioteca",
+    "description": "Materiais complementares (PDFs, vídeos, checklists) para estudos"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "formato": {
+      "type": "enumeration",
+      "enum": ["pdf", "video", "audio", "checklist", "modelo"],
+      "required": true
+    },
+    "arquivoUrl": {
+      "type": "string",
+      "required": true
+    },
+    "linkExterno": {
+      "type": "string"
+    },
+    "thumbnailUrl": {
+      "type": "string"
+    },
+    "duracaoMinutos": {
+      "type": "integer"
+    },
+    "disciplinaIds": {
+      "type": "json"
+    },
+    "assuntoIds": {
+      "type": "json"
+    },
+    "tags": {
+      "type": "json"
+    },
+    "destaque": {
+      "type": "boolean",
+      "default": false
+    },
+    "publicadoEm": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["rascunho", "publicado", "arquivado"],
+      "default": "rascunho"
+    },
+    "autorId": {
+      "type": "string"
+    },
+    "autorNome": {
+      "type": "string"
+    },
+    "downloads": {
+      "type": "integer",
+      "default": 0
+    },
+    "visualizacoes": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "id": "live-tjce-revisao",
+    "titulo": "Aulão de Revisão TJ-CE",
+    "descricao": "Revisão final com foco em discursivas e interpretação.",
+    "instrutor": "Henrique Porto",
+    "inicio": "2024-07-02T23:00:00Z",
+    "fim": "2024-07-03T00:30:00Z",
+    "link": "https://lives.academiadacomunicacao.com/tjce-aulao",
+    "inscritos": 1840,
+    "capacidade": 2500,
+    "materialApoio": [
+      "https://cdn.academiadacomunicacao.com/lives/tjce/aulao-resumo.pdf"
+    ]
+  },
+  {
+    "id": "live-sefaz-estrategias",
+    "titulo": "Estratégias SEFAZ 2024",
+    "descricao": "Live estratégica com resolução de questões inéditas.",
+    "instrutor": "Camila Moura",
+    "inicio": "2024-07-09T23:00:00Z",
+    "fim": "2024-07-10T00:15:00Z",
+    "link": "https://lives.academiadacomunicacao.com/sefaz-estrategias",
+    "inscritos": 920,
+    "capacidade": 2000,
+    "materialApoio": []
+  }
+]

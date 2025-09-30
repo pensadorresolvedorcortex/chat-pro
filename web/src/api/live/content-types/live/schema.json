@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "lives",
+  "info": {
+    "singularName": "live",
+    "pluralName": "lives",
+    "displayName": "Live/Evento",
+    "description": "Lives e eventos síncronos com links e materiais de apoio"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "instrutor": {
+      "type": "string"
+    },
+    "link": {
+      "type": "string"
+    },
+    "capacidade": {
+      "type": "integer"
+    },
+    "inscritos": {
+      "type": "integer"
+    },
+    "inicio": {
+      "type": "datetime"
+    },
+    "fim": {
+      "type": "datetime"
+    },
+    "materialApoio": {
+      "type": "json"
+    }
+  }
+}

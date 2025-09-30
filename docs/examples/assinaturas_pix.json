@@ -1,0 +1,121 @@
+{
+  "data": [
+    {
+      "id": "assinatura-ana-pix",
+      "usuarioId": "user-ana-ribeiro",
+      "planoId": "plano-mensal-plus",
+      "metodoPagamento": "pix",
+      "pagador": {
+        "nome": "Ana Paula Ribeiro",
+        "documento": "12345678909",
+        "email": "ana.paula@academia.com"
+      },
+      "cobrancaPixId": "cob_8f32c1",
+      "status": "ativa",
+      "statusPagamento": "pago",
+      "inicio": "2024-05-24T20:10:32Z",
+      "fim": "2024-06-24T20:10:32Z",
+      "pixInfo": {
+        "ultimaCobrancaId": "cob_8f32c1",
+        "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/9f1a8b70abbf5203040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304A13B",
+        "qrCodeUrl": "https://cdn.academia.com/pix/cob_8f32c1.png",
+        "qrCodeBase64": null,
+        "chavePix": "pix@academia.com.br",
+        "statusPagamento": "pago",
+        "pagamentoConfirmadoEm": "2024-05-24T20:10:30Z",
+        "atualizadoEm": "2024-05-24T20:10:32Z",
+        "valor": 64.9,
+        "moeda": "BRL"
+      },
+      "createdAt": "2024-05-24T20:10:32Z",
+      "updatedAt": "2024-05-24T20:10:32Z"
+    },
+    {
+      "id": "assinatura-camila-pro",
+      "usuarioId": "user-camila-andrade",
+      "planoId": "plano-pro-anual",
+      "metodoPagamento": "pix",
+      "pagador": {
+        "nome": "Camila Andrade",
+        "documento": "11223344556",
+        "email": "camila.andrade@academia.com"
+      },
+      "cobrancaPixId": "cob_c7d490",
+      "status": "ativa",
+      "statusPagamento": "pago",
+      "inicio": "2024-06-14T10:45:00Z",
+      "fim": "2025-06-14T10:45:00Z",
+      "pixInfo": {
+        "ultimaCobrancaId": "cob_c7d490",
+        "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/2d7e0c88c4f1a1030400053039865406529.005802BR5925Academia da Comunicação6009SAO PAULO62070503***6304D7E2",
+        "qrCodeUrl": "https://cdn.academia.com/pix/cob_c7d490.png",
+        "qrCodeBase64": null,
+        "chavePix": "pix@academia.com.br",
+        "statusPagamento": "pago",
+        "pagamentoConfirmadoEm": "2024-06-14T10:45:30Z",
+        "atualizadoEm": "2024-06-14T10:45:30Z",
+        "valor": 529.0,
+        "moeda": "BRL"
+      },
+      "createdAt": "2024-06-14T10:40:00Z",
+      "updatedAt": "2024-06-14T10:45:30Z"
+    },
+    {
+      "id": "assinatura-marcos-pix",
+      "usuarioId": "user-marcos-vieira",
+      "planoId": "plano-pro-anual",
+      "metodoPagamento": "pix",
+      "pagador": {
+        "nome": "Marcos Vieira",
+        "documento": "98765432100",
+        "email": "marcos.vieira@academia.com"
+      },
+      "cobrancaPixId": "cob_9b77d2",
+      "status": "ativa",
+      "statusPagamento": "pago",
+      "inicio": "2024-05-08T14:24:18Z",
+      "fim": "2025-05-08T14:24:18Z",
+      "pixInfo": {
+        "ultimaCobrancaId": "cob_9b77d2",
+        "codigoCopiaCola": "00020101021226890014BR.GOV.BCB.PIX2563qrcodes.academia.com/qr/f41c2a9077b82f03040005303986540639.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304B44C",
+        "qrCodeUrl": "https://cdn.academia.com/pix/cob_9b77d2.png",
+        "qrCodeBase64": null,
+        "chavePix": "pix@academia.com.br",
+        "statusPagamento": "pago",
+        "pagamentoConfirmadoEm": "2024-05-08T14:24:16Z",
+        "atualizadoEm": "2024-05-08T14:24:18Z",
+        "valor": 529.0,
+        "moeda": "BRL"
+      },
+      "createdAt": "2024-05-08T14:21:00Z",
+      "updatedAt": "2024-05-08T14:24:18Z"
+    },
+    {
+      "id": "assinatura-juliana-gratis",
+      "usuarioId": "user-juliana-matos",
+      "planoId": "plano-gratis-alunos",
+      "metodoPagamento": "gratis_aluno",
+      "pagador": null,
+      "cobrancaPixId": null,
+      "status": "ativa",
+      "statusPagamento": "pago",
+      "inicio": "2024-05-22T11:05:00Z",
+      "fim": "2024-06-22T11:05:00Z",
+      "pixInfo": null,
+      "aprovacao": {
+        "status": "aprovado",
+        "aprovadoPor": "user-gestora-luiza",
+        "comentarios": "Aluno regular da rede pública confirmado",
+        "atualizadoEm": "2024-05-22T10:55:00Z"
+      },
+      "createdAt": "2024-05-22T11:05:00Z",
+      "updatedAt": "2024-05-22T11:05:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "pageSize": 20,
+    "pageCount": 1,
+    "total": 4
+  }
+}

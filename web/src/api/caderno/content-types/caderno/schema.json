@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cadernos",
+  "info": {
+    "singularName": "caderno",
+    "pluralName": "cadernos",
+    "displayName": "Caderno",
+    "description": "Cadernos de estudo personalizados com progresso e questões vinculadas"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "usuarioId": {
+      "type": "string",
+      "required": true
+    },
+    "progresso": {
+      "type": "decimal"
+    },
+    "questoes": {
+      "type": "json"
+    },
+    "atualizadoEm": {
+      "type": "datetime"
+    }
+  }
+}

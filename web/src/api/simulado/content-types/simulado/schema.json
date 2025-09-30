@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "simulados",
+  "info": {
+    "singularName": "simulado",
+    "pluralName": "simulados",
+    "displayName": "Simulado",
+    "description": "Simulados express e personalizados com estatísticas e resultados"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "usuarioId": {
+      "type": "string"
+    },
+    "modalidade": {
+      "type": "string"
+    },
+    "configuracao": {
+      "type": "json"
+    },
+    "estatisticas": {
+      "type": "json"
+    },
+    "questaoIds": {
+      "type": "json"
+    },
+    "resultados": {
+      "type": "json"
+    },
+    "status": {
+      "type": "string"
+    },
+    "atualizadoEm": {
+      "type": "datetime"
+    }
+  }
+}

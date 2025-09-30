@@ -1,0 +1,89 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cobrancas_pix",
+  "info": {
+    "singularName": "cobranca-pix",
+    "pluralName": "cobrancas-pix",
+    "displayName": "Cobrança Pix",
+    "description": "Cobranças Pix emitidas para planos pagos"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "txid": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["pendente", "confirmado", "expirado", "cancelado", "reembolsado"],
+      "default": "pendente",
+      "required": true
+    },
+    "valor": {
+      "type": "decimal",
+      "columnType": "decimal(10,2)",
+      "required": true
+    },
+    "moeda": {
+      "type": "string",
+      "default": "BRL",
+      "required": true
+    },
+    "codigoCopiaCola": {
+      "type": "text",
+      "required": true
+    },
+    "chavePix": {
+      "type": "string"
+    },
+    "qrCodeBase64": {
+      "type": "text"
+    },
+    "qrCodeUrl": {
+      "type": "string"
+    },
+    "expiraEm": {
+      "type": "datetime"
+    },
+    "confirmadoEm": {
+      "type": "datetime"
+    },
+    "expiradoEm": {
+      "type": "datetime"
+    },
+    "canceladoEm": {
+      "type": "datetime"
+    },
+    "usuarioId": {
+      "type": "string"
+    },
+    "nomePagador": {
+      "type": "string"
+    },
+    "documentoPagador": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "json"
+    },
+    "plano": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::plano.plano"
+    },
+    "assinatura": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::assinatura.assinatura",
+      "inversedBy": "cobrancas"
+    }
+  }
+}

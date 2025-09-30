@@ -1,0 +1,22 @@
+[
+  {
+    "id": "meta-questoes-semanais",
+    "usuarioId": "user-camila-andrade",
+    "tipo": "questoes",
+    "descricao": "Resolver 150 questões por semana",
+    "alvo": 150,
+    "progressoAtual": 94,
+    "periodo": "semanal",
+    "ultimoReset": "2024-06-24T03:00:00Z"
+  },
+  {
+    "id": "meta-horas-estudo",
+    "usuarioId": "user-juliana-matos",
+    "tipo": "horas",
+    "descricao": "Estudar 20 horas até domingo",
+    "alvo": 20,
+    "progressoAtual": 11,
+    "periodo": "semanal",
+    "ultimoReset": "2024-06-24T03:00:00Z"
+  }
+]

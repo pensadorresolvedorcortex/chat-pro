@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_plan_price_adjustments",
+  "info": {
+    "displayName": "Ajuste de preço",
+    "icon": "price-tag"
+  },
+  "options": {},
+  "attributes": {
+    "motivo": {
+      "type": "text"
+    },
+    "atualizadoPor": {
+      "type": "string",
+      "required": true
+    },
+    "atualizadoEm": {
+      "type": "datetime",
+      "required": true
+    },
+    "precoAnterior": {
+      "type": "decimal",
+      "columnType": "decimal(10,2)"
+    },
+    "precoAtual": {
+      "type": "decimal",
+      "columnType": "decimal(10,2)",
+      "required": true
+    },
+    "moeda": {
+      "type": "string",
+      "default": "BRL"
+    }
+  }
+}
