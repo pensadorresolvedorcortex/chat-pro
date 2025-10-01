@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_plan_approval_logs",
+  "info": {
+    "displayName": "Registro de aprovação",
+    "icon": "check-circle"
+  },
+  "options": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": ["pendente", "aprovado", "rejeitado"],
+      "required": true
+    },
+    "responsavel": {
+      "type": "string",
+      "required": true
+    },
+    "observacao": {
+      "type": "text"
+    },
+    "registradoEm": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

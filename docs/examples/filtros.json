@@ -1,0 +1,26 @@
+[
+  {
+    "id": "filtro-interpretacao-basica",
+    "usuarioId": "user-camila-andrade",
+    "nome": "Interpretação básica TJ-CE",
+    "criterios": {
+      "disciplinas": ["Língua Portuguesa"],
+      "assuntos": ["Interpretação de textos"],
+      "bancas": ["CEBRASPE"],
+      "dificuldade": "facil",
+      "ano": { "de": 2018, "ate": 2024 }
+    },
+    "atualizadoEm": "2024-06-28T11:10:00Z"
+  },
+  {
+    "id": "filtro-redacao-discursiva",
+    "usuarioId": "user-juliana-matos",
+    "nome": "Discursivas comentadas",
+    "criterios": {
+      "disciplinas": ["Redação Oficial"],
+      "tags": ["discursiva", "TJ"],
+      "dificuldade": "avancado"
+    },
+    "atualizadoEm": "2024-06-20T08:30:00Z"
+  }
+]

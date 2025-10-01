@@ -1,0 +1,41 @@
+{
+  "usuario": {
+    "id": "user-camila-andrade",
+    "nome": "Camila Andrade",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/camila-andrade.png",
+    "email": "camila.andrade@example.com",
+    "objetivo": "Tribunal de Justiça do Ceará",
+    "assinatura": "Plano Pro Anual",
+    "assinaturaRenovaEm": "2025-06-14"
+  },
+  "estatisticas": {
+    "questoesResolvidas": 1842,
+    "taxaAcerto": 0.73,
+    "horasEstudadas": 612,
+    "streakDias": 32,
+    "rankingAtual": "Top 5 TJ-CE"
+  },
+  "conquistas": [
+    {
+      "titulo": "Maratona TJ-CE",
+      "descricao": "3º lugar com 118 questões corretas",
+      "icone": "emoji_events"
+    },
+    {
+      "titulo": "Foco 30 dias",
+      "descricao": "Streak de 30 dias de estudo registrado",
+      "icone": "local_fire_department"
+    }
+  ],
+  "preferenciasEstudo": {
+    "horarioFavorito": "Noite",
+    "modalidade": "Questões + Mapas mentais",
+    "disciplinasPrioritarias": ["Português", "Direito Administrativo", "Raciocínio Lógico"]
+  },
+  "configuracoes": {
+    "tema": "dark",
+    "notificacoesPush": true,
+    "newsletter": false,
+    "whatsapp": true
+  }
+}

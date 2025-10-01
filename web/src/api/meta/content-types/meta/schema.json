@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "metas",
+  "info": {
+    "singularName": "meta",
+    "pluralName": "metas",
+    "displayName": "Meta",
+    "description": "Metas de estudo com progresso e período de acompanhamento"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "titulo": {
+      "type": "string"
+    },
+    "descricao": {
+      "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo",
+      "required": true
+    },
+    "usuarioId": {
+      "type": "string",
+      "required": true
+    },
+    "tipo": {
+      "type": "string",
+      "required": true
+    },
+    "alvo": {
+      "type": "integer"
+    },
+    "progressoAtual": {
+      "type": "integer"
+    },
+    "periodo": {
+      "type": "string"
+    },
+    "ultimoReset": {
+      "type": "datetime"
+    }
+  }
+}

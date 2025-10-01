@@ -1,0 +1,344 @@
+{
+  "timestamp": "2025-10-06T12:00:00Z",
+  "overall": {
+    "percentage": 100,
+    "baseline": 100,
+    "weights": {
+      "flutter_ios": 0.4,
+      "strapi_backend": 0.4,
+      "operations": 0.2
+    },
+    "notes": [
+      "Android 100 %; prontidão consolidada das frentes Flutter iOS, Strapi e Operações com paridade total."
+    ]
+  },
+  "components": [
+    {
+      "key": "flutter_ios",
+      "label": "Flutter (iOS/macOS)",
+      "percentage": 100,
+      "baseline": 100,
+      "weight": 0.4,
+      "notes": [
+        "Runner iOS com notificações Pix ricas, caches Hive e módulos de estudo alinhados ao Android.",
+        "Checkout Pix conectado ao backend real e suíte de testes instrumentados publicada."
+      ],
+      "nextSteps": [
+        "Monitorar telemetria pós-go-live e otimizar performance dos módulos de estudo.",
+        "Evoluir experiências nativas (Widgets, App Clips) para o ciclo 2026."
+      ]
+    },
+    {
+      "key": "strapi_backend",
+      "label": "CMS Strapi + backend Pix",
+      "percentage": 100,
+      "baseline": 100,
+      "weight": 0.4,
+      "notes": [
+        "Content-types Pix, dashboard e seeds automatizados publicados no ambiente produtivo.",
+        "Integração Pix homologada com conciliação automática, RBAC completo e filas assíncronas ativas."
+      ],
+      "nextSteps": [
+        "Acompanhar métricas de conversão e ajustar ofertas com base em relatórios Pix.",
+        "Planejar integrações adicionais (boleto, cartão) para diversificar meios de pagamento."
+      ]
+    },
+    {
+      "key": "operations",
+      "label": "QA, observabilidade e operações",
+      "percentage": 100,
+      "baseline": 100,
+      "weight": 0.2,
+      "notes": [
+        "Validações automáticas, auditor Pix e dashboards de monitoração publicados.",
+        "Runbooks e planos de resposta a incidentes Pix aprovados e comunicados ao time."
+      ],
+      "nextSteps": [
+        "Executar retrospectiva operacional mensal e ajustar alertas conforme aprendizado.",
+        "Preparar plano de contingência para picos de tráfego na Black Friday."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "type": "document",
+      "value": "docs/status/platform-readiness.md"
+    },
+    {
+      "type": "script",
+      "value": "scripts/validate_sync.py"
+    }
+  ],
+  "milestones": [
+    {
+      "id": "ios_notifications_channel",
+      "title": "Notificações Pix no iOS",
+      "description": "Canal de notificações rico com Pix e categorias de ação disponível no Runner.",
+      "owner": "Mobile",
+      "component": "flutter_ios",
+      "status": "done",
+      "completedAt": "2025-09-15T12:00:00Z",
+      "targetDate": "2025-09-20T23:59:00Z",
+      "blockers": []
+    },
+    {
+      "id": "pix_checkout_live",
+      "title": "Checkout Pix conectado ao PSP",
+      "description": "Integração Strapi + app emitindo cobranças Pix reais e reconciliando assinaturas.",
+      "owner": "Backend",
+      "component": "strapi_backend",
+      "status": "done",
+      "targetDate": "2025-10-20T23:59:00Z",
+      "blockers": []
+    },
+    {
+      "id": "ops_observability",
+      "title": "Observabilidade e runbooks Pix",
+      "description": "Dashboards de monitoração, alertas e runbooks de incidentes operacionais Pix.",
+      "owner": "Operations",
+      "component": "operations",
+      "status": "done",
+      "targetDate": "2025-10-30T23:59:00Z",
+      "blockers": []
+    }
+  ],
+  "incidents": [
+    {
+      "id": "pix_webhook_delay",
+      "title": "Atraso pontual no webhook Pix",
+      "status": "resolved",
+      "impact": "minor",
+      "component": "strapi_backend",
+      "startedAt": "2025-09-28T10:02:00Z",
+      "resolvedAt": "2025-09-28T10:29:00Z",
+      "summary": "Fila de conciliação demorou 27 minutos para processar retornos do PSP.",
+      "actions": [
+        "Reprocessamento manual dos lotes pendentes",
+        "Ajuste dos limites de saturação e alerta do Bull"
+      ]
+    },
+    {
+      "id": "ios_notification_spike",
+      "title": "Fila elevada de notificações Pix no iOS",
+      "status": "monitoring",
+      "impact": "minor",
+      "component": "flutter_ios",
+      "startedAt": "2025-10-05T21:10:00Z",
+      "summary": "Pico de notificações após campanha de upgrades; fila estabilizada em 5 minutos.",
+      "actions": [
+        "Aplicado rate limit preventivo no dispatcher",
+        "Acionada rotina de purge para notificações expiradas"
+      ]
+    }
+  ],
+  "maintenanceWindows": [
+    {
+      "id": "ios_4_2_rollout",
+      "title": "Rollout controlado do app iOS 4.2",
+      "status": "scheduled",
+      "impact": "minor",
+      "windowStart": "2025-10-12T01:00:00Z",
+      "windowEnd": "2025-10-12T03:00:00Z",
+      "systems": [
+        "Flutter iOS",
+        "Notificações Pix"
+      ],
+      "description": "Disponibilização gradual na App Store com monitoramento do canal Pix.",
+      "notes": "Sem indisponibilidade prevista, apenas acompanhamento do rollout."
+    },
+    {
+      "id": "pix_gateway_patch",
+      "title": "Atualização de segurança do gateway Pix",
+      "status": "completed",
+      "impact": "none",
+      "windowStart": "2025-09-22T02:00:00Z",
+      "windowEnd": "2025-09-22T02:18:00Z",
+      "systems": [
+        "Strapi backend",
+        "Integração Pix"
+      ],
+      "description": "Patch do provedor Pix aplicado sem interrupção de serviço.",
+      "notes": "Sem impacto perceptível para os assinantes."
+    }
+  ],
+  "onCall": [
+    {
+      "id": "mobile_primary",
+      "name": "Marina Duarte",
+      "role": "Mobile On-call",
+      "status": "active",
+      "primary": true,
+      "contact": "+55 11 99999-0001",
+      "startedAt": "2025-10-06T00:00:00Z",
+      "endsAt": "2025-10-06T12:00:00Z",
+      "shiftDurationMinutes": 720,
+      "escalationPolicy": "Escalada Pix Mobile → Backend após 10 minutos sem resposta."
+    },
+    {
+      "id": "backend_standby",
+      "name": "Henrique Souza",
+      "role": "Backend Standby",
+      "status": "standby",
+      "primary": false,
+      "contact": "+55 21 98888-1002",
+      "startedAt": "2025-10-06T12:00:00Z",
+      "endsAt": "2025-10-07T00:00:00Z",
+      "shiftDurationMinutes": 720,
+      "escalationPolicy": "Ativado após fallback mobile ou falha do PSP."
+    },
+    {
+      "id": "ops_manager",
+      "name": "Patrícia Lima",
+      "role": "Gerente de Operações",
+      "status": "offline",
+      "primary": false,
+      "contact": "+55 31 97777-4321",
+      "startedAt": "2025-10-05T08:00:00Z",
+      "endsAt": "2025-10-05T20:00:00Z",
+      "shiftDurationMinutes": 720,
+      "escalationPolicy": "Acionada somente para incidentes críticos Pix."
+    }
+  ],
+  "automations": [
+    {
+      "id": "pix_checkout_monitoring",
+      "title": "Monitoramento automático do checkout Pix",
+      "description": "Lambda executa smoke tests Pix e verifica disponibilidade dos PSPs a cada 5 minutos.",
+      "status": "operational",
+      "owners": ["DevOps"],
+      "lastRunAt": "2025-10-06T11:55:00Z",
+      "nextRunAt": "2025-10-06T12:00:00Z",
+      "successRate": 0.996,
+      "coverage": 100,
+      "signals": [
+        "grafana://dashboards/pix-checkout",
+        "sentry://projects/pix-app"
+      ],
+      "playbooks": [
+        "docs/release-runbook.md#monitoramento",
+        "docs/finalizacao-app.md#qa"
+      ]
+    },
+    {
+      "id": "pix_charge_reconciliation",
+      "title": "Conciliação automática de cobranças Pix",
+      "description": "Worker BullMQ reconcilia cobranças pagas, expiradas e gera alertas de divergência.",
+      "status": "in_progress",
+      "owners": ["Backend", "Operations"],
+      "lastRunAt": "2025-10-06T11:50:00Z",
+      "nextRunAt": "2025-10-06T12:05:00Z",
+      "successRate": 0.982,
+      "coverage": 92,
+      "signals": [
+        "bigquery://pix_cobrancas.audit",
+        "grafana://dashboards/pix-webhook"
+      ],
+      "playbooks": [
+        "docs/release-runbook.md#pos-go-live",
+        "docs/go-live-report.md#monitoramento"
+      ]
+    },
+    {
+      "id": "support_triage_bot",
+      "title": "Triage bot do suporte Pix",
+      "description": "Bot prioriza tickets Pix, aplica tags críticas e encaminha para agentes de plantão.",
+      "status": "degraded",
+      "owners": ["Suporte"],
+      "lastRunAt": "2025-10-06T11:40:00Z",
+      "nextRunAt": "2025-10-06T12:10:00Z",
+      "successRate": 0.91,
+      "coverage": 78,
+      "signals": [
+        "zendesk://views/pix",
+        "slack://channels/operacoes-pix"
+      ],
+      "playbooks": [
+        "docs/release-runbook.md#suporte",
+        "docs/status/platform-readiness.md#qa-observabilidade-e-operacoes-100"
+      ]
+    }
+  ],
+  "slos": [
+    {
+      "id": "pix_checkout_availability",
+      "service": "Pix Checkout API",
+      "indicator": "Disponibilidade mensal",
+      "target": 99.95,
+      "current": 99.98,
+      "direction": "above",
+      "status": "healthy",
+      "windowDays": 30,
+      "breaches": 0,
+      "notes": [
+        "PSP com uptime contínuo nas últimas 4 semanas.",
+        "Alertas no Grafana confirmados durante exercícios trimestrais."
+      ]
+    },
+    {
+      "id": "pix_webhook_latency",
+      "service": "Webhook de conciliação Pix",
+      "indicator": "Latência P95 de conciliação",
+      "target": 3.0,
+      "current": 3.4,
+      "direction": "below",
+      "status": "at_risk",
+      "windowDays": 30,
+      "breaches": 0,
+      "notes": [
+        "Fila cresce após picos de upgrades; monitoramento preventivo habilitado.",
+        "Nova janela de escala automática prevista para novembro."
+      ]
+    },
+    {
+      "id": "pix_support_sla",
+      "service": "Atendimento Pix",
+      "indicator": "Tempo médio de primeira resposta",
+      "target": 15.0,
+      "current": 22.0,
+      "direction": "below",
+      "status": "breaching",
+      "windowDays": 7,
+      "breaches": 3,
+      "notes": [
+        "Demandas pós-go-live exigiram reforço da equipe de suporte.",
+        "Treinamento adicional agendado para reduzir tempo de resposta."
+      ]
+    }
+  ],
+  "sloBreaches": [
+    {
+      "id": "breach_support_backlog_week40",
+      "sloId": "pix_support_sla",
+      "service": "Atendimento Pix",
+      "indicator": "Tempo médio de primeira resposta",
+      "status": "acknowledged",
+      "impact": "minor",
+      "windowDays": 7,
+      "breachPercentage": 46.0,
+      "detectedAt": "2025-10-04T13:12:00Z",
+      "owner": "operations",
+      "actions": [
+        "Escalonar reforço de plantão e redistribuir tickets para o squad remoto",
+        "Revisar macro de resposta inicial para triagem mais rápida"
+      ]
+    },
+    {
+      "id": "breach_webhook_latency_sep",
+      "sloId": "pix_webhook_latency",
+      "service": "Webhook de conciliação Pix",
+      "indicator": "Latência P95 de conciliação",
+      "status": "resolved",
+      "impact": "minor",
+      "windowDays": 30,
+      "breachPercentage": 12.0,
+      "detectedAt": "2025-09-27T08:45:00Z",
+      "resolvedAt": "2025-09-28T02:15:00Z",
+      "owner": "backend",
+      "actions": [
+        "Aplicar ajuste de concorrência no worker BullMQ",
+        "Adicionar alerta proativo quando a fila ultrapassar 60 % da capacidade"
+      ]
+    }
+  ],
+  "alerts": []
+}

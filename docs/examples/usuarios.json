@@ -1,0 +1,341 @@
+[
+  {
+    "id": "user-camila-andrade",
+    "nomeCompleto": "Camila Andrade",
+    "email": "camila.andrade@example.com",
+    "papel": "aluna-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/camila-andrade.png",
+    "objetivoPrincipal": "Tribunal de Justiça do Ceará",
+    "assinaturaAtiva": {
+      "planoId": "plano-pro-anual",
+      "renovaEm": "2025-06-14",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 1842,
+      "taxaAcerto": 0.73,
+      "horasEstudadas": 612,
+      "streakDias": 32
+    },
+    "destaqueDashboard": {
+      "resumo": "1842 questões • 73% de acerto",
+      "tendencia": "+18 vs. semana passada",
+      "badge": "Top 5 TJ-CE"
+    }
+  },
+  {
+    "id": "user-juliana-matos",
+    "nomeCompleto": "Juliana Matos",
+    "email": "juliana.matos@example.com",
+    "papel": "aluna-gratuita",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/juliana-matos.png",
+    "objetivoPrincipal": "SEFAZ Bahia",
+    "assinaturaAtiva": {
+      "planoId": "plano-gratis-alunos",
+      "renovaEm": null,
+      "metodoPagamento": "gratis_aluno",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 215,
+      "taxaAcerto": 0.58,
+      "horasEstudadas": 74,
+      "streakDias": 5
+    },
+    "destaqueDashboard": {
+      "resumo": "215 questões • 58% de acerto",
+      "tendencia": "+32 questões nesta semana",
+      "badge": "Plano Grátis aprovado"
+    }
+  },
+  {
+    "id": "user-henrique-porto",
+    "nomeCompleto": "Henrique Porto",
+    "email": "henrique.porto@example.com",
+    "papel": "mentor",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/henrique-porto.png",
+    "objetivoPrincipal": "Mentoria de discursivas",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "sessoesMentoriaRealizadas": 48,
+      "alunosAvaliados": 112,
+      "avaliacaoMedia": 4.8
+    },
+    "destaqueDashboard": {
+      "resumo": "48 mentorias concluídas",
+      "tendencia": "+6 sessões nesta semana",
+      "badge": "Mentor 5★"
+    }
+  },
+  {
+    "id": "user-rodrigo-lima",
+    "nomeCompleto": "Rodrigo Lima",
+    "email": "rodrigo.lima@example.com",
+    "papel": "aluno-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/rodrigo-lima.png",
+    "objetivoPrincipal": "Polícia Civil do DF",
+    "assinaturaAtiva": {
+      "planoId": "plano-mensal-plus",
+      "renovaEm": "2024-09-21",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 982,
+      "taxaAcerto": 0.66,
+      "horasEstudadas": 318,
+      "streakDias": 14
+    },
+    "destaqueDashboard": {
+      "resumo": "982 questões • 66% de acerto",
+      "tendencia": "+21 questões nesta semana",
+      "badge": "Top 3 PCDF"
+    }
+  },
+  {
+    "id": "user-larissa-gouveia",
+    "nomeCompleto": "Larissa Gouveia",
+    "email": "larissa.gouveia@example.com",
+    "papel": "aluna-gratuita",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/larissa-gouveia.png",
+    "objetivoPrincipal": "INSS Analista",
+    "assinaturaAtiva": {
+      "planoId": null,
+      "renovaEm": null,
+      "metodoPagamento": "gratis_aluno",
+      "status": "aguardando-aprovacao"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 144,
+      "taxaAcerto": 0.61,
+      "horasEstudadas": 58,
+      "streakDias": 9
+    },
+    "destaqueDashboard": {
+      "resumo": "144 questões • 61% de acerto",
+      "tendencia": "+17 questões nesta semana",
+      "badge": "Fila Planos Grátis"
+    }
+  },
+  {
+    "id": "user-ana-ribeiro",
+    "nomeCompleto": "Ana Paula Ribeiro",
+    "email": "ana.paula@academia.com",
+    "papel": "aluna-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/ana-ribeiro.png",
+    "objetivoPrincipal": "Comunicação Social",
+    "assinaturaAtiva": {
+      "planoId": "plano-mensal-plus",
+      "renovaEm": "2024-06-24",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 412,
+      "taxaAcerto": 0.69,
+      "horasEstudadas": 136,
+      "streakDias": 11
+    },
+    "destaqueDashboard": {
+      "resumo": "412 questões • 69% de acerto",
+      "tendencia": "+9 questões nesta semana",
+      "badge": "Plano Plus renovado"
+    }
+  },
+  {
+    "id": "user-marcos-vieira",
+    "nomeCompleto": "Marcos Vieira",
+    "email": "marcos.vieira@academia.com",
+    "papel": "aluno-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/marcos-vieira.png",
+    "objetivoPrincipal": "TJ Minas Gerais",
+    "assinaturaAtiva": {
+      "planoId": "plano-pro-anual",
+      "renovaEm": "2025-05-08",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 1254,
+      "taxaAcerto": 0.71,
+      "horasEstudadas": 452,
+      "streakDias": 21
+    },
+    "destaqueDashboard": {
+      "resumo": "1254 questões • 71% de acerto",
+      "tendencia": "+25 questões nesta semana",
+      "badge": "Renovação anual"
+    }
+  },
+  {
+    "id": "user-bruna-cavalcanti",
+    "nomeCompleto": "Bruna Cavalcanti",
+    "email": "bruna.cavalcanti@academia.com",
+    "papel": "aluna-gratuita",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/bruna-cavalcanti.png",
+    "objetivoPrincipal": "Comunicação Organizacional",
+    "assinaturaAtiva": null,
+    "ultimoPlanoSolicitado": {
+      "planoId": "plano-gratis-alunos",
+      "status": "expirado",
+      "comentario": "Aguardando nova aprovação do super admin"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 87,
+      "taxaAcerto": 0.55,
+      "horasEstudadas": 34,
+      "streakDias": 3
+    },
+    "destaqueDashboard": {
+      "resumo": "87 questões • 55% de acerto",
+      "tendencia": "Precisa renovar o Plano Grátis",
+      "badge": "Revisão pendente"
+    }
+  },
+  {
+    "id": "user-aluno-marina",
+    "nomeCompleto": "Marina Salles",
+    "email": "marina.salles@academia.com",
+    "papel": "aluna-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/marina-salles.png",
+    "objetivoPrincipal": "Receita Federal Analista",
+    "assinaturaAtiva": {
+      "planoId": "plano-pro-anual",
+      "renovaEm": "2025-01-30",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 1560,
+      "taxaAcerto": 0.77,
+      "horasEstudadas": 508,
+      "streakDias": 41
+    },
+    "destaqueDashboard": {
+      "resumo": "1560 questões • 77% de acerto",
+      "tendencia": "+34 questões nesta semana",
+      "badge": "Top 10 RFB"
+    }
+  },
+  {
+    "id": "user-aluno-diego",
+    "nomeCompleto": "Diego Albuquerque",
+    "email": "diego.albuquerque@academia.com",
+    "papel": "aluno-premium",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/diego-albuquerque.png",
+    "objetivoPrincipal": "TJ Bahia",
+    "assinaturaAtiva": {
+      "planoId": "plano-mensal-plus",
+      "renovaEm": "2024-08-18",
+      "metodoPagamento": "pix",
+      "status": "ativa"
+    },
+    "metricaResumo": {
+      "questoesResolvidas": 624,
+      "taxaAcerto": 0.62,
+      "horasEstudadas": 214,
+      "streakDias": 18
+    },
+    "destaqueDashboard": {
+      "resumo": "624 questões • 62% de acerto",
+      "tendencia": "+11 questões nesta semana",
+      "badge": "Foco discursivas"
+    }
+  },
+  {
+    "id": "user-gestora-luiza",
+    "nomeCompleto": "Luiza Menezes",
+    "email": "luiza.menezes@academia.com",
+    "papel": "super-admin",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/luiza-menezes.png",
+    "objetivoPrincipal": "Governança de planos",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "planosAprovados": 36,
+      "solicitacoesPendentes": 4,
+      "ultimasAcoes": "Atualizou preços em 28/06"
+    },
+    "destaqueDashboard": {
+      "resumo": "36 aprovações de planos",
+      "tendencia": "2 ajustes nesta semana",
+      "badge": "Super admin"
+    }
+  },
+  {
+    "id": "tutor-marina",
+    "nomeCompleto": "Marina Costa",
+    "email": "marina.costa@academia.com",
+    "papel": "tutora",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/marina-costa.png",
+    "objetivoPrincipal": "Mentoria em comunicação de crise",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "mentoradosAtivos": 38,
+      "avaliacaoMedia": 4.9,
+      "sessaoMaisRecente": "2024-06-29"
+    },
+    "destaqueDashboard": {
+      "resumo": "38 mentorados ativos",
+      "tendencia": "+6 mentorias este mês",
+      "badge": "Mentora especialista"
+    }
+  },
+  {
+    "id": "tutor-henrique",
+    "nomeCompleto": "Henrique Porto",
+    "email": "henrique.porto@academia.com",
+    "papel": "tutor",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/henrique-porto.png",
+    "objetivoPrincipal": "Aprovação TJ-CE",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "aulasAoVivo": 124,
+      "questoesCorrigidas": 1890,
+      "especialidade": "Discursivas TJ"
+    },
+    "destaqueDashboard": {
+      "resumo": "124 aulas ao vivo",
+      "tendencia": "+3 nesta semana",
+      "badge": "Tutor líder"
+    }
+  },
+  {
+    "id": "tutor-caio",
+    "nomeCompleto": "Caio Ferreira",
+    "email": "caio.ferreira@academia.com",
+    "papel": "tutor",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/caio-ferreira.png",
+    "objetivoPrincipal": "Mentorias para concursos",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "mentoriasConcluidas": 212,
+      "avaliacaoMedia": 4.7,
+      "especialidade": "Oratória"
+    },
+    "destaqueDashboard": {
+      "resumo": "212 mentorias concluídas",
+      "tendencia": "+12 no último trimestre",
+      "badge": "Coach de oratória"
+    }
+  },
+  {
+    "id": "agente-suporte-isa",
+    "nomeCompleto": "Isadora Souza",
+    "email": "isa.suporte@academia.com",
+    "papel": "agente-suporte",
+    "avatarUrl": "https://cdn.academiadacomunicacao.com/avatars/isa-souza.png",
+    "objetivoPrincipal": "Resolver tickets com SLA < 4h",
+    "assinaturaAtiva": null,
+    "metricaResumo": {
+      "ticketsResolvidos": 128,
+      "satisfacaoMedia": 4.8,
+      "filaAtual": 3
+    },
+    "destaqueDashboard": {
+      "resumo": "128 tickets resolvidos",
+      "tendencia": "SLA médio 3h12",
+      "badge": "Suporte estrela"
+    }
+  }
+]

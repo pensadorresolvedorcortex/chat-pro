@@ -1,0 +1,108 @@
+{
+  "kind": "collectionType",
+  "collectionName": "planos",
+  "info": {
+    "singularName": "plano",
+    "pluralName": "planos",
+    "displayName": "Plano",
+    "description": "Planos pagos e Planos Grátis para Alunos com cobranças Pix"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "nome": {
+      "type": "string",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "nome",
+      "required": true
+    },
+    "descricao": {
+      "type": "richtext"
+    },
+    "tipo": {
+      "type": "enumeration",
+      "enum": ["pago", "gratis_aluno"],
+      "default": "pago",
+      "required": true
+    },
+    "periodicidade": {
+      "type": "enumeration",
+      "enum": ["mensal", "trimestral", "semestral", "anual"],
+      "default": "mensal"
+    },
+    "preco": {
+      "type": "decimal",
+      "columnType": "decimal(10,2)",
+      "default": 0
+    },
+    "moeda": {
+      "type": "string",
+      "default": "BRL"
+    },
+    "chavePix": {
+      "type": "string"
+    },
+    "tipoChavePix": {
+      "type": "enumeration",
+      "enum": ["email", "telefone", "cpf", "cnpj", "aleatoria"]
+    },
+    "codigoCopiaCola": {
+      "type": "text"
+    },
+    "qrCodeUrl": {
+      "type": "string"
+    },
+    "qrCodeBase64": {
+      "type": "text"
+    },
+    "pixExpiraEm": {
+      "type": "datetime"
+    },
+    "beneficios": {
+      "type": "json"
+    },
+    "statusAprovacao": {
+      "type": "enumeration",
+      "enum": ["pendente", "aprovado", "rejeitado"],
+      "default": "pendente"
+    },
+    "aprovadoPor": {
+      "type": "string"
+    },
+    "aprovadoEm": {
+      "type": "datetime"
+    },
+    "ultimaSolicitacao": {
+      "type": "datetime"
+    },
+    "destaque": {
+      "type": "boolean",
+      "default": false
+    },
+    "logsAprovacao": {
+      "type": "component",
+      "repeatable": true,
+      "component": "plan.approval-log"
+    },
+    "ajustesPreco": {
+      "type": "component",
+      "repeatable": true,
+      "component": "plan.price-adjustment"
+    },
+    "assinaturas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::assinatura.assinatura",
+      "mappedBy": "plano"
+    }
+  }
+}

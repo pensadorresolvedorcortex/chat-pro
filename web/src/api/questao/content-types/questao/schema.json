@@ -1,0 +1,74 @@
+{
+  "kind": "collectionType",
+  "collectionName": "questoes",
+  "info": {
+    "singularName": "questao",
+    "pluralName": "questoes",
+    "displayName": "Questão",
+    "description": "Banco de questões com alternativas, estatísticas e metadados."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "slug": {
+      "type": "uid",
+      "targetField": "enunciado",
+      "required": true,
+      "unique": true
+    },
+    "enunciado": {
+      "type": "richtext",
+      "required": true
+    },
+    "alternativas": {
+      "type": "json",
+      "required": true
+    },
+    "explicacao": {
+      "type": "richtext"
+    },
+    "dificuldade": {
+      "type": "enumeration",
+      "enum": [
+        "facil",
+        "intermediaria",
+        "dificil"
+      ],
+      "default": "intermediaria"
+    },
+    "ano": {
+      "type": "integer"
+    },
+    "disciplina": {
+      "type": "string",
+      "required": true
+    },
+    "assuntos": {
+      "type": "json"
+    },
+    "banca": {
+      "type": "string"
+    },
+    "orgaosRelacionados": {
+      "type": "json"
+    },
+    "estatisticas": {
+      "type": "json"
+    },
+    "fonte": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "json"
+    }
+  }
+}

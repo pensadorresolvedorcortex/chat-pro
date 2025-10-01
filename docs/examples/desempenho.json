@@ -1,0 +1,17 @@
+{
+  "usuarioId": "user-camila-andrade",
+  "periodo": "ultimos_30_dias",
+  "questoesResolvidas": 420,
+  "taxaAcerto": 0.76,
+  "tempoMedioPorQuestaoSegundos": 88,
+  "disciplinasDestaque": [
+    { "disciplina": "Língua Portuguesa", "acerto": 0.82, "questoes": 180 },
+    { "disciplina": "Direito Administrativo", "acerto": 0.71, "questoes": 140 },
+    { "disciplina": "Direito Constitucional", "acerto": 0.68, "questoes": 100 }
+  ],
+  "ranking": {
+    "posicaoGeral": 4,
+    "variação": "+2",
+    "grupo": "TJ-CE"
+  }
+}

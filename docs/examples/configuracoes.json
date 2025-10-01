@@ -1,0 +1,36 @@
+{
+  "tema": {
+    "atual": "dark",
+    "opcoes": ["system", "light", "dark"],
+    "ultimaAtualizacao": "2024-06-01T10:12:00Z"
+  },
+  "notificacoes": {
+    "push": true,
+    "email": false,
+    "whatsapp": true,
+    "categorias": {
+      "questoes": true,
+      "desafios": true,
+      "lives": true,
+      "promocoes": false
+    }
+  },
+  "privacidade": {
+    "compartilharPerfil": true,
+    "mostrarRanking": true,
+    "analytics": true,
+    "baixarDados": {
+      "disponivel": true,
+      "ultimaSolicitacao": "2024-05-20T14:20:00Z"
+    }
+  },
+  "pix": {
+    "chaveFavorita": "academia+camila@pix.com",
+    "ultimoPagamento": {
+      "planoId": "plano-pro-anual",
+      "txid": "PIX-20240614-001",
+      "status": "confirmado",
+      "valor": 349.9
+    }
+  }
+}

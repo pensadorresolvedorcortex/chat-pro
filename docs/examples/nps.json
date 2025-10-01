@@ -1,0 +1,42 @@
+{
+  "pesquisas": [
+    {
+      "id": "nps-junho",
+      "titulo": "Pesquisa NPS Junho",
+      "status": "ativa",
+      "perguntas": [
+        {
+          "id": "nps-score",
+          "tipo": "escala-0-10",
+          "enunciado": "Qual a probabilidade de você indicar a Academia da Comunicação para um amigo?"
+        },
+        {
+          "id": "nps-feedback",
+          "tipo": "texto",
+          "enunciado": "O que podemos fazer para melhorar sua experiência?"
+        }
+      ],
+      "respostas": [
+        {
+          "usuarioId": "user-camila-andrade",
+          "nota": 9,
+          "comentario": "Quero mais simulados de discursivas!",
+          "respondidoEm": "2024-06-25T21:00:00Z"
+        },
+        {
+          "usuarioId": "user-juliana-matos",
+          "nota": 7,
+          "comentario": "Adoraria ver mais questões inéditas de legislação.",
+          "respondidoEm": "2024-06-26T14:35:00Z"
+        }
+      ],
+      "kpis": {
+        "score": 54,
+        "respondentes": 212,
+        "promotores": 120,
+        "neutros": 56,
+        "detratores": 36
+      }
+    }
+  ]
+}

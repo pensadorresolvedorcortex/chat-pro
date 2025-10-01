@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets_suporte",
+  "info": {
+    "singularName": "suporte",
+    "pluralName": "suportes",
+    "displayName": "Ticket de suporte",
+    "description": "Tickets de suporte com histórico de mensagens"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": true
+    }
+  },
+  "attributes": {
+    "assunto": {
+      "type": "string",
+      "required": true
+    },
+    "categoria": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "assunto",
+      "required": true
+    },
+    "usuarioId": {
+      "type": "string",
+      "required": true
+    },
+    "status": {
+      "type": "string"
+    },
+    "mensagens": {
+      "type": "json"
+    }
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "curso-discursivas-tjce",
+    "titulo": "Discursivas para TJ-CE",
+    "descricao": "Treinamento completo com correções individualizadas.",
+    "tags": ["TJ-CE", "discursiva"],
+    "cargaHorariaHoras": 18,
+    "instrutores": ["Henrique Porto"],
+    "nivel": "avancado",
+    "aulas": [
+      { "id": "aula-discursiva-01", "titulo": "Introdução ao edital", "duracaoMinutos": 25 },
+      { "id": "aula-discursiva-02", "titulo": "Estrutura da resposta", "duracaoMinutos": 32 }
+    ],
+    "rating": 4.9,
+    "alunosMatriculados": 1120
+  },
+  {
+    "id": "curso-gramatica-intensiva",
+    "titulo": "Gramática Intensiva",
+    "descricao": "Mais de 120 aulas em vídeo e PDFs anotados.",
+    "tags": ["Língua Portuguesa", "básico"],
+    "cargaHorariaHoras": 34,
+    "instrutores": ["Camila Moura"],
+    "nivel": "intermediario",
+    "aulas": [
+      { "id": "aula-gramatica-01", "titulo": "Morfologia aplicada", "duracaoMinutos": 18 },
+      { "id": "aula-gramatica-02", "titulo": "Sintaxe essencial", "duracaoMinutos": 22 }
+    ],
+    "rating": 4.7,
+    "alunosMatriculados": 3280
+  }
+]
