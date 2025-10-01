@@ -1,0 +1,14 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/captures/
+.externalNativeBuild/
+flutter_export_environment.sh
+
+# Assets rasterizados são gerados via scripts para evitar versionamento de binários.
+app/src/main/res/mipmap-*/ic_launcher*.png
+app/src/main/res/drawable/ic_launch_foreground.png
+gradle/wrapper/gradle-wrapper.jar
