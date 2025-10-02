@@ -1,0 +1,22 @@
+{
+  "dart.flutterProjectBasePath": "flutter",
+  "dart.analysisExcludedFolders": [
+    "android/.gradle",
+    "android/.idea",
+    "flutter/.dart_tool",
+    "flutter/.pub-cache",
+    "flutter/ios/.symlinks",
+    "flutter/ios/Flutter/ephemeral"
+  ],
+  "dart.lineLength": 100,
+  "dart.runPubGetOnPubspecChanges": "always",
+  "editor.defaultFormatter": "Dart-Code.flutter",
+  "files.watcherExclude": {
+    "**/.dart_tool/**": true,
+    "**/.gradle/**": true,
+    "**/.idea/**": true,
+    "**/.pub-cache/**": true,
+    "flutter/build/**": true,
+    "android/.gradle/**": true
+  }
+}
