@@ -1,0 +1,87 @@
+{
+  "planos": [
+    {
+      "id": "plano-mensal-plus",
+      "nome": "Plano Plus Mensal",
+      "descricao": "Tudo o que você precisa para acelerar rumo ao edital, com cobranças Pix instantâneas.",
+      "tipo": "pago",
+      "periodicidade": "mensal",
+      "preco": 64.9,
+      "moeda": "BRL",
+      "pix": {
+        "chave": "pix@academiadacomunicacao.com",
+        "tipoChave": "email",
+        "codigoCopiaCola": "00020126380014BR.GOV.BCB.PIX0119pix@academiadacomunicacao.com520400005303986540464.905802BR5925Academia da Comunicação6009SAO PAULO62070503***6304A1B2",
+        "provedor": "Banco do Brasil",
+        "expiraEm": "2024-07-01T23:59:59Z",
+        "valor": 64.9,
+        "moeda": "BRL"
+      },
+      "beneficios": [
+        "Questões ilimitadas",
+        "Simulados express com estatísticas avançadas",
+        "Mentorias coletivas quinzenais",
+        "Biblioteca premium com materiais extras"
+      ],
+      "statusAprovacao": "aprovado",
+      "aprovadoPor": "user-gestora-luiza",
+      "aprovadoEm": "2024-06-14T10:20:00Z",
+      "createdAt": "2024-05-10T14:00:00Z",
+      "updatedAt": "2024-06-20T09:12:00Z",
+      "destaque": true
+    },
+    {
+      "id": "plano-pro-anual",
+      "nome": "Plano Pro Anual",
+      "descricao": "Todos os recursos premium com economia equivalente a 2 meses gratuitos.",
+      "tipo": "pago",
+      "periodicidade": "anual",
+      "preco": 529.0,
+      "moeda": "BRL",
+      "pix": {
+        "chave": "+551199999999",
+        "tipoChave": "telefone",
+        "codigoCopiaCola": "00020126580014BR.GOV.BCB.PIX0114+5511999999995204000053039865404529.005802BR5925Academia da Comunicação6009SAO PAULO62070503***6304B3C4",
+        "provedor": "Santander",
+        "expiraEm": "2024-07-05T23:59:59Z",
+        "valor": 529.0,
+        "moeda": "BRL"
+      },
+      "beneficios": [
+        "Tudo do Plano Plus",
+        "Mentorias individuais trimestrais",
+        "Prioridade no suporte",
+        "Relatórios personalizados para gestores"
+      ],
+      "statusAprovacao": "aprovado",
+      "aprovadoPor": "user-gestora-luiza",
+      "aprovadoEm": "2024-06-18T10:05:00Z",
+      "createdAt": "2024-05-08T09:30:00Z",
+      "updatedAt": "2024-06-18T10:05:00Z",
+      "destaque": false
+    },
+    {
+      "id": "plano-gratis-alunos",
+      "nome": "Plano Grátis para Alunos",
+      "descricao": "Acesso supervisionado para estudantes aprovados pelo super admin.",
+      "tipo": "gratis_aluno",
+      "periodicidade": "mensal",
+      "preco": 0,
+      "moeda": "BRL",
+      "pix": null,
+      "beneficios": [
+        "30 questões resolvidas por dia",
+        "Rankings semanais",
+        "Cadernos ilimitados",
+        "Participação em desafios e NPS"
+      ],
+      "statusAprovacao": "aprovado",
+      "aprovadoPor": "user-gestora-luiza",
+      "aprovadoEm": "2024-06-22T11:00:00Z",
+      "createdAt": "2024-06-12T18:45:00Z",
+      "updatedAt": "2024-06-21T15:27:00Z",
+      "ultimaSolicitacao": "2024-06-21T09:12:00Z",
+      "destaque": false
+    }
+  ]
+}
