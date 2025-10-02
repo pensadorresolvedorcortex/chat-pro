@@ -1,0 +1,4 @@
+ACADEMIA_API_BASE_URL = https://api.academiadacomunicacao.com/qc/v1
+ACADEMIA_ENVIRONMENT = development
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "simulado-express-tjce",
+    "usuarioId": "user-camila-andrade",
+    "titulo": "Simulado Express TJ-CE",
+    "modalidade": "express",
+    "configuracao": {
+      "disciplinas": ["Língua Portuguesa", "Direito Administrativo"],
+      "banca": "CEBRASPE",
+      "dificuldade": "intermediario",
+      "quantidadeQuestoes": 30,
+      "tempoMinutos": 120
+    },
+    "estatisticas": {
+      "questoesRespondidas": 12,
+      "acertos": 9,
+      "tempoMedioPorQuestaoSegundos": 95
+    },
+    "status": "em_andamento",
+    "atualizadoEm": "2024-06-29T16:10:00Z"
+  },
+  {
+    "id": "simulado-final-sefaz",
+    "usuarioId": "user-juliana-matos",
+    "titulo": "Simulado Final SEFAZ",
+    "modalidade": "customizado",
+    "configuracao": {
+      "disciplinas": ["Legislação Tributária", "Contabilidade"],
+      "banca": "FCC",
+      "dificuldade": "avancado",
+      "quantidadeQuestoes": 50,
+      "tempoMinutos": 180
+    },
+    "estatisticas": {
+      "questoesRespondidas": 50,
+      "acertos": 31,
+      "tempoMedioPorQuestaoSegundos": 145
+    },
+    "status": "finalizado",
+    "atualizadoEm": "2024-06-23T10:05:00Z"
+  }
+]
