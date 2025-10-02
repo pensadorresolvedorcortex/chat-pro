@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AcademiaApiBaseUrl</key>
+	<string>$(ACADEMIA_API_BASE_URL)</string>
+	<key>AcademiaEnvironment</key>
+	<string>$(ACADEMIA_ENVIRONMENT)</string>
+	<key>AcademiaOperationsStatus</key>
+	<dict>
+		<key>alerts</key>
+		<array>
+			<dict>
+				<key>actionLabel</key>
+				<string>Abrir relatório Pix</string>
+				<key>actionUrl</key>
+				<string>https://intranet.academia/pix/relatorios</string>
+				<key>component</key>
+				<string>operations</string>
+				<key>details</key>
+				<string>Há cobranças pendentes que precisam ser conciliadas manualmente.</string>
+				<key>id</key>
+				<string>pending_pix_charges</string>
+				<key>level</key>
+				<string>warning</string>
+				<key>message</key>
+				<string>Cobranças Pix aguardando confirmação</string>
+			</dict>
+			<dict>
+				<key>component</key>
+				<string>flutter_ios</string>
+				<key>details</key>
+				<string>Priorize a suíte mínima de widgets e flows Pix no Xcode.</string>
+				<key>id</key>
+				<string>missing_ios_tests</string>
+				<key>level</key>
+				<string>info</string>
+				<key>message</key>
+				<string>Testes instrumentados iOS ainda não foram executados</string>
+			</dict>
+		</array>
+		<key>components</key>
+		<array>
+			<dict>
+				<key>baseline</key>
+				<integer>52</integer>
+				<key>key</key>
+				<string>flutter_ios</string>
+				<key>label</key>
+				<string>Flutter (iOS/macOS)</string>
+				<key>nextSteps</key>
+				<array>
+					<string>Implementar módulos de estudo no app iOS.</string>
+					<string>Homologar Pix nativo e cobrir com testes instrumentados.</string>
+				</array>
+				<key>notes</key>
+				<array>
+					<string>Bootstrap iOS com notificações Pix e caches Hive.</string>
+					<string>Pendências: módulos de estudo, Pix real e testes instrumentados.</string>
+				</array>
+				<key>percentage</key>
+				<integer>52</integer>
+				<key>weight</key>
+				<real>0.4</real>
+			</dict>
+			<dict>
+				<key>baseline</key>
+				<integer>60</integer>
+				<key>key</key>
+				<string>strapi_backend</string>
+				<key>label</key>
+				<string>CMS Strapi + backend Pix</string>
+				<key>nextSteps</key>
+				<array>
+					<string>Conectar serviços Pix reais e persistir histórico completo.</string>
+					<string>Aplicar RBAC com auditoria e filas assíncronas de conciliação.</string>
+				</array>
+				<key>notes</key>
+				<array>
+					<string>Content-types, seeds e webhook Pix publicados.</string>
+					<string>Pendências: integrações Bacen, RBAC e filas de conciliação.</string>
+				</array>
+				<key>percentage</key>
+				<integer>60</integer>
+				<key>weight</key>
+				<real>0.4</real>
+			</dict>
+			<dict>
+				<key>baseline</key>
+				<integer>45</integer>
+				<key>key</key>
+				<string>operations</string>
+				<key>label</key>
+				<string>QA, observabilidade e operações</string>
+				<key>nextSteps</key>
+				<array>
+					<string>Montar pipeline E2E mobile + CMS.</string>
+					<string>Publicar dashboards e runbook de incidentes Pix.</string>
+				</array>
+				<key>notes</key>
+				<array>
+					<string>Validadores e auditor Pix disponíveis.</string>
+					<string>Pendências: pipeline E2E, monitoração e incidentes Pix.</string>
+				</array>
+				<key>percentage</key>
+				<integer>45</integer>
+				<key>weight</key>
+				<real>0.2</real>
+			</dict>
+		</array>
+		<key>counts</key>
+		<dict>
+			<key>assinaturasAtivas</key>
+			<integer>1</integer>
+			<key>assinaturasPendentes</key>
+			<integer>1</integer>
+			<key>cobrancasConfirmadas</key>
+			<integer>1</integer>
+			<key>cobrancasPendentes</key>
+			<integer>1</integer>
+			<key>planosGratisAprovados</key>
+			<integer>1</integer>
+			<key>planosTotal</key>
+			<integer>3</integer>
+		</dict>
+		<key>milestones</key>
+		<array>
+			<dict>
+				<key>blockers</key>
+				<array/>
+				<key>completedAt</key>
+				<string>2025-09-15T12:00:00Z</string>
+				<key>component</key>
+				<string>flutter_ios</string>
+				<key>description</key>
+				<string>Canal de notificações rico com Pix e categorias de ação disponível no Runner.</string>
+				<key>id</key>
+				<string>ios_notifications_channel</string>
+				<key>owner</key>
+				<string>Mobile</string>
+				<key>status</key>
+				<string>done</string>
+				<key>targetDate</key>
+				<string>2025-09-20T23:59:00Z</string>
+				<key>title</key>
+				<string>Notificações Pix no iOS</string>
+			</dict>
+			<dict>
+				<key>blockers</key>
+				<array>
+					<string>Aguardando credenciais Pix de produção</string>
+				</array>
+				<key>component</key>
+				<string>strapi_backend</string>
+				<key>description</key>
+				<string>Integração Strapi + app emitindo cobranças Pix reais e reconciliando assinaturas.</string>
+				<key>id</key>
+				<string>pix_checkout_live</string>
+				<key>owner</key>
+				<string>Backend</string>
+				<key>status</key>
+				<string>in_progress</string>
+				<key>targetDate</key>
+				<string>2025-10-20T23:59:00Z</string>
+				<key>title</key>
+				<string>Checkout Pix conectado ao PSP</string>
+			</dict>
+			<dict>
+				<key>blockers</key>
+				<array>
+					<string>Definir cobertura mínima de métricas Pix</string>
+				</array>
+				<key>component</key>
+				<string>operations</string>
+				<key>description</key>
+				<string>Dashboards de monitoração, alertas e runbooks de incidentes operacionais Pix.</string>
+				<key>id</key>
+				<string>ops_observability</string>
+				<key>owner</key>
+				<string>Operations</string>
+				<key>status</key>
+				<string>pending</string>
+				<key>targetDate</key>
+				<string>2025-10-30T23:59:00Z</string>
+				<key>title</key>
+				<string>Observabilidade e runbooks Pix</string>
+			</dict>
+		</array>
+		<key>overall</key>
+		<dict>
+			<key>baseline</key>
+			<integer>54</integer>
+			<key>computed</key>
+			<integer>54</integer>
+			<key>notes</key>
+			<array>
+				<string>Snapshot embarcado para fallback iOS.</string>
+			</array>
+			<key>percentage</key>
+			<integer>54</integer>
+			<key>weights</key>
+			<dict>
+				<key>flutter_ios</key>
+				<real>0.4</real>
+				<key>operations</key>
+				<real>0.2</real>
+				<key>strapi_backend</key>
+				<real>0.4</real>
+			</dict>
+		</dict>
+		<key>sources</key>
+		<array>
+			<dict>
+				<key>type</key>
+				<string>document</string>
+				<key>value</key>
+				<string>docs/status/platform-readiness.md</string>
+			</dict>
+			<dict>
+				<key>type</key>
+				<string>script</string>
+				<key>value</key>
+				<string>scripts/validate_sync.py</string>
+			</dict>
+		</array>
+		<key>timestamp</key>
+		<string>2025-10-06T12:00:00Z</string>
+	</dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Academia</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Academia da Comunicação</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>
