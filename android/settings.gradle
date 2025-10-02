@@ -1,0 +1,34 @@
+pluginManagement {
+    def properties = new java.util.Properties()
+    def localPropertiesFile = new File(settingsDir, "local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.withReader("UTF-8") { reader ->
+            properties.load(reader)
+        }
+    }
+
+    def flutterSdkPath = properties.getProperty("flutter.sdk")
+    if (flutterSdkPath == null) {
+        flutterSdkPath = System.getenv("FLUTTER_HOME") ?: System.getenv("FLUTTER_SDK")
+    }
+
+    if (flutterSdkPath == null) {
+        throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in local.properties or set FLUTTER_HOME/FLUTTER_SDK.")
+    }
+
+    includeBuild(new File(flutterSdkPath, "packages/flutter_tools/gradle").getCanonicalPath())
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+include(":app")
+
+rootProject.name = "android"

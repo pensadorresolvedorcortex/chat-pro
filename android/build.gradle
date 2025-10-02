@@ -1,0 +1,19 @@
+plugins {
+    id "com.android.application" version "8.7.3" apply false
+    id "org.jetbrains.kotlin.android" version "2.0.21" apply false
+    id "dev.flutter.flutter-gradle-plugin" apply false
+}
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Flutter's Gradle plugin still references the legacy builder-model
+        // interfaces. AGP 8.x no longer ships them on the classpath, so we
+        // bring the lightweight compatibility jar to avoid the
+        // NoClassDefFoundError for com.android.builder.model.BuildType.
+        classpath "com.android.tools.build:builder-model:7.4.2"
+    }
+}
