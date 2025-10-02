@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    avoid_print: true
+    always_use_package_imports: true
+    cancel_subscriptions: true
+    depend_on_referenced_packages: false
