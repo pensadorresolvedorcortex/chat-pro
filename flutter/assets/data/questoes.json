@@ -1,0 +1,254 @@
+[
+  {
+    "id": "qst-constituicao-2023-001",
+    "enunciado": "De acordo com a Constituição Federal de 1988, assinale a alternativa correta quanto às competências legislativas concorrentes.",
+    "alternativas": [
+      {
+        "letra": "A",
+        "descricao": "Compete privativamente à União legislar sobre orçamento.",
+        "correta": false
+      },
+      {
+        "letra": "B",
+        "descricao": "Compete concorrentemente à União, aos Estados e ao Distrito Federal legislar sobre direito tributário.",
+        "correta": true
+      },
+      {
+        "letra": "C",
+        "descricao": "Compete aos Municípios legislar privativamente sobre direito eleitoral.",
+        "correta": false
+      },
+      {
+        "letra": "D",
+        "descricao": "Compete concorrentemente aos Estados e aos Municípios legislar sobre trânsito e transporte.",
+        "correta": false
+      },
+      {
+        "letra": "E",
+        "descricao": "Compete privativamente ao Distrito Federal legislar sobre direito agrário.",
+        "correta": false
+      }
+    ],
+    "explicacao": "O artigo 24 da Constituição prevê a competência concorrente da União, Estados e Distrito Federal para legislar sobre direito tributário, financeiro, penitenciário, econômico e urbanístico.",
+    "dificuldade": "intermediaria",
+    "ano": 2023,
+    "disciplina": "Direito Constitucional",
+    "assuntos": [
+      "competencia-legislativa",
+      "constituicao-1988"
+    ],
+    "banca": "FGV",
+    "orgaosRelacionados": [
+      "tj-rj",
+      "mp-go"
+    ],
+    "estatisticas": {
+      "respondidas": 1850,
+      "acertos": 1240,
+      "erros": 610,
+      "tempoMedianoSegundos": 82
+    }
+  },
+  {
+    "id": "qst-portugues-interpretacao-014",
+    "enunciado": "No trecho 'embora ainda seja cedo, os candidatos já demonstram apreensão', a conjunção destacada indica relação de:",
+    "alternativas": [
+      {
+        "letra": "A",
+        "descricao": "Concessão",
+        "correta": true
+      },
+      {
+        "letra": "B",
+        "descricao": "Adição",
+        "correta": false
+      },
+      {
+        "letra": "C",
+        "descricao": "Explicação",
+        "correta": false
+      },
+      {
+        "letra": "D",
+        "descricao": "Causa",
+        "correta": false
+      },
+      {
+        "letra": "E",
+        "descricao": "Alternância",
+        "correta": false
+      }
+    ],
+    "explicacao": "A conjunção 'embora' introduz uma oração subordinada concessiva, estabelecendo contraste em relação à oração principal.",
+    "dificuldade": "facil",
+    "ano": 2022,
+    "disciplina": "Língua Portuguesa",
+    "assuntos": [
+      "interpretacao-de-textos",
+      "conjuncoes"
+    ],
+    "banca": "CESPE",
+    "estatisticas": {
+      "respondidas": 2375,
+      "acertos": 1984,
+      "erros": 391,
+      "tempoMedianoSegundos": 54
+    }
+  },
+  {
+    "id": "questao-interpretacao-001",
+    "enunciado": "No trecho 'O assessor preparou um briefing enxuto para que a porta-voz pudesse reagir rapidamente', a locução 'para que' expressa qual relação entre as orações?",
+    "alternativas": [
+      { "letra": "A", "descricao": "Finalidade", "correta": true },
+      { "letra": "B", "descricao": "Causa", "correta": false },
+      { "letra": "C", "descricao": "Condição", "correta": false },
+      { "letra": "D", "descricao": "Concessão", "correta": false },
+      { "letra": "E", "descricao": "Oposição", "correta": false }
+    ],
+    "explicacao": "A locução conjuntiva 'para que' introduz oração subordinada adverbial final, indicando objetivo ou finalidade.",
+    "dificuldade": "facil",
+    "ano": 2024,
+    "disciplina": "Língua Portuguesa",
+    "assuntos": [
+      "oracoes-subordinadas",
+      "analise-sintatica"
+    ],
+    "banca": "FGV",
+    "estatisticas": {
+      "respondidas": 845,
+      "acertos": 702,
+      "erros": 143,
+      "tempoMedianoSegundos": 41
+    }
+  },
+  {
+    "id": "questao-interpretacao-002",
+    "enunciado": "Em release institucional, qual alternativa apresenta o uso correto da crase?",
+    "alternativas": [
+      { "letra": "A", "descricao": "A assessoria divulgou nota à todos os veículos.", "correta": false },
+      { "letra": "B", "descricao": "A coletiva está marcada às 15h no auditório.", "correta": true },
+      { "letra": "C", "descricao": "Os jornalistas foram recebidos à sala principal.", "correta": false },
+      { "letra": "D", "descricao": "O comunicado seguiu à imprensa especializada.", "correta": false },
+      { "letra": "E", "descricao": "Direcionamos o relatório à cada porta-voz.", "correta": false }
+    ],
+    "explicacao": "Emprega-se crase em indicações de horas, como em 'às 15h'. Nas demais alternativas, o uso do acento grave é indevido.",
+    "dificuldade": "intermediaria",
+    "ano": 2024,
+    "disciplina": "Língua Portuguesa",
+    "assuntos": [
+      "crase",
+      "ortografia"
+    ],
+    "banca": "CESPE",
+    "estatisticas": {
+      "respondidas": 792,
+      "acertos": 488,
+      "erros": 304,
+      "tempoMedianoSegundos": 56
+    }
+  },
+  {
+    "id": "questao-interpretacao-003",
+    "enunciado": "A respeito das estratégias de coesão referencial, assinale a alternativa correta para substituir o trecho sublinhado sem alterar o sentido: 'O ministro confirmou que a portaria seria publicada naquele dia'.",
+    "alternativas": [
+      { "letra": "A", "descricao": "O ministro confirmou que a portaria seria publicada nesse dia.", "correta": false },
+      { "letra": "B", "descricao": "O ministro confirmou que a portaria seria publicada naquele mesmo dia.", "correta": true },
+      { "letra": "C", "descricao": "O ministro confirmou que a portaria seria publicada naquele mesmo momento.", "correta": false },
+      { "letra": "D", "descricao": "O ministro confirmou que a portaria seria publicada neste dia.", "correta": false },
+      { "letra": "E", "descricao": "O ministro confirmou que a portaria seria publicada esse dia.", "correta": false }
+    ],
+    "explicacao": "No discurso indireto, advérbios de tempo devem respeitar o ponto de vista do narrador. 'Naquele mesmo dia' mantém a referência temporal original.",
+    "dificuldade": "intermediaria",
+    "ano": 2023,
+    "disciplina": "Língua Portuguesa",
+    "assuntos": [
+      "coesao-referencial",
+      "discurso-indireto"
+    ],
+    "banca": "FCC",
+    "estatisticas": {
+      "respondidas": 665,
+      "acertos": 402,
+      "erros": 263,
+      "tempoMedianoSegundos": 63
+    }
+  },
+  {
+    "id": "questao-legislacao-010",
+    "enunciado": "Segundo a Lei de Acesso à Informação (Lei nº 12.527/2011), em quanto tempo o órgão público deve responder a um pedido de informação?",
+    "alternativas": [
+      { "letra": "A", "descricao": "10 dias, prorrogáveis por mais 10", "correta": false },
+      { "letra": "B", "descricao": "15 dias, improrrogáveis", "correta": false },
+      { "letra": "C", "descricao": "20 dias, prorrogáveis por mais 10", "correta": true },
+      { "letra": "D", "descricao": "25 dias, prorrogáveis por mais 5", "correta": false },
+      { "letra": "E", "descricao": "30 dias corridos", "correta": false }
+    ],
+    "explicacao": "O artigo 11 da Lei nº 12.527/2011 prevê prazo de 20 dias para resposta, prorrogáveis por mais 10 mediante justificativa expressa.",
+    "dificuldade": "intermediaria",
+    "ano": 2022,
+    "disciplina": "Legislação Aplicada à Comunicação",
+    "assuntos": [
+      "lei-de-acesso-a-informacao",
+      "transparencia-publica"
+    ],
+    "banca": "FGV",
+    "estatisticas": {
+      "respondidas": 512,
+      "acertos": 338,
+      "erros": 174,
+      "tempoMedianoSegundos": 78
+    }
+  },
+  {
+    "id": "questao-legislacao-011",
+    "enunciado": "Conforme o Código de Ética dos Profissionais de Relações Públicas, é vedado ao profissional:",
+    "alternativas": [
+      { "letra": "A", "descricao": "Recusar serviço que contrarie os princípios éticos da categoria.", "correta": false },
+      { "letra": "B", "descricao": "Prestar serviços remunerados para entidades públicas.", "correta": false },
+      { "letra": "C", "descricao": "Fazer propaganda enganosa, que comprometa a veracidade das informações.", "correta": true },
+      { "letra": "D", "descricao": "Representar mais de uma entidade no mesmo setor.", "correta": false },
+      { "letra": "E", "descricao": "Atuar em campanhas de utilidade pública.", "correta": false }
+    ],
+    "explicacao": "O código proíbe expressamente práticas enganosas ou que deturpem informações ao público.",
+    "dificuldade": "facil",
+    "ano": 2021,
+    "disciplina": "Legislação Aplicada à Comunicação",
+    "assuntos": [
+      "etica-profissional",
+      "relacoes-publicas"
+    ],
+    "banca": "CESPE",
+    "estatisticas": {
+      "respondidas": 438,
+      "acertos": 366,
+      "erros": 72,
+      "tempoMedianoSegundos": 47
+    }
+  },
+  {
+    "id": "questao-legislacao-012",
+    "enunciado": "Sobre a classificação da publicidade enganosa prevista no Código de Defesa do Consumidor, assinale a alternativa correta.",
+    "alternativas": [
+      { "letra": "A", "descricao": "É aquela que se vale de dados estatísticos verídicos, mas omitidos parcialmente.", "correta": false },
+      { "letra": "B", "descricao": "É aquela que, mesmo sendo literal, induz o consumidor em erro sobre características do produto.", "correta": true },
+      { "letra": "C", "descricao": "É toda publicidade comparativa que menciona concorrentes.", "correta": false },
+      { "letra": "D", "descricao": "É aquela autorizada previamente pelo PROCON.", "correta": false },
+      { "letra": "E", "descricao": "É a publicidade destinada exclusivamente ao público interno.", "correta": false }
+    ],
+    "explicacao": "Publicidade enganosa é qualquer comunicação publicitária inteira ou parcialmente falsa ou que, por omissão, seja capaz de induzir o consumidor em erro.",
+    "dificuldade": "intermediaria",
+    "ano": 2020,
+    "disciplina": "Legislação Aplicada à Comunicação",
+    "assuntos": [
+      "cdc",
+      "publicidade"
+    ],
+    "banca": "FCC",
+    "estatisticas": {
+      "respondidas": 389,
+      "acertos": 241,
+      "erros": 148,
+      "tempoMedianoSegundos": 69
+    }
+  }
+]
