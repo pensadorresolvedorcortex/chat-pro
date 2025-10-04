@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Flutter: pub get",
+      "type": "shell",
+      "command": "flutter",
+      "windows": {
+        "command": "flutter.bat"
+      },
+      "args": ["pub", "get"],
+      "options": {
+        "cwd": "${workspaceFolder}/flutter"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: run",
+      "type": "shell",
+      "command": "flutter",
+      "windows": {
+        "command": "flutter.bat"
+      },
+      "args": ["run"],
+      "options": {
+        "cwd": "${workspaceFolder}/flutter"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flutter: build apk",
+      "type": "shell",
+      "command": "flutter",
+      "windows": {
+        "command": "flutter.bat"
+      },
+      "args": ["build", "apk"],
+      "options": {
+        "cwd": "${workspaceFolder}/flutter"
+      },
+      "problemMatcher": []
+    }
+  ]
+}
