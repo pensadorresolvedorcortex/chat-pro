@@ -1,0 +1,11 @@
+.juntaplay-newsletter-admin table.widefat td,
+.juntaplay-newsletter-admin table.widefat th {
+    border-radius: 0;
+}
+
+.juntaplay-newsletter-admin .button-primary {
+    border-radius: 25px;
+    padding: 0 24px;
+    line-height: 38px;
+    height: 38px;
+}
