@@ -1334,10 +1334,10 @@
 
         var cover = item.coverUrl || coverPlaceholder || '';
         var alt = escapeHtml(item.coverAlt || item.title || item.service || __('Capa do grupo', 'juntaplay'));
-        var category = item.categoryLabel ? '<span class="juntaplay-group-card__category">' + escapeHtml(item.categoryLabel) + '</span>' : '';
         var titleText = item.title || item.service || __('Grupo disponível', 'juntaplay');
         var title = '<h3 class="juntaplay-group-card__title">' + escapeHtml(titleText) + '</h3>';
-        var priceLabel = item.memberPriceLabel || item.priceLabel || '';
+        var priceValue = (typeof item.memberPrice === 'number' ? item.memberPrice : (typeof item.price === 'number' ? item.price : null));
+        var priceLabel = priceValue !== null ? formatCurrency(priceValue, 'BRL', 'pt-BR') : (item.memberPriceLabel || item.priceLabel || '');
         var price = priceLabel ? '<span class="juntaplay-group-card__price">' + escapeHtml(priceLabel) + '</span>' : '';
         var badgeVariant = (item.slotsBadgeVariant || '').toString();
         var slotsBadgeClass = 'juntaplay-group-card__slots-badge';
@@ -1348,7 +1348,6 @@
             }
         }
         var slotsBadge = item.slotsBadge ? '<span class="' + slotsBadgeClass + '">' + escapeHtml(item.slotsBadge) + '</span>' : '';
-        var slotsSummary = item.slotsSummary ? '<p class="juntaplay-group-card__slots-summary">' + escapeHtml(item.slotsSummary) + '</p>' : '';
         var availabilityState = (item.availabilityState || '').toString();
         var buttonLabel = item.buttonLabel || (availabilityState === 'full' ? __('Aguardando membros', 'juntaplay') : __('Assinar com vagas', 'juntaplay'));
         var buttonClass = 'juntaplay-group-card__cta';
@@ -1357,9 +1356,9 @@
         }
         var link = item.permalink ? escapeHtml(item.permalink) : '#';
 
-        var slotsBlock = '';
+        var meta = '';
         if (slotsBadge || price) {
-            slotsBlock = '<div class="juntaplay-group-card__slots">' + slotsBadge + price + '</div>';
+            meta = '<div class="juntaplay-group-card__meta">' + slotsBadge + price + '</div>';
         }
 
         return '<article class="' + classes.join(' ') + '" data-group-card>'
@@ -1368,11 +1367,9 @@
             + '</figure>'
             + '<div class="juntaplay-group-card__body">'
             + '<div class="juntaplay-group-card__heading">'
-            + category
             + title
             + '</div>'
-            + slotsBlock
-            + slotsSummary
+            + meta
             + '<a class="' + buttonClass + '" href="' + link + '"' + (availabilityState === 'full' ? ' aria-disabled="true"' : '') + '>' + escapeHtml(buttonLabel) + '</a>'
             + '</div>'
             + '</article>';
@@ -2177,12 +2174,39 @@
         };
 
         var $grid = $root.find('[data-rotator-grid]');
-        var $filters = $root.find('[data-rotator-filter]');
+        var $track = $root.find('[data-rotator-track]');
         var $empty = $root.find('[data-rotator-empty]');
+        var $navPrev = $root.find('[data-rotator-nav="prev"]');
+        var $navNext = $root.find('[data-rotator-nav="next"]');
 
         function setLoading(isLoading) {
             state.loading = isLoading;
             $root.toggleClass('is-loading', isLoading);
+        }
+
+        function updateNav() {
+            if (!$track.length) {
+                return;
+            }
+
+            var element = $track.get(0);
+            if (!element) {
+                return;
+            }
+
+            var maxScroll = Math.max(0, element.scrollWidth - element.clientWidth);
+            var scrollLeft = element.scrollLeft;
+            var threshold = 4;
+            var atStart = scrollLeft <= threshold;
+            var atEnd = scrollLeft >= (maxScroll - threshold);
+
+            if ($navPrev.length) {
+                $navPrev.toggleClass('is-disabled', atStart).prop('disabled', atStart).attr('aria-disabled', atStart ? 'true' : 'false');
+            }
+
+            if ($navNext.length) {
+                $navNext.toggleClass('is-disabled', atEnd).prop('disabled', atEnd).attr('aria-disabled', atEnd ? 'true' : 'false');
+            }
         }
 
         function render(items) {
@@ -2234,8 +2258,8 @@
             });
         }
 
-        if ($filters.length) {
-            $filters.on('click', '[data-rotator-filter]', function (event) {
+        if ($track.length) {
+            $track.on('click', '[data-rotator-filter]', function (event) {
                 event.preventDefault();
 
                 var $button = $(this);
@@ -2248,11 +2272,66 @@
                 state.category = category;
                 $button.addClass('is-active').attr('aria-selected', 'true');
                 $button.siblings('[data-rotator-filter]').removeClass('is-active').attr('aria-selected', 'false');
+                var buttonEl = $button.get(0);
+                if (buttonEl && typeof buttonEl.scrollIntoView === 'function') {
+                    try {
+                        buttonEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    } catch (e) {
+                        // ignore scroll errors
+                    }
+                }
                 fetch();
+            });
+
+            $track.on('scroll', function () {
+                updateNav();
+            });
+        }
+
+        if ($navPrev.length || $navNext.length) {
+            var scrollStep = function (direction) {
+                if (!$track.length) {
+                    return;
+                }
+
+                var element = $track.get(0);
+                if (!element) {
+                    return;
+                }
+
+                var amount = element.clientWidth * 0.6;
+                var target = Math.max(0, Math.min(element.scrollLeft + (direction * amount), element.scrollWidth - element.clientWidth));
+
+                $track.stop().animate({ scrollLeft: target }, 260, 'swing', updateNav);
+            };
+
+            if ($navPrev.length) {
+                $navPrev.on('click', function (event) {
+                    event.preventDefault();
+                    if ($(this).hasClass('is-disabled')) {
+                        return;
+                    }
+                    scrollStep(-1);
+                });
+            }
+
+            if ($navNext.length) {
+                $navNext.on('click', function (event) {
+                    event.preventDefault();
+                    if ($(this).hasClass('is-disabled')) {
+                        return;
+                    }
+                    scrollStep(1);
+                });
+            }
+
+            $(window).on('resize', function () {
+                updateNav();
             });
         }
 
         fetch();
+        updateNav();
     }
 
     function initNotifications() {

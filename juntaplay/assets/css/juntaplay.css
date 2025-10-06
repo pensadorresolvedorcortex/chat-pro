@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Fredoka:wght@400;500;600;700&display=swap");
 
 :root {
-    --jp-primary: #ff5a5f;
-    --jp-primary-dark: #e0494d;
-    --jp-primary-light: #ffe4e5;
+    --jp-primary: #ff4858;
+    --jp-primary-dark: #e03b49;
+    --jp-primary-light: #ffe5e8;
     --jp-primary-contrast: #ffffff;
+    --jp-accent: #00ccc0;
+    --jp-accent-dark: #00a79d;
+    --jp-accent-light: #e2fffb;
     --jp-surface: #ffffff;
     --jp-border: #e6eaef;
     --jp-text: #1f2933;
@@ -1297,7 +1300,7 @@ body .juntaplay-dashboard__menu-item {
     gap: 0.85rem;
     padding: 0.95rem 1.15rem;
     border-radius: 18px;
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(20, 184, 166, 0.08));
+    background: linear-gradient(135deg, rgba(255, 72, 88, 0.12), rgba(0, 204, 192, 0.12));
     color: var(--jp-text-strong, #1f2937);
     font-weight: 600;
     text-decoration: none;
@@ -1316,7 +1319,7 @@ body .juntaplay-dashboard__menu-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    background: linear-gradient(135deg, var(--jp-primary), var(--jp-accent));
     color: #ffffff;
     flex-shrink: 0;
 }
@@ -1527,8 +1530,8 @@ body .juntaplay-profile__summary-item--warning {
 }
 
 body .juntaplay-profile__summary-item--accent {
-    background: #f2f5ff;
-    border-color: rgba(99, 102, 241, 0.25);
+    background: rgba(0, 204, 192, 0.12);
+    border-color: rgba(0, 204, 192, 0.3);
 }
 
 body .juntaplay-profile__summary-label {
@@ -2037,7 +2040,7 @@ body .juntaplay-group-card__members ul {
 }
 
 body .juntaplay-group-card__members li {
-    background: rgba(14, 165, 233, 0.08);
+    background: rgba(0, 204, 192, 0.12);
     border-radius: 999px;
     padding: 0.35rem 0.9rem;
     font-size: 0.85rem;
@@ -2285,8 +2288,8 @@ body .juntaplay-group-card__message {
 }
 
 body .juntaplay-group-card__rules {
-    border-left: 3px solid rgba(14, 165, 233, 0.45);
-    background: rgba(14, 165, 233, 0.08);
+    border-left: 3px solid rgba(0, 204, 192, 0.45);
+    background: rgba(0, 204, 192, 0.1);
     padding: 0.75rem 1rem;
     border-radius: 12px;
     color: var(--jp-muted);
@@ -2927,8 +2930,8 @@ body [data-group-item].is-hidden {
 .juntaplay-wallet__total {
     font-size: 13px;
     font-weight: 600;
-    color: #6366f1;
-    background: rgba(99, 102, 241, 0.08);
+    color: var(--jp-primary);
+    background: rgba(255, 72, 88, 0.12);
     padding: 6px 12px;
     border-radius: 999px;
 }
@@ -3723,22 +3726,22 @@ body [data-group-item].is-hidden {
     border-radius: 26px;
     overflow: hidden;
     background: #ffffff;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 24px 52px -30px rgba(15, 23, 42, 0.5);
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    box-shadow: 0 18px 38px -24px rgba(15, 23, 42, 0.45);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     min-height: 100%;
 }
 
 .juntaplay-group-card--spotlight:hover {
     transform: translateY(-6px);
-    box-shadow: 0 32px 70px -28px rgba(15, 23, 42, 0.58);
+    box-shadow: 0 28px 52px -24px rgba(15, 23, 42, 0.55);
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__cover {
     position: relative;
     aspect-ratio: 495 / 370;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(14, 165, 233, 0.12));
+    background: linear-gradient(135deg, rgba(255, 72, 88, 0.08), rgba(0, 204, 192, 0.12));
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__cover img {
@@ -3753,45 +3756,30 @@ body [data-group-item].is-hidden {
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__body {
-    padding: 1.75rem 2rem;
+    padding: 1.6rem 1.9rem 1.8rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.1rem;
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__heading {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-}
-
-.juntaplay-group-card--spotlight .juntaplay-group-card__category {
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #0ea5e9;
-}
-
-.juntaplay-group-card--spotlight .juntaplay-group-card__service {
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #6b7280;
+    gap: 0.6rem;
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__title {
     margin: 0;
-    font-size: 1.45rem;
+    font-size: 1.42rem;
     font-weight: 700;
-    color: #1f2937;
+    color: var(--jp-text);
 }
 
-.juntaplay-group-card--spotlight .juntaplay-group-card__slots {
+.juntaplay-group-card--spotlight .juntaplay-group-card__meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
+    gap: 0.65rem;
     flex-wrap: wrap;
 }
 
@@ -3799,49 +3787,50 @@ body [data-group-item].is-hidden {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.45rem 0.95rem;
-    border-radius: 14px;
-    background: rgba(16, 185, 129, 0.12);
-    color: #047857;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: var(--jp-accent-light);
+    color: var(--jp-accent-dark);
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    line-height: 1.1;
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__slots-badge.is-last {
-    background: rgba(244, 63, 94, 0.15);
-    color: #be123c;
+    background: rgba(255, 72, 88, 0.18);
+    color: var(--jp-primary);
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__slots-badge.is-filled {
-    background: rgba(71, 85, 105, 0.12);
+    background: rgba(148, 163, 184, 0.18);
     color: #475569;
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__slots-badge.is-info {
-    background: rgba(59, 130, 246, 0.12);
-    color: #1d4ed8;
+    background: rgba(0, 204, 192, 0.2);
+    color: var(--jp-accent-dark);
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__price {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    color: #424242;
+    color: #2f2f2f;
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__slots-summary {
     margin: 0;
-    font-size: 0.85rem;
-    color: #6b7280;
+    font-size: 0.82rem;
+    color: var(--jp-muted);
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.85rem 1.5rem;
+    padding: 0.75rem 1.4rem;
     border-radius: 16px;
     font-weight: 700;
-    background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+    background: linear-gradient(135deg, var(--jp-primary), var(--jp-accent));
     color: #ffffff;
     text-decoration: none;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -3849,7 +3838,7 @@ body [data-group-item].is-hidden {
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 32px -20px rgba(14, 165, 233, 0.4);
+    box-shadow: 0 18px 32px -20px rgba(255, 72, 88, 0.4);
 }
 
 .juntaplay-group-card--spotlight .juntaplay-group-card__cta.is-disabled {
@@ -3866,33 +3855,92 @@ body [data-group-item].is-hidden {
     color: #424242;
 }
 
-.juntaplay-group-rotator__filters {
+.juntaplay-group-rotator__controls {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 14px;
     margin-bottom: 24px;
 }
 
-.juntaplay-group-rotator__filters button {
+.juntaplay-group-rotator__filters-wrapper {
+    overflow: hidden;
+    flex: 1;
+}
+
+.juntaplay-group-rotator__filters {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+}
+
+.juntaplay-group-rotator__filters::-webkit-scrollbar {
+    display: none;
+}
+
+.juntaplay-group-rotator__filter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
     border: none;
-    background: #f4f7fb;
+    background: rgba(47, 61, 72, 0.08);
     color: #424242;
     font-weight: 600;
-    padding: 8px 18px;
+    padding: 0.6rem 1.15rem;
     border-radius: 999px;
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    white-space: nowrap;
 }
 
-.juntaplay-group-rotator__filters button.is-active,
-.juntaplay-group-rotator__filters button:hover,
-.juntaplay-group-rotator__filters button:focus-visible {
-    background: rgba(99, 102, 241, 0.12);
-    color: #3730a3;
-    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25);
+.juntaplay-group-rotator__filter .juntaplay-group-rotator__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: inherit;
+}
+
+.juntaplay-group-rotator__filter.is-active,
+.juntaplay-group-rotator__filter:hover,
+.juntaplay-group-rotator__filter:focus-visible {
+    background: var(--jp-primary);
+    color: var(--jp-primary-contrast);
+    box-shadow: 0 12px 24px -18px rgba(255, 72, 88, 0.6);
     outline: none;
 }
 
+.juntaplay-group-rotator__nav {
+    border: none;
+    background: rgba(15, 23, 42, 0.08);
+    color: #27303d;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.juntaplay-group-rotator__nav svg {
+    width: 18px;
+    height: 18px;
+}
+
+.juntaplay-group-rotator__nav:hover,
+.juntaplay-group-rotator__nav:focus-visible {
+    background: var(--jp-primary);
+    color: var(--jp-primary-contrast);
+    outline: none;
+}
+
+.juntaplay-group-rotator__nav.is-disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+}
 
 .juntaplay-group-rotator__grid {
     display: grid;
@@ -3913,8 +3961,13 @@ body [data-group-item].is-hidden {
 }
 
 @media (max-width: 640px) {
-    .juntaplay-group-rotator__filters {
-        gap: 8px;
+    .juntaplay-group-rotator__controls {
+        gap: 10px;
+    }
+
+    .juntaplay-group-rotator__nav {
+        width: 38px;
+        height: 38px;
     }
 
     .juntaplay-group-rotator__grid {
@@ -4092,7 +4145,7 @@ body [data-group-item].is-hidden {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #6366f1;
+    color: var(--jp-primary);
     width: 22px;
     height: 22px;
 }
@@ -4112,7 +4165,7 @@ body [data-group-item].is-hidden {
     border: none;
     cursor: pointer;
     font-weight: 600;
-    background: linear-gradient(135deg, #6366f1, #4338ca);
+    background: linear-gradient(135deg, var(--jp-primary), var(--jp-accent));
     color: #ffffff;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -4120,7 +4173,7 @@ body [data-group-item].is-hidden {
 .juntaplay-search-hero__submit:hover,
 .juntaplay-search-hero__submit:focus-visible {
     transform: translateY(-1px);
-    box-shadow: 0 16px 28px rgba(67, 56, 202, 0.24);
+    box-shadow: 0 16px 28px rgba(255, 72, 88, 0.28);
     outline: none;
 }
 
@@ -4154,8 +4207,8 @@ body .juntaplay-dashboard__tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
-    background: rgba(52, 211, 153, 0.08);
-    border: 1px solid rgba(16, 185, 129, 0.25);
+    background: rgba(255, 72, 88, 0.08);
+    border: 1px solid rgba(255, 72, 88, 0.2);
     border-radius: 999px;
     padding: 0.6rem 0.85rem;
     backdrop-filter: blur(10px);
@@ -4178,14 +4231,14 @@ body .juntaplay-dashboard__tab {
 body .juntaplay-dashboard__tab:hover,
 body .juntaplay-dashboard__tab:focus {
     outline: none;
-    background: rgba(16, 185, 129, 0.12);
-    box-shadow: 0 10px 22px rgba(16, 185, 129, 0.18);
+    background: rgba(0, 204, 192, 0.14);
+    box-shadow: 0 10px 22px rgba(0, 204, 192, 0.22);
 }
 
 body .juntaplay-dashboard__tab.is-active {
-    background: linear-gradient(135deg, #22c55e, #0ea5e9);
+    background: linear-gradient(135deg, var(--jp-primary), var(--jp-accent));
     color: #ffffff;
-    box-shadow: 0 16px 28px rgba(14, 165, 233, 0.25);
+    box-shadow: 0 16px 28px rgba(255, 72, 88, 0.28);
 }
 
 body .juntaplay-dashboard__tab-icon {
@@ -4195,7 +4248,7 @@ body .juntaplay-dashboard__tab-icon {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgba(14, 165, 233, 0.16);
+    background: rgba(0, 204, 192, 0.18);
     color: currentColor;
 }
 
@@ -4213,7 +4266,7 @@ body .juntaplay-dashboard__tab-badge {
     padding: 0 0.5rem;
     font-size: 0.75rem;
     font-weight: 600;
-    background: rgba(15, 118, 110, 0.16);
+    background: rgba(255, 72, 88, 0.18);
     color: inherit;
 }
 
@@ -4231,8 +4284,8 @@ body .juntaplay-dashboard__menu {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1rem;
-    background: linear-gradient(135deg, rgba(52, 211, 153, 0.12), rgba(14, 165, 233, 0.12));
-    border: 1px solid rgba(52, 211, 153, 0.2);
+    background: linear-gradient(135deg, rgba(255, 72, 88, 0.12), rgba(0, 204, 192, 0.12));
+    border: 1px solid rgba(255, 72, 88, 0.2);
     border-radius: 28px;
     padding: 1.5rem;
 }
@@ -4246,7 +4299,7 @@ body .juntaplay-dashboard__menu-item {
 }
 
 body .juntaplay-dashboard__menu-icon {
-    background: linear-gradient(135deg, #22c55e, #0ea5e9);
+    background: linear-gradient(135deg, var(--jp-primary), var(--jp-accent));
 }
 
 /* Group card summary */
