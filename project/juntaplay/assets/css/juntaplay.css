@@ -2133,9 +2133,9 @@ body .juntaplay-groups__filters .juntaplay-chip:focus {
 }
 
 body .juntaplay-groups__filters .juntaplay-chip.is-active {
-    background: var(--jp-primary-light);
-    color: var(--jp-primary-dark);
-    border-color: rgba(255, 90, 95, 0.35);
+    background: #00ccc0b8;
+    color: #484848;
+    border-color: rgb(71 218 210);
 }
 
 body .juntaplay-groups__list {
@@ -5384,7 +5384,7 @@ body .juntaplay-group-card--profile .juntaplay-group-card__title {
 body .juntaplay-group-card--profile .juntaplay-group-card__role-badge {
     align-self: stretch;
     display: inline-flex;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
     text-transform: none;
     letter-spacing: 0.02em;
@@ -5414,7 +5414,7 @@ body .juntaplay-group-card--profile .juntaplay-group-card__chips .juntaplay-badg
     letter-spacing: 0.05em;
     display: inline-flex;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 body .juntaplay-group-card--profile .juntaplay-group-card__chips .juntaplay-badge--danger {
@@ -5424,8 +5424,8 @@ body .juntaplay-group-card--profile .juntaplay-group-card__chips .juntaplay-badg
 }
 
 body .juntaplay-group-card--profile .juntaplay-group-card__chips .juntaplay-badge--warning {
-    background: rgba(249, 115, 22, 0.18);
-    color: #f97316;
+    background: rgb(255 72 88);
+    color: #ffffff;
     border-color: rgba(249, 115, 22, 0.35);
 }
 
@@ -5526,10 +5526,11 @@ body .juntaplay-group-card--profile .juntaplay-group-card__cta .juntaplay-button
 }
 
 body .juntaplay-group-card--profile .juntaplay-group-card__cta .juntaplay-button--primary {
-    background: var(--jp-primary);
-    border-color: var(--jp-primary);
-    color: var(--jp-primary-contrast);
-    box-shadow: 0 6px 16px rgba(255, 90, 95, 0.22);
+    background: #f0f2f5 !important;
+    border-color: #d5d5d5;
+    color: #919191 !important;
+    text-transform: uppercase !important;
+    box-shadow: none;
 }
 
 body .juntaplay-group-card--profile .juntaplay-group-card__cta .juntaplay-button--ghost {

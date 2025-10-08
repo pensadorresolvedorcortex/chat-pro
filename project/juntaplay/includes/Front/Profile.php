@@ -1575,6 +1575,10 @@ class Profile
             $cover_alt = __('Capa do grupo', 'juntaplay');
         }
 
+        if ($status === Groups::STATUS_PENDING) {
+            $status_meta['label'] = '';
+        }
+
         $group['status']            = $status;
         $group['membership_status'] = $membership_status;
         $group['membership_role']   = $role;
@@ -1806,9 +1810,9 @@ class Profile
             $cta_variant  = $available > 0 ? 'primary' : 'ghost';
             $cta_disabled = $available <= 0 || $pool_link === '';
         } elseif ($status === Groups::STATUS_PENDING) {
-            $availability_label = __('Em análise pelo super admin', 'juntaplay');
+            $availability_label = __('Em Análise', 'juntaplay');
             $availability_tone  = 'warning';
-            $cta_label          = __('Em análise', 'juntaplay');
+            $cta_label          = '';
             $cta_variant        = 'ghost';
             $cta_disabled       = true;
             $cta_url            = '';
@@ -2540,7 +2544,7 @@ class Profile
                 break;
             case Groups::STATUS_PENDING:
             default:
-                $label   = __('Em análise', 'juntaplay');
+                $label   = __('Em Análise', 'juntaplay');
                 $tone    = 'warning';
                 $message = __('Aguarde a aprovação do super administrador. Você será avisado por e-mail.', 'juntaplay');
                 break;
