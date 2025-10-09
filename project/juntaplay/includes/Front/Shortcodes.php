@@ -379,8 +379,28 @@ class Shortcodes
             $header_menu           = $this->build_header_menu_links();
         }
 
-        $login_page_id    = (int) get_option('juntaplay_page_entrar');
-        $header_login_url = $login_page_id ? get_permalink($login_page_id) : wp_login_url();
+        $login_page_id   = (int) get_option('juntaplay_page_entrar');
+        $login_base_url  = $login_page_id ? get_permalink($login_page_id) : '';
+
+        if (!$login_base_url) {
+            $login_base_url = wp_login_url();
+        }
+
+        $header_login_url    = $login_base_url ?: '';
+        $header_register_url = '';
+
+        if ($login_page_id && $login_base_url) {
+            $header_login_url    = add_query_arg('jp_auth_view', 'login', $login_base_url);
+            $header_register_url = add_query_arg('jp_auth_view', 'register', $login_base_url);
+        } else {
+            if (function_exists('wp_registration_url')) {
+                $header_register_url = wp_registration_url();
+            }
+
+            if (!$header_register_url && $header_login_url) {
+                $header_register_url = add_query_arg('action', 'register', $header_login_url);
+            }
+        }
 
         ob_start();
         $header_guest                = $is_guest;

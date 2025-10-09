@@ -209,6 +209,9 @@ body .juntaplay-auth__switch {
 }
 
 body .juntaplay-auth__switch-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     border: 0;
     background: transparent;
     font-weight: 600;
@@ -217,6 +220,8 @@ body .juntaplay-auth__switch-btn {
     border-radius: 999px;
     color: var(--jp-muted);
     cursor: pointer;
+    text-decoration: none;
+    line-height: 1.2;
     transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -4103,6 +4108,33 @@ body .juntaplay-header__guest {
   flex-wrap: wrap;
 }
 
+body .juntaplay-header__guest-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+body .juntaplay-header__guest-actions .juntaplay-auth__switch {
+  margin-left: auto;
+}
+
+body .juntaplay-header__guest-actions .juntaplay-auth__switch-btn {
+  min-width: 0;
+}
+
+body .juntaplay-header__guest-actions .juntaplay-auth__switch-btn.is-active {
+  background: #ff4858;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(255, 72, 88, 0.28);
+}
+
+body .juntaplay-header__guest-actions .juntaplay-auth__switch-btn.is-active:hover,
+body .juntaplay-header__guest-actions .juntaplay-auth__switch-btn.is-active:focus {
+  background: #ff4858;
+  color: #ffffff;
+}
+
 body .juntaplay-header__guest-copy {
   display: flex;
   flex-direction: column;
@@ -4348,6 +4380,16 @@ body .juntaplay-header--guest {
 
   body .juntaplay-header__guest {
     align-items: flex-start;
+  }
+
+  body .juntaplay-header__guest-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  body .juntaplay-header__guest-actions .juntaplay-auth__switch {
+    width: 100%;
+    justify-content: center;
   }
 
   body .juntaplay-header__trigger {

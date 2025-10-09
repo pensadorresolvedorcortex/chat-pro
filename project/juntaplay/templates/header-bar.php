@@ -7,6 +7,7 @@
  * @var bool $header_guest
  * @var int $header_notifications_unread
  * @var string $header_login_url
+ * @var string $header_register_url
  */
 
 declare(strict_types=1);
@@ -35,7 +36,8 @@ $header_guest = isset($header_guest) ? (bool) $header_guest : false;
 $header_context = is_array($header_context ?? null) ? $header_context : [];
 $header_menu_items = is_array($header_menu_items ?? null) ? $header_menu_items : [];
 $header_notifications_unread = isset($header_notifications_unread) ? (int) $header_notifications_unread : 0;
-$header_login_url = isset($header_login_url) ? (string) $header_login_url : wp_login_url();
+$header_login_url    = isset($header_login_url) ? (string) $header_login_url : wp_login_url();
+$header_register_url = isset($header_register_url) ? (string) $header_register_url : '';
 
 $name       = isset($header_context['name']) ? (string) $header_context['name'] : '';
 $first_name = isset($header_context['first_name']) ? (string) $header_context['first_name'] : '';
@@ -57,9 +59,22 @@ $avatar_label = $name !== '' ? $name : ($first_name !== '' ? $first_name : __('a
                     <span class="juntaplay-header__guest-title"><?php esc_html_e('Acesse sua conta', 'juntaplay'); ?></span>
                     <span class="juntaplay-header__guest-text"><?php esc_html_e('Entre para acompanhar notificações e seus grupos ativos.', 'juntaplay'); ?></span>
                 </div>
-                <a class="juntaplay-button juntaplay-button--primary" href="<?php echo esc_url($header_login_url); ?>">
-                    <?php esc_html_e('Entrar', 'juntaplay'); ?>
-                </a>
+                <div class="juntaplay-header__guest-actions">
+                    <div class="juntaplay-auth__switch" role="tablist">
+                        <a class="juntaplay-auth__switch-btn is-active" href="<?php echo esc_url($header_login_url); ?>" role="tab" aria-selected="true">
+                            <?php esc_html_e('Entrar', 'juntaplay'); ?>
+                        </a>
+                        <?php if ($header_register_url !== '') : ?>
+                            <a class="juntaplay-auth__switch-btn" href="<?php echo esc_url($header_register_url); ?>" role="tab" aria-selected="false">
+                                <?php esc_html_e('Cadastre-se', 'juntaplay'); ?>
+                            </a>
+                        <?php else : ?>
+                            <button type="button" class="juntaplay-auth__switch-btn" role="tab" aria-selected="false" disabled>
+                                <?php esc_html_e('Cadastre-se', 'juntaplay'); ?>
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                </div>
             </div>
         <?php else : ?>
             <div class="juntaplay-header__summary">
