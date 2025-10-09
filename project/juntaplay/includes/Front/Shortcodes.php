@@ -376,13 +376,17 @@ class Shortcodes
 
         if ($is_guest) {
             $header_auth_context = $this->build_auth_template_context();
+            $existing_redirect   = isset($header_auth_context['redirect_to']) ? (string) $header_auth_context['redirect_to'] : '';
+            $default_redirect    = $this->auth->get_default_redirect();
+            $request_uri         = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+            $current_url         = '';
 
-            if (($header_auth_context['redirect_to'] ?? '') === '') {
-                $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '';
+            if (is_string($request_uri) && $request_uri !== '') {
+                $current_url = esc_url_raw(home_url($request_uri));
+            }
 
-                if (is_string($request_uri) && $request_uri !== '') {
-                    $header_auth_context['redirect_to'] = esc_url_raw(home_url($request_uri));
-                }
+            if ($current_url !== '' && ($existing_redirect === '' || $existing_redirect === $default_redirect)) {
+                $header_auth_context['redirect_to'] = $current_url;
             }
 
             if (!$this->rendered_auth_modal) {
@@ -429,8 +433,9 @@ class Shortcodes
             $login_base_url = wp_login_url();
         }
 
-        $header_login_url    = $login_base_url ?: '';
-        $header_register_url = '';
+        $header_login_url      = $login_base_url ?: '';
+        $header_register_url   = '';
+        $header_redirect_value = isset($header_auth_context['redirect_to']) ? (string) $header_auth_context['redirect_to'] : '';
 
         if ($login_page_id && $login_base_url) {
             $header_login_url    = add_query_arg('jp_auth_view', 'login', $login_base_url);
@@ -442,6 +447,17 @@ class Shortcodes
 
             if (!$header_register_url && $header_login_url) {
                 $header_register_url = add_query_arg('action', 'register', $header_login_url);
+            }
+        }
+
+        if ($header_redirect_value !== '') {
+            $encoded_redirect = rawurlencode($header_redirect_value);
+            if ($header_login_url !== '') {
+                $header_login_url = add_query_arg('redirect_to', $encoded_redirect, $header_login_url);
+            }
+
+            if ($header_register_url !== '') {
+                $header_register_url = add_query_arg('redirect_to', $encoded_redirect, $header_register_url);
             }
         }
 
