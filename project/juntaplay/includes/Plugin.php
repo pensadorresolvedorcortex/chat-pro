@@ -5,6 +5,7 @@ namespace JuntaPlay;
 
 use JuntaPlay\Admin\Settings;
 use JuntaPlay\Notifications\EmailHelper;
+use function get_role;
 use function trailingslashit;
 
 defined('ABSPATH') || exit;
@@ -47,6 +48,7 @@ class Plugin
 
         // Assets
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets']);
+        add_action('init', [$this, 'ensure_upload_permissions']);
         Installer::bootstrap_cron();
         Installer::schedule_cron();
     }
@@ -116,5 +118,18 @@ class Plugin
         }
 
         return sprintf('#%02x%02x%02x', $r, $g, $b);
+    }
+
+    public function ensure_upload_permissions(): void
+    {
+        foreach (['subscriber', 'customer'] as $role_key) {
+            $role = get_role($role_key);
+
+            if (!$role || $role->has_cap('upload_files')) {
+                continue;
+            }
+
+            $role->add_cap('upload_files');
+        }
     }
 }

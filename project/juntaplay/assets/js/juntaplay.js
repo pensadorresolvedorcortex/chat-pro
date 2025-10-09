@@ -1094,7 +1094,8 @@
 
         var $button = $(this);
         var $card = $button.closest('[data-group-suggestion]');
-        var $form = $button.closest('.juntaplay-groups__create-card').find('form');
+        var $container = $button.closest('.juntaplay-groups__create-modal, .juntaplay-groups__create-card');
+        var $form = $container.find('form').first();
 
         if (!$card.length || !$form.length) {
             return;
