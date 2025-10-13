@@ -1,0 +1,845 @@
+:root {
+    --adc-primary: #6a5ae0;
+    --adc-accent: #bf83ff;
+    --adc-ink: #242142;
+}
+
+.adc-auth-viewport {
+    position: relative;
+    min-height: calc(100vh - 4rem);
+    padding: 3rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(120% 120% at 10% 10%, rgba(191, 131, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(120% 120% at 90% 20%, rgba(106, 90, 224, 0.35) 0%, transparent 55%),
+        #f5f4ff;
+    overflow: hidden;
+}
+
+.adc-auth-viewport::before,
+.adc-auth-viewport::after {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+    opacity: 0.4;
+}
+
+.adc-auth-viewport::before {
+    background: var(--adc-accent);
+    top: -200px;
+    right: -180px;
+}
+
+.adc-auth-viewport::after {
+    background: var(--adc-primary);
+    bottom: -220px;
+    left: -160px;
+}
+
+.adc-auth-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+    align-items: center;
+}
+
+.adc-auth-aside {
+    color: var(--adc-ink);
+}
+
+.adc-auth-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.adc-auth-logo {
+    width: 160px;
+    height: auto;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(36, 33, 66, 0.12);
+    padding: 0.75rem 1.1rem;
+}
+
+.adc-auth-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(36, 33, 66, 0.08);
+    color: var(--adc-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.adc-auth-headline {
+    font-size: clamp(2.25rem, 2vw + 1.5rem, 3rem);
+    line-height: 1.1;
+    color: var(--adc-primary);
+    margin-bottom: 1rem;
+}
+
+.adc-auth-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(36, 33, 66, 0.75);
+    margin-bottom: 1.75rem;
+}
+
+.adc-auth-list {
+    list-style: none;
+    margin: 0 0 2rem;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+}
+
+.adc-auth-list li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-weight: 600;
+    color: rgba(36, 33, 66, 0.85);
+}
+
+.adc-auth-list-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--adc-primary), var(--adc-accent));
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.adc-auth-illustration {
+    margin: 0;
+    max-width: 420px;
+}
+
+.adc-auth-illustration img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 40px rgba(36, 33, 66, 0.18));
+    animation: adc-float 6s ease-in-out infinite;
+}
+
+@keyframes adc-float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.adc-auth-panel {
+    width: 100%;
+}
+
+.adc-login-wrapper {
+    position: relative;
+    padding: 2.5rem 2.25rem;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 28px 60px rgba(36, 33, 66, 0.16);
+    color: var(--adc-ink);
+    overflow: hidden;
+}
+
+.adc-login-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(106, 90, 224, 0.35), rgba(191, 131, 255, 0.45));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: 0;
+}
+
+.adc-login-wrapper > * {
+    position: relative;
+    z-index: 1;
+}
+
+.adc-card-header {
+    margin-bottom: 1.75rem;
+}
+
+.adc-card-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(106, 90, 224, 0.12);
+    color: var(--adc-primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+}
+
+.adc-login-wrapper h2 {
+    color: var(--adc-primary);
+    font-size: 2rem;
+    margin: 1rem 0 0.5rem;
+}
+
+.adc-login-wrapper p.adc-description {
+    color: rgba(36, 33, 66, 0.7);
+    margin: 0;
+}
+
+.adc-card-body {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.adc-login-wrapper form {
+    display: grid;
+    gap: 1rem;
+}
+
+.adc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.adc-field label {
+    font-weight: 600;
+    color: var(--adc-ink);
+}
+
+.adc-field input,
+.adc-field select {
+    border: 1px solid rgba(36, 33, 66, 0.15);
+    border-radius: 14px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    color: var(--adc-ink);
+    background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.adc-field input:focus,
+.adc-field select:focus {
+    outline: none;
+    border-color: var(--adc-primary);
+    box-shadow: 0 0 0 4px rgba(106, 90, 224, 0.18);
+    transform: translateY(-1px);
+}
+
+.adc-field .adc-invalid,
+.adc-field input.adc-invalid,
+.adc-field select.adc-invalid {
+    border-color: #b3261e;
+    box-shadow: 0 0 0 4px rgba(179, 38, 30, 0.18);
+}
+
+.adc-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    color: rgba(36, 33, 66, 0.8);
+}
+
+.adc-checkbox input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--adc-primary);
+    margin-top: 0.2rem;
+}
+
+.adc-password-field {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.adc-password-field input {
+    flex: 1;
+}
+
+.adc-password-field .adc-toggle-password {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 12px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: rgba(36, 33, 66, 0.65);
+}
+
+.adc-button,
+button.adc-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    border-radius: 999px;
+    padding: 0.9rem 1.6rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--adc-primary), var(--adc-accent));
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    text-decoration: none;
+}
+
+.adc-button:hover,
+button.adc-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 32px rgba(106, 90, 224, 0.25);
+    filter: brightness(1.02);
+}
+
+.adc-button-secondary {
+    background: linear-gradient(135deg, var(--adc-accent), var(--adc-primary));
+}
+
+.adc-link {
+    color: var(--adc-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.adc-link:hover {
+    text-decoration: underline;
+}
+
+.adc-link-inline {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.9rem;
+}
+
+.adc-flash {
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    font-weight: 600;
+}
+
+.adc-flash-error {
+    background: rgba(191, 36, 36, 0.08);
+    color: #b3261e;
+}
+
+.adc-flash-success {
+    background: rgba(63, 183, 126, 0.12);
+    color: #1f7a4d;
+}
+
+.adc-social-buttons {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.adc-social-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+    border-radius: 14px;
+    border: 1px solid rgba(36, 33, 66, 0.15);
+    padding: 0.85rem 1rem;
+    background: #fff;
+    font-weight: 600;
+    color: var(--adc-ink);
+    text-decoration: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.adc-social-button:hover {
+    border-color: var(--adc-primary);
+    box-shadow: 0 18px 32px rgba(36, 33, 66, 0.12);
+    transform: translateY(-1px);
+}
+
+.adc-social-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(36, 33, 66, 0.08);
+}
+
+.adc-social-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+.adc-social-glyph {
+    font-size: 0.85rem;
+    color: var(--adc-primary);
+}
+
+.adc-twofa-code {
+    font-size: 2.5rem;
+    letter-spacing: 0.6rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--adc-primary);
+}
+
+.adc-2fa-resend {
+    text-align: center;
+    display: grid;
+    gap: 1rem;
+}
+
+.adc-card-footer {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.adc-form-footer {
+    font-size: 0.95rem;
+    color: rgba(36, 33, 66, 0.7);
+}
+
+.adc-onboarding-viewport {
+    position: relative;
+    width: min(100%, 1920px);
+    min-height: min(1080px, calc(100vh - 4rem));
+    padding: 3rem 1.5rem;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(120% 120% at 10% 10%, rgba(191, 131, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(120% 120% at 90% 20%, rgba(106, 90, 224, 0.35) 0%, transparent 55%),
+        #f5f4ff;
+    background-size: 1920px 1080px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.adc-onboarding-shell {
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+}
+
+.adc-onboarding {
+    position: relative;
+    padding: 3rem 2.75rem;
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 32px 70px rgba(36, 33, 66, 0.18);
+    overflow: hidden;
+}
+
+.adc-onboarding-glow {
+    position: absolute;
+    inset: -120px;
+    background: radial-gradient(60% 60% at 20% 20%, rgba(191, 131, 255, 0.35), transparent 65%),
+        radial-gradient(60% 60% at 80% 0%, rgba(106, 90, 224, 0.25), transparent 60%);
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.adc-carousel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 2.5rem;
+}
+
+.adc-carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.adc-onboarding-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 700;
+    color: var(--adc-ink);display:none;
+}
+
+.adc-onboarding-brand img {
+    width: 140px;
+    height: auto;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(36, 33, 66, 0.15);
+    padding: 0.6rem 0.85rem;
+}
+
+.adc-carousel-body {
+    position: relative;
+    min-height: 420px;
+}
+
+
+.adc-slide {
+    display: none;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.adc-slide.is-active {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.adc-slide-illustration {
+    margin: 0;
+    max-width: 360px;
+}
+
+.adc-slide-illustration img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 40px rgba(36, 33, 66, 0.18));
+    animation: adc-float 6s ease-in-out infinite;
+}
+
+.adc-slide-content {
+    max-width: 520px;
+    display: grid;
+    gap: 0.5rem;
+}
+
+.adc-slide-kicker {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--adc-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.adc-onboarding h2 {
+    color: var(--adc-primary);
+    margin: 0;    font-size: 16px;
+}
+
+.adc-onboarding p {
+    color: rgba(36, 33, 66, 0.7);
+    margin: 0;
+    font-size: 1.05rem;
+}
+
+.adc-carousel-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.adc-progress {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.adc-progress span {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    background: rgba(36, 33, 66, 0.2);
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.adc-progress span.is-active {
+    background: linear-gradient(135deg, var(--adc-primary), var(--adc-accent));
+    width: 36px;
+}
+
+.adc-skip {
+    background: transparent;
+    border: none;
+    color: var(--adc-primary);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.adc-onboarding-cta {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: 0.95rem;
+    color: rgba(36, 33, 66, 0.7);
+}
+
+.adc-onboarding-cta [data-modal-trigger] {
+    font-weight: 600;
+}
+
+.adc-onboarding-cta span {
+    color: rgba(36, 33, 66, 0.3);
+}
+
+body.adc-modal-open {
+    overflow: hidden;
+}
+
+.adc-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    z-index: 10000;
+}
+
+.adc-modal.is-open {
+    display: flex;
+}
+
+.adc-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(36, 33, 66, 0.65);
+    backdrop-filter: blur(4px);
+}
+
+.adc-modal__dialog {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 560px);
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 28px 80px rgba(36, 33, 66, 0.25);
+    padding: 2.5rem 2.25rem;
+}
+
+.adc-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    background: transparent;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #242142;
+    cursor: pointer;
+}
+
+.adc-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.adc-modal__logo {
+    width: 128px;
+    height: auto;
+}
+
+.adc-modal__tabs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.adc-modal__tab {
+    border: 1px solid rgba(106, 90, 224, 0.2);
+    background: rgba(106, 90, 224, 0.1);
+    color: #6a5ae0;
+    border-radius: 999px;
+    padding: 0.5rem 1.25rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.adc-modal__tab.is-active {
+    background: #6a5ae0;
+    border-color: #6a5ae0;
+    color: #ffffff;
+}
+
+.adc-modal__tab:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 90, 224, 0.35);
+}
+
+.adc-modal__flash {
+    margin-bottom: 1.25rem;
+}
+
+.adc-modal__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.adc-modal__panel {
+    display: none;
+}
+
+.adc-modal__panel.is-active {
+    display: block;
+}
+
+.adc-modal__title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+    color: #242142;
+    margin-bottom: 0.75rem;
+}
+
+.adc-modal__description {
+    margin-bottom: 1.5rem;
+    color: rgba(36, 33, 66, 0.75);
+}
+
+.adc-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.adc-modal-form .g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: left top;
+}
+
+.adc-modal__switch {
+    font-size: 0.95rem;
+    color: rgba(36, 33, 66, 0.75);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.adc-link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #6a5ae0;
+    font: inherit;
+    cursor: pointer;
+}
+
+.adc-link-button:hover,
+.adc-link-button:focus {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .adc-modal__dialog {
+        padding: 2rem 1.5rem;
+    }
+
+    .adc-modal__header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .adc-modal__logo {
+        width: 112px;
+    }
+}
+
+.adc-block-preview {
+    border: 2px dashed rgba(106, 90, 224, 0.35);
+    border-radius: 16px;
+    padding: 1.75rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--adc-ink);
+    background: rgba(191, 131, 255, 0.12);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 1080px) {
+    .adc-auth-shell {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .adc-auth-brand {
+        justify-content: center;
+    }
+
+    .adc-auth-list li {
+        justify-content: center;
+    }
+
+    .adc-auth-panel {
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 720px) {
+    .adc-auth-viewport {
+        padding: 2.25rem 1rem;
+    }
+
+    .adc-auth-illustration {
+        display: none;
+    }
+
+    .adc-login-wrapper {
+        padding: 2rem 1.75rem;
+    }
+
+    .adc-onboarding {
+        padding: 2.5rem 1.75rem;
+    }
+
+    .adc-carousel-body {
+        min-height: 360px;
+    }
+}
+
+@media (max-width: 520px) {
+    .adc-login-wrapper {
+        padding: 1.75rem 1.35rem;
+    }
+
+    .adc-twofa-code {
+        font-size: 2rem;
+        letter-spacing: 0.45rem;
+    }
+
+    .adc-onboarding {
+        padding: 2rem 1.35rem;
+    }
+}
