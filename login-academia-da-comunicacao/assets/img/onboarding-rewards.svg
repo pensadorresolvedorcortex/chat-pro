@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Rewards illustration</title>
+  <desc id="desc">Medals and trophies celebrating achievements.</desc>
+  <defs>
+    <linearGradient id="rewardGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb86c" />
+      <stop offset="100%" stop-color="#ffe082" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="220" rx="28" fill="#f9f6ff" />
+  <g transform="translate(36 40)">
+    <circle cx="56" cy="80" r="40" fill="#6a5ae0" opacity="0.15" />
+    <circle cx="228" cy="72" r="36" fill="#bf83ff" opacity="0.25" />
+    <path d="M124 20h72l16 64h-32l12 76-32-20-32 20 12-76h-32l16-64z" fill="url(#rewardGradient)" stroke="#6a5ae0" stroke-width="4" stroke-linejoin="round" />
+    <path d="M120 160h80l-12 20h-56l-12-20z" fill="#6a5ae0" opacity="0.3" />
+    <circle cx="160" cy="70" r="24" fill="#fff" stroke="#6a5ae0" stroke-width="4" />
+    <path d="M160 56l6.2 12.5 13.8 2-10 9.5 2.5 13.8-12.5-6.6-12.5 6.6 2.5-13.8-10-9.5 13.8-2L160 56z" fill="#6a5ae0" />
+    <rect x="24" y="92" width="40" height="64" rx="12" fill="#6a5ae0" />
+    <rect x="244" y="92" width="40" height="64" rx="12" fill="#bf83ff" />
+    <circle cx="44" cy="88" r="20" fill="#fff" opacity="0.7" />
+    <circle cx="264" cy="88" r="20" fill="#fff" opacity="0.7" />
+  </g>
+</svg>
