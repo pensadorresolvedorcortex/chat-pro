@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220" role="img" aria-labelledby="title desc">
+  <title id="title">Knowledge growth illustration</title>
+  <desc id="desc">Abstract shapes symbolising knowledge growth and creativity.</desc>
+  <defs>
+    <linearGradient id="knowledgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#bf83ff" />
+      <stop offset="100%" stop-color="#6a5ae0" />
+    </linearGradient>
+  </defs>
+  <rect width="320" height="220" rx="32" fill="#f7f5ff" />
+  <g transform="translate(48 40)">
+    <path d="M0 112c48-48 72-112 112-112s64 64 112 112H0z" fill="url(#knowledgeGradient)" opacity="0.4" />
+    <path d="M26 112c32-32 52-72 86-72s54 40 86 72H26z" fill="url(#knowledgeGradient)" opacity="0.7" />
+    <path d="M56 112c24-24 40-48 64-48s40 24 64 48H56z" fill="url(#knowledgeGradient)" />
+    <circle cx="112" cy="60" r="26" fill="#fff" stroke="#6a5ae0" stroke-width="4" />
+    <path d="M104 48h16l-4 36h-8l-4-36z" fill="#6a5ae0" />
+    <circle cx="112" cy="28" r="12" fill="#bf83ff" />
+    <circle cx="36" cy="28" r="10" fill="#bf83ff" opacity="0.4" />
+    <circle cx="188" cy="18" r="8" fill="#242142" opacity="0.2" />
+  </g>
+</svg>
