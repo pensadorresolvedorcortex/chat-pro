@@ -1,0 +1,47 @@
+<svg width="480" height="360" viewBox="0 0 480 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="grad1" x1="48" y1="48" x2="432" y2="312" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#6A5AE0" />
+            <stop offset="1" stop-color="#BF83FF" />
+        </linearGradient>
+        <linearGradient id="grad2" x1="120" y1="90" x2="360" y2="330" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#FFFFFF" stop-opacity="0.95" />
+            <stop offset="1" stop-color="#F5F4FF" stop-opacity="0.5" />
+        </linearGradient>
+        <linearGradient id="grad3" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6A5AE0" />
+            <stop offset="1" stop-color="#BF83FF" />
+        </linearGradient>
+    </defs>
+    <rect x="32" y="40" width="416" height="280" rx="48" fill="url(#grad1)" opacity="0.15" />
+    <rect x="64" y="64" width="352" height="256" rx="36" fill="url(#grad2)" />
+    <g filter="url(#shadow)">
+        <rect x="104" y="100" width="272" height="176" rx="24" fill="#FFFFFF" />
+        <rect x="104" y="100" width="272" height="176" rx="24" stroke="url(#grad1)" stroke-width="2" stroke-opacity="0.15" />
+        <rect x="136" y="132" width="96" height="24" rx="12" fill="url(#grad1)" opacity="0.2" />
+        <rect x="136" y="172" width="208" height="12" rx="6" fill="#E5E2FF" />
+        <rect x="136" y="196" width="176" height="12" rx="6" fill="#ECE8FF" />
+        <rect x="136" y="220" width="148" height="12" rx="6" fill="#F2EEFF" />
+        <circle cx="332" cy="144" r="20" fill="url(#grad3)" opacity="0.2" />
+        <path d="M324 144.5L330 150L340 138" stroke="#6A5AE0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+    </g>
+    <g filter="url(#shadowSmall)">
+        <rect x="156" y="244" width="168" height="52" rx="26" fill="url(#grad3)" />
+        <text x="240" y="275" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial" font-size="18" font-weight="600" fill="#FFFFFF">Pronto para avançar</text>
+    </g>
+    <circle cx="120" cy="108" r="10" fill="#6A5AE0" opacity="0.35" />
+    <circle cx="360" cy="256" r="8" fill="#BF83FF" opacity="0.35" />
+    <circle cx="348" cy="108" r="6" fill="#6A5AE0" opacity="0.25" />
+    <defs>
+        <filter id="shadow" x="84" y="84" width="312" height="216" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feDropShadow dx="0" dy="24" stdDeviation="24" flood-color="#6A5AE0" flood-opacity="0.12" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        </filter>
+        <filter id="shadowSmall" x="144" y="232" width="192" height="80" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#6A5AE0" flood-opacity="0.18" />
+            <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+        </filter>
+    </defs>
+</svg>
