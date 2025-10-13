@@ -1,0 +1,152 @@
+.adc-dashboard {
+    max-width: 1200px;
+}
+
+.adc-dashboard .description {
+    margin-top: 8px;
+    color: var(--adc-ink, #242142);
+    font-size: 14px;
+}
+
+.adc-dashboard-form {
+    margin-top: 24px;
+}
+
+.adc-dashboard-section {
+    background: #fff;
+    border: 1px solid rgba(106, 90, 224, 0.15);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+    box-shadow: 0 10px 30px rgba(36, 33, 66, 0.06);
+}
+
+.adc-dashboard-section > header h2 {
+    margin: 0 0 4px;
+    font-size: 22px;
+}
+
+.adc-dashboard-section > header p {
+    margin: 0 0 24px;
+    color: #6b6b80;
+    font-size: 14px;
+}
+
+.adc-field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.adc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.adc-field-inline {
+    margin-top: 16px;
+}
+
+.adc-field-wide {
+    grid-column: 1 / -1;
+}
+
+.adc-field-label {
+    font-weight: 600;
+    color: #242142;
+}
+
+.adc-field input[type="text"],
+.adc-field input[type="url"],
+.adc-field textarea {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #d9d9e5;
+    padding: 10px 12px;
+    font-size: 14px;
+    background: #fdfdff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.adc-field input:focus,
+.adc-field textarea:focus {
+    border-color: var(--adc-primary, #6a5ae0);
+    box-shadow: 0 0 0 1px rgba(106, 90, 224, 0.2);
+    outline: none;
+}
+
+.adc-slides {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.adc-slide-card {
+    border: 1px solid rgba(106, 90, 224, 0.15);
+    border-radius: 12px;
+    padding: 20px;
+    background: linear-gradient(180deg, rgba(191, 131, 255, 0.08) 0%, rgba(106, 90, 224, 0.06) 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.adc-slide-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #242142;
+}
+
+.adc-media-field {
+    margin-top: 12px;
+    padding: 16px;
+    border: 1px dashed rgba(106, 90, 224, 0.4);
+    border-radius: 12px;
+    background: rgba(106, 90, 224, 0.05);
+}
+
+.adc-media-preview {
+    position: relative;
+    width: 100%;
+    padding-top: 56%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    background: #fff;
+}
+
+.adc-media-preview img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: #f2efff;
+}
+
+.adc-media-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.adc-media-actions .button-link {
+    padding-left: 0;
+    color: #6a5ae0;
+}
+
+.adc-dashboard .submit {
+    text-align: right;
+}
+
+@media (max-width: 782px) {
+    .adc-dashboard-section {
+        padding: 20px;
+    }
+
+    .adc-media-preview {
+        padding-top: 65%;
+    }
+}

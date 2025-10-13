@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-labelledby="title desc">
+  <title id="title">Academia da Comunicação</title>
+  <desc id="desc">Stylized logotype for Academia da Comunicação with geometric badge.</desc>
+  <defs>
+    <linearGradient id="badgeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6a5ae0" />
+      <stop offset="100%" stop-color="#bf83ff" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="240" height="80" rx="16" fill="#f5f4ff" />
+  <g transform="translate(20 18)">
+    <rect width="44" height="44" rx="12" fill="url(#badgeGradient)" />
+    <path d="M12 30l10-20 10 20h-6l-4-8-4 8z" fill="#ffffff" />
+    <circle cx="22" cy="34" r="4" fill="#ffffff" opacity="0.85" />
+  </g>
+  <g fill="#242142" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="600">
+    <text x="84" y="38" font-size="20">Academia</text>
+    <text x="84" y="60" font-size="20">da Comunicação</text>
+  </g>
+</svg>
