@@ -1,0 +1,9 @@
+newsletter/*
+!newsletter/inst/
+newsletter/inst/*
+!newsletter/inst/newsletter/
+newsletter/inst/newsletter/*
+!newsletter/inst/newsletter/final/
+newsletter/inst/newsletter/final/*
+!newsletter/inst/newsletter/final/guell-newsletter.html
+newsletter.zip
