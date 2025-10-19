@@ -1,0 +1,305 @@
+:root {
+    --lae-primary: #6a5ae0;
+    --lae-secondary: #bf83ff;
+    --lae-white: #ffffff;
+    --lae-ink: #1f1f35;
+    --lae-muted: #4b4b6f;
+    --lae-border: rgba(106, 90, 224, 0.18);
+    --lae-shadow: 0 14px 32px rgba(106, 90, 224, 0.16);
+    --lae-soft-shadow: 0 10px 24px rgba(31, 31, 61, 0.12);
+}
+
+.lae-user-menu-shell {
+    position: relative;
+    display: inline-flex;
+    padding: 8px 10px;
+    border-radius: 20px;
+    background: var(--lae-white);
+    border: 1px solid var(--lae-border);
+    box-shadow: var(--lae-soft-shadow);
+}
+
+.lae-user-menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+    color: var(--lae-ink);
+}
+
+.lae-user-menu button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+.lae-user-menu button:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 3px;
+}
+
+
+.lae-notification-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--lae-white);
+    color: var(--lae-primary);
+    border: 1px solid var(--lae-border);
+    box-shadow: var(--lae-shadow);
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lae-notification-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 32px rgba(106, 90, 224, 0.22);
+}
+
+.lae-notification-button:active {
+    transform: translateY(0) scale(0.97);
+}
+
+.lae-notification-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+.lae-notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    min-width: 20px;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--lae-primary), var(--lae-secondary));
+    color: var(--lae-white);
+    font-size: 11px;
+    font-weight: 600;
+    box-shadow: 0 12px 24px rgba(106, 90, 224, 0.35);
+}
+
+.lae-user-dropdown {
+    position: relative;
+}
+
+
+.lae-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    min-height: 44px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--lae-primary), var(--lae-secondary));
+    color: var(--lae-white);
+    box-shadow: 0 20px 42px rgba(106, 90, 224, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lae-user-toggle:hover,
+.lae-user-menu.lae-open .lae-user-toggle {
+    transform: translateY(-1px);
+    box-shadow: 0 24px 50px rgba(106, 90, 224, 0.34);
+}
+
+.lae-greeting {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+    margin-left: 20px;
+}
+
+.lae-greeting-line {
+    display: block;
+    font-weight: 600;
+}
+
+.lae-greeting-line--welcome {
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.lae-greeting-line--name {
+    font-size: 0.95rem;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lae-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    background: rgb(106 90 223);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: #7a61e5;
+}
+
+.lae-avatar-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.lae-avatar.has-image .lae-avatar-image {
+    opacity: 1;
+}
+
+.lae-avatar.has-image .lae-avatar-initial {
+    opacity: 0;
+}
+
+
+.lae-caret {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #6a5adf;
+    transition: transform 0.2s ease;
+}
+
+.lae-user-menu.lae-open .lae-caret {
+    transform: rotate(180deg);
+}
+
+
+.lae-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 208px;
+    padding: 12px 0;
+    border-radius: 16px;
+    background: var(--lae-white);
+    border: 1px solid var(--lae-border);
+    box-shadow: var(--lae-shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px) scale(0.97);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.lae-user-menu.lae-open .lae-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0) scale(1);
+}
+
+.lae-dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lae-dropdown-menu li + li {
+    margin-top: 2px;
+}
+
+.lae-dropdown-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 20px;
+    color: var(--lae-ink);
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.lae-dropdown-menu a:hover,
+.lae-dropdown-menu a:focus {
+    background: rgba(106, 90, 224, 0.12);
+    color: var(--lae-primary);
+    transform: translateX(1px);
+}
+
+.lae-dropdown-menu a:focus-visible {
+    outline: 3px solid rgba(106, 90, 224, 0.35);
+    outline-offset: 2px;
+}
+
+.lae-page {
+    background: var(--lae-white);
+    border: 1px solid var(--lae-border);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: var(--lae-soft-shadow);
+    color: var(--lae-ink);
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.lae-page h2 {
+    margin-top: 0;
+    color: var(--lae-primary);
+    font-size: 1.8rem;
+}
+
+.lae-shortcode-hint {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: var(--lae-muted);
+}
+
+@media (max-width: 768px) {
+    .lae-user-menu-shell {
+        padding: 6px 8px;
+    }
+
+    .lae-user-menu {
+        gap: 10px;
+    }
+
+    .lae-user-toggle {
+        padding: 8px 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lae-greeting {
+        display: none;
+    }
+
+    .lae-user-menu-shell {
+        padding: 6px;
+    }
+
+    .lae-user-menu {
+        gap: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
