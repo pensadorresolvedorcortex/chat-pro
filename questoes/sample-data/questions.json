@@ -1,0 +1,986 @@
+{
+  "title": "Pacote inaugural de questões",
+  "description": "Conjunto com 20 questões de comunicação integrado à paleta Questões",
+  "questions": [
+    {
+      "title": "Planejamento integrado de comunicação",
+      "slug": "planejamento-integrado-comunicacao",
+      "content": "<p>Em um planejamento integrado de comunicação para uma organização pública, qual é o primeiro passo recomendado para garantir coerência estratégica?</p>",
+      "explanation": "O diagnóstico situa a organização, identifica problemas e oportunidades e orienta objetivos alinhados à estratégia institucional.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Simulado Academia da Comunicação",
+      "source_url": "https://academiadacomunicacao.example/simulados/planejamento-2023.pdf",
+      "reference": "Kunsch, Planejamento de Relações Públicas",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Organizacional"
+      ],
+      "subjects": [
+        "Planejamento de Comunicação"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Definir as ferramentas digitais que serão utilizadas na campanha.",
+          "is_correct": false,
+          "feedback": "As ferramentas são escolhidas após a definição de objetivos e públicos."
+        },
+        {
+          "text": "Construir indicadores de desempenho para mensurar resultados.",
+          "is_correct": false,
+          "feedback": "Indicadores dependem dos objetivos formulados."
+        },
+        {
+          "text": "Realizar diagnóstico situacional com análise de contexto e públicos.",
+          "is_correct": true,
+          "feedback": "O diagnóstico orienta todo o plano integrado e garante coerência estratégica."
+        },
+        {
+          "text": "Desenvolver a identidade visual e os slogans das peças.",
+          "is_correct": false,
+          "feedback": "A identidade deriva do posicionamento definido a partir do diagnóstico."
+        },
+        {
+          "text": "Definir o orçamento detalhado de cada ação de comunicação.",
+          "is_correct": false,
+          "feedback": "A previsão orçamentária ocorre após a definição dos objetivos e estratégias."
+        }
+      ]
+    },
+    {
+      "title": "Gestão de crise e matriz de risco",
+      "slug": "gestao-crise-matriz-risco",
+      "content": "<p>Na construção de uma matriz de risco comunicacional, qual elemento deve ser priorizado para definir mensagens-chave de resposta?</p>",
+      "explanation": "As mensagens devem se apoiar nos públicos críticos identificados, respondendo às suas necessidades e preocupações principais.",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "FGV 2022 (adaptada)",
+      "source_url": "https://academiadacomunicacao.example/provas/fgv-2022-crises.pdf",
+      "reference": "Coombs, Ongoing Crisis Communication",
+      "estimated_time": 4,
+      "categories": [
+        "Comunicação Organizacional"
+      ],
+      "subjects": [
+        "Gestão de Crises"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Os canais digitais com maior número de seguidores.",
+          "is_correct": false,
+          "feedback": "A escolha de canais decorre dos públicos, não do alcance bruto."
+        },
+        {
+          "text": "Os públicos críticos que podem afetar reputação e operação.",
+          "is_correct": true,
+          "feedback": "Públicos críticos orientam priorização de mensagens e respostas."
+        },
+        {
+          "text": "O orçamento disponível para ações emergenciais.",
+          "is_correct": false,
+          "feedback": "Orçamento influencia execução, mas não define mensagens prioritárias."
+        },
+        {
+          "text": "A lista de porta-vozes autorizados pela diretoria.",
+          "is_correct": false,
+          "feedback": "Porta-vozes executam as mensagens, mas não definem o foco inicial."
+        },
+        {
+          "text": "A linha editorial usual da organização em momentos regulares.",
+          "is_correct": false,
+          "feedback": "Momentos de crise exigem adaptação às expectativas dos públicos críticos."
+        }
+      ]
+    },
+    {
+      "title": "Métricas em mídias digitais",
+      "slug": "metricas-midias-digitais",
+      "content": "<p>Para avaliar a eficácia de uma campanha de engajamento em redes sociais, qual métrica está mais alinhada ao objetivo de estimular interações qualificadas?</p>",
+      "explanation": "A taxa de engajamento relaciona interações ao alcance, mostrando a qualidade das conexões com o conteúdo.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Simulado Social Media 2024",
+      "source_url": "https://academiadacomunicacao.example/simulados/social-media-2024.pdf",
+      "reference": "Avinash Kaushik, Web Analytics 2.0",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Métricas de Desempenho"
+      ],
+      "bancas": [
+        "CESPE/CEBRASPE"
+      ],
+      "answers": [
+        {
+          "text": "Número absoluto de visualizações do vídeo principal.",
+          "is_correct": false,
+          "feedback": "Visualizações isoladas não indicam interação qualificada."
+        },
+        {
+          "text": "Quantidade de novos seguidores conquistados durante a campanha.",
+          "is_correct": false,
+          "feedback": "Seguidores não representam necessariamente interação com a mensagem."
+        },
+        {
+          "text": "Taxa de engajamento considerando curtidas, comentários e compartilhamentos.",
+          "is_correct": true,
+          "feedback": "A taxa de engajamento relaciona interações à audiência alcançada."
+        },
+        {
+          "text": "Custo por clique gerado em anúncios de reforço.",
+          "is_correct": false,
+          "feedback": "O CPC é relevante em campanhas de tráfego, não de engajamento orgânico."
+        },
+        {
+          "text": "Tempo médio de exibição do vídeo em segundos.",
+          "is_correct": false,
+          "feedback": "O tempo médio pode ajudar em análise qualitativa, mas não mede interações."
+        }
+      ]
+    },
+    {
+      "title": "Transparência ativa em comunicação pública",
+      "slug": "transparencia-ativa-comunicacao-publica",
+      "content": "<p>Ao preparar um portal de transparência ativa, qual diretriz reforça a aderência à Lei de Acesso à Informação?</p>",
+      "explanation": "Informações de interesse coletivo devem ser publicadas de forma proativa, organizada e compreensível ao cidadão.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2021,
+      "source": "Controladoria-Geral da União",
+      "source_url": "https://academiadacomunicacao.example/guias/lai-transparencia.pdf",
+      "reference": "Guia de Transparência Ativa CGU",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Transparência e Acesso à Informação"
+      ],
+      "bancas": [
+        "CESPE/CEBRASPE"
+      ],
+      "answers": [
+        {
+          "text": "Publicar dados somente quando houver solicitação formal do cidadão.",
+          "is_correct": false,
+          "feedback": "Transparência ativa prevê divulgação espontânea."
+        },
+        {
+          "text": "Disponibilizar informações em linguagem simples, com atualização periódica.",
+          "is_correct": true,
+          "feedback": "Linguagem clara e atualização reforçam a transparência ativa."
+        },
+        {
+          "text": "Restringir o acesso a planilhas em formatos editáveis.",
+          "is_correct": false,
+          "feedback": "Formatos abertos facilitam o reuso de dados públicos."
+        },
+        {
+          "text": "Concentrar todas as informações em arquivos PDF sem sumário.",
+          "is_correct": false,
+          "feedback": "É necessário facilitar a navegação, com metadados e estrutura amigável."
+        },
+        {
+          "text": "Delegar a publicação apenas ao setor jurídico da instituição.",
+          "is_correct": false,
+          "feedback": "Transparência ativa exige atuação conjunta de comunicação, TI e áreas finalísticas."
+        }
+      ]
+    },
+    {
+      "title": "Jornada de inbound marketing",
+      "slug": "jornada-inbound-marketing",
+      "content": "<p>Qual etapa da jornada de inbound marketing prioriza a oferta de materiais ricos em troca de dados do usuário para aprofundar o relacionamento?</p>",
+      "explanation": "A fase de consideração envolve conteúdo aprofundado mediante conversão, permitindo nutrir o lead.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "HubSpot Academy (adaptada)",
+      "source_url": "https://academiadacomunicacao.example/materiais/inbound-journey.pdf",
+      "reference": "Halligan & Shah, Inbound Marketing",
+      "estimated_time": 3,
+      "categories": [
+        "Marketing Digital"
+      ],
+      "subjects": [
+        "Inbound Marketing"
+      ],
+      "bancas": [
+        "Vunesp"
+      ],
+      "answers": [
+        {
+          "text": "Atração",
+          "is_correct": false,
+          "feedback": "Na atração o foco é gerar visitas com conteúdo aberto."
+        },
+        {
+          "text": "Consideração",
+          "is_correct": true,
+          "feedback": "É na consideração que materiais ricos são trocados por dados."
+        },
+        {
+          "text": "Conversão",
+          "is_correct": false,
+          "feedback": "Conversão transforma leads em oportunidades comerciais ou vendas."
+        },
+        {
+          "text": "Fidelização",
+          "is_correct": false,
+          "feedback": "Fidelização visa relacionamento pós-venda ou pós-serviço."
+        },
+        {
+          "text": "Advocacia",
+          "is_correct": false,
+          "feedback": "Advocacia ocorre quando clientes defendem a marca, após a fidelização."
+        }
+      ]
+    },
+    {
+      "title": "Engajamento de colaboradores",
+      "slug": "engajamento-colaboradores",
+      "content": "<p>Qual indicador qualitativo pode sinalizar fortalecimento do engajamento interno após campanha de comunicação endomarketing?</p>",
+      "explanation": "O aumento de contribuições voluntárias em canais internos demonstra participação ativa e alinhamento com a campanha.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Relatório de Comunicação Interna 2022",
+      "source_url": "https://academiadacomunicacao.example/relatorios/endo-2022.pdf",
+      "reference": "Denning, The Leader's Guide to Storytelling",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Interna"
+      ],
+      "subjects": [
+        "Engajamento de Colaboradores"
+      ],
+      "bancas": [
+        "FCC"
+      ],
+      "answers": [
+        {
+          "text": "Número de e-mails enviados pela diretoria.",
+          "is_correct": false,
+          "feedback": "Envios não demonstram reação do público interno."
+        },
+        {
+          "text": "Aumento de contribuições voluntárias em fóruns corporativos.",
+          "is_correct": true,
+          "feedback": "Participação ativa mostra engajamento real dos colaboradores."
+        },
+        {
+          "text": "Quantidade de posts patrocinados em redes sociais externas.",
+          "is_correct": false,
+          "feedback": "Posts patrocinados se relacionam a público externo."
+        },
+        {
+          "text": "Redução de custos com fornecedores de eventos.",
+          "is_correct": false,
+          "feedback": "Custos não evidenciam engajamento interno diretamente."
+        },
+        {
+          "text": "Volume de horas extras registradas no período.",
+          "is_correct": false,
+          "feedback": "Horas extras podem indicar sobrecarga, não engajamento."
+        }
+      ]
+    },
+    {
+      "title": "Experiência do cidadão em canais de atendimento",
+      "slug": "experiencia-cidadao-canais-atendimento",
+      "content": "<p>Qual prática reforça a experiência omnicanal no atendimento ao cidadão?</p>",
+      "explanation": "Registrar interações em plataforma única permite continuidade do atendimento em qualquer canal.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Manual de Atendimento Omnicanal Gov.BR",
+      "source_url": "https://academiadacomunicacao.example/guias/omnicanalidade.pdf",
+      "reference": "Gov.BR, Diretrizes Omnicanal",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Atendimento ao Cidadão"
+      ],
+      "bancas": [
+        "IADES"
+      ],
+      "answers": [
+        {
+          "text": "Responder cada canal isoladamente, sem compartilhar dados.",
+          "is_correct": false,
+          "feedback": "Isso gera retrabalho e quebra da experiência integrada."
+        },
+        {
+          "text": "Registrar todas as interações em base única acessível aos atendentes.",
+          "is_correct": true,
+          "feedback": "O registro único garante continuidade da experiência entre canais."
+        },
+        {
+          "text": "Priorizar apenas o telefone como canal oficial.",
+          "is_correct": false,
+          "feedback": "Omnicanalidade pressupõe oferta integrada de vários canais."
+        },
+        {
+          "text": "Encaminhar o cidadão para novo protocolo a cada contato.",
+          "is_correct": false,
+          "feedback": "Novos protocolos fragmentam a jornada e geram frustração."
+        },
+        {
+          "text": "Solicitar repetição completa dos dados pessoais a cada atendimento.",
+          "is_correct": false,
+          "feedback": "A repetição desnecessária indica falha na integração de sistemas."
+        }
+      ]
+    },
+    {
+      "title": "Gestão de marcas e arquitetura",
+      "slug": "gestao-marcas-arquitetura",
+      "content": "<p>Em uma arquitetura de marcas do tipo endossada, qual elemento diferencia a comunicação das submarcas?</p>",
+      "explanation": "O endosso permite autonomia de identidade das submarcas com assinatura institucional de apoio.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2021,
+      "source": "Branding Summit 2021 (adaptada)",
+      "source_url": "https://academiadacomunicacao.example/branding/arquitetura.pdf",
+      "reference": "Aaker & Joachimsthaler, Brand Leadership",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Integrada"
+      ],
+      "subjects": [
+        "Branding"
+      ],
+      "bancas": [
+        "ESAF"
+      ],
+      "answers": [
+        {
+          "text": "Uso exclusivo de identidade visual corporativa para todas as submarcas.",
+          "is_correct": false,
+          "feedback": "Isso caracteriza arquitetura monolítica."
+        },
+        {
+          "text": "Autonomia total sem qualquer associação à marca-mãe.",
+          "is_correct": false,
+          "feedback": "Autonomia total é típica de arquitetura independente."
+        },
+        {
+          "text": "Identidades próprias acompanhadas de assinatura oficial da marca-mãe.",
+          "is_correct": true,
+          "feedback": "O endosso combina identidade própria com assinatura institucional."
+        },
+        {
+          "text": "Uso de marcas temporárias sem ligação permanente.",
+          "is_correct": false,
+          "feedback": "Marcas temporárias não caracterizam arquitetura endossada."
+        },
+        {
+          "text": "Restrição ao uso de cores fora da paleta institucional.",
+          "is_correct": false,
+          "feedback": "Mesmo com paleta padronizada, o endosso prevê identidades autônomas."
+        }
+      ]
+    },
+    {
+      "title": "Calendário editorial em mídias sociais",
+      "slug": "calendario-editorial-midias-sociais",
+      "content": "<p>Qual é a principal vantagem de construir um calendário editorial integrado para diferentes redes sociais de uma marca?</p>",
+      "explanation": "O calendário integrado distribui narrativas coerentes, evitando lacunas ou conflitos entre canais.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Guia Social Media Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/calendario-integrado.pdf",
+      "reference": "Chaffey, Digital Marketing",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Social Media"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Publicar o mesmo conteúdo em todos os canais sem adaptação.",
+          "is_correct": false,
+          "feedback": "A adaptação é necessária; o calendário coordena temas e versões."
+        },
+        {
+          "text": "Garantir consistência narrativa e equilíbrio de formatos ao longo do tempo.",
+          "is_correct": true,
+          "feedback": "A principal vantagem é manter coerência temática e de formatos."
+        },
+        {
+          "text": "Eliminar a necessidade de monitorar indicadores em tempo real.",
+          "is_correct": false,
+          "feedback": "Monitoramento permanece essencial para ajustes."
+        },
+        {
+          "text": "Reduzir obrigações de interação com a comunidade digital.",
+          "is_correct": false,
+          "feedback": "Interação continua sendo parte da gestão de redes sociais."
+        },
+        {
+          "text": "Substituir a análise de persona por calendário fixo.",
+          "is_correct": false,
+          "feedback": "Personas orientam conteúdo; o calendário não substitui essa etapa."
+        }
+      ]
+    },
+    {
+      "title": "Cultura organizacional e narrativas",
+      "slug": "cultura-organizacional-narrativas",
+      "content": "<p>Quando a comunicação busca reforçar valores culturais, qual estratégia narrativa fortalece a internalização pelo público interno?</p>",
+      "explanation": "Histórias reais e reconhecidas pelos colaboradores geram identificação e reforçam valores compartilhados.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Programa Cultura Viva",
+      "source_url": "https://academiadacomunicacao.example/programas/cultura-viva.pdf",
+      "reference": "Schein, Cultura Organizacional e Liderança",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Organizacional"
+      ],
+      "subjects": [
+        "Cultura Organizacional"
+      ],
+      "bancas": [
+        "FCC"
+      ],
+      "answers": [
+        {
+          "text": "Distribuir memorandos técnicos com valores definidos pela diretoria.",
+          "is_correct": false,
+          "feedback": "Memorandos formais têm menor impacto emocional."
+        },
+        {
+          "text": "Compartilhar histórias reais de colaboradores alinhadas aos valores.",
+          "is_correct": true,
+          "feedback": "Storytelling com exemplos concretos aumenta identificação."
+        },
+        {
+          "text": "Repetir slogans corporativos em todos os canais.",
+          "is_correct": false,
+          "feedback": "Slogans precisam ser vivenciados; histórias ilustram comportamentos."
+        },
+        {
+          "text": "Criar um manual restrito ao RH com orientações sobre valores.",
+          "is_correct": false,
+          "feedback": "Restrito ao RH não envolve o conjunto de colaboradores."
+        },
+        {
+          "text": "Excluir manifestações espontâneas dos colaboradores nas redes internas.",
+          "is_correct": false,
+          "feedback": "Manifestações espontâneas ajudam a construir sentido coletivo."
+        }
+      ]
+    },
+    {
+      "title": "Storytelling publicitário",
+      "slug": "storytelling-publicitario",
+      "content": "<p>Em uma campanha publicitária baseada em storytelling, qual elemento garante conexão emocional consistente com a marca?</p>",
+      "explanation": "O arco narrativo deve revelar propósito e valores da marca, reforçando a promessa central ao público.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Festival El Ojo (adaptada)",
+      "source_url": "https://academiadacomunicacao.example/publicidade/storytelling.pdf",
+      "reference": "Fog, Storytelling: Branding in Practice",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Publicitária"
+      ],
+      "subjects": [
+        "Storytelling"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Inserir celebridades em todos os filmes para gerar alcance.",
+          "is_correct": false,
+          "feedback": "Celebridades podem ajudar, mas conexão depende da narrativa."
+        },
+        {
+          "text": "Garantir que o conflito da história esteja ligado ao propósito da marca.",
+          "is_correct": true,
+          "feedback": "O conflito alinhado ao propósito gera identificação e lembrança."
+        },
+        {
+          "text": "Usar apenas animações para padronizar o estilo visual.",
+          "is_correct": false,
+          "feedback": "O estilo pode variar; o importante é a coerência do propósito."
+        },
+        {
+          "text": "Repetir a mesma frase de efeito ao final de todos os anúncios.",
+          "is_correct": false,
+          "feedback": "A frase final deve sintetizar a narrativa, mas não garante conexão sozinha."
+        },
+        {
+          "text": "Evitar qualquer menção aos produtos para preservar a emoção.",
+          "is_correct": false,
+          "feedback": "Storytelling pode citar produtos desde que alinhados ao propósito."
+        }
+      ]
+    },
+    {
+      "title": "Divulgação científica acessível",
+      "slug": "divulgacao-cientifica-acessivel",
+      "content": "<p>Ao adaptar resultados de pesquisa para divulgação científica, qual cuidado assegura compreensão por públicos leigos?</p>",
+      "explanation": "A tradução de termos técnicos em linguagem cotidiana amplia a compreensão sem distorcer o conteúdo.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Manual de Comunicação Científica",
+      "source_url": "https://academiadacomunicacao.example/ciencia/divulgacao.pdf",
+      "reference": "Brossard & Lewenstein, Communication of Science",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Científica"
+      ],
+      "subjects": [
+        "Divulgação de Pesquisa"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Manter o jargão técnico original para preservar fidelidade.",
+          "is_correct": false,
+          "feedback": "É preciso traduzir termos técnicos para linguagem simples."
+        },
+        {
+          "text": "Explicar conceitos com analogias e exemplos do cotidiano.",
+          "is_correct": true,
+          "feedback": "Analogias aproximam o público leigo dos conceitos científicos."
+        },
+        {
+          "text": "Suprimir dados quantitativos por completo.",
+          "is_correct": false,
+          "feedback": "Dados podem ser mantidos com visualizações amigáveis."
+        },
+        {
+          "text": "Limitar a divulgação a artigos acadêmicos pagos.",
+          "is_correct": false,
+          "feedback": "A divulgação deve ser acessível, inclusive em canais abertos."
+        },
+        {
+          "text": "Utilizar exclusivamente comunicados de imprensa formais.",
+          "is_correct": false,
+          "feedback": "Diversificar formatos amplia o alcance e a compreensão."
+        }
+      ]
+    },
+    {
+      "title": "Prestação de contas governamental",
+      "slug": "prestacao-contas-governamental",
+      "content": "<p>Qual elemento deve constar em peças de prestação de contas para reforçar credibilidade e transparência?</p>",
+      "explanation": "Indicadores comparáveis mostram resultados concretos e permitem escrutínio social.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Tribunal de Contas (adaptada)",
+      "source_url": "https://academiadacomunicacao.example/governo/prestacao-contas.pdf",
+      "reference": "Manual de Comunicação Pública - Secom",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Governamental"
+      ],
+      "subjects": [
+        "Prestação de Contas"
+      ],
+      "bancas": [
+        "CESPE/CEBRASPE"
+      ],
+      "answers": [
+        {
+          "text": "Somente declarações genéricas de compromisso com a sociedade.",
+          "is_correct": false,
+          "feedback": "Mensagens genéricas precisam ser acompanhadas de evidências."
+        },
+        {
+          "text": "Indicadores com metas, resultados e comparação com períodos anteriores.",
+          "is_correct": true,
+          "feedback": "Comparações sustentam a transparência e a avaliação de desempenho."
+        },
+        {
+          "text": "Gráficos sem legendas para manter design minimalista.",
+          "is_correct": false,
+          "feedback": "Legendas são essenciais para interpretação correta."
+        },
+        {
+          "text": "Uso exclusivo de imagens ilustrativas sem dados.",
+          "is_correct": false,
+          "feedback": "Imagens isoladas não demonstram resultados tangíveis."
+        },
+        {
+          "text": "Omissão de desafios ou metas não alcançadas.",
+          "is_correct": false,
+          "feedback": "Transparência requer relato de desafios e planos de correção."
+        }
+      ]
+    },
+    {
+      "title": "Checagem de fatos jornalística",
+      "slug": "checagem-fatos-jornalistica",
+      "content": "<p>Em um fluxo de checagem de fatos, qual etapa deve anteceder a publicação da verificação?</p>",
+      "explanation": "Registrar o contato com a fonte original garante direito de resposta e transparência no processo.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Projeto Verifica News",
+      "source_url": "https://academiadacomunicacao.example/jornalismo/checagem.pdf",
+      "reference": "Stencel, The Fact-Checker's Handbook",
+      "estimated_time": 3,
+      "categories": [
+        "Jornalismo"
+      ],
+      "subjects": [
+        "Checagem de Fatos"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Criar peça gráfica com o selo FALSO antes de terminar a apuração.",
+          "is_correct": false,
+          "feedback": "A classificação só ocorre após a apuração completa."
+        },
+        {
+          "text": "Buscar contato com a fonte responsável pela afirmação analisada.",
+          "is_correct": true,
+          "feedback": "O contato assegura contraditório e transparência editorial."
+        },
+        {
+          "text": "Arquivar as evidências coletadas sem publicá-las.",
+          "is_correct": false,
+          "feedback": "A checagem prevê publicação das evidências."
+        },
+        {
+          "text": "Registrar audiência com órgão regulador da comunicação.",
+          "is_correct": false,
+          "feedback": "Não é etapa obrigatória no fluxo de checagem."
+        },
+        {
+          "text": "Solicitar autorização judicial para publicar a verificação.",
+          "is_correct": false,
+          "feedback": "Checagens não necessitam autorização judicial prévia."
+        }
+      ]
+    },
+    {
+      "title": "Comunicação inclusiva e linguagem",
+      "slug": "comunicacao-inclusiva-linguagem",
+      "content": "<p>Qual prática de linguagem inclusiva contribui para evitar vieses em materiais institucionais?</p>",
+      "explanation": "Termos neutros ou coletivos ampliam a representatividade e evitam estereótipos de gênero.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Guia Comunicação Inclusiva",
+      "source_url": "https://academiadacomunicacao.example/diversidade/linguagem-inclusiva.pdf",
+      "reference": "ONU Mulheres, Comunicação sem Estereótipos",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação e Diversidade"
+      ],
+      "subjects": [
+        "Comunicação Inclusiva"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Utilizar expressões que associem profissões a um único gênero.",
+          "is_correct": false,
+          "feedback": "É recomendável evitar estereótipos de gênero."
+        },
+        {
+          "text": "Adotar termos neutros ou coletivos ao se referir a grupos.",
+          "is_correct": true,
+          "feedback": "Termos neutros ampliam a inclusão e evitam vieses."
+        },
+        {
+          "text": "Substituir palavras por siglas pouco conhecidas para neutralidade.",
+          "is_correct": false,
+          "feedback": "Siglas pouco conhecidas dificultam compreensão."
+        },
+        {
+          "text": "Eliminar revisões editoriais para agilizar publicações.",
+          "is_correct": false,
+          "feedback": "Revisões garantem coerência inclusiva e clareza."
+        },
+        {
+          "text": "Limitar a comunicação inclusiva apenas a datas comemorativas.",
+          "is_correct": false,
+          "feedback": "Inclusão deve ser princípio permanente."
+        }
+      ]
+    },
+    {
+      "title": "Infografia e hierarquia da informação",
+      "slug": "infografia-hierarquia-informacao",
+      "content": "<p>Ao criar uma infografia para relatório anual, qual princípio visual deve orientar a hierarquização dos dados?</p>",
+      "explanation": "Contraste controlado destaca dados prioritários sem comprometer a paleta institucional.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Relatório Visual Questões",
+      "source_url": "https://academiadacomunicacao.example/design/infografia.pdf",
+      "reference": "Tufte, The Visual Display of Quantitative Information",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Visual"
+      ],
+      "subjects": [
+        "Infografia"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Aplicar o mesmo peso visual para todos os elementos.",
+          "is_correct": false,
+          "feedback": "Hierarquia exige variação de contraste e tamanho."
+        },
+        {
+          "text": "Utilizar contraste de cor e tipografia para destacar dados chave.",
+          "is_correct": true,
+          "feedback": "Contraste orienta leitura e mantém a paleta controlada."
+        },
+        {
+          "text": "Eliminar legendas para reduzir volume de informação.",
+          "is_correct": false,
+          "feedback": "Legendas são essenciais para compreensão."
+        },
+        {
+          "text": "Inserir sombras pesadas em todos os elementos.",
+          "is_correct": false,
+          "feedback": "Sombras excessivas poluem e atrapalham a leitura."
+        },
+        {
+          "text": "Dispor elementos sem grid para manter aspecto orgânico.",
+          "is_correct": false,
+          "feedback": "O grid garante alinhamento e leitura fluida."
+        }
+      ]
+    },
+    {
+      "title": "OKRs na comunicação estratégica",
+      "slug": "okrs-comunicacao-estrategica",
+      "content": "<p>Ao implementar OKRs na área de comunicação, qual característica diferencia resultados-chave bem formulados?</p>",
+      "explanation": "Resultados-chave precisam ser mensuráveis e temporais, permitindo verificar o progresso rumo ao objetivo.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Playbook OKR Questões",
+      "source_url": "https://academiadacomunicacao.example/estrategia/okrs.pdf",
+      "reference": "Doerr, Measure What Matters",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Estratégica"
+      ],
+      "subjects": [
+        "OKRs"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Serem vagos para permitir adaptação livre ao longo do trimestre.",
+          "is_correct": false,
+          "feedback": "Resultados-chave precisam ser objetivos e mensuráveis."
+        },
+        {
+          "text": "Estabelecer métricas verificáveis com prazos definidos.",
+          "is_correct": true,
+          "feedback": "Mensurabilidade e prazo permitem acompanhar o progresso."
+        },
+        {
+          "text": "Listar todas as tarefas operacionais executadas pela equipe.",
+          "is_correct": false,
+          "feedback": "Tarefas são meios; resultados-chave medem impacto."
+        },
+        {
+          "text": "Restringir os resultados a atividades do time de design.",
+          "is_correct": false,
+          "feedback": "OKRs devem ser colaborativos entre áreas."
+        },
+        {
+          "text": "Manter indicadores secretos para evitar pressão por desempenho.",
+          "is_correct": false,
+          "feedback": "OKRs valorizam transparência e alinhamento coletivo."
+        }
+      ]
+    },
+    {
+      "title": "Participação social em comunicação pública",
+      "slug": "participacao-social-comunicacao-publica",
+      "content": "<p>Qual estratégia fortalece a participação social em programas de comunicação governamental?</p>",
+      "explanation": "Ciclos participativos com retorno sobre as contribuições mantêm a confiança dos envolvidos.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Caderno Participa+",
+      "source_url": "https://academiadacomunicacao.example/participacao/programas.pdf",
+      "reference": "OCDE, Guidelines on Open Government",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Participação Social"
+      ],
+      "bancas": [
+        "CESPE/CEBRASPE"
+      ],
+      "answers": [
+        {
+          "text": "Realizar consulta pública pontual sem devolutiva.",
+          "is_correct": false,
+          "feedback": "A ausência de devolutiva desestimula novas contribuições."
+        },
+        {
+          "text": "Promover ciclos de escuta com devolutiva das decisões tomadas.",
+          "is_correct": true,
+          "feedback": "A devolutiva demonstra respeito e transparência no processo participativo."
+        },
+        {
+          "text": "Delegar a participação apenas a conselhos técnicos internos.",
+          "is_correct": false,
+          "feedback": "Participação social pressupõe envolvimento da sociedade."
+        },
+        {
+          "text": "Limitar a participação a formulários fechados sem espaço para sugestões.",
+          "is_correct": false,
+          "feedback": "Formulários fechados reduzem a contribuição qualitativa."
+        },
+        {
+          "text": "Centralizar decisões comunicacionais em equipe terceirizada.",
+          "is_correct": false,
+          "feedback": "Participação demanda articulação com representantes da sociedade."
+        }
+      ]
+    },
+    {
+      "title": "Pesquisa de público para comunicação",
+      "slug": "pesquisa-publico-comunicacao",
+      "content": "<p>Qual técnica de pesquisa auxilia a identificar percepções profundas de públicos estratégicos antes de uma campanha institucional?</p>",
+      "explanation": "Grupos focais permitem explorar percepções, vocabulário e motivações para orientar mensagens.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Caderno de Pesquisas Comunicacionais",
+      "source_url": "https://academiadacomunicacao.example/pesquisas/grupos-focais.pdf",
+      "reference": "Malhotra, Pesquisa de Marketing",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Organizacional"
+      ],
+      "subjects": [
+        "Pesquisa de Público"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Pesquisa documental em arquivos institucionais.",
+          "is_correct": false,
+          "feedback": "Útil para histórico, mas não para percepções atuais dos públicos."
+        },
+        {
+          "text": "Grupos focais com representantes dos públicos estratégicos.",
+          "is_correct": true,
+          "feedback": "Grupos focais exploram percepções e expectativas em profundidade."
+        },
+        {
+          "text": "Análise financeira do último trimestre.",
+          "is_correct": false,
+          "feedback": "Dados financeiros não substituem insights de público."
+        },
+        {
+          "text": "Monitoramento exclusivo de comentários em redes sociais externas.",
+          "is_correct": false,
+          "feedback": "Monitoramento é útil, mas nem sempre revela motivações profundas."
+        },
+        {
+          "text": "Benchmarking de campanhas de concorrentes internacionais.",
+          "is_correct": false,
+          "feedback": "Benchmark ajuda, mas não substitui compreensão do público interno."
+        }
+      ]
+    },
+    {
+      "title": "Mapa de stakeholders e priorização",
+      "slug": "mapa-stakeholders-priorizacao",
+      "content": "<p>No mapeamento de stakeholders, qual matriz auxilia a definir prioridades de relacionamento?</p>",
+      "explanation": "A matriz poder x interesse destaca stakeholders com maior influência e envolvimento, orientando estratégias.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Toolkit Stakeholders Questões",
+      "source_url": "https://academiadacomunicacao.example/gestao/stakeholders.pdf",
+      "reference": "Freeman, Strategic Management: A Stakeholder Approach",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Estratégica"
+      ],
+      "subjects": [
+        "Mapeamento de Públicos"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Matriz SWOT",
+          "is_correct": false,
+          "feedback": "A SWOT avalia ambiente interno/externo, não stakeholders diretamente."
+        },
+        {
+          "text": "Matriz poder x interesse",
+          "is_correct": true,
+          "feedback": "A matriz poder x interesse orienta priorização de relacionamento."
+        },
+        {
+          "text": "Matriz BCG",
+          "is_correct": false,
+          "feedback": "BCG classifica portfólio de produtos."
+        },
+        {
+          "text": "Matriz risco x retorno",
+          "is_correct": false,
+          "feedback": "Risco-retorno é usada em investimentos, não em stakeholders."
+        },
+        {
+          "text": "Matriz responsabilidade x autoridade",
+          "is_correct": false,
+          "feedback": "Essa matriz se aplica mais à gestão de projetos internos."
+        }
+      ]
+    }
+  ]
+}
