@@ -1,0 +1,254 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Questões Academia da Comunicação 0.1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Questões – Banco"
+msgstr ""
+
+msgid "Não informada"
+msgstr ""
+
+msgid "Exibir filtros"
+msgstr ""
+
+msgid "Categoria (slug)"
+msgstr ""
+
+msgid "Banca (slug)"
+msgstr ""
+
+msgid "Questões por página"
+msgstr ""
+
+msgid "Lista interativa com filtros e paginação para estudar o banco de questões."
+msgstr ""
+
+msgid "No Elementor, adicione um widget de Shortcode ou os widgets “Questões – Mapa/Organograma” e “Questões – Banco” para configurar tudo diretamente no editor."
+msgstr ""
+
+msgid "Carregando questões…"
+msgstr ""
+
+msgid "Nenhuma questão encontrada."
+msgstr ""
+
+msgid "Não foi possível carregar as questões. Tente novamente."
+msgstr ""
+
+msgid "Mostrar alternativas"
+msgstr ""
+
+msgid "Ocultar alternativas"
+msgstr ""
+
+msgid "Resposta correta!"
+msgstr ""
+
+msgid "Resposta incorreta. Tente novamente."
+msgstr ""
+
+msgid "Comentário do gabarito"
+msgstr ""
+
+msgid "Selecione uma alternativa para conferir o gabarito."
+msgstr ""
+
+msgid "Comentários"
+msgstr ""
+
+msgid "Comentários (%d)"
+msgstr ""
+
+msgid "Seja o primeiro a comentar esta resposta."
+msgstr ""
+
+msgid "Publicar comentário"
+msgstr ""
+
+msgid "Categorias:"
+msgstr ""
+
+msgid "Bancas:"
+msgstr ""
+
+msgid "Referência:"
+msgstr ""
+
+msgid "Fonte:"
+msgstr ""
+
+msgid "Tempo estimado:"
+msgstr ""
+
+msgid "min"
+msgstr ""
+
+msgid "Ver questão completa"
+msgstr ""
+
+msgid "Assuntos"
+msgstr ""
+
+msgid "Assuntos:"
+msgstr ""
+
+msgid "Formato"
+msgstr ""
+
+msgid "Formato:"
+msgstr ""
+
+msgid "Formato da questão"
+msgstr ""
+
+msgid "Ano"
+msgstr ""
+
+msgid "Ano:"
+msgstr ""
+
+msgid "Ano da aplicação"
+msgstr ""
+
+msgid "URL da prova/edital"
+msgstr ""
+
+msgid "Vídeo de comentário"
+msgstr ""
+
+msgid "Assunto"
+msgstr ""
+
+msgid "Múltipla escolha"
+msgstr ""
+
+msgid "Verdadeiro ou falso"
+msgstr ""
+
+msgid "Discursiva"
+msgstr ""
+
+msgid "Preenchimento de lacunas"
+msgstr ""
+
+msgid "Não informado"
+msgstr ""
+
+msgid "Ver prova/edital original"
+msgstr ""
+
+msgid "Assistir explicação em vídeo"
+msgstr ""
+
+msgid "Buscar assuntos"
+msgstr ""
+
+msgid "Todos os assuntos"
+msgstr ""
+
+msgid "Editar assunto"
+msgstr ""
+
+msgid "Atualizar assunto"
+msgstr ""
+
+msgid "Adicionar novo assunto"
+msgstr ""
+
+msgid "Nome do novo assunto"
+msgstr ""
+
+msgid "Aplicar filtros"
+msgstr ""
+
+msgid "Correta"
+msgstr ""
+
+msgid "Filtros do banco de questões"
+msgstr ""
+
+msgid "Banca"
+msgstr ""
+
+msgid "Categoria"
+msgstr ""
+
+msgid "Dificuldade"
+msgstr ""
+
+msgid "Todas"
+msgstr ""
+
+msgid "Página anterior"
+msgstr ""
+
+msgid "Próxima página"
+msgstr ""
+
+msgid "Página %1$d de %2$d"
+msgstr ""
+
+msgid "Paginação"
+msgstr ""
+
+msgid "O plugin Questões detectou que o Elementor não está ativo. A integração com widgets do Elementor continuará desativada até que o Elementor seja instalado e ativado."
+msgstr ""
+
+msgid "Você não tem permissão para importar questões."
+msgstr ""
+
+msgid "Não foi possível ler o arquivo de exemplo."
+msgstr ""
+
+msgid "O arquivo JSON enviado está vazio."
+msgstr ""
+
+msgid "Não foi possível ler o arquivo JSON informado."
+msgstr ""
+
+msgid "Selecione um modo de importação válido."
+msgstr ""
+
+msgid "O JSON fornecido é inválido."
+msgstr ""
+
+msgid "Importação concluída: %1$s questões novas, %2$s atualizadas e %3$s ignoradas."
+msgstr ""
+
+msgid "Falha na importação: %s"
+msgstr ""
+
+msgid "Nenhuma questão encontrada no arquivo."
+msgstr ""
+
+msgid "Título e enunciado são obrigatórios em cada questão."
+msgstr ""
+
+msgid "Importar banco de questões"
+msgstr ""
+
+msgid "Importe o pacote com 20 questões de exemplo para testar rapidamente a experiência completa."
+msgstr ""
+
+msgid "Importar 20 questões de exemplo"
+msgstr ""
+
+msgid "Baixar modelo JSON"
+msgstr ""
+
+msgid "Faça upload de um arquivo JSON ou cole o conteúdo no campo abaixo para cadastrar ou atualizar questões em massa."
+msgstr ""
+
+msgid "Arquivo JSON"
+msgstr ""
+
+msgid "Importar arquivo JSON"
+msgstr ""
+
+msgid "JSON (cole o conteúdo)"
+msgstr ""
+
+msgid "Importar JSON colado"
+msgstr ""
