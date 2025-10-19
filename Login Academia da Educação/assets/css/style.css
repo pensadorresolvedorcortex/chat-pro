@@ -1,0 +1,455 @@
+:root {
+    --lae-roxo: #6C5CE7;
+    --lae-roxo-escuro: #574bd1;
+    --lae-roxo-claro: #8b7ef5;
+    --lae-branco: #ffffff;
+    --lae-cinza: #f5f5fa;
+    --lae-sombra: 0 10px 30px rgba(108, 92, 231, 0.25);
+    --lae-glass-bg: rgba(255, 255, 255, 0.18);
+    --lae-glass-border: rgba(255, 255, 255, 0.35);
+    --lae-glass-highlight: rgba(255, 255, 255, 0.6);
+    --lae-glow: rgba(108, 92, 231, 0.45);
+    --lae-ink: #2d2d3a;
+    --lae-ink-soft: rgba(45, 45, 58, 0.68);
+    --lae-shimmer: rgba(255, 255, 255, 0.75);
+}
+
+.lae-user-menu-shell {
+    position: relative;
+    display: inline-flex;
+    padding: 18px 22px;
+    border-radius: 36px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08));
+    border: 1px solid var(--lae-glass-border);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 0 28px 60px rgba(87, 75, 209, 0.35);
+    overflow: visible;
+    z-index: 0;
+}
+
+.lae-user-menu-shell::before {
+    content: "";
+    position: absolute;
+    inset: -40% -30% auto auto;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle at center, rgba(139, 126, 245, 0.45), transparent 70%);
+    filter: blur(60px);
+    opacity: 0.8;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.lae-user-menu-shell::after {
+    content: "";
+    position: absolute;
+    inset: auto 12% -46% 12%;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4), transparent 70%);
+    filter: blur(28px);
+    opacity: 0.7;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.lae-user-menu {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+.lae-user-menu button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+
+.lae-user-menu button:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.7);
+    outline-offset: 4px;
+}
+
+.lae-notification-button {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lae-roxo);
+    position: relative;
+    box-shadow: 0 20px 45px rgba(108, 92, 231, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.lae-notification-button::before {
+    content: "";
+    position: absolute;
+    inset: 16% 22% 50% 22%;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0.75;
+}
+
+.lae-notification-button::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+}
+
+.lae-notification-button:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 26px 55px rgba(108, 92, 231, 0.35);
+}
+
+.lae-notification-button:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.lae-notification-button svg {
+    width: 22px;
+    height: 22px;
+}
+
+.lae-notification-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: linear-gradient(135deg, var(--lae-roxo), var(--lae-roxo-claro));
+    color: var(--lae-branco);
+    border-radius: 999px;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 24px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(108, 92, 231, 0.45);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lae-user-dropdown {
+    position: relative;
+}
+
+.lae-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.95), rgba(87, 75, 209, 0.88));
+    color: var(--lae-branco);
+    box-shadow: 0 24px 50px rgba(87, 75, 209, 0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    text-shadow: 0 4px 12px rgba(44, 17, 150, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.lae-user-toggle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.32), transparent 55%);
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+.lae-user-toggle:hover,
+.lae-user-menu.lae-open .lae-user-toggle {
+    transform: translateY(-1px);
+    box-shadow: 0 28px 60px rgba(87, 75, 209, 0.55);
+}
+
+.lae-greeting {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    color: var(--lae-branco);
+}
+
+.lae-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    color: var(--lae-branco);
+    text-transform: uppercase;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    position: relative;
+    overflow: hidden;
+}
+
+.lae-avatar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.4), transparent 55%);
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+.lae-avatar-image {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.15);
+    transition: opacity 0.35s ease;
+    opacity: 0;
+}
+
+.lae-avatar.has-image .lae-avatar-image {
+    opacity: 1;
+}
+
+.lae-avatar-initial {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.lae-avatar.has-image .lae-avatar-initial {
+    opacity: 0;
+    transform: scale(0.85);
+}
+
+.lae-caret {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--lae-branco);
+    transition: transform 0.2s ease;
+}
+
+.lae-user-menu.lae-open .lae-caret {
+    transform: rotate(180deg);
+}
+
+.lae-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 16px);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.78));
+    border-radius: 24px;
+    box-shadow: 0 35px 70px rgba(87, 75, 209, 0.28);
+    padding: 18px 0;
+    min-width: 240px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(14px) scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 999;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    pointer-events: none;
+}
+
+.lae-dropdown-menu::before {
+    content: "";
+    position: absolute;
+    inset: 12px 18px;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    pointer-events: none;
+}
+
+.lae-user-menu.lae-open .lae-dropdown-menu::before {
+    opacity: 1;
+}
+
+.lae-user-menu.lae-open .lae-dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.lae-dropdown-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.lae-dropdown-menu li + li {
+    margin-top: 4px;
+}
+
+.lae-dropdown-menu a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 26px;
+    color: var(--lae-ink);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    position: relative;
+}
+
+.lae-dropdown-menu a:hover,
+.lae-dropdown-menu a:focus {
+    background: rgba(108, 92, 231, 0.12);
+    color: var(--lae-roxo-escuro);
+    transform: translateX(2px);
+    border-left-color: rgba(108, 92, 231, 0.75);
+}
+
+.lae-dropdown-menu a:focus-visible {
+    outline: 3px solid rgba(108, 92, 231, 0.4);
+    outline-offset: 4px;
+}
+
+.lae-dropdown-menu a::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--lae-roxo), var(--lae-roxo-claro));
+    opacity: 0;
+    transform: scale(0.5);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    position: absolute;
+    right: 24px;
+}
+
+.lae-dropdown-menu a:hover::after,
+.lae-dropdown-menu a:focus::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.lae-page {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(245, 245, 250, 0.75));
+    border-radius: 28px;
+    padding: 40px;
+    box-shadow: 0 40px 80px rgba(87, 75, 209, 0.25);
+    color: #2d2d3a;
+    max-width: 960px;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.lae-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.55), transparent 60%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.lae-page::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.lae-page h2 {
+    margin-top: 0;
+    color: var(--lae-roxo-escuro);
+    font-size: 2rem;
+}
+
+.lae-shortcode-hint {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--lae-ink-soft);
+}
+
+@media (max-width: 768px) {
+    .lae-user-menu-shell {
+        padding: 14px 16px;
+    }
+
+    .lae-user-toggle {
+        padding: 12px 18px;
+    }
+
+    .lae-notification-button {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .lae-greeting {
+        display: none;
+    }
+
+    .lae-user-menu {
+        gap: 14px;
+    }
+
+    .lae-user-toggle {
+        padding: 12px 16px;
+    }
+
+    .lae-user-menu-shell {
+        padding: 12px 14px;
+    }
+
+    .lae-dropdown-menu {
+        right: -4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .lae-dropdown-menu,
+    .lae-user-toggle,
+    .lae-notification-button {
+        transition: none;
+    }
+}
