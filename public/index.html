@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pesquisa de preços no PNCP</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="container">
+        <h1>Pesquisa de preços no PNCP</h1>
+        <p>
+          Explore publicações de contratações e contratos divulgados no Portal Nacional de
+          Contratações Públicas (PNCP) para apoiar pesquisas de preços e tomada de decisão.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card" aria-labelledby="form-title">
+        <h2 id="form-title">Parâmetros da consulta</h2>
+        <form id="search-form" class="form-grid">
+          <fieldset class="search-mode">
+            <legend>Tipo de consulta</legend>
+            <label>
+              <input type="radio" name="searchType" value="publicacao" checked />
+              Contratações (publicações)
+            </label>
+            <label>
+              <input type="radio" name="searchType" value="contratos" />
+              Contratos publicados
+            </label>
+          </fieldset>
+
+          <div class="form-field">
+            <label for="dataInicial">Data inicial *</label>
+            <input id="dataInicial" name="dataInicial" type="date" required />
+          </div>
+
+          <div class="form-field">
+            <label for="dataFinal">Data final *</label>
+            <input id="dataFinal" name="dataFinal" type="date" required />
+          </div>
+
+          <div class="form-field" data-field="modalidade">
+            <label for="modalidadeId">Modalidade de contratação *</label>
+            <select id="modalidadeId" name="modalidadeId" required>
+              <option value="" disabled selected>Selecione</option>
+            </select>
+          </div>
+
+          <div class="form-field" data-field="modo-disputa">
+            <label for="modoDisputaId">Modo de disputa</label>
+            <select id="modoDisputaId" name="modoDisputaId">
+              <option value="">Todos</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="uf">UF</label>
+            <select id="uf" name="uf">
+              <option value="">Todas</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="codigoMunicipioIbge">Município (código IBGE)</label>
+            <input
+              id="codigoMunicipioIbge"
+              name="codigoMunicipioIbge"
+              type="text"
+              inputmode="numeric"
+              pattern="\d{7}"
+              placeholder="Somente números"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="cnpj">CNPJ do órgão</label>
+            <input
+              id="cnpj"
+              name="cnpj"
+              type="text"
+              inputmode="numeric"
+              pattern="\d{14}"
+              placeholder="Somente números"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="tamanhoPagina">Registros por página</label>
+            <select id="tamanhoPagina" name="tamanhoPagina">
+              <option value="20">20</option>
+              <option value="10">10</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+
+          <div class="form-field full-width">
+            <label for="termo">Filtrar resultados por termo (opcional)</label>
+            <input
+              id="termo"
+              name="termo"
+              type="text"
+              placeholder="Ex.: medicamento, aluguel, serviço"
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary">Buscar</button>
+            <button type="reset" class="secondary" id="reset-button">Limpar</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-live="polite" aria-labelledby="results-title">
+        <h2 id="results-title">Resultados</h2>
+        <p id="summary" class="summary"></p>
+        <p id="error" class="error" role="alert" hidden></p>
+        <div id="loading" class="loading" hidden>Carregando dados do PNCP…</div>
+
+        <div class="table-wrapper">
+          <table id="results-table">
+            <thead>
+              <tr>
+                <th>Publicação</th>
+                <th>Órgão / UF</th>
+                <th>Objeto / Fornecedor</th>
+                <th>Valores (R$)</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="pagination" aria-label="Paginação">
+          <button type="button" id="prev-page" class="secondary">Página anterior</button>
+          <span id="page-indicator" aria-live="polite"></span>
+          <button type="button" id="next-page" class="secondary">Próxima página</button>
+        </div>
+      </section>
+    </main>
+
+    <dialog id="details-dialog">
+      <article>
+        <header>
+          <h3>Detalhes da contratação</h3>
+          <button type="button" id="close-dialog" aria-label="Fechar">×</button>
+        </header>
+        <div id="details-content"></div>
+      </article>
+    </dialog>
+
+    <footer class="app-footer">
+      <div class="container">
+        <p>
+          Dados recuperados diretamente do PNCP utilizando as APIs públicas de consulta.
+          Períodos extensos podem resultar em grande volume de registros.
+        </p>
+      </div>
+    </footer>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
