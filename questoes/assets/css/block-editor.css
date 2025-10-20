@@ -1,0 +1,19 @@
+.questoes-block-preview {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    background: #ffffff;
+}
+
+.questoes-block-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 24px;
+    background: #f1f5f9;
+    color: #242142;
+}
+
+.questoes-block-card h3 {
+    margin-top: 0;
+    color: #242142;
+}
