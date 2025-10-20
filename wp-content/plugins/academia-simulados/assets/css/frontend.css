@@ -1,0 +1,361 @@
+.academia-simulados-wrapper {
+    border: 2px solid #242142;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    background: #ffffff;
+    box-shadow: 0 8px 16px rgba(36, 33, 66, 0.1);
+}
+
+.academia-simulados-directory {
+    display: grid;
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.academia-simulados-search {
+    display: grid;
+    gap: 12px;
+    padding: 16px 20px;
+    background: #f5f0ff;
+    border: 2px solid #bf83ff;
+    border-radius: 12px;
+}
+
+.academia-simulados-search-label {
+    font-weight: 700;
+    color: #242142;
+}
+
+.academia-simulados-search-field {
+    display: grid;
+    gap: 6px;
+}
+
+.academia-simulados-search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 2px solid #c3e3f3;
+    background: #ffffff;
+    font-size: 1rem;
+    color: #242142;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.academia-simulados-search-input:focus,
+.academia-simulados-search-input:hover {
+    outline: none;
+    border-color: #242142;
+    box-shadow: 0 0 0 3px rgba(191, 131, 255, 0.35);
+}
+
+.academia-simulados-search-help {
+    font-size: 0.875rem;
+    color: #242142;
+}
+
+.academia-simulados-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.academia-simulados-card {
+    background: #ffffff;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    box-shadow: 0 10px 18px rgba(36, 33, 66, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.academia-simulados-card:hover,
+.academia-simulados-card:focus-within {
+    transform: translateY(-4px);
+    border-color: #bf83ff;
+    box-shadow: 0 14px 24px rgba(36, 33, 66, 0.18);
+}
+
+.academia-simulados-card.is-active {
+    border-color: #242142;
+    box-shadow: 0 16px 26px rgba(36, 33, 66, 0.22);
+}
+
+.academia-simulados-card-link {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px;
+    text-decoration: none;
+    height: 100%;
+    color: #242142;
+}
+
+.academia-simulados-card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.academia-simulados-card-summary {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #3c3a56;
+}
+
+.academia-simulados-card-meta {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.academia-simulados-card-meta li {
+    flex: 1 1 45%;
+    min-width: 120px;
+    background: #f5f0ff;
+    border-radius: 12px;
+    padding: 10px 12px;
+    border: 1px solid #bf83ff;
+    display: grid;
+    gap: 4px;
+}
+
+.academia-simulados-card-meta-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #575470;
+}
+
+.academia-simulados-card-meta strong {
+    font-size: 1rem;
+    color: #242142;
+}
+
+.academia-simulados-card-empty {
+    margin: 0;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #f6d5d5;
+    color: #8c1f20;
+    font-weight: 600;
+}
+
+.academia-simulados-selection-hint {
+    margin: 24px 0;
+    padding: 18px 20px;
+    border-left: 4px solid #242142;
+    background: #f5fbfe;
+    border-radius: 12px;
+    font-weight: 600;
+    color: #242142;
+}
+
+.academia-simulados-wrapper .screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.academia-simulados-progress {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0 24px;
+}
+
+.academia-simulados-progress-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 600;
+    color: #242142;
+}
+
+.academia-simulados-progress-bar {
+    position: relative;
+    background: #f5f0ff;
+    border: 2px solid #bf83ff;
+    border-radius: 999px;
+    height: 16px;
+    overflow: hidden;
+}
+
+.academia-simulados-progress-fill {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, #242142, #bf83ff);
+    transition: width 0.3s ease;
+}
+
+.academia-simulados-reset {
+    justify-self: start;
+    background: #242142;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.academia-simulados-reset:hover,
+.academia-simulados-reset:focus {
+    background: #bf83ff;
+    color: #242142;
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.academia-simulados-complete-message {
+    background: #f5fbfe;
+    border-left: 4px solid #242142;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #242142;
+}
+
+.academia-simulados-wrapper h2,
+.academia-simulados-wrapper h3 {
+    color: #242142;
+}
+
+.academia-simulados-question {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #c3e3f3;
+}
+
+.academia-simulados-options {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.academia-simulados-options button {
+    border: 2px solid #bf83ff;
+    background: #f5f0ff;
+    color: #242142;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.academia-simulados-options button:hover,
+.academia-simulados-options button:focus {
+    outline: none;
+    border-color: #242142;
+    box-shadow: 0 0 0 3px #c3e3f3;
+    transform: translateY(-1px);
+}
+
+.academia-simulados-options button.is-correct {
+    background: #c3e3f3;
+    border-color: #1c7c54;
+    color: #1c7c54;
+}
+
+.academia-simulados-options button.is-incorrect {
+    background: #f6d5d5;
+    border-color: #b32d2e;
+    color: #8c1f20;
+}
+
+.academia-simulados-question.is-correct .academia-simulados-options button.is-correct {
+    box-shadow: 0 0 0 3px rgba(28, 124, 84, 0.2);
+}
+
+.academia-simulados-feedback {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #242142;
+}
+
+.academia-simulados-hint {
+    background: #f5fbfe;
+    border-left: 4px solid #bf83ff;
+    padding: 12px 16px;
+    margin-top: 12px;
+    border-radius: 8px;
+}
+
+.academia-simulados-comments {
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #f5f0ff;
+    border: 1px solid #bf83ff;
+}
+
+.academia-simulados-comments h4 {
+    margin-top: 0;
+    color: #242142;
+}
+
+.academia-simulados-comments .comment-list {
+    list-style: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+
+.academia-simulados-comments .comment {
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #c3e3f3;
+}
+
+.academia-simulados-comments .comment-meta {
+    font-size: 0.875rem;
+    color: #242142;
+    margin-bottom: 8px;
+}
+
+.academia-simulados-comments .comment-content {
+    font-size: 1rem;
+}
+
+.academia-simulados-comments form {
+    margin-top: 16px;
+}
+
+.academia-simulados-comments input[type="text"],
+.academia-simulados-comments input[type="email"],
+.academia-simulados-comments textarea {
+    width: 100%;
+    border: 2px solid #c3e3f3;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.academia-simulados-comments input[type="submit"] {
+    background: #242142;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 18px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.academia-simulados-comments input[type="submit"]:hover,
+.academia-simulados-comments input[type="submit"]:focus {
+    background: #bf83ff;
+    color: #242142;
+}
