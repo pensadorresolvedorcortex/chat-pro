@@ -1,0 +1,823 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Questões Academia da Comunicação 0.12.2\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Questões – Banco"
+msgstr ""
+
+msgid "Não informada"
+msgstr ""
+
+msgid "Exibir filtros"
+msgstr ""
+
+msgid "Categoria (slug)"
+msgstr ""
+
+msgid "Banca (slug)"
+msgstr ""
+
+msgid "Questões por página"
+msgstr ""
+
+msgid "Lista interativa com filtros e paginação para estudar o banco de questões."
+msgstr ""
+
+msgid "No Elementor, adicione um widget de Shortcode ou os widgets “Questões – Mapa/Organograma” e “Questões – Banco” para configurar tudo diretamente no editor."
+msgstr ""
+
+msgid "Carregando questões…"
+msgstr ""
+
+msgid "Nenhuma questão encontrada."
+msgstr ""
+
+msgid "Não foi possível carregar as questões. Tente novamente."
+msgstr ""
+
+msgid "Resposta correta!"
+msgstr ""
+
+msgid "Resposta incorreta. Tente novamente."
+msgstr ""
+
+msgid "Comentário do gabarito"
+msgstr ""
+
+msgid "Selecione uma alternativa para conferir o gabarito."
+msgstr ""
+
+msgid "Comentários"
+msgstr ""
+
+msgid "Comentários (%d)"
+msgstr ""
+
+msgid "Seja o primeiro a comentar esta resposta."
+msgstr ""
+
+msgid "Publicar comentário"
+msgstr ""
+
+msgid "Categorias:"
+msgstr ""
+
+msgid "Bancas:"
+msgstr ""
+
+msgid "Referência:"
+msgstr ""
+
+msgid "Fonte:"
+msgstr ""
+
+msgid "Tempo estimado:"
+msgstr ""
+
+msgid "min"
+msgstr ""
+
+msgid "Ver questão completa"
+msgstr ""
+
+msgid "Assuntos"
+msgstr ""
+
+msgid "Assuntos:"
+msgstr ""
+
+msgid "Formato"
+msgstr ""
+
+msgid "Formato:"
+msgstr ""
+
+msgid "Formato da questão"
+msgstr ""
+
+msgid "Ano"
+msgstr ""
+
+msgid "Ano:"
+msgstr ""
+
+msgid "Ano da aplicação"
+msgstr ""
+
+msgid "URL da prova/edital"
+msgstr ""
+
+msgid "Vídeo de comentário"
+msgstr ""
+
+msgid "Assunto"
+msgstr ""
+
+msgid "Múltipla escolha"
+msgstr ""
+
+msgid "Verdadeiro ou falso"
+msgstr ""
+
+msgid "Discursiva"
+msgstr ""
+
+msgid "Preenchimento de lacunas"
+msgstr ""
+
+msgid "Não informado"
+msgstr ""
+
+msgid "Ver prova/edital original"
+msgstr ""
+
+msgid "Assistir explicação em vídeo"
+msgstr ""
+
+msgid "Buscar assuntos"
+msgstr ""
+
+msgid "Todos os assuntos"
+msgstr ""
+
+msgid "Editar assunto"
+msgstr ""
+
+msgid "Atualizar assunto"
+msgstr ""
+
+msgid "Adicionar novo assunto"
+msgstr ""
+
+msgid "Nome do novo assunto"
+msgstr ""
+
+msgid "Aplicar filtros"
+msgstr ""
+
+msgid "Correta"
+msgstr ""
+
+msgid "Filtros do banco de questões"
+msgstr ""
+
+msgid "Banca"
+msgstr ""
+
+msgid "Categoria"
+msgstr ""
+
+msgid "Dificuldade"
+msgstr ""
+
+msgid "Todas"
+msgstr ""
+
+msgid "Página anterior"
+msgstr ""
+
+msgid "Próxima página"
+msgstr ""
+
+msgid "Página %1$d de %2$d"
+msgstr ""
+
+msgid "Paginação"
+msgstr ""
+
+msgid "O plugin Questões detectou que o Elementor não está ativo. A integração com widgets do Elementor continuará desativada até que o Elementor seja instalado e ativado."
+msgstr ""
+
+msgid "Você não tem permissão para importar questões."
+msgstr ""
+
+msgid "Não foi possível ler o arquivo de exemplo."
+msgstr ""
+
+msgid "O arquivo JSON enviado está vazio."
+msgstr ""
+
+msgid "Não foi possível ler o arquivo JSON informado."
+msgstr ""
+
+msgid "Selecione um modo de importação válido."
+msgstr ""
+
+msgid "O JSON fornecido é inválido."
+msgstr ""
+
+msgid "Importação concluída: %1$s questões novas, %2$s atualizadas e %3$s ignoradas."
+msgstr ""
+
+msgid "Falha na importação: %s"
+msgstr ""
+
+msgid "Nenhuma questão encontrada no arquivo."
+msgstr ""
+
+msgid "Título e enunciado são obrigatórios em cada questão."
+msgstr ""
+
+msgid "Importar banco de questões"
+msgstr ""
+
+msgid "Importe o pacote com 20 questões de exemplo para testar rapidamente a experiência completa."
+msgstr ""
+
+msgid "Importar 20 questões de exemplo"
+msgstr ""
+
+msgid "Baixar modelo JSON"
+msgstr ""
+
+msgid "Faça upload de um arquivo JSON ou cole o conteúdo no campo abaixo para cadastrar ou atualizar questões em massa."
+msgstr ""
+
+msgid "Arquivo JSON"
+msgstr ""
+
+msgid "Importar arquivo JSON"
+msgstr ""
+
+msgid "JSON (cole o conteúdo)"
+msgstr ""
+
+msgid "Importar JSON colado"
+msgstr ""
+
+msgid "Use a busca e os filtros para encontrar questões."
+msgstr ""
+
+msgid "Digite um termo para buscar…"
+msgstr ""
+
+msgid "Filtros de busca do banco de questões"
+msgstr ""
+
+msgid "Palavra-chave"
+msgstr ""
+
+msgid "Pesquisar"
+msgstr ""
+
+msgid "Exibe apenas o formulário de busca e carrega questões após a pesquisa do usuário."
+msgstr ""
+
+msgid "Nenhuma disciplina cadastrada até o momento."
+msgstr ""
+
+msgid "Mostra o painel de disciplinas com filtros por palavra-chave e área de formação."
+msgstr ""
+
+msgid "Área de Formação"
+msgstr ""
+
+msgid "Todas as áreas"
+msgstr ""
+
+msgid "Digite uma disciplina"
+msgstr ""
+
+msgid "Filtrar"
+msgstr ""
+
+msgid "Disciplinas de Concursos Públicos mais procuradas"
+msgstr ""
+
+msgid "%1$s disciplinas organizadas em %2$s áreas de formação."
+msgstr ""
+
+msgid "%1$s disciplinas encontradas com %2$s questões disponíveis."
+msgstr ""
+
+msgid "%1$s %2$s encontradas."
+msgstr ""
+
+msgid "%s questões ao todo."
+msgstr ""
+
+msgid "disciplina"
+msgstr ""
+
+msgid "disciplinas"
+msgstr ""
+
+msgid "Nenhuma disciplina encontrada para os filtros selecionados."
+msgstr ""
+
+msgid "Disciplina"
+msgstr ""
+
+msgid "Questões"
+msgstr ""
+
+msgid "Comentadas"
+msgstr ""
+
+msgid "Ações"
+msgstr ""
+
+msgid "Ver questões"
+msgstr ""
+
+#: includes/helpers.php:100
+msgid "Nacional"
+msgstr ""
+
+#: includes/helpers.php:101
+msgid "Norte"
+msgstr ""
+
+#: includes/helpers.php:102
+msgid "Nordeste"
+msgstr ""
+
+#: includes/helpers.php:103
+msgid "Centro-Oeste"
+msgstr ""
+
+#: includes/helpers.php:104
+msgid "Sudeste"
+msgstr ""
+
+#: includes/helpers.php:105
+msgid "Sul"
+msgstr ""
+
+#: includes/helpers.php:146 includes/class-questions.php:865
+msgid "Ver cursos disponíveis"
+msgstr ""
+
+#: includes/helpers.php:200
+msgid "questões"
+msgstr ""
+
+#: includes/helpers.php:204
+msgid "comentários"
+msgstr ""
+
+#: includes/class-frontend.php:67
+msgid "Nenhum curso disponível para os filtros selecionados."
+msgstr ""
+
+#: includes/class-frontend.php:129 views/course-browser.php:49
+msgid "Cursos em alta"
+msgstr ""
+
+#: includes/class-frontend.php:130
+msgid "Principais concursos do momento."
+msgstr ""
+
+#: includes/class-frontend.php:131 views/course-browser.php:68
+msgid "Cursos por região"
+msgstr ""
+
+#: includes/class-frontend.php:132
+msgid "Explore oportunidades conforme sua localização."
+msgstr ""
+
+#: includes/class-frontend.php:155
+msgid "Nenhum curso disponível no momento."
+msgstr ""
+
+#: includes/class-questions.php:759 includes/class-questions.php:828
+msgid "Destacar na seção “Cursos em alta”"
+msgstr ""
+
+#: includes/class-questions.php:762
+msgid "Marque para exibir este curso entre os destaques."
+msgstr ""
+
+#: includes/class-questions.php:766
+msgid "Faixa salarial ou benefício principal"
+msgstr ""
+
+#: includes/class-questions.php:771 includes/class-questions.php:843
+msgid "Resumo de vagas ou oportunidades"
+msgstr ""
+
+#: includes/class-questions.php:775 includes/class-questions.php:849
+msgid "Região predominante"
+msgstr ""
+
+#: includes/class-questions.php:789 includes/class-questions.php:859
+msgid "Rótulo/Borda superior"
+msgstr ""
+
+#: includes/class-questions.php:794 includes/class-questions.php:865
+msgid "Descrição em destaque"
+msgstr ""
+
+#: includes/class-questions.php:792
+msgid "Texto curto sobre o diferencial do curso. Aceita formatação simples."
+msgstr ""
+
+#: includes/class-questions.php:800 includes/class-questions.php:872
+msgid "Texto do botão"
+msgstr ""
+
+#: includes/class-questions.php:805 includes/class-questions.php:878
+msgid "Link do botão"
+msgstr ""
+
+#: includes/class-questions.php:810 includes/class-questions.php:884
+msgid "Ícone ou brasão (URL da imagem)"
+msgstr ""
+
+#: includes/class-questions.php:832
+msgid "Marcar como destaque"
+msgstr ""
+
+#: includes/class-questions.php:837
+msgid "Faixa salarial ou benefício"
+msgstr ""
+
+#: includes/class-questions.php:814 includes/class-questions.php:890
+msgid "Ordem nos destaques"
+msgstr ""
+
+#: includes/class-questions.php:816
+msgid "Use 1 para aparecer primeiro na seção “Cursos em alta”. Deixe 0 para ordenar automaticamente."
+msgstr ""
+
+#: includes/class-questions.php:893
+msgid "Defina a posição manual dos cursos em alta (1 aparece primeiro)."
+msgstr ""
+
+#: views/course-browser.php:23
+msgid "Todos"
+msgstr ""
+
+#: views/course-browser.php:42
+msgid "Nenhum curso corresponde aos filtros selecionados."
+msgstr ""
+
+#: views/course-browser.php:80
+msgid "Filtrar por região"
+msgstr ""
+
+#: views/course-browser.php:81
+msgid "%s cursos disponíveis"
+msgstr ""
+
+#: views/course-browser.php:91
+msgid "%s questões catalogadas"
+msgstr ""
+
+#: views/course-browser.php:122
+msgid "Exibindo %1$s de %2$s cursos."
+msgstr ""
+
+#: includes/class-admin.php:190
+msgid "Apresenta a vitrine de cursos com destaques ordenáveis, resumo numérico e filtro regional antes de carregar as questões relacionadas."
+msgstr ""
+
+#: includes/class-admin.php:193
+msgid "No Elementor, adicione um widget de Shortcode ou utilize os widgets “Questões – Mapa/Organograma”, “Questões – Banco” e “Questões – Cursos” para configurar tudo diretamente no editor."
+msgstr ""
+
+#: includes/class-elementor.php:517
+msgid "Questões – Cursos"
+msgstr ""
+
+#: includes/class-elementor.php:544
+msgid "Conteúdo"
+msgstr ""
+
+#: includes/class-elementor.php:551
+msgid "Título dos destaques"
+msgstr ""
+
+#: includes/class-elementor.php:553 includes/class-elementor.php:554
+msgid "Cursos em alta"
+msgstr ""
+
+#: includes/class-elementor.php:561
+msgid "Descrição dos destaques"
+msgstr ""
+
+#: includes/class-elementor.php:563 includes/class-elementor.php:603
+msgid "Principais concursos do momento."
+msgstr ""
+
+#: includes/class-elementor.php:570
+msgid "Título por região"
+msgstr ""
+
+#: includes/class-elementor.php:572
+msgid "Cursos por região"
+msgstr ""
+
+#: includes/class-elementor.php:579
+msgid "Descrição por região"
+msgstr ""
+
+#: includes/class-elementor.php:581
+msgid "Explore oportunidades conforme sua localização."
+msgstr ""
+
+#: includes/class-elementor.php:589
+msgid "Quantidade de destaques"
+msgstr ""
+
+#: includes/class-elementor.php:601
+msgid "Bloco adicional (HTML opcional)"
+msgstr ""
+
+#: includes/class-elementor.php:603
+msgid "<p>Destaque personalizado para os cursos.</p>"
+msgstr ""
+
+#: questoes/views/question-bank.php:26
+msgid "Banco de questões comentadas"
+msgstr ""
+
+#: questoes/views/question-bank.php:31
+msgid "Acesse %1$s questões organizadas em %2$s categorias, %3$s bancas e %4$s assuntos para aprofundar seus estudos."
+msgstr ""
+
+#: questoes/views/question-bank.php:45 questoes/views/question-search.php:58
+msgid "Questões disponíveis"
+msgstr ""
+
+#: questoes/views/question-bank.php:48
+msgid "Categorias mapeadas"
+msgstr ""
+
+#: questoes/views/question-bank.php:51
+msgid "Bancas ativas"
+msgstr ""
+
+#: questoes/views/question-bank.php:54
+msgid "Assuntos detalhados"
+msgstr ""
+
+#: questoes/views/question-bank.php:60
+msgid "Banco Questões"
+msgstr ""
+
+#: questoes/views/question-bank.php:66 questoes/views/question-search.php:79
+msgid "%s questões por página"
+msgstr ""
+
+#: questoes/views/question-bank.php:88
+msgid "Filtros inteligentes"
+msgstr ""
+
+#: questoes/views/question-bank.php:89
+msgid "Combine temas, bancas e níveis para personalizar seu treino."
+msgstr ""
+
+#: questoes/views/question-search.php:29
+msgid "Pesquisar banco de questões"
+msgstr ""
+
+#: questoes/views/question-search.php:30
+msgid "Combine filtros avançados, pesquise por palavra-chave e visualize as questões certas para o seu treino."
+msgstr ""
+
+#: questoes/views/question-search.php:37
+msgid "Busca avançada"
+msgstr ""
+
+#: questoes/views/question-search.php:45
+msgid "%s resultados por página"
+msgstr ""
+
+#: questoes/views/question-search.php:49
+msgid "Questões indexadas"
+msgstr ""
+
+#: questoes/views/question-search.php:52
+msgid "Categorias ativas"
+msgstr ""
+
+#: questoes/views/question-search.php:55
+msgid "Bancas monitoradas"
+msgstr ""
+
+#: questoes/views/question-search.php:61
+msgid "Assuntos disponíveis"
+msgstr ""
+
+#: questoes/views/question-search.php:87
+msgid "Configure sua busca"
+msgstr ""
+
+#: questoes/views/question-search.php:88
+msgid "Defina palavra-chave, banca, formato e dificuldade antes de buscar."
+msgstr ""
+
+#: questoes/views/discipline-browser.php:30
+msgid "Disciplinas em destaque"
+msgstr ""
+
+#: questoes/views/discipline-browser.php:32
+msgid "Mapeamos %1$s disciplinas distribuídas em %2$s áreas com %3$s questões comentadas para orientar seus estudos."
+msgstr ""
+
+#: questoes/views/discipline-browser.php:41
+msgid "Mapa de disciplinas"
+msgstr ""
+
+#: questoes/views/discipline-browser.php:45
+msgid "Disciplinas catalogadas"
+msgstr ""
+
+#: questoes/views/discipline-browser.php:48
+msgid "Áreas de formação"
+msgstr ""
+
+#: questoes/views/discipline-browser.php:51
+msgid "Comentários publicados"
+msgstr ""
+
+#: questoes/views/course-browser.php:22
+msgid "Catálogo de cursos"
+msgstr ""
+
+#: questoes/views/course-browser.php:23
+msgid "Explore %1$s cursos organizados em %2$s recortes regionais e acompanhe as estatísticas do banco de questões."
+msgstr ""
+
+#: questoes/views/course-browser.php:30
+msgid "Mapa de oportunidades"
+msgstr ""
+
+#: questoes/views/course-browser.php:36
+msgid "%s destaques selecionados"
+msgstr ""
+
+#: questoes/views/course-browser.php:42
+msgid "Cursos ativos"
+msgstr ""
+
+#: questoes/views/course-browser.php:90
+msgid "Questões no banco"
+msgstr ""
+
+#: questoes/views/course-browser.php:48
+msgid "Regiões mapeadas"
+msgstr ""
+
+#: questoes/includes/helpers.php:201
+msgid "Salários iniciais"
+msgstr ""
+
+#: questoes/includes/helpers.php:208 questoes/includes/class-admin.php:266
+msgid "Oportunidades"
+msgstr ""
+
+#: questoes/includes/class-courses.php:514
+msgid "Você não tem permissão para criar cursos."
+msgstr ""
+
+#: questoes/includes/class-courses.php:522
+msgid "Informe um título válido para o curso."
+msgstr ""
+
+#: questoes/includes/class-courses.php:582
+msgid "Você não tem permissão para criar categorias."
+msgstr ""
+
+#: questoes/includes/class-courses.php:590
+msgid "Informe um nome para a categoria."
+msgstr ""
+
+#: questoes/includes/class-courses.php:615
+msgid "Você não tem permissão para criar bancas."
+msgstr ""
+
+#: questoes/includes/class-courses.php:623
+msgid "Informe um nome para a banca."
+msgstr ""
+
+#: questoes/includes/class-courses.php:659
+msgid "Curso “%s” criado com sucesso."
+msgstr ""
+
+#: questoes/includes/class-courses.php:659
+msgid "sem título"
+msgstr ""
+
+#: questoes/includes/class-courses.php:662
+msgid "Categoria “%s” criada com sucesso."
+msgstr ""
+
+#: questoes/includes/class-courses.php:662 questoes/includes/class-courses.php:665
+msgid "sem nome"
+msgstr ""
+
+#: questoes/includes/class-courses.php:665
+msgid "Banca “%s” criada com sucesso."
+msgstr ""
+
+#: questoes/includes/class-courses.php:674
+msgid "Não foi possível criar o curso."
+msgstr ""
+
+#: questoes/includes/class-courses.php:677
+msgid "Não foi possível criar a categoria."
+msgstr ""
+
+#: questoes/includes/class-courses.php:680
+msgid "Não foi possível criar a banca."
+msgstr ""
+
+#: questoes/includes/class-admin.php:244
+msgid "Cadastro rápido de catálogo"
+msgstr ""
+
+#: questoes/includes/class-admin.php:245
+msgid "Adicione cursos, categorias e bancas sem sair desta página. Ideal para validar o layout do shortcode rapidamente."
+msgstr ""
+
+#: questoes/includes/class-admin.php:251 questoes/includes/class-admin.php:306
+msgid "Criar curso"
+msgstr ""
+
+#: questoes/includes/class-admin.php:252
+msgid "Informe os principais dados do curso. Você poderá editar detalhes avançados depois."
+msgstr ""
+
+#: questoes/includes/class-admin.php:254
+msgid "Título do curso"
+msgstr ""
+
+#: questoes/includes/class-admin.php:258
+msgid "Resumo curto sobre o diferencial do curso."
+msgstr ""
+
+#: questoes/includes/class-admin.php:262
+msgid "Faixa salarial"
+msgstr ""
+
+#: questoes/includes/class-admin.php:263
+msgid "Ex.: Até R$ 6.800,00"
+msgstr ""
+
+#: questoes/includes/class-admin.php:267
+msgid "Ex.: 1.200 vagas previstas"
+msgstr ""
+
+#: questoes/includes/class-admin.php:271 questoes/includes/class-courses.php:240
+msgid "Selo"
+msgstr ""
+
+#: questoes/includes/class-admin.php:277 questoes/includes/class-courses.php:252
+msgid "Link do curso"
+msgstr ""
+
+#: questoes/includes/class-admin.php:294
+msgid "Categorias (separe por vírgulas)"
+msgstr ""
+
+#: questoes/includes/class-admin.php:295
+msgid "Ex.: Segurança Pública, Tribunais"
+msgstr ""
+
+#: questoes/includes/class-admin.php:297
+msgid "Bancas (separe por vírgulas)"
+msgstr ""
+
+#: questoes/includes/class-admin.php:298
+msgid "Ex.: Cebraspe, Vunesp"
+msgstr ""
+
+#: questoes/includes/class-admin.php:303
+msgid "Destacar na vitrine"
+msgstr ""
+
+#: questoes/includes/class-admin.php:312 questoes/includes/class-admin.php:321
+msgid "Criar categoria"
+msgstr ""
+
+#: questoes/includes/class-admin.php:313
+msgid "Ideal para organizar os cursos em disciplinas ou áreas."
+msgstr ""
+
+#: questoes/includes/class-admin.php:315
+msgid "Nome da categoria"
+msgstr ""
+
+#: questoes/includes/class-admin.php:318
+msgid "Descrição (opcional)"
+msgstr ""
+
+#: questoes/includes/class-admin.php:327 questoes/includes/class-admin.php:333
+msgid "Criar banca"
+msgstr ""
+
+#: questoes/includes/class-admin.php:328
+msgid "Cadastre bancas organizadoras para relacionar aos cursos."
+msgstr ""
+
+#: questoes/includes/class-admin.php:330
+msgid "Nome da banca"
+msgstr ""
+
+#: questoes/includes/class-admin.php:352
+msgid "O pacote sugerido inclui Polícia Militar de SP, INSS, Polícia Federal, Banco do Brasil, TJ-RJ e TCU para validar o layout apresentado."
+msgstr ""
