@@ -1,0 +1,51 @@
+.academia-simulados-meta {
+    background: #fff;
+    border: 1px solid #c3e3f3;
+    padding: 16px;
+    border-radius: 6px;
+}
+
+.academia-simulados-question {
+    background: #f6f7fb;
+    border: 1px solid #d0d4e4;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
+
+.academia-simulados-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.academia-simulados-question-header h3 {
+    margin: 0;
+}
+
+.academia-simulados-answer {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.academia-simulados-answer input[type="text"] {
+    flex: 1;
+}
+
+.academia-simulados-correct {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.academia-remove-question,
+.remove-answer {
+    color: #b32d2e;
+    font-size: 20px;
+}
+
+.academia-remove-question:hover,
+.remove-answer:hover {
+    color: #8c1f20;
+}
