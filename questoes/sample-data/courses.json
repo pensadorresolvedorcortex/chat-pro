@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Polícia Militar do Estado de São Paulo",
+    "slug": "policia-militar-sp",
+    "highlight": "Treinamento completo com legislação, condicionamento físico e simulados operacionais semanais.",
+    "salary": "Até R$ 8.852,21",
+    "opportunities": "1.200 vagas previstas",
+    "badge": "Em alta",
+    "featured": true,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/pm-sp",
+    "questions": 342,
+    "comments": 58,
+    "priority": 90,
+    "categories": [
+      "Segurança Pública"
+    ],
+    "boards": [
+      "Vunesp"
+    ]
+  },
+  {
+    "title": "Instituto Nacional do Seguro Social",
+    "slug": "inss-analista",
+    "highlight": "Planos de estudo atualizados com foco em previdência, direito administrativo e raciocínio lógico.",
+    "salary": "Até R$ 9.506,79",
+    "opportunities": "Concurso nacional em destaque",
+    "badge": "Em alta",
+    "featured": true,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/inss",
+    "questions": 410,
+    "comments": 72,
+    "priority": 85,
+    "categories": [
+      "Administrativo"
+    ],
+    "boards": [
+      "Cebraspe"
+    ]
+  },
+  {
+    "title": "Departamento de Polícia Federal",
+    "slug": "pf-agente",
+    "highlight": "Trilhas estratégicas com resolução de casos, inteligência e legislação penal aplicada.",
+    "salary": "Até R$ 12.522,50",
+    "opportunities": "Vagas em todo o Brasil",
+    "badge": "Em alta",
+    "featured": true,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/pf",
+    "questions": 368,
+    "comments": 64,
+    "priority": 80,
+    "categories": [
+      "Segurança Pública"
+    ],
+    "boards": [
+      "Cebraspe"
+    ]
+  },
+  {
+    "title": "Banco do Brasil",
+    "slug": "banco-do-brasil",
+    "highlight": "Aulas focadas em atendimento consultivo, vendas e matemática financeira aplicada ao varejo bancário.",
+    "salary": "Até R$ 5.436,00",
+    "opportunities": "Concurso nacional",
+    "badge": "Em alta",
+    "featured": false,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/bb",
+    "questions": 295,
+    "comments": 51,
+    "priority": 70,
+    "categories": [
+      "Instituições Financeiras"
+    ],
+    "boards": [
+      "Fundação Cesgranrio"
+    ]
+  },
+  {
+    "title": "Tribunal de Justiça do Rio de Janeiro",
+    "slug": "tribunal-justica-rj",
+    "highlight": "Mentorias de peças processuais, língua portuguesa e administração judiciária com correção individual.",
+    "salary": "Até R$ 9.072,05",
+    "opportunities": "Concursos regionais em preparação",
+    "badge": "Em alta",
+    "featured": false,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/tj-rj",
+    "questions": 312,
+    "comments": 39,
+    "priority": 65,
+    "categories": [
+      "Tribunais"
+    ],
+    "boards": [
+      "FGV"
+    ]
+  },
+  {
+    "title": "Tribunal de Contas da União",
+    "slug": "tcu-auditor",
+    "highlight": "Preparação premium com análise de acórdãos, controle externo e simulados discursivos supervisionados.",
+    "salary": "Até R$ 21.947,82",
+    "opportunities": "Edital aguardado",
+    "badge": "Em alta",
+    "featured": false,
+    "cta": "Ver cursos disponíveis",
+    "url": "https://exemplo.com/curso/tcu",
+    "questions": 284,
+    "comments": 47,
+    "priority": 60,
+    "categories": [
+      "Controle e Auditoria"
+    ],
+    "boards": [
+      "Cebraspe"
+    ]
+  }
+]
