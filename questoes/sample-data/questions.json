@@ -1,0 +1,986 @@
+{
+  "title": "Pacote atualizado de questões comentadas",
+  "description": "Coleção com 20 questões inéditas de comunicação integrada e digital, alinhadas à identidade Questões",
+  "questions": [
+    {
+      "title": "Diagnóstico estratégico em comunicação",
+      "slug": "diagnostico-estrategico-comunicacao",
+      "content": "<p>Uma autarquia federal pretende alinhar sua comunicação à estratégia institucional. Qual etapa deve ser concluída antes da definição de objetivos específicos?</p>",
+      "explanation": "O diagnóstico situa contextos, públicos e percepções, oferecendo insumos para objetivos realistas e alinhados à estratégia global.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Simulado Academia da Comunicação",
+      "source_url": "https://academiadacomunicacao.example/simulados/planejamento-integrado-2024.pdf",
+      "reference": "Kunsch, Planejamento de Relações Públicas",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Organizacional"
+      ],
+      "subjects": [
+        "Planejamento de Comunicação"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Elaboração da identidade visual definitiva da campanha.",
+          "is_correct": false,
+          "feedback": "Identidade visual deriva de posicionamento e objetivos."
+        },
+        {
+          "text": "Mapeamento de riscos reputacionais por meio de matriz GUT.",
+          "is_correct": false,
+          "feedback": "A matriz GUT é útil na gestão de riscos, mas depende de um diagnóstico prévio robusto."
+        },
+        {
+          "text": "Diagnóstico situacional com análise de cenário e stakeholders.",
+          "is_correct": true,
+          "feedback": "O diagnóstico antecipa forças, fraquezas e expectativas dos públicos estratégicos."
+        },
+        {
+          "text": "Prototipagem das principais peças de comunicação multicanal.",
+          "is_correct": false,
+          "feedback": "Prototipagem ocorre após a definição de objetivos, estratégias e mensagens-chave."
+        },
+        {
+          "text": "Definição do orçamento e das métricas de mensuração.",
+          "is_correct": false,
+          "feedback": "Orçamento e indicadores são derivados de objetivos e estratégias já validados."
+        }
+      ]
+    },
+    {
+      "title": "Mensagens em planos de crise",
+      "slug": "mensagens-planos-crise",
+      "content": "<p>No plano de gerenciamento de crise comunicacional, que critério orienta a priorização de mensagens-chave para cada público?</p>",
+      "explanation": "Priorizar mensagens conforme a criticidade do público permite respostas dirigidas às suas demandas específicas, reduzindo ruídos.",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Curso Academia da Comunicação",
+      "source_url": "https://academiadacomunicacao.example/crises/manual-respostas.pdf",
+      "reference": "Fearn-Banks, Crisis Communications",
+      "estimated_time": 4,
+      "categories": [
+        "Gestão de Crise"
+      ],
+      "subjects": [
+        "Planos de Contingência"
+      ],
+      "bancas": [
+        "CESPE"
+      ],
+      "answers": [
+        {
+          "text": "Uso de linguagem formal padronizada independentemente do público.",
+          "is_correct": false,
+          "feedback": "Padronização excessiva ignora necessidades específicas e agrava o ruído."
+        },
+        {
+          "text": "Segmentação por criticidade e influência dos stakeholders afetados.",
+          "is_correct": true,
+          "feedback": "Segmentar por criticidade garante foco nos públicos que definem a estabilidade reputacional."
+        },
+        {
+          "text": "Disponibilização de respostas apenas por meio de comunicados escritos.",
+          "is_correct": false,
+          "feedback": "Canais precisam ser adaptados ao hábito e urgência de cada público."
+        },
+        {
+          "text": "Prioridade para porta-vozes internos de nível operacional.",
+          "is_correct": false,
+          "feedback": "A hierarquia do porta-voz depende do cenário e nem sempre recai sobre níveis operacionais."
+        },
+        {
+          "text": "Construção de discursos longos e técnicos para demonstrar domínio.",
+          "is_correct": false,
+          "feedback": "Mensagens extensas podem ser mal recebidas em contextos críticos que pedem clareza."
+        }
+      ]
+    },
+    {
+      "title": "Definição de KPIs digitais",
+      "slug": "definicao-kpis-digitais",
+      "content": "<p>Uma equipe deseja medir o impacto de uma campanha omnichannel. Qual abordagem é adequada para definir indicadores de desempenho?</p>",
+      "explanation": "KPIs devem ser conectados aos objetivos SMART de comunicação e acompanhar a jornada dos públicos, garantindo análise comparável.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Laboratório Questões",
+      "source_url": "https://academiadacomunicacao.example/labs/kpis-omnichannel.pdf",
+      "reference": "Kotler & Keller, Marketing 5.0",
+      "estimated_time": 3,
+      "categories": [
+        "Marketing Digital"
+      ],
+      "subjects": [
+        "Métricas e Analytics"
+      ],
+      "bancas": [
+        "FCC"
+      ],
+      "answers": [
+        {
+          "text": "Reutilizar indicadores genéricos de campanhas passadas, mesmo que mudem os objetivos.",
+          "is_correct": false,
+          "feedback": "Indicadores devem refletir objetivos atuais; replicá-los sem análise reduz a relevância."
+        },
+        {
+          "text": "Relacionar métricas às fases da jornada do público e aos objetivos SMART definidos.",
+          "is_correct": true,
+          "feedback": "A conexão com objetivos específicos garante monitoramento útil para ajustes e prestação de contas."
+        },
+        {
+          "text": "Selecionar apenas métricas de vaidade para simplificar relatórios executivos.",
+          "is_correct": false,
+          "feedback": "Métricas de vaidade não traduzem resultado estratégico nem permitem otimização eficaz."
+        },
+        {
+          "text": "Adotar indicadores idênticos para comunicação interna e externa.",
+          "is_correct": false,
+          "feedback": "Cada frente possui públicos e metas distintas, demandando métricas específicas."
+        },
+        {
+          "text": "Evitar cruzamento de dados qualitativos com dados quantitativos.",
+          "is_correct": false,
+          "feedback": "A triangulação qualitativa-quantitativa amplia a compreensão sobre impacto e reputação."
+        }
+      ]
+    },
+    {
+      "title": "Storytelling institucional",
+      "slug": "storytelling-institucional",
+      "content": "<p>Ao desenvolver uma narrativa institucional para apresentar conquistas anuais, qual elemento garante conexão emocional sem perder o foco estratégico?</p>",
+      "explanation": "Personas reais ou representativas traduzem impactos concretos e aproximam a narrativa de públicos diversos sem sair do roteiro estratégico.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Relatório Questões",
+      "source_url": "https://academiadacomunicacao.example/relatorios/storytelling-2022.pdf",
+      "reference": "Fog, Budtz & Yakaboylu, Storytelling",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Institucional"
+      ],
+      "subjects": [
+        "Storytelling"
+      ],
+      "bancas": [
+        "IBFC"
+      ],
+      "answers": [
+        {
+          "text": "Detalhar processos internos com linguagem técnica e sem personagens.",
+          "is_correct": false,
+          "feedback": "A ausência de personagens reduz a identificação do público com a história contada."
+        },
+        {
+          "text": "Apresentar personas que vivenciaram os resultados junto aos dados estratégicos.",
+          "is_correct": true,
+          "feedback": "Personas humanizam indicadores e conectam os resultados à transformação gerada."
+        },
+        {
+          "text": "Restringir a narrativa aos marcos financeiros do período.",
+          "is_correct": false,
+          "feedback": "Narrativas puramente financeiras podem soar frias e pouco mobilizadoras."
+        },
+        {
+          "text": "Eliminar gráficos e substituir por textos extensos.",
+          "is_correct": false,
+          "feedback": "Visualizações auxiliam na compreensão e reforçam a credibilidade da narrativa."
+        },
+        {
+          "text": "Usar trilha sonora dramática independente do contexto apresentado.",
+          "is_correct": false,
+          "feedback": "Elementos sonoros devem respeitar o contexto e o tom institucional."
+        }
+      ]
+    },
+    {
+      "title": "Governança de conteúdo",
+      "slug": "governanca-de-conteudo",
+      "content": "<p>Uma empresa pública quer garantir coerência editorial entre equipes regionais. Qual prática fortalece a governança de conteúdo?</p>",
+      "explanation": "Um manual vivo consolida tom, estilo, critérios de aprovação e responsabilidades, servindo como referência compartilhada.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Oficina Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/governanca-conteudo.pdf",
+      "reference": "Content Strategy Alliance, Governance Framework",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Gestão de Conteúdo"
+      ],
+      "bancas": [
+        "Quadrix"
+      ],
+      "answers": [
+        {
+          "text": "Permitir que cada unidade publique de forma autônoma sem diretrizes.",
+          "is_correct": false,
+          "feedback": "A ausência de diretrizes aumenta inconsistências e riscos reputacionais."
+        },
+        {
+          "text": "Criar um manual vivo com tom, processos de aprovação e responsáveis.",
+          "is_correct": true,
+          "feedback": "Documentar decisões e fluxos favorece padronização e aprendizado contínuo."
+        },
+        {
+          "text": "Centralizar toda produção apenas na matriz, bloqueando adaptações regionais.",
+          "is_correct": false,
+          "feedback": "Centralização rígida pode ignorar contextos locais e gerar ineficiências."
+        },
+        {
+          "text": "Definir que somente campanhas pagas devem ser monitoradas.",
+          "is_correct": false,
+          "feedback": "A governança deve alcançar tanto conteúdos orgânicos quanto pagos."
+        },
+        {
+          "text": "Excluir representantes das unidades nas decisões editoriais.",
+          "is_correct": false,
+          "feedback": "A governança participativa promove alinhamento e senso de responsabilidade conjunta."
+        }
+      ]
+    },
+    {
+      "title": "Inclusão e acessibilidade em campanhas",
+      "slug": "inclusao-acessibilidade-campanhas",
+      "content": "<p>Ao planejar peças digitais acessíveis, qual ação garante conformidade com WCAG 2.1 e inclusão efetiva?</p>",
+      "explanation": "Testes com usuários diversos verificam se as diretrizes foram corretamente aplicadas e ampliam a percepção de barreiras reais.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Guia Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/inclusao-acessibilidade.pdf",
+      "reference": "W3C, Web Content Accessibility Guidelines",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Acessibilidade"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Garantir contraste elevado e testar com usuários com diferentes necessidades.",
+          "is_correct": true,
+          "feedback": "Contraste é requisito mínimo, e testes com usuários validam a experiência inclusiva."
+        },
+        {
+          "text": "Evitar legendas para agilizar a edição de vídeos institucionais.",
+          "is_correct": false,
+          "feedback": "Legendas são fundamentais para acessibilidade e compreensão geral."
+        },
+        {
+          "text": "Utilizar apenas ícones sem rótulos textuais.",
+          "is_correct": false,
+          "feedback": "Textos alternativos garantem entendimento por leitores de tela e pessoas com baixa visão."
+        },
+        {
+          "text": "Adotar fontes decorativas em todas as peças para chamar atenção.",
+          "is_correct": false,
+          "feedback": "Fontes decorativas prejudicam a legibilidade e podem ferir critérios de acessibilidade."
+        },
+        {
+          "text": "Publicar vídeos com áudio automático quando a página carregar.",
+          "is_correct": false,
+          "feedback": "Áudio automático pode causar barreiras de navegação e acessibilidade."
+        }
+      ]
+    },
+    {
+      "title": "Matriz de conteúdo evergreen",
+      "slug": "matriz-conteudo-evergreen",
+      "content": "<p>Uma secretaria quer manter consistência informativa em canais digitais ao longo do ano. Qual abordagem é recomendada?</p>",
+      "explanation": "Uma matriz evergreen mapeia tópicos atemporais, formatos e atualizações periódicas, garantindo presença contínua e alinhada à missão.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2021,
+      "source": "Workshop Questões",
+      "source_url": "https://academiadacomunicacao.example/workshops/matriz-evergreen.pdf",
+      "reference": "Content Marketing Institute",
+      "estimated_time": 2,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Planejamento Editorial"
+      ],
+      "bancas": [
+        "Vunesp"
+      ],
+      "answers": [
+        {
+          "text": "Produzir apenas conteúdos reativos às notícias do dia.",
+          "is_correct": false,
+          "feedback": "Conteúdo apenas reativo dificulta construção de presença consistente."
+        },
+        {
+          "text": "Mapear temas perenes, formatos e responsáveis em uma matriz revisada periodicamente.",
+          "is_correct": true,
+          "feedback": "A matriz organiza responsabilidades e garante atualização constante de temas estratégicos."
+        },
+        {
+          "text": "Concentrar esforços apenas em posts patrocinados.",
+          "is_correct": false,
+          "feedback": "Presença orgânica e estruturada é essencial para relacionamento contínuo."
+        },
+        {
+          "text": "Delegar a produção a cada área sem alinhamento central.",
+          "is_correct": false,
+          "feedback": "Sem coordenação, a mensagem institucional se fragmenta rapidamente."
+        },
+        {
+          "text": "Reduzir o calendário para um único canal para simplificar a operação.",
+          "is_correct": false,
+          "feedback": "Diversos canais, quando integrados, ampliam o alcance e a relevância."
+        }
+      ]
+    },
+    {
+      "title": "Mensuração de engajamento interno",
+      "slug": "mensuracao-engajamento-interno",
+      "content": "<p>Uma empresa deseja avaliar o engajamento dos colaboradores com a nova intranet. Que métrica combinada fortalece a análise?</p>",
+      "explanation": "Combinar métricas de uso com feedback qualitativo identifica barreiras e oportunidades de melhoria na experiência interna.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Relatório Questões",
+      "source_url": "https://academiadacomunicacao.example/relatorios/intranet-engajamento.pdf",
+      "reference": "Gallup Workplace Analytics",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Interna"
+      ],
+      "subjects": [
+        "Employee Experience"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Quantidade de posts publicados pela equipe de comunicação.",
+          "is_correct": false,
+          "feedback": "Posts publicados não refletem, por si só, o engajamento dos colaboradores."
+        },
+        {
+          "text": "Combinação de tempo médio de sessão com pesquisa de satisfação dos usuários.",
+          "is_correct": true,
+          "feedback": "Métricas de uso somadas à percepção dos usuários oferecem visão holística do engajamento."
+        },
+        {
+          "text": "Número de acessos anônimos à intranet.",
+          "is_correct": false,
+          "feedback": "Acessos anônimos não permitem analisar comportamento ou percepção de valor."
+        },
+        {
+          "text": "Total de comunicados enviados por e-mail.",
+          "is_correct": false,
+          "feedback": "Comunicações emitidas não asseguram interação nem aderência dos colaboradores."
+        },
+        {
+          "text": "Quantidade de atualizações técnicas implementadas.",
+          "is_correct": false,
+          "feedback": "Atualizações podem contribuir, mas não mensuram engajamento diretamente."
+        }
+      ]
+    },
+    {
+      "title": "Curadoria em redes sociais",
+      "slug": "curadoria-redes-sociais",
+      "content": "<p>Para uma política de curadoria em redes sociais corporativas, qual critério deve ser priorizado antes da redistribuição de conteúdo de terceiros?</p>",
+      "explanation": "Verificar a credibilidade e alinhamento do conteúdo externo protege a reputação e reforça coerência narrativa.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Manual Questões",
+      "source_url": "https://academiadacomunicacao.example/manuais/politica-curadoria.pdf",
+      "reference": "IABC, Social Media Governance",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Gestão de Redes Sociais"
+      ],
+      "bancas": [
+        "CESPE"
+      ],
+      "answers": [
+        {
+          "text": "Preferir conteúdo viral sem checar a fonte para aproveitar o alcance.",
+          "is_correct": false,
+          "feedback": "Viralização não garante confiabilidade e pode prejudicar a imagem institucional."
+        },
+        {
+          "text": "Verificar credibilidade, autor e alinhamento com a narrativa institucional.",
+          "is_correct": true,
+          "feedback": "A curadoria responsável seleciona conteúdos coerentes com valores e objetivos da organização."
+        },
+        {
+          "text": "Repostar apenas conteúdos que mencionem a instituição nominalmente.",
+          "is_correct": false,
+          "feedback": "Conteúdos relevantes podem não citar a organização diretamente, mas ainda assim contribuir para a narrativa."
+        },
+        {
+          "text": "Eliminar qualquer conteúdo externo para manter exclusividade.",
+          "is_correct": false,
+          "feedback": "A curadoria adequada valoriza fontes externas confiáveis e complementares."
+        },
+        {
+          "text": "Automatizar o compartilhamento sem revisão humana.",
+          "is_correct": false,
+          "feedback": "A revisão humana evita incoerências, fake news e desalinhamentos estratégicos."
+        }
+      ]
+    },
+    {
+      "title": "Employer branding e narrativa",
+      "slug": "employer-branding-narrativa",
+      "content": "<p>Na construção de um posicionamento de marca empregadora, qual elemento ajuda a consolidar autenticidade?</p>",
+      "explanation": "Histórias reais de colaboradores, conectadas a dados de clima e desenvolvimento, reforçam autenticidade e evitam promessas vazias.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Guia Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/employer-branding.pdf",
+      "reference": "Universum, Employer Branding",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Interna"
+      ],
+      "subjects": [
+        "Marca Empregadora"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Prometer benefícios que ainda não existem na empresa.",
+          "is_correct": false,
+          "feedback": "Promessas vazias minam a credibilidade do posicionamento."
+        },
+        {
+          "text": "Apresentar depoimentos reais alinhados a indicadores de clima organizacional.",
+          "is_correct": true,
+          "feedback": "Testemunhos verídicos reforçam confiança e demonstram coerência entre discurso e prática."
+        },
+        {
+          "text": "Ocultar desafios internos para preservar a imagem institucional.",
+          "is_correct": false,
+          "feedback": "Transparência sobre desafios fortalece a confiança do público-alvo."
+        },
+        {
+          "text": "Focar apenas em benefícios financeiros e ignorar desenvolvimento profissional.",
+          "is_correct": false,
+          "feedback": "Employer branding abrange cultura, aprendizado e propósito, além da remuneração."
+        },
+        {
+          "text": "Restringir a narrativa ao discurso da diretoria.",
+          "is_correct": false,
+          "feedback": "Multiplicidade de vozes legitima o posicionamento e amplia a identificação."
+        }
+      ]
+    },
+    {
+      "title": "Organização de press kits digitais",
+      "slug": "organizacao-press-kits-digitais",
+      "content": "<p>Uma assessoria prepara press kits para lançamento de programa social. Qual medida facilita o trabalho da imprensa e fortalece o relacionamento?</p>",
+      "explanation": "Press kits com informações completas, dados verificáveis e contatos agilizam a produção jornalística e demonstram profissionalismo.",
+      "difficulty": "easy",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Media Center Questões",
+      "source_url": "https://academiadacomunicacao.example/press/kit-programa-social.pdf",
+      "reference": "Cury, Assessoria de Imprensa",
+      "estimated_time": 2,
+      "categories": [
+        "Relações com a Mídia"
+      ],
+      "subjects": [
+        "Press Kit"
+      ],
+      "bancas": [
+        "FCC"
+      ],
+      "answers": [
+        {
+          "text": "Disponibilizar materiais com dados checados, fotos, contatos e perguntas frequentes.",
+          "is_correct": true,
+          "feedback": "Informações completas reduzem retrabalho dos jornalistas e ampliam a cobertura positiva."
+        },
+        {
+          "text": "Enviar apenas um parágrafo de release sem contatos de porta-voz.",
+          "is_correct": false,
+          "feedback": "Informações incompletas dificultam a produção da matéria e reduzem o interesse."
+        },
+        {
+          "text": "Impor exclusividade para todos os veículos, sem exceção.",
+          "is_correct": false,
+          "feedback": "Exclusividades devem ser estratégicas; impor regra geral pode prejudicar alcance."
+        },
+        {
+          "text": "Fornecer apenas imagens em baixa resolução para acelerar o envio.",
+          "is_correct": false,
+          "feedback": "Imagens de baixa qualidade comprometem a publicação e a percepção profissional."
+        },
+        {
+          "text": "Retirar números e dados para evitar comparações indesejadas.",
+          "is_correct": false,
+          "feedback": "Dados são essenciais para contextualizar o impacto do programa social."
+        }
+      ]
+    },
+    {
+      "title": "Planejamento de eventos híbridos",
+      "slug": "planejamento-eventos-hibridos",
+      "content": "<p>Ao planejar um evento híbrido institucional, que ação assegura experiência integrada ao público remoto e presencial?</p>",
+      "explanation": "Ensaiar com time de streaming e mestres de cerimônia garante sincronia de conteúdo e interação em todos os canais.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Guia Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/eventos-hibridos.pdf",
+      "reference": "PCO, Eventos Híbridos",
+      "estimated_time": 3,
+      "categories": [
+        "Eventos e Live Marketing"
+      ],
+      "subjects": [
+        "Produção de Eventos"
+      ],
+      "bancas": [
+        "Quadrix"
+      ],
+      "answers": [
+        {
+          "text": "Ensaiar roteiros com a equipe de streaming e equipe de palco para sincronizar interações.",
+          "is_correct": true,
+          "feedback": "Ensaios prévios garantem que o público remoto receba a mesma experiência planejada para o presencial."
+        },
+        {
+          "text": "Focar apenas na experiência presencial, transmitindo o sinal bruto para a internet.",
+          "is_correct": false,
+          "feedback": "O público remoto requer adaptação de linguagem, conteúdo e interatividade."
+        },
+        {
+          "text": "Evitar recursos de chat ou perguntas online para simplificar a produção.",
+          "is_correct": false,
+          "feedback": "Interação digital é pilar dos eventos híbridos e fortalece o engajamento."
+        },
+        {
+          "text": "Elaborar duas narrativas distintas sem alinhamento entre elas.",
+          "is_correct": false,
+          "feedback": "A unidade narrativa é fundamental para reforçar a mensagem institucional."
+        },
+        {
+          "text": "Delegar a moderação das interações apenas ao público presente.",
+          "is_correct": false,
+          "feedback": "A moderação deve contemplar interações presenciais e online para equilíbrio."
+        }
+      ]
+    },
+    {
+      "title": "Brand journalism",
+      "slug": "brand-journalism",
+      "content": "<p>Uma organização quer fortalecer seu hub de brand journalism. Qual estratégia garante credibilidade editorial?</p>",
+      "explanation": "Conteúdo baseado em dados e entrevistas independentes, publicado com transparência sobre fontes, aproxima o hub de boas práticas jornalísticas.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Portal Questões",
+      "source_url": "https://academiadacomunicacao.example/brand-journalism/hub-transparencia.pdf",
+      "reference": "Gilligan, Brand Journalism",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Conteúdo Corporativo"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Selecionar apenas histórias positivas e ocultar dados críticos.",
+          "is_correct": false,
+          "feedback": "Transparência é essencial para credibilidade; omitir dados fragiliza a confiança."
+        },
+        {
+          "text": "Publicar matérias baseadas em dados verificados e entrevistas externas.",
+          "is_correct": true,
+          "feedback": "A combinação de dados e vozes independentes confere legitimidade jornalística ao hub."
+        },
+        {
+          "text": "Assinar todos os conteúdos somente com o nome da marca.",
+          "is_correct": false,
+          "feedback": "Identificar repórteres e especialistas mostra accountability editorial."
+        },
+        {
+          "text": "Restringir o acesso às matérias a colaboradores internos.",
+          "is_correct": false,
+          "feedback": "O objetivo do brand journalism é ampliar o diálogo com públicos externos."
+        },
+        {
+          "text": "Substituir entrevistas por comunicados promocionais.",
+          "is_correct": false,
+          "feedback": "Comunicados promocionais não atendem ao propósito informativo do brand journalism."
+        }
+      ]
+    },
+    {
+      "title": "Monitoramento de marca em tempo real",
+      "slug": "monitoramento-marca-tempo-real",
+      "content": "<p>Qual combinação de indicadores oferece visão integrada em um painel de monitoramento de marca em tempo real?</p>",
+      "explanation": "Unir sentimento, alcance e volume por canal permite decisões rápidas e fundamentadas para ajustes de comunicação e relacionamento.",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Laboratório Questões",
+      "source_url": "https://academiadacomunicacao.example/labs/painel-monitoramento.pdf",
+      "reference": "Meltwater Trends Report",
+      "estimated_time": 4,
+      "categories": [
+        "Reputação"
+      ],
+      "subjects": [
+        "Monitoramento"
+      ],
+      "bancas": [
+        "CESPE"
+      ],
+      "answers": [
+        {
+          "text": "Somente número de seguidores novos em cada rede social.",
+          "is_correct": false,
+          "feedback": "Seguidores isolados não traduzem percepção ou impacto reputacional."
+        },
+        {
+          "text": "Sentimento, alcance e volume de menções segmentados por canal.",
+          "is_correct": true,
+          "feedback": "Esses indicadores mostram intensidade, qualidade e capilaridade das menções à marca."
+        },
+        {
+          "text": "Quantidade de releases disparados por semana.",
+          "is_correct": false,
+          "feedback": "Releases enviados não mostram repercussão nem reação dos públicos."
+        },
+        {
+          "text": "Tempo de resposta em canais internos apenas.",
+          "is_correct": false,
+          "feedback": "Painéis de marca devem incluir canais externos e percepção pública."
+        },
+        {
+          "text": "Número de materiais produzidos pela agência parceira.",
+          "is_correct": false,
+          "feedback": "Produção interna é insumo, mas não indica percepção da marca no ecossistema."
+        }
+      ]
+    },
+    {
+      "title": "Marketing de influência responsável",
+      "slug": "marketing-influencia-responsavel",
+      "content": "<p>Na seleção de creators para uma campanha pública, qual critério deve ser priorizado para mitigar riscos?</p>",
+      "explanation": "Avaliar histórico, valores e indicadores de conformidade garante que o creator represente a marca com coerência e responsabilidade social.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Guia Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/influencia-responsavel.pdf",
+      "reference": "WARC, Influencer Marketing",
+      "estimated_time": 3,
+      "categories": [
+        "Marketing Digital"
+      ],
+      "subjects": [
+        "Marketing de Influência"
+      ],
+      "bancas": [
+        "IBFC"
+      ],
+      "answers": [
+        {
+          "text": "Basear a escolha apenas no número bruto de seguidores.",
+          "is_correct": false,
+          "feedback": "Seguidores não garantem aderência ética nem afinidade com os valores institucionais."
+        },
+        {
+          "text": "Verificar reputação, histórico de conduta e aderência às políticas públicas envolvidas.",
+          "is_correct": true,
+          "feedback": "Checagem aprofundada reduz riscos de crises e reforça alinhamento com o propósito da campanha."
+        },
+        {
+          "text": "Selecionar creators que promovem qualquer produto para demonstrar versatilidade.",
+          "is_correct": false,
+          "feedback": "Parcerias com baixa coerência podem gerar questionamentos e rejeição."
+        },
+        {
+          "text": "Ignorar contratos formais para agilizar a campanha.",
+          "is_correct": false,
+          "feedback": "Contratos asseguram direitos, deveres e cláusulas de compliance."
+        },
+        {
+          "text": "Restringir a campanha a perfis que não produzem conteúdo regularmente.",
+          "is_correct": false,
+          "feedback": "Consistência de produção é relevante para credibilidade e alcance."
+        }
+      ]
+    },
+    {
+      "title": "Comunicação interna em fusões",
+      "slug": "comunicacao-interna-fusoes",
+      "content": "<p>Durante um processo de fusão, qual ação de comunicação interna contribui para reduzir incertezas dos colaboradores?</p>",
+      "explanation": "Canais bidirecionais permitem endereçar dúvidas em tempo real, fortalecendo a confiança e a transparência no processo.",
+      "difficulty": "hard",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Relatório Questões",
+      "source_url": "https://academiadacomunicacao.example/relatorios/fusao-comunicacao.pdf",
+      "reference": "SHRM, M&A Communications",
+      "estimated_time": 4,
+      "categories": [
+        "Comunicação Interna"
+      ],
+      "subjects": [
+        "Gestão de Mudanças"
+      ],
+      "bancas": [
+        "FGV"
+      ],
+      "answers": [
+        {
+          "text": "Manter silêncio até a conclusão jurídica do processo.",
+          "is_correct": false,
+          "feedback": "Silêncio alimenta boatos e insegurança."
+        },
+        {
+          "text": "Criar canais bidirecionais com FAQs dinâmicas e sessões de perguntas ao vivo.",
+          "is_correct": true,
+          "feedback": "Interação constante reduz incertezas e aumenta a confiança no processo de fusão."
+        },
+        {
+          "text": "Disponibilizar apenas comunicados técnicos escritos.",
+          "is_correct": false,
+          "feedback": "Comunicados unidirecionais não endereçam dúvidas específicas dos colaboradores."
+        },
+        {
+          "text": "Restringir a comunicação aos níveis gerenciais superiores.",
+          "is_correct": false,
+          "feedback": "Todos os níveis precisam ser informados para evitar ruídos e desengajamento."
+        },
+        {
+          "text": "Focar apenas em mensagens motivacionais sem dados concretos.",
+          "is_correct": false,
+          "feedback": "Transparência e dados objetivos dão segurança durante mudanças estruturais."
+        }
+      ]
+    },
+    {
+      "title": "Programas de embaixadores internos",
+      "slug": "programas-embaixadores-internos",
+      "content": "<p>Qual condição é essencial para sustentar um programa de embaixadores internos nas redes sociais?</p>",
+      "explanation": "Treinamento contínuo e suporte editorial asseguram que colaboradores representem a marca com confiança e alinhamento estratégico.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2022,
+      "source": "Guia Questões",
+      "source_url": "https://academiadacomunicacao.example/guias/embaixadores-internos.pdf",
+      "reference": "Hootsuite Employee Advocacy",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Interna"
+      ],
+      "subjects": [
+        "Advocacia de Marca"
+      ],
+      "bancas": [
+        "FCC"
+      ],
+      "answers": [
+        {
+          "text": "Exigir publicações diárias sem apoio do time de comunicação.",
+          "is_correct": false,
+          "feedback": "Pressão sem suporte reduz adesão e qualidade das publicações."
+        },
+        {
+          "text": "Oferecer capacitação, conteúdo base e acompanhamento contínuo.",
+          "is_correct": true,
+          "feedback": "Treinamento e suporte garantem segurança aos colaboradores e coerência à narrativa."
+        },
+        {
+          "text": "Punir colaboradores que não aderirem ao programa.",
+          "is_correct": false,
+          "feedback": "A participação deve ser voluntária e incentivada de forma positiva."
+        },
+        {
+          "text": "Liberar conteúdos sem revisão para acelerar a publicação.",
+          "is_correct": false,
+          "feedback": "Revisão evita erros factuais e mantém o alinhamento com a estratégia institucional."
+        },
+        {
+          "text": "Focar apenas em colaboradores do nível executivo.",
+          "is_correct": false,
+          "feedback": "Diversidade de vozes amplia a representatividade e a autenticidade do programa."
+        }
+      ]
+    },
+    {
+      "title": "Comunicação com comunidades locais",
+      "slug": "comunicacao-comunidades-locais",
+      "content": "<p>Uma estatal que atua em diferentes estados precisa fortalecer a relação com comunidades locais. Qual ação gera confiança?</p>",
+      "explanation": "Mapear lideranças locais e construir agendas participativas permite respostas alinhadas às demandas reais e fortalece a confiança.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Programa Questões",
+      "source_url": "https://academiadacomunicacao.example/programas/comunidades-parceiras.pdf",
+      "reference": "ICCO, Community Relations",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Relacionamento Comunitário"
+      ],
+      "bancas": [
+        "Quadrix"
+      ],
+      "answers": [
+        {
+          "text": "Enviar comunicados padronizados sem participação das lideranças.",
+          "is_correct": false,
+          "feedback": "Comunicados unilaterais não consideram especificidades locais."
+        },
+        {
+          "text": "Mapear lideranças e construir agendas participativas de diálogo.",
+          "is_correct": true,
+          "feedback": "A participação ativa fortalece vínculos, legitima ações e gera confiança duradoura."
+        },
+        {
+          "text": "Realizar encontros apenas virtuais para reduzir custos.",
+          "is_correct": false,
+          "feedback": "Presença local demonstra compromisso e amplia a escuta qualificada."
+        },
+        {
+          "text": "Restringir a comunicação a comunicados de imprensa nacionais.",
+          "is_correct": false,
+          "feedback": "As comunidades demandam canais diretos e adaptados à realidade local."
+        },
+        {
+          "text": "Delegar o relacionamento somente a fornecedores terceirizados.",
+          "is_correct": false,
+          "feedback": "A organização deve se posicionar diretamente para construir confiança genuína."
+        }
+      ]
+    },
+    {
+      "title": "Gestão de comentários em redes sociais",
+      "slug": "gestao-comentarios-redes-sociais",
+      "content": "<p>Para lidar com comentários sensíveis nas redes sociais, qual protocolo ajuda a equipe a responder com rapidez e coerência?</p>",
+      "explanation": "Uma matriz de respostas validada com áreas técnicas e jurídicas oferece segurança às equipes e mantém coerência institucional.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2023,
+      "source": "Manual Questões",
+      "source_url": "https://academiadacomunicacao.example/manuais/protocolo-comentarios.pdf",
+      "reference": "Sprout Social, Social Media Response",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Digital"
+      ],
+      "subjects": [
+        "Atendimento ao Cidadão"
+      ],
+      "bancas": [
+        "CESPE"
+      ],
+      "answers": [
+        {
+          "text": "Responder sempre com mensagens padrão genéricas.",
+          "is_correct": false,
+          "feedback": "Mensagens genéricas não resolvem dúvidas e podem ampliar a insatisfação."
+        },
+        {
+          "text": "Criar matriz de respostas com validação técnica, jurídica e prazos de retorno.",
+          "is_correct": true,
+          "feedback": "A matriz garante alinhamento, rapidez e segurança nas interações."
+        },
+        {
+          "text": "Excluir comentários críticos para evitar repercussão negativa.",
+          "is_correct": false,
+          "feedback": "Excluir críticas sem análise pode gerar acusações de censura e danos reputacionais."
+        },
+        {
+          "text": "Transferir todo atendimento para bots sem supervisão humana.",
+          "is_correct": false,
+          "feedback": "Supervisão humana é necessária para lidar com casos sensíveis e complexos."
+        },
+        {
+          "text": "Responder apenas em horário comercial e ignorar finais de semana.",
+          "is_correct": false,
+          "feedback": "Monitoramento contínuo evita atrasos e escaladas desnecessárias."
+        }
+      ]
+    },
+    {
+      "title": "Campanhas de utilidade pública",
+      "slug": "campanhas-utilidade-publica",
+      "content": "<p>Uma campanha de utilidade pública sobre saúde preventiva precisa alcançar regiões com baixa conectividade. Qual estratégia amplia o alcance?</p>",
+      "explanation": "Combinar mídia offline segmentada com ações presenciais garante capilaridade e adequação cultural à mensagem preventiva.",
+      "difficulty": "medium",
+      "question_type": "multiple_choice",
+      "year": 2024,
+      "source": "Plano Questões",
+      "source_url": "https://academiadacomunicacao.example/planos/utilidade-publica.pdf",
+      "reference": "OMS, Health Communication",
+      "estimated_time": 3,
+      "categories": [
+        "Comunicação Pública"
+      ],
+      "subjects": [
+        "Campanhas de Interesse Público"
+      ],
+      "bancas": [
+        "Vunesp"
+      ],
+      "answers": [
+        {
+          "text": "Concentrar investimentos apenas em mídia programática digital.",
+          "is_correct": false,
+          "feedback": "Regiões com baixa conectividade exigem estratégias offline e presenciais."
+        },
+        {
+          "text": "Integrar rádio comunitária, carros de som e ações presenciais com promotores locais.",
+          "is_correct": true,
+          "feedback": "A combinação garante capilaridade e adapta a mensagem aos contextos regionais."
+        },
+        {
+          "text": "Apostar exclusivamente em anúncios em plataformas de streaming.",
+          "is_correct": false,
+          "feedback": "Streaming atinge apenas parte do público-alvo em áreas com internet limitada."
+        },
+        {
+          "text": "Cancelar a campanha em regiões de difícil acesso.",
+          "is_correct": false,
+          "feedback": "Regiões de difícil acesso exigem ainda mais esforço comunicacional."
+        },
+        {
+          "text": "Utilizar somente cartazes impressos sem apoio de lideranças locais.",
+          "is_correct": false,
+          "feedback": "Lideranças locais amplificam a confiança e a compreensão da mensagem."
+        }
+      ]
+    }
+  ]
+}
