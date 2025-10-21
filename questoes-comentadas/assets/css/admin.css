@@ -1,0 +1,222 @@
+.qc-dashboard {
+    color: #242142;
+}
+
+.qc-dashboard .description {
+    max-width: 720px;
+    font-size: 1.05rem;
+}
+
+.qc-dashboard__cards {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 2rem;
+}
+
+.qc-dashboard__card {
+    background: #c3e3f3;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(36, 33, 66, 0.1);
+}
+
+.qc-dashboard__card-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0.5rem 0 1rem;
+    color: #242142;
+}
+
+.qc-dashboard__progress {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    background: rgba(191, 131, 255, 0.15);
+    border: 1px solid rgba(36, 33, 66, 0.08);
+}
+
+.qc-dashboard__progress h2 {
+    margin-top: 0;
+}
+
+.qc-dashboard__status {
+    margin-top: 2.5rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(36, 33, 66, 0.08);
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(36, 33, 66, 0.08);
+}
+
+.qc-dashboard__status-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.qc-dashboard__status-item {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.qc-dashboard__status-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.qc-dashboard__status-label {
+    font-weight: 700;
+    color: #242142;
+}
+
+.qc-dashboard__status-value {
+    font-weight: 600;
+    color: #55516f;
+}
+
+.qc-dashboard__taxonomy {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.qc-dashboard__taxonomy-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.qc-dashboard__taxonomy-card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(36, 33, 66, 0.08);
+    box-shadow: 0 10px 25px rgba(36, 33, 66, 0.08);
+    padding: 1.5rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.qc-dashboard__taxonomy-card h3 {
+    margin: 0;
+    color: #242142;
+}
+
+.qc-dashboard__taxonomy-description {
+    margin: 0;
+    color: #55516f;
+}
+
+.qc-dashboard__taxonomy-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+}
+
+.qc-dashboard__taxonomy-item {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.qc-dashboard__taxonomy-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.qc-dashboard__taxonomy-term {
+    font-weight: 700;
+    color: #242142;
+}
+
+.qc-dashboard__taxonomy-value {
+    font-weight: 600;
+    color: #55516f;
+}
+
+.qc-progress {
+    width: 100%;
+    height: 0.85rem;
+    border-radius: 999px;
+    background: rgba(36, 33, 66, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.qc-progress__bar {
+    display: block;
+    height: 100%;
+    width: var(--qc-progress-value, 0%);
+    background: linear-gradient(90deg, #bf83ff, #242142);
+    border-radius: inherit;
+    transition: width 0.4s ease;
+}
+
+.qc-dashboard__quick-actions {
+    margin-top: 3rem;
+    background: #bf83ff;
+    color: #242142;
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.qc-dashboard__quick-actions a {
+    color: #242142;
+    font-weight: 600;
+}
+
+.qc-dashboard__quick-actions ul {
+    margin: 1rem 0 0;
+    list-style: disc;
+    padding-left: 1.5rem;
+}
+
+.qc-dashboard__preview {
+    margin-top: 3rem;
+}
+
+.qc-dashboard__preview-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.qc-dashboard-card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 2px solid #c3e3f3;
+    padding: 1.25rem;
+    box-shadow: 0 12px 28px rgba(36, 33, 66, 0.12);
+    color: #242142;
+}
+
+.qc-dashboard-card__excerpt {
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.qc-dashboard-card__meta {
+    margin: 1rem 0 0;
+    padding-left: 1rem;
+    list-style: disc;
+    font-size: 0.9rem;
+}
+
+.qc-dashboard-card__meta strong {
+    color: #242142;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .qc-progress__bar {
+        transition: none;
+    }
+}
