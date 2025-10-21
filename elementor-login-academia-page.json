@@ -1,0 +1,560 @@
+{
+  "version": "0.4",
+  "title": "Login Academia da Comunicação",
+  "type": "page",
+  "content": [
+    {
+      "id": "sectionHero",
+      "elType": "section",
+      "settings": {
+        "layout": "full_width",
+        "content_width": "boxed",
+        "gap": "extended",
+        "background_background": "gradient",
+        "background_color": "#6a5ae0",
+        "background_color_b": "#bf83ff",
+        "background_gradient_type": "linear",
+        "background_gradient_angle": {
+          "unit": "deg",
+          "size": 135,
+          "sizes": []
+        },
+        "padding": {
+          "unit": "px",
+          "top": "120",
+          "right": "30",
+          "bottom": "120",
+          "left": "30",
+          "isLinked": false
+        },
+        "shape_divider_bottom": "wave-brush",
+        "shape_divider_bottom_negative": "yes"
+      },
+      "elements": [
+        {
+          "id": "heroColumn",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "heroInnerSection",
+              "elType": "section",
+              "isInner": true,
+              "settings": {
+                "layout": "full_width",
+                "gap": "no",
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                },
+                "background_background": "classic",
+                "background_color": "rgba(255,255,255,0.12)",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "32",
+                  "right": "32",
+                  "bottom": "32",
+                  "left": "32",
+                  "isLinked": true
+                },
+                "box_shadow_box_shadow_type": "yes",
+                "box_shadow_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 45,
+                  "blur": 90,
+                  "spread": -30,
+                  "color": "rgba(19,16,53,0.35)"
+                }
+              },
+              "elements": [
+                {
+                  "id": "heroLeftColumn",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "padding": {
+                      "unit": "px",
+                      "top": "60",
+                      "right": "60",
+                      "bottom": "60",
+                      "left": "60",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": [
+                    {
+                      "id": "heroBadge",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "Login Academia da Comunicação",
+                        "header_size": "h6",
+                        "typography_typography": "custom",
+                        "typography_font_weight": "600",
+                        "typography_transform": "uppercase",
+                        "typography_letter_spacing": {
+                          "unit": "px",
+                          "size": 4,
+                          "sizes": []
+                        },
+                        "title_color": "#bf83ff"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "heroHeading",
+                      "elType": "widget",
+                      "widgetType": "heading",
+                      "settings": {
+                        "title": "Bem-vindo ao hub da Academia 💜",
+                        "header_size": "h1",
+                        "typography_typography": "custom",
+                        "typography_font_weight": "700",
+                        "typography_line_height": {
+                          "unit": "em",
+                          "size": 1.2,
+                          "sizes": []
+                        },
+                        "title_color": "#ffffff"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "heroText",
+                      "elType": "widget",
+                      "widgetType": "text-editor",
+                      "settings": {
+                        "editor": "<p style=\"font-size:18px;color:#f4f3ff;\">Construa uma experiência completa de onboarding, login, cadastro e autenticação de dois fatores em uma única página otimizável pelo Elementor.</p>"
+                      },
+                      "elements": []
+                    },
+                    {
+                      "id": "heroButton",
+                      "elType": "widget",
+                      "widgetType": "button",
+                      "settings": {
+                        "text": "Explorar fluxo",
+                        "link": {
+                          "url": "#fluxo-login",
+                          "is_external": "",
+                          "nofollow": ""
+                        },
+                        "align": "left",
+                        "button_type": "gradient",
+                        "background_color": "#ffffff",
+                        "color": "#242142",
+                        "border_radius": {
+                          "unit": "px",
+                          "top": "30",
+                          "right": "30",
+                          "bottom": "30",
+                          "left": "30",
+                          "isLinked": true
+                        },
+                        "padding": {
+                          "unit": "px",
+                          "top": "16",
+                          "right": "38",
+                          "bottom": "16",
+                          "left": "38",
+                          "isLinked": true
+                        }
+                      },
+                      "elements": []
+                    }
+                  ]
+                },
+                {
+                  "id": "heroRightColumn",
+                  "elType": "column",
+                  "settings": {
+                    "_column_size": 50,
+                    "padding": {
+                      "unit": "px",
+                      "top": "40",
+                      "right": "40",
+                      "bottom": "40",
+                      "left": "40",
+                      "isLinked": true
+                    }
+                  },
+                  "elements": [
+                    {
+                      "id": "onboardingWidget",
+                      "elType": "widget",
+                      "widgetType": "adc-onboarding",
+                      "settings": {
+                        "slides": [
+                          {
+                            "_id": "slide1",
+                            "slide_title": "Quiz On the Go",
+                            "slide_text": "Responda quizzes rápidos onde estiver e mantenha sua mente afiada.",
+                            "slide_cta": "",
+                            "slide_image": {
+                              "url": ""
+                            },
+                            "slide_alt": "Ilustração de uma pessoa respondendo a quizzes no celular."
+                          },
+                          {
+                            "_id": "slide2",
+                            "slide_title": "Knowledge Boosting",
+                            "slide_text": "Descubra conteúdos envolventes para turbinar seus estudos diariamente.",
+                            "slide_cta": "",
+                            "slide_image": {
+                              "url": ""
+                            },
+                            "slide_alt": "Ilustração abstrata representando crescimento de conhecimento."
+                          },
+                          {
+                            "_id": "slide3",
+                            "slide_title": "Win Rewards Galore",
+                            "slide_text": "Ganhe recompensas enquanto aprende com desafios pensados para você.",
+                            "slide_cta": "Get Started",
+                            "slide_image": {
+                              "url": ""
+                            },
+                            "slide_alt": "Ilustração comemorando conquistas e recompensas."
+                          }
+                        ]
+                      },
+                      "elements": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "loginSection",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "content_width": "boxed",
+        "gap": "extended",
+        "padding": {
+          "unit": "px",
+          "top": "100",
+          "right": "0",
+          "bottom": "100",
+          "left": "0",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#f6f5ff"
+      },
+      "elements": [
+        {
+          "id": "loginColumn",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100,
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "loginAnchor",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Fluxo de Login",
+                "header_size": "h2",
+                "title_color": "#242142",
+                "typography_typography": "custom",
+                "typography_font_weight": "700",
+                "typography_letter_spacing": {
+                  "unit": "px",
+                  "size": 0,
+                  "sizes": []
+                }
+              },
+              "elements": []
+            },
+            {
+              "id": "loginDescription",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:18px;color:#514d7c;\">Use o widget abaixo para personalizar toda a experiência de autenticação diretamente no Elementor, incluindo selo, benefícios e mensagens do formulário.</p>",
+                "_anchor": "fluxo-login"
+              },
+              "elements": []
+            },
+            {
+              "id": "loginWidget",
+              "elType": "widget",
+              "widgetType": "adc-login-form",
+              "settings": {
+                "badge": "Aprenda sem limites",
+                "headline": "Bem-vindo de volta! 💜",
+                "subtitle": "Retome seus cursos exatamente de onde parou e acompanhe seu progresso em tempo real.",
+                "features": [
+                  {
+                    "_id": "feature1",
+                    "feature_text": "Planos de estudo personalizados em minutos."
+                  },
+                  {
+                    "_id": "feature2",
+                    "feature_text": "Aulas mobile-first para aprender onde estiver."
+                  },
+                  {
+                    "_id": "feature3",
+                    "feature_text": "Desafios gamificados com recompensas reais."
+                  }
+                ],
+                "illustration": {
+                  "url": ""
+                },
+                "illustration_alt": "Pessoas conectadas celebrando conquistas de aprendizagem.",
+                "card_kicker": "Bem-vindo de volta",
+                "card_title": "Entrar",
+                "card_description": "Acesse sua conta para continuar aprendendo.",
+                "forgot_label": "Esqueceu a senha?",
+                "signup_prompt": "Novo por aqui?",
+                "signup_link_label": "Criar conta",
+                "social_title": "Ou continue com"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "signupSection",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "gap": "extended",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "0",
+          "bottom": "80",
+          "left": "0",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#ffffff"
+      },
+      "elements": [
+        {
+          "id": "signupColumn",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "signupHeading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Fluxo de Cadastro",
+                "header_size": "h2",
+                "title_color": "#242142",
+                "typography_typography": "custom",
+                "typography_font_weight": "700"
+              },
+              "elements": []
+            },
+            {
+              "id": "signupText",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:18px;color:#514d7c;\">Customize mensagens de boas-vindas, benefícios e imagens para transformar o cadastro em uma etapa encantadora.</p>"
+              },
+              "elements": []
+            },
+            {
+              "id": "signupWidget",
+              "elType": "widget",
+              "widgetType": "adc-signup-form",
+              "settings": {
+                "badge": "Crie sua conta",
+                "headline": "Comece sua jornada de comunicação",
+                "subtitle": "Ganhe acesso aos melhores conteúdos, desafios e comunidades da Academia.",
+                "features": [
+                  {
+                    "_id": "signupFeature1",
+                    "feature_text": "Mentorias semanais com especialistas."
+                  },
+                  {
+                    "_id": "signupFeature2",
+                    "feature_text": "Biblioteca de materiais premium atualizada."
+                  },
+                  {
+                    "_id": "signupFeature3",
+                    "feature_text": "Ranking gamificado para estimular seu progresso."
+                  }
+                ],
+                "illustration": {
+                  "url": ""
+                },
+                "illustration_alt": "Equipe criativa planejando conteúdos com tablets e notebooks.",
+                "card_kicker": "Vamos lá",
+                "card_title": "Criar conta",
+                "card_description": "Preencha seus dados para desbloquear toda a experiência.",
+                "terms_label": "Aceito os Termos, Privacidade e Taxas",
+                "login_prompt": "Já tem acesso?",
+                "login_link_label": "Entrar agora"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forgotSection",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "gap": "extended",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "0",
+          "bottom": "80",
+          "left": "0",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#f6f5ff"
+      },
+      "elements": [
+        {
+          "id": "forgotColumn",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "forgotHeading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Recuperação de Senha",
+                "header_size": "h2",
+                "title_color": "#242142"
+              },
+              "elements": []
+            },
+            {
+              "id": "forgotWidget",
+              "elType": "widget",
+              "widgetType": "adc-forgot-form",
+              "settings": {
+                "badge": "Esqueceu a senha?",
+                "headline": "Vamos reenviar seu acesso",
+                "subtitle": "Informe o e-mail cadastrado para receber o link seguro de redefinição.",
+                "illustration": {
+                  "url": ""
+                },
+                "illustration_alt": "Pessoa recuperando o acesso com auxílio do suporte.",
+                "card_kicker": "Suporte rápido",
+                "card_title": "Redefinir senha",
+                "card_description": "Enviaremos um link válido por 30 minutos.",
+                "login_link_label": "Voltar ao login"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "twofaSection",
+      "elType": "section",
+      "settings": {
+        "layout": "boxed",
+        "gap": "extended",
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "0",
+          "bottom": "120",
+          "left": "0",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#ffffff"
+      },
+      "elements": [
+        {
+          "id": "twofaColumn",
+          "elType": "column",
+          "settings": {
+            "_column_size": 100
+          },
+          "elements": [
+            {
+              "id": "twofaHeading",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Verificação em Duas Etapas",
+                "header_size": "h2",
+                "title_color": "#242142"
+              },
+              "elements": []
+            },
+            {
+              "id": "twofaText",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p style=\"font-size:18px;color:#514d7c;\">Garanta a segurança das contas solicitando o código enviado por e-mail antes de liberar o acesso.</p>"
+              },
+              "elements": []
+            },
+            {
+              "id": "twofaWidget",
+              "elType": "widget",
+              "widgetType": "adc-twofa-form",
+              "settings": {
+                "badge": "Proteção ativa",
+                "headline": "Digite seu código de verificação",
+                "subtitle": "Enviamos um código de 6 dígitos para o e-mail associado à sua conta.",
+                "illustration": {
+                  "url": ""
+                },
+                "illustration_alt": "Ilustração de verificação segura em dois fatores.",
+                "card_kicker": "Passo final",
+                "card_title": "Confirmar código",
+                "card_description": "O código expira em 10 minutos para sua segurança.",
+                "resend_label": "Reenviar código"
+              },
+              "elements": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
