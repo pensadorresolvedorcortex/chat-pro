@@ -113,7 +113,7 @@ class Introducao_Plugin {
             __( 'Introdução Academia da Educação', 'introducao' ),
             __( 'Introdução', 'introducao' ),
             'manage_options',
-            'adc-login-hub',
+            'introducao-onboarding-hub',
             array( $this, 'render_admin_page' ),
             'dashicons-admin-users',
             58

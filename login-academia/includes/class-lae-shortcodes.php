@@ -213,6 +213,10 @@ class LAE_Shortcodes {
 
         if ( in_array( $template, $templates_requiring_scripts, true ) ) {
             $this->plugin->enqueue_assets();
+
+            if ( class_exists( 'Introducao_Plugin' ) ) {
+                Introducao_Plugin::get_instance()->enqueue_assets();
+            }
         } else {
             $this->plugin->enqueue_style();
         }
