@@ -4,6 +4,8 @@
  */
 class Introducao_Plugin {
 
+    const SLIDER_OPTION = 'introducao_slider_settings';
+
     /**
      * Instância singleton.
      *
@@ -48,6 +50,7 @@ class Introducao_Plugin {
         add_action( 'init', array( $this, 'load_textdomain' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'register_assets' ) );
         add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
+        add_action( 'admin_init', array( $this, 'register_settings' ) );
 
         Introducao_Auth::bootstrap();
         Introducao_Auth::register_ajax_routes();
@@ -127,6 +130,7 @@ class Introducao_Plugin {
 
         $registered_pages = $this->pages instanceof Introducao_Pages ? $this->pages->get_registered_pages() : array();
         $pages            = array();
+        $slider_settings  = $this->get_slider_settings();
 
         foreach ( $registered_pages as $slug => $data ) {
             $pages[] = array(
@@ -139,8 +143,10 @@ class Introducao_Plugin {
         echo $this->render_template(
             'admin-overview.php',
             array(
-                'pages'          => $pages,
-                'menu_shortcode' => '[introducao_user_menu]',
+                'pages'               => $pages,
+                'menu_shortcode'      => '[introducao_user_menu]',
+                'slider_settings'     => $slider_settings,
+                'default_slider_copy' => $this->get_default_slider_texts(),
             )
         );
     }
@@ -192,5 +198,136 @@ class Introducao_Plugin {
         include $file;
 
         return ob_get_clean();
+    }
+
+    /**
+     * Registra as configurações editáveis no painel.
+     */
+    public function register_settings() {
+        register_setting(
+            'introducao_slider',
+            self::SLIDER_OPTION,
+            array(
+                'type'              => 'array',
+                'sanitize_callback' => array( $this, 'sanitize_slider_settings' ),
+                'default'           => $this->get_default_slider_settings(),
+            )
+        );
+    }
+
+    /**
+     * Retorna as configurações padrão do slider.
+     *
+     * @return array
+     */
+    public function get_default_slider_settings() {
+        return array(
+            'brand_logo'  => 'https://www.agenciadigitalsaopaulo.com.br/app/wp-content/uploads/2024/05/logo-footer.png',
+            'redirect_to' => home_url( user_trailingslashit( 'home' ) ),
+            'slides'      => $this->get_default_slider_texts(),
+        );
+    }
+
+    /**
+     * Retorna os textos padrão do slider para reutilização.
+     *
+     * @return array
+     */
+    public function get_default_slider_texts() {
+        return array(
+            array(
+                'title'       => __( 'Organize sua preparação', 'introducao' ),
+                'description' => __( 'Conheça o plano de estudos inteligente da Academia da Comunicação e centralize teoria, prática e simulados em um só lugar.', 'introducao' ),
+            ),
+            array(
+                'title'       => __( 'Acompanhe o seu progresso', 'introducao' ),
+                'description' => __( 'Receba lembretes personalizados, veja sua evolução em tempo real e desbloqueie recomendações alinhadas às suas metas.', 'introducao' ),
+            ),
+            array(
+                'title'       => __( 'Comece agora mesmo', 'introducao' ),
+                'description' => __( 'Crie sua conta ou acesse para liberar turmas, simulados e o apoio do nosso treinador virtual 24h.', 'introducao' ),
+            ),
+        );
+    }
+
+    /**
+     * Recupera as configurações definidas para o slider.
+     *
+     * @return array
+     */
+    public function get_slider_settings() {
+        $saved    = get_option( self::SLIDER_OPTION, array() );
+        $defaults = $this->get_default_slider_settings();
+
+        if ( empty( $saved ) || ! is_array( $saved ) ) {
+            return $defaults;
+        }
+
+        $saved   = $this->sanitize_slider_settings( $saved );
+        $slides  = isset( $saved['slides'] ) && is_array( $saved['slides'] ) ? $saved['slides'] : array();
+
+        if ( count( $slides ) !== count( $defaults['slides'] ) ) {
+            $slides = array_slice( array_merge( $slides, $defaults['slides'] ), 0, count( $defaults['slides'] ) );
+        }
+
+        return array(
+            'brand_logo'  => ! empty( $saved['brand_logo'] ) ? esc_url_raw( $saved['brand_logo'] ) : $defaults['brand_logo'],
+            'redirect_to' => ! empty( $saved['redirect_to'] ) ? esc_url_raw( $saved['redirect_to'] ) : $defaults['redirect_to'],
+            'slides'      => $slides,
+        );
+    }
+
+    /**
+     * Sanitiza os valores submetidos no painel.
+     *
+     * @param array $raw_settings Dados recebidos do formulário.
+     *
+     * @return array
+     */
+    public function sanitize_slider_settings( $raw_settings ) {
+        $defaults = $this->get_default_slider_settings();
+        $sanitized = array(
+            'brand_logo'  => $defaults['brand_logo'],
+            'redirect_to' => $defaults['redirect_to'],
+            'slides'      => $defaults['slides'],
+        );
+
+        if ( isset( $raw_settings['brand_logo'] ) ) {
+            $logo = esc_url_raw( trim( $raw_settings['brand_logo'] ) );
+            $sanitized['brand_logo'] = $logo ? $logo : $defaults['brand_logo'];
+        }
+
+        if ( isset( $raw_settings['redirect_to'] ) ) {
+            $redirect = esc_url_raw( trim( $raw_settings['redirect_to'] ) );
+            $sanitized['redirect_to'] = $redirect ? $redirect : $defaults['redirect_to'];
+        }
+
+        if ( isset( $raw_settings['slides'] ) && is_array( $raw_settings['slides'] ) ) {
+            $sanitized['slides'] = array();
+
+            foreach ( $defaults['slides'] as $index => $default_slide ) {
+                $incoming = isset( $raw_settings['slides'][ $index ] ) && is_array( $raw_settings['slides'][ $index ] )
+                    ? $raw_settings['slides'][ $index ]
+                    : array();
+
+                $title = isset( $incoming['title'] ) ? sanitize_text_field( $incoming['title'] ) : '';
+                $description = isset( $incoming['description'] ) ? wp_kses_post( $incoming['description'] ) : '';
+
+                if ( ! $title ) {
+                    $title = $default_slide['title'];
+                }
+
+                if ( ! $description ) {
+                    $description = $default_slide['description'];
+                }
+
+                $sanitized['slides'][ $index ] = array(
+                    'title'       => $title,
+                    'description' => $description,
+                );
+            }
+        }
+
+        return $sanitized;
     }
 }

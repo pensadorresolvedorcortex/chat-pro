@@ -238,6 +238,14 @@
         var prevButton = slider.querySelector('[data-lae-prev]');
         var finishGroup = slider.querySelector('[data-lae-finish]');
         var popup = slider.querySelector('[data-lae-popup]');
+
+        if (!popup) {
+            popup = slider.querySelector('[data-lae-login-modal]');
+        }
+
+        if (!popup) {
+            popup = document.querySelector('[data-lae-login-modal]');
+        }
         var ctaSelector = '[data-lae-open-popup], [data-lae-login-trigger]';
         var popupTriggers = Array.prototype.slice.call(slider.querySelectorAll(ctaSelector));
         var popupCloseTriggers = popup ? Array.prototype.slice.call(popup.querySelectorAll('[data-lae-popup-close]')) : [];
@@ -268,6 +276,12 @@
                 var isActive = idx === activeIndex;
                 slide.classList.toggle('is-active', isActive);
                 slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+
+                if (isActive) {
+                    slide.removeAttribute('hidden');
+                } else {
+                    slide.setAttribute('hidden', 'hidden');
+                }
             });
 
             steps.forEach(function (step, idx) {
@@ -293,8 +307,18 @@
             }
 
             if (finishGroup) {
-                finishGroup.classList.toggle('is-active', activeIndex === slides.length - 1);
+                var isDone = activeIndex === slides.length - 1;
+                finishGroup.classList.toggle('is-active', isDone);
+                finishGroup.setAttribute('aria-hidden', isDone ? 'false' : 'true');
+
+                if (isDone) {
+                    finishGroup.removeAttribute('hidden');
+                } else {
+                    finishGroup.setAttribute('hidden', 'hidden');
+                }
             }
+
+            slider.setAttribute('data-active-slide', String(activeIndex));
         };
 
         var focusFirstField = function () {

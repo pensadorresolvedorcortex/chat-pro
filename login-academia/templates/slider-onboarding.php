@@ -3,7 +3,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$slides = array(
+$plugin_instance = class_exists( 'Introducao_Plugin' ) ? Introducao_Plugin::get_instance() : null;
+
+if ( $plugin_instance && method_exists( $plugin_instance, 'enqueue_assets' ) ) {
+    $plugin_instance->enqueue_assets();
+}
+$default_slides  = $plugin_instance ? $plugin_instance->get_default_slider_texts() : array(
     array(
         'title'       => __( 'Organize sua preparação', 'login-academia-da-educacao' ),
         'description' => __( 'Conheça o plano de estudos inteligente da Academia da Comunicação e centralize teoria, prática e simulados em um só lugar.', 'login-academia-da-educacao' ),
@@ -17,6 +22,16 @@ $slides = array(
         'description' => __( 'Crie sua conta ou acesse para liberar turmas, simulados e o apoio do nosso treinador virtual 24h.', 'login-academia-da-educacao' ),
     ),
 );
+
+$settings = $plugin_instance ? $plugin_instance->get_slider_settings() : array();
+
+$slides = isset( $settings['slides'] ) && is_array( $settings['slides'] ) ? $settings['slides'] : array();
+
+if ( empty( $slides ) ) {
+    $slides = $default_slides;
+}
+
+$brand_logo = isset( $settings['brand_logo'] ) && $settings['brand_logo'] ? esc_url_raw( $settings['brand_logo'] ) : 'https://www.agenciadigitalsaopaulo.com.br/app/wp-content/uploads/2024/05/logo-footer.png';
 
 $generate_id = static function ( $prefix ) {
     if ( function_exists( 'wp_unique_id' ) ) {
@@ -32,7 +47,7 @@ $modal_enabled           = ! is_user_logged_in();
 $modal_markup            = '';
 $modal_title_id          = '';
 $introducao_form_action  = '';
-$redirect_after_auth     = esc_url_raw( home_url( user_trailingslashit( 'home' ) ) );
+$redirect_after_auth     = isset( $settings['redirect_to'] ) && $settings['redirect_to'] ? esc_url_raw( $settings['redirect_to'] ) : esc_url_raw( home_url( user_trailingslashit( 'home' ) ) );
 
 if ( $modal_enabled ) {
     $modal_title_id = wp_unique_id( 'lae-login-modal-title-' );
@@ -70,13 +85,15 @@ if ( $modal_enabled ) {
 ?>
 <section class="lae-onboarding" data-lae-slider aria-label="<?php esc_attr_e( 'Apresentação da Academia da Comunicação', 'login-academia-da-educacao' ); ?>">
     <div class="lae-onboarding__content">
-        <div class="lae-onboarding__brand">
-            <img
-                src="<?php echo esc_url( 'https://www.agenciadigitalsaopaulo.com.br/app/wp-content/uploads/2024/05/logo-footer.png' ); ?>"
-                alt="<?php esc_attr_e( 'Agência Digital São Paulo', 'login-academia-da-educacao' ); ?>"
-                loading="lazy"
-            />
-        </div>
+        <?php if ( $brand_logo ) : ?>
+            <div class="lae-onboarding__brand">
+                <img
+                    src="<?php echo esc_url( $brand_logo ); ?>"
+                    alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>"
+                    loading="lazy"
+                />
+            </div>
+        <?php endif; ?>
         <div class="lae-onboarding__progress" role="tablist" aria-label="<?php esc_attr_e( 'Passos de boas-vindas', 'login-academia-da-educacao' ); ?>">
             <?php foreach ( $slides as $index => $slide ) :
                 $step_id = $slider_id . '-step-' . $index;
@@ -110,12 +127,13 @@ if ( $modal_enabled ) {
                     role="tabpanel"
                     aria-labelledby="<?php echo esc_attr( $slider_id . '-step-' . $index ); ?>"
                     aria-hidden="<?php echo 0 === $index ? 'false' : 'true'; ?>"
+                    <?php echo 0 === $index ? '' : 'hidden'; ?>
                 >
                     <h2 class="lae-onboarding__title"><?php echo esc_html( $slide['title'] ); ?></h2>
                     <p class="lae-onboarding__description"><?php echo esc_html( $slide['description'] ); ?></p>
 
                     <?php if ( 2 === $index ) : ?>
-                        <div class="lae-onboarding__actions" data-lae-finish>
+                        <div class="lae-onboarding__actions" data-lae-finish hidden>
                             <button type="button" class="lae-onboarding__cta" data-lae-login-trigger>
                                 <?php esc_html_e( 'Entrar ou criar conta', 'login-academia-da-educacao' ); ?>
                             </button>

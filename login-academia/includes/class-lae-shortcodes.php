@@ -206,7 +206,16 @@ class LAE_Shortcodes {
      * @return string
      */
     private function render_page_template( $template, $shortcode_tag ) {
-        $this->plugin->enqueue_style();
+        $templates_requiring_scripts = array(
+            'slider-onboarding.php',
+            'page-perfil.php',
+        );
+
+        if ( in_array( $template, $templates_requiring_scripts, true ) ) {
+            $this->plugin->enqueue_assets();
+        } else {
+            $this->plugin->enqueue_style();
+        }
 
         return $this->plugin->render_template(
             $template,
