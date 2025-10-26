@@ -4,6 +4,35 @@ import subprocess
 import json
 
 html_path = Path('site/Guell Almeida – Agência de Marketing Digital em São Paulo – SP.htm')
+assets_dir = Path('Guell Almeida – Agência de Marketing Digital em São Paulo – SP_files')
+
+
+def normalize_asset_filename(name: str) -> str:
+    if name.endswith('.transferir'):
+        name = name[: -len('.transferir')]
+    return {
+        'css': 'css.css',
+        'css(1)': 'css-1.css',
+        'css(2)': 'css-2.css',
+        'css(3)': 'css-3.css',
+        'css(4)': 'css-4.css',
+        'css2': 'css2.css',
+    }.get(name, name)
+
+
+def normalize_asset_files(directory: Path) -> None:
+    if not directory.exists():
+        return
+    for path in sorted(directory.iterdir(), key=lambda p: p.name):
+        new_name = normalize_asset_filename(path.name)
+        if new_name != path.name:
+            target = directory / new_name
+            if not target.exists():
+                path.rename(target)
+
+
+normalize_asset_files(assets_dir)
+
 html = html_path.read_text(encoding='utf-8')
 soup = BeautifulSoup(html, 'html.parser')
 
@@ -461,6 +490,21 @@ if head:
     script_tag = soup.new_tag('script', type='application/ld+json')
     script_tag.string = json.dumps(person, ensure_ascii=False)
     head.append(script_tag)
+
+asset_segment = 'Guell Almeida – Agência de Marketing Digital em São Paulo – SP_files'
+for link in soup.find_all('link'):
+    href = link.get('href')
+    if href and asset_segment in href:
+        parts = href.split('/')
+        parts[-1] = normalize_asset_filename(parts[-1])
+        link['href'] = '/'.join(parts)
+
+for script in soup.find_all('script'):
+    src = script.get('src')
+    if src and asset_segment in src:
+        parts = src.split('/')
+        parts[-1] = normalize_asset_filename(parts[-1])
+        script['src'] = '/'.join(parts)
 
 output_path = Path('site_tema_preenchido_guell.html')
 output_html = str(soup).replace('Conheça mais', 'Saiba mais')
