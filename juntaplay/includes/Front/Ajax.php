@@ -608,6 +608,97 @@ class Ajax
         ];
     }
 
+    /**
+     * @param array<string, mixed> $group
+     * @param array<string, string> $categories
+     * @return array<string, mixed>
+     */
+    private function format_group(array $group, array $categories): array
+    {
+        $category      = isset($group['category']) ? (string) $group['category'] : '';
+        $category_label = $category !== '' && isset($categories[$category]) ? $categories[$category] : '';
+
+        $cover_url         = (string) ($group['cover_url'] ?? '');
+        $cover_placeholder = (string) ($group['cover_placeholder'] ?? '');
+        $cover_alt         = (string) ($group['cover_alt'] ?? '');
+
+        $price_regular     = isset($group['price_regular']) ? (float) $group['price_regular'] : 0.0;
+        $price_promotional = isset($group['price_promotional']) ? (float) $group['price_promotional'] : null;
+        $member_price      = isset($group['member_price']) ? (float) $group['member_price'] : null;
+        $effective_price   = isset($group['effective_price']) ? (float) $group['effective_price'] : 0.0;
+
+        $price_label = '';
+        if ($member_price !== null && $member_price > 0) {
+            $price_label = $this->format_currency($member_price);
+        } elseif ($price_promotional !== null && $price_promotional > 0) {
+            $price_label = $this->format_currency($price_promotional);
+        } elseif ($effective_price > 0) {
+            $price_label = $this->format_currency($effective_price);
+        } elseif ($price_regular > 0) {
+            $price_label = $this->format_currency($price_regular);
+        }
+
+        $slots_total     = isset($group['slots_total']) ? (int) $group['slots_total'] : 0;
+        $slots_available = isset($group['slots_available']) ? (int) $group['slots_available'] : 0;
+
+        if ($slots_total > 0 && $slots_available <= 0 && isset($group['slots_reserved'])) {
+            $slots_reserved = (int) $group['slots_reserved'];
+            $slots_available = max(0, $slots_total - $slots_reserved);
+        }
+
+        $availability_state = 'available';
+        $slots_badge        = '';
+        $slots_variant      = 'default';
+
+        if ($slots_total > 0) {
+            if ($slots_available <= 0) {
+                $availability_state = 'full';
+                $slots_variant      = 'danger';
+                $slots_badge        = __('Grupo completo', 'juntaplay');
+            } else {
+                $availability_state = 'available';
+
+                if ($slots_available === 1) {
+                    $slots_variant = 'warning';
+                    $slots_badge   = __('1 vaga restante', 'juntaplay');
+                } else {
+                    $slots_badge = sprintf(
+                        _n('%d vaga restante', '%d vagas restantes', $slots_available, 'juntaplay'),
+                        $slots_available
+                    );
+                    $slots_variant = $slots_available <= 3 ? 'warning' : 'success';
+                }
+            }
+        }
+
+        $button_label = $availability_state === 'full'
+            ? __('Ver detalhes', 'juntaplay')
+            : __('Quero participar', 'juntaplay');
+
+        return [
+            'id'                => (int) ($group['id'] ?? 0),
+            'title'             => (string) ($group['title'] ?? ''),
+            'service'           => (string) ($group['service_name'] ?? ''),
+            'category'          => $category,
+            'categoryLabel'     => $category_label,
+            'coverUrl'          => $cover_url !== '' ? $cover_url : $cover_placeholder,
+            'coverAlt'          => $cover_alt,
+            'coverPlaceholder'  => $cover_placeholder,
+            'price'             => $effective_price,
+            'priceLabel'        => $price_label,
+            'memberPrice'       => $member_price,
+            'memberPriceLabel'  => $member_price !== null && $member_price > 0 ? $this->format_currency($member_price) : '',
+            'availabilityState' => $availability_state,
+            'slotsBadge'        => $slots_badge,
+            'slotsBadgeVariant' => $slots_variant,
+            'slotsTotal'        => $slots_total,
+            'slotsAvailable'    => $slots_available,
+            'instantAccess'     => !empty($group['instant_access']),
+            'permalink'         => $this->resolve_group_link($group),
+            'buttonLabel'       => $button_label,
+        ];
+    }
+
     private function resolve_pool_link(array $pool): string
     {
         $page_id = (int) get_option('juntaplay_page_grupos');
