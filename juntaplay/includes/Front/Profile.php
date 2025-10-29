@@ -1221,9 +1221,6 @@ class Profile
         $group_hub = $this->build_group_hub_context($data);
         $groups_owned  = $group_hub['groups_owned'];
         $groups_member = $group_hub['groups_member'];
-        $group_counts  = $group_hub['group_counts'];
-        $pool_choices  = $group_hub['pool_choices'];
-        $group_context = $group_hub['context'];
 
         $network_connections = $this->build_network_connections($groups_owned, $groups_member);
         $network_total       = count($network_connections);
@@ -1389,43 +1386,6 @@ class Profile
                         'attributes'    => [
                             'data-jp-cep-target' => 'country',
                         ],
-                    ],
-                ],
-            ],
-            'groups' => [
-                'title'       => __('Meus grupos', 'juntaplay'),
-                'description' => __('Acompanhe os grupos que você criou ou entrou ao comprar cotas.', 'juntaplay'),
-                'summary'     => [
-                    [
-                        'label' => __('Grupos aprovados', 'juntaplay'),
-                        'value' => number_format_i18n($group_counts['approved']),
-                        'tone'  => 'positive',
-                    ],
-                    [
-                        'label' => __('Aguardando análise', 'juntaplay'),
-                        'value' => number_format_i18n($group_counts['pending']),
-                        'tone'  => 'warning',
-                    ],
-                    [
-                        'label' => __('Participando', 'juntaplay'),
-                        'value' => number_format_i18n($group_counts['member']),
-                        'tone'  => 'info',
-                    ],
-                    [
-                        'label' => __('Reclamações abertas', 'juntaplay'),
-                        'value' => number_format_i18n($this->count_open_complaints()),
-                        'tone'  => $this->count_open_complaints() > 0 ? 'warning' : 'info',
-                        'hint'  => $this->format_complaint_hint(),
-                    ],
-                ],
-                'items'       => [
-                    'groups_hub' => [
-                        'label'       => __('Grupos ativos', 'juntaplay'),
-                        'description' => __('Visualize os grupos, convide amigos e acompanhe o status de aprovação.', 'juntaplay'),
-                        'type'        => 'custom',
-                        'editable'    => false,
-                        'template'    => 'profile-groups.php',
-                            'context'     => $group_context,
                     ],
                 ],
             ],
@@ -1720,14 +1680,6 @@ class Profile
                 ],
             ],
         ];
-
-        if ($group_counts['rejected'] > 0) {
-            $sections['groups']['summary'][] = [
-                'label' => __('Grupos recusados', 'juntaplay'),
-                'value' => number_format_i18n($group_counts['rejected']),
-                'tone'  => 'danger',
-            ];
-        }
 
         return apply_filters('juntaplay/profile/sections', $sections, $data);
     }

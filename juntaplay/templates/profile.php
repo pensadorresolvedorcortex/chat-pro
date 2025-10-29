@@ -583,9 +583,9 @@ if ($statement_url === '' && function_exists('wc_get_account_endpoint_url')) {
 }
 
 $groups_page_id = (int) get_option('juntaplay_page_grupos');
-$groups_url      = $groups_page_id ? get_permalink($groups_page_id) : home_url('/grupos');
+$groups_url      = $groups_page_id ? get_permalink($groups_page_id) : home_url('/grupos/');
 $my_groups_page_id = (int) get_option('juntaplay_page_meus-grupos');
-$my_groups_url      = $my_groups_page_id ? get_permalink($my_groups_page_id) : home_url('/meus-grupos');
+$my_groups_url      = $my_groups_page_id ? get_permalink($my_groups_page_id) : home_url('/meus-grupos/');
 
 $search_page_id = (int) get_option('juntaplay_page_campanhas');
 $search_url      = $search_page_id ? get_permalink($search_page_id) : home_url('/campanhas');
