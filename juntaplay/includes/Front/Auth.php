@@ -10,69 +10,72 @@ use JuntaPlay\Admin\Settings;
 use JuntaPlay\Notifications\EmailHelper;
 
 use function __;
+use function _n;
 use function add_action;
 use function add_filter;
-use function apply_filters;
 use function add_query_arg;
+use function admin_url;
+use function apply_filters;
 use function delete_transient;
 use function delete_user_meta;
+use function do_action;
 use function email_exists;
+use function esc_url;
+use function esc_url_raw;
+use function explode;
+use function get_bloginfo;
 use function get_option;
 use function get_permalink;
 use function get_transient;
 use function get_user_by;
 use function get_user_meta;
-use function get_bloginfo;
 use function home_url;
 use function implode;
 use function is_email;
 use function is_user_logged_in;
 use function is_wp_error;
+use function max;
+use function min;
+use function preg_replace;
+use function rawurlencode;
+use function remove_query_arg;
 use function sanitize_email;
 use function sanitize_key;
 use function sanitize_text_field;
 use function sanitize_textarea_field;
 use function sanitize_user;
 use function set_transient;
-use function username_exists;
+use function str_repeat;
+use function strlen;
+use function substr;
+use function time;
+use function trim;
 use function update_user_meta;
+use function user_can;
+use function username_exists;
 use function wp_authenticate_username_password;
 use function wp_check_password;
 use function wp_create_user;
 use function wp_generate_password;
 use function wp_generate_uuid4;
+use function wp_get_current_user;
 use function wp_hash_password;
 use function wp_json_decode;
+use function wp_login_url;
 use function wp_logout;
-use function preg_replace;
-use function strlen;
-use function substr;
-use function str_repeat;
-use function trim;
+use function wp_rand;
 use function wp_remote_get;
 use function wp_remote_post;
 use function wp_remote_retrieve_body;
-use function wp_login_url;
 use function wp_safe_redirect;
 use function wp_set_auth_cookie;
 use function wp_set_current_user;
 use function wp_signon;
+use function wp_strip_all_tags;
 use function wp_unslash;
 use function wp_update_user;
-use function wp_verify_nonce;
 use function wp_validate_redirect;
-use function wp_rand;
-use function do_action;
-use function rawurlencode;
-use function remove_query_arg;
-use function esc_url;
-use function esc_url_raw;
-use function time;
-use function explode;
-use function _n;
-use function max;
-use function min;
-use function wp_strip_all_tags;
+use function wp_verify_nonce;
 use const MINUTE_IN_SECONDS;
 
 if (!defined('ABSPATH')) {
@@ -176,8 +179,13 @@ class Auth
         }
 
         $redirect = $this->get_redirect_url();
-        if (!$redirect) {
-            $redirect = $this->get_default_redirect();
+
+        if ($this->is_site_admin($user)) {
+            $redirect = admin_url();
+        } elseif ($redirect !== '') {
+            $redirect = $this->sanitize_redirect($redirect, $user);
+        } else {
+            $redirect = $this->get_default_redirect($user);
         }
 
         if ($this->should_require_two_factor($user)) {
@@ -429,8 +437,10 @@ class Auth
             return;
         }
 
-        if (!$redirect) {
-            $redirect = $this->get_default_redirect();
+        if ($redirect !== '') {
+            $redirect = $this->sanitize_redirect($redirect, $signon);
+        } else {
+            $redirect = $this->get_default_redirect($signon);
         }
 
         wp_safe_redirect($redirect);
@@ -483,7 +493,7 @@ class Auth
         $state = [
             'user_id'     => $user->ID,
             'remember'    => $remember,
-            'redirect'    => $this->sanitize_redirect($redirect),
+            'redirect'    => $this->sanitize_redirect($redirect, $user),
             'method'      => $method,
             'destination' => $destination['display'],
             'target'      => $destination['target'],
@@ -613,7 +623,13 @@ class Auth
         wp_set_auth_cookie($user->ID, !empty($state['remember']));
         do_action('wp_login', $user->user_login, $user);
 
-        $redirect = $this->get_profile_redirect();
+        $redirect = isset($state['redirect']) ? (string) $state['redirect'] : '';
+
+        if ($redirect === '') {
+            $redirect = $this->get_default_redirect($user);
+        }
+
+        $redirect = $this->sanitize_redirect($redirect, $user);
 
         /**
          * Fires after the user successfully confirms the two-factor challenge.
@@ -624,7 +640,7 @@ class Auth
         do_action('juntaplay/two_factor/success', $user, $state);
         do_action('juntaplay_2fa_success', $user, $state);
 
-        wp_safe_redirect($this->sanitize_redirect($redirect));
+        wp_safe_redirect($redirect);
         exit;
     }
 
@@ -778,9 +794,23 @@ class Auth
         return $prefix . $mask . $suffix;
     }
 
-    private function sanitize_redirect(string $redirect): string
+    private function sanitize_redirect(string $redirect, ?WP_User $user = null): string
     {
-        return $this->get_profile_redirect();
+        if (!$user instanceof WP_User) {
+            $user = wp_get_current_user();
+        }
+
+        if ($user instanceof WP_User && $this->is_site_admin($user)) {
+            return admin_url();
+        }
+
+        $validated = wp_validate_redirect($redirect, $this->get_profile_redirect());
+
+        if (!is_string($validated) || $validated === '') {
+            return $this->get_profile_redirect();
+        }
+
+        return $validated;
     }
 
     public function maybe_handle_social_login(): void
@@ -972,7 +1002,13 @@ class Auth
         wp_set_auth_cookie($user->ID, $remember);
         do_action('wp_login', $user->user_login, $user);
 
-        wp_safe_redirect($this->sanitize_redirect($redirect));
+        if ($redirect === '') {
+            $redirect = $this->get_default_redirect($user);
+        }
+
+        $redirect = $this->sanitize_redirect($redirect, $user);
+
+        wp_safe_redirect($redirect);
         exit;
     }
 
@@ -1211,14 +1247,27 @@ class Auth
     /**
      * Determine the default redirect destination after login/register.
      */
-    public function get_default_redirect(): string
+    public function get_default_redirect(?WP_User $user = null): string
     {
+        if (!$user instanceof WP_User) {
+            $user = wp_get_current_user();
+        }
+
+        if ($user instanceof WP_User && $this->is_site_admin($user)) {
+            return admin_url();
+        }
+
         return $this->get_profile_redirect();
     }
 
     private function get_profile_redirect(): string
     {
         return home_url('/perfil/');
+    }
+
+    private function is_site_admin(WP_User $user): bool
+    {
+        return user_can($user, 'manage_options');
     }
 
     /**
@@ -1230,6 +1279,24 @@ class Auth
      */
     public function force_profile_redirect($redirect_to, $requested_redirect_to, $user): string
     {
+        if ($user instanceof WP_User && $this->is_site_admin($user)) {
+            return admin_url();
+        }
+
+        if (is_string($requested_redirect_to) && $requested_redirect_to !== '') {
+            $validated = wp_validate_redirect($requested_redirect_to, $this->get_profile_redirect());
+            if (is_string($validated) && $validated !== '') {
+                return $validated;
+            }
+        }
+
+        if (is_string($redirect_to) && $redirect_to !== '') {
+            $validated = wp_validate_redirect($redirect_to, $this->get_profile_redirect());
+            if (is_string($validated) && $validated !== '') {
+                return $validated;
+            }
+        }
+
         return $this->get_profile_redirect();
     }
 }

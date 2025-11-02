@@ -121,7 +121,20 @@ if (!empty($wallet_deposit['suggestions']) && is_array($wallet_deposit['suggesti
                 </div>
             <?php endif; ?>
             <form method="post" class="juntaplay-wallet__form">
-                <?php wp_nonce_field('juntaplay_profile', 'jp_profile_nonce'); ?>
+                <?php
+                $history_nonce_field = wp_nonce_field(
+                    'juntaplay_profile',
+                    'jp_profile_nonce',
+                    true,
+                    false
+                );
+                $history_nonce_field = preg_replace(
+                    '/id="jp_profile_nonce"/',
+                    'id="' . esc_attr(wp_unique_id('jp_profile_nonce_')) . '"',
+                    $history_nonce_field
+                );
+                echo $history_nonce_field; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                ?>
                 <input type="hidden" name="jp_profile_section" value="credit_withdrawal" />
                 <div class="juntaplay-field">
                     <label class="juntaplay-field__label" for="jp-profile-withdraw-amount"><?php esc_html_e('Valor do saque', 'juntaplay'); ?></label>

@@ -1165,7 +1165,7 @@ class Profile
         $support_url = $this->get_support_center_url();
         if ($support_url !== '') {
             $actions[] = [
-                'label'       => __('Central de reclamações', 'juntaplay'),
+                'label'       => __('Reclamações', 'juntaplay'),
                 'variant'     => 'ghost',
                 'icon'        => 'ticket',
                 'description' => __('Acompanhe tickets abertos ou resolvidos pelos seus grupos.', 'juntaplay'),
@@ -1791,7 +1791,7 @@ class Profile
                 ],
             ],
             'complaints' => [
-                'title'       => __('Central de reclamações', 'juntaplay'),
+                'title'       => __('Reclamações', 'juntaplay'),
                 'description' => __('Acompanhe tickets, envie mensagens e aceite propostas de acordo sem sair do painel.', 'juntaplay'),
                 'summary'     => $complaint_summary,
                 'items'       => [

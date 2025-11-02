@@ -154,7 +154,20 @@ if (!function_exists('juntaplay_profile_render_item')) {
                     <form method="post" class="juntaplay-form"<?php echo $confirm_message !== '' ? ' data-confirm="' . esc_attr($confirm_message) . '"' : ''; ?>>
                         <input type="hidden" name="jp_profile_action" value="1" />
                         <input type="hidden" name="jp_profile_section" value="<?php echo esc_attr($section_key); ?>" />
-                        <?php wp_nonce_field('juntaplay_profile_update', 'jp_profile_nonce'); ?>
+                        <?php
+                        $profile_update_nonce = wp_nonce_field(
+                            'juntaplay_profile_update',
+                            'jp_profile_nonce',
+                            true,
+                            false
+                        );
+                        $profile_update_nonce = preg_replace(
+                            '/id="jp_profile_nonce"/',
+                            'id="' . esc_attr(wp_unique_id('jp_profile_nonce_')) . '"',
+                            $profile_update_nonce
+                        );
+                        echo $profile_update_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                        ?>
                         <?php if ($fields) : ?>
                             <?php foreach ($fields as $field) :
                                 if (!is_array($field) || empty($field['name'])) {
@@ -706,7 +719,7 @@ $profile_quick_actions = [
         'tab'      => 'finance_preferences',
     ],
     [
-        'label'    => __('Central de reclamações', 'juntaplay'),
+        'label'    => __('Reclamações', 'juntaplay'),
         'summary'  => __('Veja mensagens, propostas e históricos', 'juntaplay'),
         'icon'     => 'ticket',
         'category' => 'support',
