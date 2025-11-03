@@ -2411,41 +2411,137 @@
             }
         }
 
-        function refreshFrameLibrary(targetFrame) {
-            if (!targetFrame || typeof targetFrame.state !== 'function') {
+        function resolveAttachmentModel(file, callback) {
+            if (typeof callback !== 'function') {
                 return;
             }
 
-            var targetState = targetFrame.state();
+            var attachmentId = null;
+            var attachmentModel = null;
+
+            if (file && typeof file.get === 'function') {
+                attachmentId = file.get('id') || file.id || null;
+                attachmentModel = file;
+            } else if (file && typeof file === 'object' && file !== null) {
+                attachmentId = typeof file.id !== 'undefined' ? file.id : null;
+            }
+
+            if (attachmentId !== null
+                && (typeof wp !== 'undefined')
+                && wp.media
+                && wp.media.model
+                && wp.media.model.Attachment
+                && typeof wp.media.model.Attachment.get === 'function'
+            ) {
+                attachmentModel = wp.media.model.Attachment.get(attachmentId);
+            }
+
+            if (attachmentModel && typeof attachmentModel.once === 'function' && (!attachmentModel.get || !attachmentModel.get('url'))) {
+                attachmentModel.once('sync', function () {
+                    callback(attachmentModel, attachmentId);
+                });
+                if (typeof attachmentModel.fetch === 'function') {
+                    attachmentModel.fetch();
+                }
+                return;
+            }
+
+            callback(attachmentModel || null, attachmentId);
+        }
+
+        function refreshFrameLibrary(targetFrame, focusAttachment) {
+            if (!targetFrame) {
+                return;
+            }
+
+            var targetState = typeof targetFrame.state === 'function' ? targetFrame.state() : null;
             if (!targetState || typeof targetState.get !== 'function') {
                 return;
             }
 
             var targetLibrary = targetState.get('library');
-            if (!targetLibrary) {
-                return;
-            }
-
-            if (targetLibrary.props && typeof targetLibrary.props.set === 'function') {
-                targetLibrary.props.set('ignore', Date.now());
-            }
-
-            if (typeof targetLibrary.fetch === 'function') {
-                targetLibrary.fetch();
-            } else if (typeof targetLibrary.more === 'function') {
-                targetLibrary.more({ reset: true });
-            }
-
             var targetSelection = targetState.get('selection');
-            if (
-                targetSelection
-                && typeof targetSelection.reset === 'function'
-                && typeof targetLibrary.at === 'function'
-            ) {
-                var firstItem = targetLibrary.at(0);
-                if (firstItem) {
-                    targetSelection.reset([firstItem]);
+            var contentView = (targetFrame.content && typeof targetFrame.content.get === 'function')
+                ? targetFrame.content.get()
+                : null;
+            var browserCollection = contentView && contentView.collection ? contentView.collection : null;
+
+            var focusModel = null;
+            var focusId = null;
+
+            if (focusAttachment) {
+                if (typeof focusAttachment.get === 'function') {
+                    focusModel = focusAttachment;
+                    focusId = focusAttachment.get('id') || focusAttachment.id || null;
+                } else if (typeof focusAttachment === 'object' && focusAttachment !== null) {
+                    focusId = typeof focusAttachment.id !== 'undefined' ? focusAttachment.id : null;
+                } else if (typeof focusAttachment === 'number' || typeof focusAttachment === 'string') {
+                    focusId = focusAttachment;
                 }
+            }
+
+            function refreshCollection(collection) {
+                if (!collection) {
+                    return;
+                }
+
+                if (collection.props && typeof collection.props.set === 'function') {
+                    collection.props.set('ignore', Date.now());
+                    if (uploadContext) {
+                        collection.props.set('juntaplay_group_cover', uploadContext);
+                    }
+                }
+
+                if (typeof collection.fetch === 'function') {
+                    collection.fetch();
+                } else if (typeof collection.more === 'function') {
+                    collection.more({ reset: true });
+                } else if (typeof collection._requery === 'function') {
+                    collection._requery(true);
+                }
+            }
+
+            refreshCollection(targetLibrary);
+            if (browserCollection && browserCollection !== targetLibrary) {
+                refreshCollection(browserCollection);
+            }
+
+            if (!focusModel && focusId !== null) {
+                if (targetLibrary && typeof targetLibrary.get === 'function') {
+                    focusModel = targetLibrary.get(focusId) || focusModel;
+                }
+                if ((!focusModel || !focusModel.get || !focusModel.get('id'))
+                    && browserCollection
+                    && typeof browserCollection.get === 'function'
+                ) {
+                    focusModel = browserCollection.get(focusId) || focusModel;
+                }
+            }
+
+            if (!focusModel) {
+                if (targetLibrary && typeof targetLibrary.last === 'function') {
+                    focusModel = targetLibrary.last();
+                }
+                if ((!focusModel || !focusModel.get || !focusModel.get('id'))
+                    && browserCollection
+                    && typeof browserCollection.last === 'function'
+                ) {
+                    focusModel = browserCollection.last();
+                }
+                if (!focusModel && targetLibrary && typeof targetLibrary.at === 'function') {
+                    focusModel = targetLibrary.at(0);
+                }
+                if (!focusModel && browserCollection && typeof browserCollection.at === 'function') {
+                    focusModel = browserCollection.at(0);
+                }
+            }
+
+            if (
+                focusModel
+                && targetSelection
+                && typeof targetSelection.reset === 'function'
+            ) {
+                targetSelection.reset([focusModel]);
             }
 
             enableSelectButton(targetFrame);
@@ -2464,7 +2560,27 @@
             }
 
             targetFrame.jpUploaderCompleteHandler = function () {
-                refreshFrameLibrary(targetFrame);
+                var args = Array.prototype.slice.call(arguments || []);
+                var candidate = null;
+
+                for (var i = 0; i < args.length; i += 1) {
+                    var value = args[i];
+                    if (!value) {
+                        continue;
+                    }
+
+                    if (typeof value.get === 'function') {
+                        candidate = value;
+                        break;
+                    }
+
+                    if (typeof value === 'object' && typeof value.id !== 'undefined') {
+                        candidate = value;
+                        break;
+                    }
+                }
+
+                refreshFrameLibrary(targetFrame, candidate);
             };
 
             if (typeof wp.media.events.on === 'function') {
@@ -2539,49 +2655,41 @@
 
                     var selection = state.get('selection');
                     var library = state.get('library');
-                    var attachmentModel = null;
 
-                    if (file && typeof file.get === 'function') {
-                        attachmentModel = file;
-                    } else if (file && typeof file === 'object' && file.id && library && typeof library.get === 'function') {
-                        attachmentModel = library.get(file.id);
-                    }
-
-                    if (!attachmentModel && library && typeof library.last === 'function') {
-                        attachmentModel = library.last();
-                    }
-
-                    var attachmentId = null;
-                    if (attachmentModel && typeof attachmentModel.get === 'function') {
-                        attachmentId = attachmentModel.get('id') || attachmentModel.id || null;
-                    } else if (attachmentModel && typeof attachmentModel === 'object' && typeof attachmentModel.id !== 'undefined') {
-                        attachmentId = attachmentModel.id;
-                    }
-
-                    if (library && attachmentModel && typeof library.add === 'function') {
-                        var exists = false;
-                        if (typeof library.get === 'function') {
-                            exists = !!(library.get(attachmentModel) || (attachmentId !== null && library.get(attachmentId)));
+                    resolveAttachmentModel(file, function (attachmentModel, attachmentId) {
+                        if (!attachmentModel && attachmentId !== null && library && typeof library.get === 'function') {
+                            attachmentModel = library.get(attachmentId) || attachmentModel;
                         }
 
-                        if (!exists) {
-                            library.add(attachmentModel);
+                        if (attachmentModel && library && typeof library.add === 'function') {
+                            var exists = false;
+                            if (typeof library.get === 'function') {
+                                exists = !!(library.get(attachmentModel) || (attachmentId !== null && library.get(attachmentId)));
+                            }
+
+                            if (!exists) {
+                                library.add(attachmentModel);
+                            }
                         }
-                    }
 
-                    if (selection && attachmentModel && typeof selection.reset === 'function') {
-                        selection.reset([attachmentModel]);
-                    }
-
-                    if (attachmentModel && typeof attachmentModel.toJSON === 'function') {
-                        var data = attachmentModel.toJSON();
-                        if (data && typeof data.id !== 'undefined') {
-                            var coverUrl = data.url || (data.sizes && data.sizes.full && data.sizes.full.url) || placeholder || coverPlaceholder || '';
-                            setCover(data.id, coverUrl);
+                        if (
+                            selection
+                            && attachmentModel
+                            && typeof selection.reset === 'function'
+                        ) {
+                            selection.reset([attachmentModel]);
                         }
-                    }
 
-                    refreshFrameLibrary(frame);
+                        if (attachmentModel && typeof attachmentModel.toJSON === 'function') {
+                            var data = attachmentModel.toJSON();
+                            if (data && typeof data.id !== 'undefined') {
+                                var coverUrl = data.url || (data.sizes && data.sizes.full && data.sizes.full.url) || placeholder || coverPlaceholder || '';
+                                setCover(data.id, coverUrl);
+                            }
+                        }
+
+                        refreshFrameLibrary(frame, attachmentModel || attachmentId);
+                    });
                 }, 120);
             });
 
