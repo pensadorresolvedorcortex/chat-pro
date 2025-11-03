@@ -2522,7 +2522,7 @@ class Profile
         $share = $this->build_group_share_snippet($group);
         $group['share_domain']  = $share['domain'];
         $group['share_snippet'] = $share['text'];
-        $group['share_url']     = $group['pool_link'];
+        $group['share_url']     = $this->build_group_share_url($group);
 
         $group['payment_methods'] = $this->get_payment_methods();
         $group['faq_items']       = $this->build_group_faq($group);
@@ -3257,6 +3257,30 @@ class Profile
     /**
      * @return array<string, string>
      */
+    private function build_group_share_url(array $group): string
+    {
+        $page_id = (int) get_option('juntaplay_page_grupos');
+        $base    = $page_id ? get_permalink($page_id) : home_url('/grupos');
+
+        if (!$base) {
+            $base = home_url('/grupos');
+        }
+
+        $slug = isset($group['slug']) ? (string) $group['slug'] : '';
+
+        if ($slug !== '') {
+            return add_query_arg('grupo', rawurlencode($slug), $base);
+        }
+
+        $pool_link = isset($group['pool_link']) ? (string) $group['pool_link'] : '';
+
+        if ($pool_link !== '') {
+            return $pool_link;
+        }
+
+        return $base;
+    }
+
     private function build_group_share_snippet(array $group): array
     {
         $domain = $this->get_share_domain();

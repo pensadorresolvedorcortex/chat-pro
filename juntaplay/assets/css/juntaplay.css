@@ -2285,8 +2285,26 @@ body .juntaplay-groups__list {
 
 body .juntaplay-groups__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    body .juntaplay-groups__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    body .juntaplay-groups__cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    body .juntaplay-groups__cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
 }
 
 body .juntaplay-group-card.is-hidden {
