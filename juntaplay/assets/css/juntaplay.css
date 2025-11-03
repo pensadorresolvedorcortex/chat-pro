@@ -2289,10 +2289,6 @@ body .juntaplay-groups__cards {
     gap: 1.5rem;
 }
 
-body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-}
-
 @media (min-width: 768px) {
     body .juntaplay-groups__cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2307,6 +2303,28 @@ body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
 
 @media (min-width: 1280px) {
     body .juntaplay-groups__cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+    body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1024px) {
+    body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    body .juntaplay-profile__panels--groups .juntaplay-groups__cards {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
@@ -3386,6 +3404,7 @@ body .juntaplay-modal__messages {
     display: inline-flex;
     width: 1.1rem;
     height: 1.1rem;
+    flex-shrink: 0;
     color: currentColor;
 }
 
@@ -3441,11 +3460,15 @@ body .juntaplay-modal__messages {
 }
 
 .juntaplay-share__button--copy {
-    background: #fff;
+    background: #f8fafc;
+    border-color: rgba(71, 85, 105, 0.28);
+    color: #0f172a;
 }
 
 .juntaplay-share__button--copy:hover,
 .juntaplay-share__button--copy:focus {
+    background: #e2e8f0;
+    border-color: rgba(15, 118, 110, 0.45);
     color: #056d66;
 }
 

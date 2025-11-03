@@ -226,7 +226,9 @@ switch ($support_type) {
                                 data-jp-share-text="<?php echo esc_attr($share_message); ?>"
                             >
                                 <span class="juntaplay-share__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.2L2 22l4.9-1.3A10 10 0 1 0 12 2Zm0 1.8A8.2 8.2 0 0 1 20.2 12a8.2 8.2 0 0 1-12.4 6.9l-.3-.2-2.9.8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8Zm3.6 11.1c-.2-.1-1.4-.7-1.7-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.7c-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.4s0-.3 0-.4-.6-1.4-.8-1.9-.3-.5-.5-.5h-.5a.9.9 0 0 0-.6.3A2.8 2.8 0 0 0 8.7 10a5 5 0 0 0 1 2.6 11.3 11.3 0 0 0 4.3 3.6c.4.2.8.3 1 .4a2.4 2.4 0 0 0 1.1.1 1.8 1.8 0 0 0 1.2-.9 1.5 1.5 0 0 0 .1-.8c0-.1-.2-.2-.3-.2Z"/></svg>
+                                    <svg viewBox="0 0 24 24" focusable="false" role="img">
+                                        <path fill="currentColor" d="M12 2a10 10 0 0 0-8.66 15.2L2 22l4.88-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.18-1.14l-.3-.18-2.93.78.79-2.86-.19-.3A8.2 8.2 0 1 1 12 20.2Zm4.62-6.1c-.26-.13-1.48-.72-1.7-.8s-.4-.12-.57.13-.66.8-.8.97-.3.19-.55.06a6.7 6.7 0 0 1-2-1.24 7.48 7.48 0 0 1-1.4-1.74c-.15-.26 0-.4.11-.53l.38-.45a1.74 1.74 0 0 0 .25-.42.48.48 0 0 0 0-.45c0-.13-.57-1.37-.78-1.88s-.41-.44-.57-.45h-.49a.94.94 0 0 0-.68.32 2.85 2.85 0 0 0-.88 2.12 5 5 0 0 0 1.05 2.65 11.32 11.32 0 0 0 4.32 3.61c.43.19.76.3 1 .38a2.39 2.39 0 0 0 1.1.07 1.84 1.84 0 0 0 1.2-.86 1.5 1.5 0 0 0 .1-.86c-.04-.07-.22-.13-.37-.2Z"/>
+                                    </svg>
                                 </span>
                                 <span class="juntaplay-share__label"><?php esc_html_e('Enviar no WhatsApp', 'juntaplay'); ?></span>
                             </button>
@@ -238,7 +240,9 @@ switch ($support_type) {
                                 data-jp-share-text="<?php echo esc_attr($share_message); ?>"
                             >
                                 <span class="juntaplay-share__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="m20.7 3.3-18 7a1 1 0 0 0 .1 1.9l4.8 1.4 2.2 4.4a1 1 0 0 0 1.7.2l2.5-3.1 4.2 2.6a1 1 0 0 0 1.5-.6l2.9-12a1 1 0 0 0-1.9-.8Zm-3.3 3.3-6.9 6.8a1 1 0 0 0-.3.7l.1 1.8-1.5-3a1 1 0 0 0-.6-.5l-3.2-.9 12.4-4.9Z"/></svg>
+                                    <svg viewBox="0 0 24 24" focusable="false" role="img">
+                                        <path fill="currentColor" d="M21.57 2.16a1.18 1.18 0 0 0-1.2-.14L2.43 9.74a1.18 1.18 0 0 0 .07 2.2l4.6 1.73 1.9 5a1.18 1.18 0 0 0 1.12.75h.05a1.18 1.18 0 0 0 1-.54l2-3.25 4.16 2.92a1.18 1.18 0 0 0 1.84-.73l2.74-13a1.18 1.18 0 0 0-.44-1.26ZM16.62 7l-6.8 6.86a1.18 1.18 0 0 0-.32.94l.27 2.38-1.42-3.7a1.18 1.18 0 0 0-.78-.7l-2.77-.83Z"/>
+                                    </svg>
                                 </span>
                                 <span class="juntaplay-share__label"><?php esc_html_e('Compartilhar no Telegram', 'juntaplay'); ?></span>
                             </button>
@@ -250,7 +254,9 @@ switch ($support_type) {
                                 data-jp-share-text="<?php echo esc_attr($share_message); ?>"
                             >
                                 <span class="juntaplay-share__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M22 12a10 10 0 1 0-11.6 9.9v-7h-2.2V12h2.2V9.6c0-2.2 1.3-3.4 3.3-3.4.9 0 1.8.2 1.8.2v2H14c-1.1 0-1.4.7-1.4 1.3V12h2.5l-.4 2.9h-2.1v7A10 10 0 0 0 22 12Z"/></svg>
+                                    <svg viewBox="0 0 24 24" focusable="false" role="img">
+                                        <path fill="currentColor" d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9v-2.9h2.54V9.41c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.19 2.23.19v2.45h-1.26c-1.24 0-1.62.77-1.62 1.55v1.86h2.76l-.44 2.9h-2.32v6.99A10 10 0 0 0 22 12Z"/>
+                                    </svg>
                                 </span>
                                 <span class="juntaplay-share__label"><?php esc_html_e('Compartilhar no Facebook', 'juntaplay'); ?></span>
                             </button>
@@ -263,7 +269,9 @@ switch ($support_type) {
                                 data-jp-share-copied="<?php esc_attr_e('Link copiado!', 'juntaplay'); ?>"
                             >
                                 <span class="juntaplay-share__icon" aria-hidden="true">
-                                    <svg viewBox="0 0 24 24" focusable="false"><path fill="currentColor" d="M15 3h-8a3 3 0 0 0-3 3v11h2V6a1 1 0 0 1 1-1h8V3Zm3 4h-8a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3Zm1 11a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8Z"/></svg>
+                                    <svg viewBox="0 0 24 24" focusable="false" role="img">
+                                        <path fill="currentColor" d="M8 3h8a3 3 0 0 1 3 3v2h-2V6a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-2h2v2a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Zm4.71 6.29 1.42 1.42L12.84 12l1.29 1.29-1.42 1.42L11.41 13.4 10.12 14.7 8.7 13.29 10 12 8.7 10.71l1.42-1.42 1.29 1.29Z"/>
+                                    </svg>
                                 </span>
                                 <span class="juntaplay-share__label"><?php esc_html_e('Copiar link', 'juntaplay'); ?></span>
                             </button>
