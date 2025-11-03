@@ -2,7 +2,7 @@
 /**
  * Plugin Name: JuntaPlay — Gestão de Cotas
  * Description: Campanhas com cotas integradas ao WooCommerce e Elementor.
- * Version: 0.1.2
+ * Version: 0.1.3
  * Requires at least: 6.2
  * Requires PHP: 8.1
  * Author: Sua Empresa
@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-const JP_VERSION    = '0.1.2';
+const JP_VERSION    = '0.1.3';
 const JP_MIN_WP     = '6.2';
 const JP_MIN_PHP    = '8.1';
 const JP_DB_VERSION = '1.9.0';

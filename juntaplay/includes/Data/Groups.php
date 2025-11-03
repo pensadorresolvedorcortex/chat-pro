@@ -541,6 +541,32 @@ class Groups
         ];
     }
 
+    public static function get_public_by_slug(string $slug): ?array
+    {
+        global $wpdb;
+
+        $slug = sanitize_title($slug);
+
+        if ($slug === '') {
+            return null;
+        }
+
+        $table = "{$wpdb->prefix}jp_groups";
+
+        $group_id = (int) $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT id FROM $table WHERE slug = %s LIMIT 1",
+                $slug
+            )
+        );
+
+        if ($group_id <= 0) {
+            return null;
+        }
+
+        return self::get_public_detail($group_id);
+    }
+
     public static function get(int $group_id): ?object
     {
         global $wpdb;

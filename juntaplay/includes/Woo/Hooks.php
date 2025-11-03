@@ -130,6 +130,31 @@ class Hooks
             return;
         }
 
+        if (!empty($values['juntaplay_group'])) {
+            $data       = $values['juntaplay_group'];
+            $group_id   = isset($data['group_id']) ? (int) $data['group_id'] : 0;
+            $group_name = isset($data['title']) ? (string) $data['title'] : '';
+            $price      = isset($data['price']) ? (float) $data['price'] : 0.0;
+
+            if ($group_name !== '') {
+                $item->add_meta_data('JuntaPlay Grupo', $group_name);
+            }
+
+            if ($group_id > 0) {
+                $item->add_meta_data('_juntaplay_group_id', $group_id, true);
+            }
+
+            if (!empty($data['group_slug'])) {
+                $item->add_meta_data('_juntaplay_group_slug', (string) $data['group_slug'], true);
+            }
+
+            if ($price > 0) {
+                $item->add_meta_data('_juntaplay_group_price', $price, true);
+            }
+
+            return;
+        }
+
         if (empty($values['juntaplay_deposit'])) {
             return;
         }
@@ -199,6 +224,13 @@ class Hooks
             if (!empty($cart_item['juntaplay_deposit'])) {
                 $amount = isset($cart_item['juntaplay_deposit']['amount']) ? (float) $cart_item['juntaplay_deposit']['amount'] : 0.0;
                 $cart_item['data']->set_price($amount);
+
+                continue;
+            }
+
+            if (!empty($cart_item['juntaplay_group'])) {
+                $price = isset($cart_item['juntaplay_group']['price']) ? (float) $cart_item['juntaplay_group']['price'] : 0.0;
+                $cart_item['data']->set_price($price);
 
                 continue;
             }

@@ -13,6 +13,7 @@ use JuntaPlay\Data\GroupMembers;
 use JuntaPlay\Data\Groups;
 use JuntaPlay\Data\Pools;
 use JuntaPlay\Woo\Credits as WooCredits;
+use JuntaPlay\Woo\GroupsProduct as WooGroupsProduct;
 use WP_Error;
 use WP_User;
 
@@ -66,6 +67,7 @@ use function sanitize_email;
 use function sanitize_key;
 use function sanitize_text_field;
 use function sanitize_textarea_field;
+use function sanitize_title;
 use function strtotime;
 use function strlen;
 use function str_starts_with;
@@ -107,6 +109,9 @@ use function wc_get_checkout_url;
 use function wc_load_cart;
 use function wp_safe_redirect;
 use function wp_logout;
+use function remove_query_arg;
+use function wc_add_notice;
+use function is_checkout;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -170,6 +175,7 @@ class Profile
         add_filter('user_has_cap', [$this, 'maybe_grant_group_cover_upload_cap'], 10, 4);
         add_filter('map_meta_cap', [$this, 'maybe_map_group_cover_cap'], 10, 4);
         add_action('rest_api_init', [$this, 'register_rest_routes']);
+        add_action('template_redirect', [$this, 'maybe_prepare_group_checkout']);
     }
 
     public function synchronize_subscriber_capabilities(): void
@@ -2388,6 +2394,168 @@ class Profile
             'message'  => sprintf(__('Recarga de %s adicionada ao carrinho.', 'juntaplay'), $this->format_currency($amount)),
             'redirect' => wc_get_checkout_url(),
         ];
+    }
+
+    public function maybe_prepare_group_checkout(): void
+    {
+        if (!class_exists('WooCommerce') || !function_exists('WC') || !function_exists('is_checkout') || !is_checkout()) {
+            return;
+        }
+
+        $slug_raw = isset($_GET['grupo']) ? wp_unslash((string) $_GET['grupo']) : '';
+        $id_raw   = isset($_GET['group_id']) ? wp_unslash((string) $_GET['group_id']) : '';
+
+        if ($slug_raw === '' && $id_raw === '') {
+            return;
+        }
+
+        $slug     = $slug_raw !== '' ? sanitize_title($slug_raw) : '';
+        $group_id = absint($id_raw);
+
+        $group = null;
+
+        if ($slug !== '') {
+            $group = Groups::get_public_by_slug($slug);
+        }
+
+        if (!$group && $group_id > 0) {
+            $group = Groups::get_public_detail($group_id);
+        }
+
+        if (!$group) {
+            $this->redirect_group_checkout_failure(__('Não foi possível localizar o grupo selecionado.', 'juntaplay'));
+
+            return;
+        }
+
+        $price = $this->resolve_group_checkout_price($group);
+
+        if ($price <= 0) {
+            $this->redirect_group_checkout_failure(__('O grupo não possui um valor configurado para pagamento.', 'juntaplay'), $group);
+
+            return;
+        }
+
+        $product_id = WooGroupsProduct::get_product_id();
+
+        if ($product_id <= 0) {
+            $this->redirect_group_checkout_failure(__('Não foi possível preparar o checkout deste grupo.', 'juntaplay'), $group);
+
+            return;
+        }
+
+        $woocommerce = WC();
+
+        if (!$woocommerce) {
+            $this->redirect_group_checkout_failure(__('Não foi possível iniciar seu carrinho de compras.', 'juntaplay'), $group);
+
+            return;
+        }
+
+        if (!isset($woocommerce->cart) || !$woocommerce->cart) {
+            wc_load_cart();
+        }
+
+        $cart = $woocommerce->cart;
+
+        if (!$cart) {
+            $this->redirect_group_checkout_failure(__('Não foi possível iniciar seu carrinho de compras.', 'juntaplay'), $group);
+
+            return;
+        }
+
+        foreach ($cart->get_cart() as $item_key => $cart_item) {
+            if (!empty($cart_item['juntaplay_group'])) {
+                $cart->remove_cart_item($item_key);
+            }
+        }
+
+        $cart_item_data = [
+            'juntaplay_group' => [
+                'group_id'    => isset($group['id']) ? (int) $group['id'] : 0,
+                'group_slug'  => isset($group['slug']) ? (string) $group['slug'] : '',
+                'title'       => isset($group['title']) ? (string) $group['title'] : '',
+                'price'       => $price,
+                'price_label' => $this->format_currency($price),
+            ],
+        ];
+
+        $cart_item_key = $cart->add_to_cart($product_id, 1, 0, [], $cart_item_data);
+
+        if (!$cart_item_key) {
+            $this->redirect_group_checkout_failure(__('Não foi possível adicionar o grupo ao checkout. Tente novamente em instantes.', 'juntaplay'), $group);
+
+            return;
+        }
+
+        $cart_contents = $cart->get_cart();
+
+        if (isset($cart_contents[$cart_item_key]['data']) && $cart_contents[$cart_item_key]['data'] instanceof \WC_Product) {
+            $product = $cart_contents[$cart_item_key]['data'];
+            $title   = isset($group['title']) ? (string) $group['title'] : '';
+
+            if ($title !== '') {
+                $product->set_name(sprintf(__('Participação no grupo %s', 'juntaplay'), $title));
+            }
+        }
+
+        if (method_exists($cart, 'calculate_totals')) {
+            $cart->calculate_totals();
+        }
+
+        if (!empty($group['title'])) {
+            wc_add_notice(sprintf(__('Revise e finalize a assinatura do grupo %s.', 'juntaplay'), (string) $group['title']), 'success');
+        } else {
+            wc_add_notice(__('Revise e finalize sua assinatura de grupo.', 'juntaplay'), 'success');
+        }
+
+        $redirect = remove_query_arg(['grupo', 'group_id'], wc_get_checkout_url());
+        wp_safe_redirect($redirect);
+        exit;
+    }
+
+    private function redirect_group_checkout_failure(string $message, ?array $group = null): void
+    {
+        wc_add_notice($message, 'error');
+
+        $redirect = remove_query_arg(['grupo', 'group_id'], wc_get_checkout_url());
+
+        if ($group !== null) {
+            $fallback = $this->build_group_pool_link(
+                isset($group['pool_id']) ? (int) $group['pool_id'] : 0,
+                isset($group['pool_slug']) ? (string) $group['pool_slug'] : ''
+            );
+
+            if ($fallback !== '') {
+                $redirect = $fallback;
+            }
+        }
+
+        wp_safe_redirect($redirect);
+        exit;
+    }
+
+    /**
+     * @param array<string, mixed> $group
+     */
+    private function resolve_group_checkout_price(array $group): float
+    {
+        $member_price = isset($group['member_price']) ? (float) $group['member_price'] : 0.0;
+        if ($member_price > 0) {
+            return $member_price;
+        }
+
+        $promo_price = isset($group['price_promotional']) ? (float) $group['price_promotional'] : 0.0;
+        if ($promo_price > 0) {
+            return $promo_price;
+        }
+
+        $regular_price = isset($group['price_regular']) ? (float) $group['price_regular'] : 0.0;
+        if ($regular_price > 0) {
+            return $regular_price;
+        }
+
+        return isset($group['effective_price']) ? (float) $group['effective_price'] : 0.0;
     }
 
     /**
