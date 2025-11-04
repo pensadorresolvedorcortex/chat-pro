@@ -1,0 +1,13 @@
+# Ignore distribution archives and vendor bundles
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tgz
+*.tbz2
+*.7z
+*.rar
+
+# Ignore OS artifacts
+.DS_Store
+Thumbs.db
