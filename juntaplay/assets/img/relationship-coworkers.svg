@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="gradWork" x1="20%" y1="18%" x2="80%" y2="88%">
+      <stop offset="0%" stop-color="#ffe0a3" />
+      <stop offset="100%" stop-color="#ffb45c" />
+    </linearGradient>
+    <linearGradient id="gradCase" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff9f0" />
+      <stop offset="100%" stop-color="#ffe8c7" />
+    </linearGradient>
+    <filter id="workShadow" x="-12%" y="-12%" width="124%" height="124%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="rgba(255,180,92,0.25)" />
+    </filter>
+  </defs>
+  <rect width="160" height="160" rx="36" fill="url(#gradWork)" opacity="0.95" />
+  <g filter="url(#workShadow)">
+    <rect x="44" y="66" width="72" height="52" rx="14" fill="url(#gradCase)" />
+    <rect x="58" y="56" width="44" height="14" rx="6" fill="#fff" opacity="0.9" />
+    <path d="M44 82h72" stroke="#ffb45c" stroke-width="10" stroke-linecap="round" opacity="0.55" />
+    <rect x="74" y="84" width="12" height="12" rx="4" fill="#ffb45c" />
+    <path d="M56 110h48" stroke="#ffc977" stroke-width="6" stroke-linecap="round" />
+  </g>
+</svg>

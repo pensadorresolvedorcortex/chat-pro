@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160">
+  <defs>
+    <linearGradient id="gradFriends" x1="18%" y1="22%" x2="82%" y2="86%">
+      <stop offset="0%" stop-color="#5ae1ff" />
+      <stop offset="100%" stop-color="#00b7ff" />
+    </linearGradient>
+    <linearGradient id="gradHands" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f2ffff" />
+      <stop offset="100%" stop-color="#dff6ff" />
+    </linearGradient>
+    <filter id="friendsShadow" x="-12%" y="-12%" width="124%" height="124%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="rgba(0,183,255,0.28)" />
+    </filter>
+  </defs>
+  <rect width="160" height="160" rx="36" fill="url(#gradFriends)" opacity="0.95" />
+  <g filter="url(#friendsShadow)">
+    <path d="M46 76c10-2 16-10 26-10 11 0 16 10 27 10 8.8 0 14-3.5 19-7.5v20c0 9.4-7.6 17-17 17H62c-9.4 0-17-7.6-17-17V76Z" fill="url(#gradHands)" />
+    <path d="M44 74c9 0 17-12 28-12 14 0 19 12 32 12" fill="none" stroke="rgba(0,183,255,0.3)" stroke-width="10" stroke-linecap="round" />
+    <path d="M56 86c6 2 9 8 16 8 9 0 11-8 20-8 4 0 7 1 10 3" fill="none" stroke="#00b7ff" stroke-width="8" stroke-linecap="round" />
+    <circle cx="54" cy="66" r="12" fill="#fff" opacity="0.45" />
+    <circle cx="108" cy="66" r="12" fill="#fff" opacity="0.45" />
+  </g>
+</svg>
