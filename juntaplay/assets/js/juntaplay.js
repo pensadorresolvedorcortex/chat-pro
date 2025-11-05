@@ -1708,13 +1708,21 @@
         if (window.matchMedia) {
             var profileMenuMedia = window.matchMedia('(max-width: 768px)');
             var updateProfileMenuState = function (event) {
+                var query = event;
+
+                if (!query || typeof query.matches !== 'boolean') {
+                    query = profileMenuMedia;
+                }
+
+                var isMobileViewport = !!(query && typeof query.matches === 'boolean' && query.matches);
+
                 $('[data-profile]').each(function () {
                     var $profile = $(this);
                     var $menu = $profile.find('[data-profile-menu]').first();
                     var hasToggle = $profile.find('[data-profile-menu-toggle]').length > 0;
                     if ($menu.length) {
                         if (hasToggle) {
-                            var shouldHide = event.matches && !$profile.hasClass('is-menu-open');
+                            var shouldHide = isMobileViewport && !$profile.hasClass('is-menu-open');
                             $menu.attr('aria-hidden', shouldHide ? 'true' : 'false');
                         } else {
                             $menu.attr('aria-hidden', 'false');
@@ -1723,7 +1731,7 @@
                     var $overlay = $profile.find('[data-profile-menu-overlay]').first();
                     if ($overlay.length) {
                         if (hasToggle) {
-                            var overlayHidden = !$profile.hasClass('is-menu-open') || !event.matches;
+                            var overlayHidden = !$profile.hasClass('is-menu-open') || !isMobileViewport;
                             $overlay.attr('aria-hidden', overlayHidden ? 'true' : 'false');
                         } else {
                             $overlay.attr('aria-hidden', 'true');
