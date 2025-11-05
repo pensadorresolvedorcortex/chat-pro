@@ -4124,7 +4124,7 @@ body.woocommerce-checkout .woocommerce .order-review.box-white .box-white-inner 
 
     body.woocommerce-checkout .woocommerce form.checkout .col2-set {
         display: grid;
-        grid-template-columns: minmax(0, 0.58fr) minmax(0, 0.42fr);
+        grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
         align-items: flex-start;
         gap: 1.85rem;
     }
