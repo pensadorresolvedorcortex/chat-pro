@@ -45,7 +45,7 @@ class Checkout
         add_filter('woocommerce_cart_totals_fee_html', [$this, 'format_fee_amount'], 10, 2);
         add_filter('woocommerce_cart_totals_fee_label', [$this, 'format_fee_label'], 10, 2);
         add_filter('woocommerce_checkout_cart_item_quantity', [$this, 'render_checkout_quantity'], 10, 3);
-        add_action('woocommerce_review_order_before_payment', [$this, 'render_wallet_controls']);
+        add_action('woocommerce_checkout_after_customer_details', [$this, 'render_wallet_controls']);
         add_action('woocommerce_checkout_update_order_review', [$this, 'handle_order_review_update']);
     }
 
