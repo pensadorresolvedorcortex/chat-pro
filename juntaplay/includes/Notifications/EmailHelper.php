@@ -1,0 +1,281 @@
+<?php
+
+declare(strict_types=1);
+
+namespace JuntaPlay\Notifications;
+
+use function add_filter;
+use function apply_filters;
+use function array_filter;
+use function array_map;
+use function esc_attr;
+use function esc_html;
+use function esc_url;
+use function get_bloginfo;
+use function implode;
+use function is_array;
+use function is_email;
+use function ob_get_clean;
+use function ob_start;
+use function remove_filter;
+use function sanitize_text_field;
+use function trailingslashit;
+use function trim;
+use function wp_kses;
+use function wp_kses_post;
+use function wp_mail;
+use function wp_specialchars_decode;
+
+class EmailHelper
+{
+    /**
+     * Flag to avoid attaching filters repeatedly.
+     */
+    private static bool $initialized = false;
+
+    public static function init(): void
+    {
+        if (self::$initialized) {
+            return;
+        }
+
+        // The actual filter attachment happens per send to limit scope, but this flag
+        // allows other bootstrap logic to hook in the future without duplicating work.
+        self::$initialized = true;
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $blocks
+     * @param array<string, mixed>             $args
+     */
+    public static function send(string $to, string $subject, array $blocks, array $args = []): bool
+    {
+        self::init();
+
+        $to = trim($to);
+        if ($to === '' || !is_email($to)) {
+            return false;
+        }
+
+        $subject = trim($subject);
+        if ($subject === '') {
+            return false;
+        }
+
+        $body = self::render($blocks, $args);
+        if ($body === '') {
+            return false;
+        }
+
+        $headers = $args['headers'] ?? [];
+        if (!is_array($headers)) {
+            $headers = [$headers];
+        }
+
+        $headers[] = 'Content-Type: text/html; charset=UTF-8';
+        $headers   = array_map(
+            static fn($header) => sanitize_text_field((string) $header),
+            $headers
+        );
+        $headers   = array_values(array_filter($headers));
+
+        add_filter('wp_mail_content_type', [self::class, 'force_html_content_type']);
+
+        try {
+            return wp_mail($to, wp_specialchars_decode($subject, \ENT_QUOTES), $body, $headers);
+        } finally {
+            remove_filter('wp_mail_content_type', [self::class, 'force_html_content_type']);
+        }
+    }
+
+    public static function force_html_content_type(string $content_type): string
+    {
+        return 'text/html; charset=UTF-8';
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $blocks
+     * @param array<string, mixed>             $args
+     */
+    private static function render(array $blocks, array $args): string
+    {
+        if (!$blocks) {
+            return '';
+        }
+
+        $headline  = isset($args['headline']) ? (string) $args['headline'] : '';
+        $preheader = isset($args['preheader']) ? (string) $args['preheader'] : '';
+        $footer    = [];
+        if (isset($args['footer']) && is_array($args['footer'])) {
+            foreach ($args['footer'] as $line) {
+                $line = trim((string) $line);
+                if ($line !== '') {
+                    $footer[] = $line;
+                }
+            }
+        }
+
+        $logo_url  = self::get_logo_url();
+        $site_name = wp_specialchars_decode(get_bloginfo('name'), \ENT_QUOTES);
+
+        ob_start();
+        ?>
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="utf-8">
+        <title><?php echo esc_html($headline !== '' ? $headline : $site_name); ?></title>
+    </head>
+    <body style="margin:0;padding:0;background:#ffffff;">
+        <?php if ($preheader !== '') : ?>
+            <div style="display:none;max-height:0;overflow:hidden;font-size:1px;line-height:1px;color:#ffffff;">
+                <?php echo esc_html($preheader); ?>
+            </div>
+        <?php endif; ?>
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f4f6fb;padding:40px 16px;">
+            <tr>
+                <td align="center">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border-radius:36px;overflow:hidden;box-shadow:0 28px 64px rgba(15, 23, 42, 0.18);">
+                        <tr>
+                            <td style="padding:48px 40px 24px;text-align:center;background:#ffffff;">
+                                <?php if ($logo_url !== '') : ?>
+                                    <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>" style="display:block;margin:0 auto 24px;max-width:200px;width:100%;height:auto;">
+                                <?php endif; ?>
+                                <div style="margin:0 auto 32px;width:120px;height:8px;background:#00CCC0;border-radius:25px;"></div>
+                                <?php if ($headline !== '') : ?>
+                                    <h1 style="margin:0;font-size:30px;line-height:1.25;color:#0f172a;font-weight:700;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;">
+                                        <?php echo esc_html($headline); ?>
+                                    </h1>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:0 40px 48px;background:#ffffff;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;">
+                                <?php echo self::render_blocks($blocks); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                            </td>
+                        </tr>
+                        <?php if ($footer) : ?>
+                            <?php
+                            $footer_html = implode('<br>', array_map(static fn($line) => esc_html($line), $footer));
+                            ?>
+                            <tr>
+                                <td style="padding:0 40px 48px;background:#ffffff;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;">
+                                    <p style="margin:0;color:#475569;font-size:13px;line-height:1.7;text-align:center;">
+                                        <?php echo wp_kses($footer_html, ['br' => []]); ?>
+                                    </p>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
+        <?php
+
+        $html = ob_get_clean();
+
+        return is_string($html) ? trim($html) : '';
+    }
+
+    /**
+     * @param array<int, array<string, mixed>> $blocks
+     */
+    private static function render_blocks(array $blocks): string
+    {
+        $html = '';
+
+        foreach ($blocks as $block) {
+            if (!is_array($block) || empty($block['type'])) {
+                continue;
+            }
+
+            $type = (string) $block['type'];
+            switch ($type) {
+                case 'paragraph':
+                    $content = trim((string) ($block['content'] ?? ''));
+                    if ($content === '') {
+                        continue 2;
+                    }
+                    $html .= sprintf(
+                        '<p style="margin:0 0 18px;color:#1f2937;font-size:15px;line-height:1.75;font-family:\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif;">%s</p>',
+                        esc_html($content)
+                    );
+                    break;
+
+                case 'list':
+                    $items = isset($block['items']) && is_array($block['items']) ? array_filter($block['items']) : [];
+                    if (!$items) {
+                        continue 2;
+                    }
+                    $html .= '<ul style="margin:0 0 18px;padding-left:22px;color:#1f2937;font-size:15px;line-height:1.75;font-family:\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif;">';
+                    foreach ($items as $item) {
+                        $html .= sprintf('<li style="margin:0 0 8px;">%s</li>', esc_html((string) $item));
+                    }
+                    $html .= '</ul>';
+                    break;
+
+                case 'button':
+                    $label = trim((string) ($block['label'] ?? ''));
+                    $url   = trim((string) ($block['url'] ?? ''));
+                    if ($label === '' || $url === '') {
+                        continue 2;
+                    }
+                    $html .= sprintf(
+                        '<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:28px auto 36px;">'
+                        . '<tr><td style="background:linear-gradient(135deg,#0f172a,#1d3a72);border-radius:999px;"><a href="%s" style="display:inline-block;padding:15px 36px;color:#ffffff;font-weight:600;text-decoration:none;font-size:15px;font-family:\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif;">%s</a></td></tr></table>',
+                        esc_url($url),
+                        esc_html($label)
+                    );
+                    break;
+
+                case 'code':
+                    $content = trim((string) ($block['content'] ?? ''));
+                    if ($content === '') {
+                        continue 2;
+                    }
+                    $html .= sprintf(
+                        '<p style="margin:0 0 22px;text-align:center;"><span style="display:inline-block;padding:14px 28px;background:#0f172a;color:#ffffff;font-size:22px;letter-spacing:0.32em;border-radius:18px;font-weight:700;font-family:\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif;">%s</span></p>',
+                        esc_html($content)
+                    );
+                    break;
+
+                case 'html':
+                    $content = trim((string) ($block['content'] ?? ''));
+                    if ($content === '') {
+                        continue 2;
+                    }
+                    $html .= wp_kses_post($content);
+                    break;
+
+                default:
+                    $content = trim((string) ($block['content'] ?? ''));
+                    if ($content === '') {
+                        continue 2;
+                    }
+                    $html .= sprintf(
+                        '<p style="margin:0 0 18px;color:#1f2937;font-size:15px;line-height:1.75;font-family:\'Segoe UI\',Roboto,\'Helvetica Neue\',Arial,\'Noto Sans\',sans-serif;">%s</p>',
+                        esc_html($content)
+                    );
+                    break;
+            }
+        }
+
+        return $html;
+    }
+
+    private static function get_logo_url(): string
+    {
+        if (!defined('JP_URL')) {
+            return '';
+        }
+
+        $url = trailingslashit(JP_URL) . 'assets/images/juntaplay.png';
+
+        /** @var string $filtered */
+        $filtered = apply_filters('juntaplay/email/logo_url', $url);
+
+        return trim($filtered);
+    }
+}
