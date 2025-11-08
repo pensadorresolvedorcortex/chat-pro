@@ -1,0 +1,274 @@
+.jplay-field {
+    margin-bottom: 1rem;
+}
+
+.jplay-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.jplay-required {
+    color: #d63638;
+    margin-left: 0.25rem;
+}
+
+.jplay-input,
+.jplay-textarea {
+    width: 100%;
+    max-width: 28rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.jplay-textarea {
+    resize: vertical;
+    min-height: 6rem;
+}
+
+.jplay-input:focus,
+.jplay-textarea:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+.jplay-actions {
+    margin-top: 1.5rem;
+}
+
+.jplay-actions--secondary {
+    margin-top: 1rem;
+}
+
+.jplay-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.5rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #2271b1;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.jplay-button:focus,
+.jplay-button:hover {
+    background-color: #135e96;
+}
+
+.jplay-button:focus {
+    outline: 2px solid #1d4f7d;
+    outline-offset: 2px;
+}
+
+.jplay-button:disabled {
+    background-color: #6c7781;
+    cursor: not-allowed;
+}
+
+.jplay-button--secondary {
+    background-color: #f6f7f7;
+    color: #1d2327;
+    border: 1px solid #c3c4c7;
+}
+
+.jplay-button--secondary:hover,
+.jplay-button--secondary:focus {
+    background-color: #d0d1d2;
+}
+
+.jplay-button--ghost {
+    background-color: transparent;
+    color: #2271b1;
+    border: 1px solid #2271b1;
+}
+
+.jplay-button--ghost:hover,
+.jplay-button--ghost:focus {
+    background-color: rgba(34, 113, 177, 0.12);
+}
+
+.jplay-button.is-loading::after {
+    content: '';
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-top-color: #fff;
+    border-radius: 50%;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0.5rem;
+    animation: jplay-spin 0.8s linear infinite;
+}
+
+.jplay-button.is-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+@keyframes jplay-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.jplay-notices {
+    margin-bottom: 1.5rem;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.jplay-notice {
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+}
+
+.jplay-notice--success {
+    background-color: #ecf7ed;
+    border-color: #2c8a3d;
+    color: #1d5c28;
+}
+
+.jplay-notice--error {
+    background-color: #fbeaea;
+    border-color: #d63638;
+    color: #8a1f1f;
+}
+
+.jplay-support-details[hidden] {
+    display: none !important;
+}
+
+.jplay-support-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.jplay-input--compact {
+    width: auto;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.jplay-input--flex {
+    flex: 1;
+}
+
+.jplay-help-text {
+    font-size: 0.85rem;
+    color: #50575e;
+    margin-top: 0.35rem;
+}
+
+.jplay-flag {
+    font-size: 1.25rem;
+    margin-right: 0.35rem;
+}
+
+.screen-reader-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.jplay-modal-open {
+    overflow: hidden;
+}
+
+.jplay-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.jplay-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(15, 23, 42, 0.55);
+}
+
+.jplay-modal__content {
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 2rem;
+    width: min(90vw, 420px);
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.35);
+}
+
+.jplay-modal__title {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+}
+
+.jplay-modal__description {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    color: #50575e;
+}
+
+.jplay-modal__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    color: #6c7781;
+}
+
+.jplay-modal__close:hover,
+.jplay-modal__close:focus {
+    color: #1d2327;
+}
+
+.jplay-modal__actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.jplay-modal__feedback {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    min-height: 1.2rem;
+}
+
+.jplay-modal__feedback.is-error {
+    color: #b32d2e;
+}
+
+.jplay-modal__feedback.is-success {
+    color: #1d5c28;
+}
+
+.jplay-2fa-feedback {
+    margin-top: 1.25rem;
+    font-size: 0.95rem;
+    min-height: 1.2rem;
+}
+
+.jplay-2fa-feedback.is-success {
+    color: #1d5c28;
+}
+
+.jplay-2fa-feedback.is-error {
+    color: #b32d2e;
+}
