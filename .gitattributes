@@ -1,0 +1,5 @@
+# Normalize text files and avoid binary diffs.
+* text=auto eol=lf
+
+# Keep occasional release archives binary if they slip through reviews.
+*.zip binary

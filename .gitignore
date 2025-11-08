@@ -1,0 +1,11 @@
+# Keep generated release archives out of the repository.
+*.zip
+
+# Prevent binary media assets from being tracked.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg
+*.ico
