@@ -1038,12 +1038,21 @@ class Auth
         foreach ($providers as $provider) {
             $key = isset($provider['key']) ? sanitize_key((string) $provider['key']) : '';
 
-            if ($key === '' || !$this->is_social_enabled($key)) {
+            if ($key === '') {
                 continue;
             }
 
-            $provider['href'] = esc_url($this->get_social_login_url($key));
-            $output[]         = $provider;
+            $enabled = $this->is_social_enabled($key);
+
+            if ($enabled) {
+                $provider['href'] = esc_url($this->get_social_login_url($key));
+                $provider['disabled'] = false;
+            } else {
+                $provider['href'] = '#';
+                $provider['disabled'] = true;
+            }
+
+            $output[] = $provider;
         }
 
         return $output;

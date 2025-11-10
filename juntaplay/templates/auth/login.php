@@ -14,42 +14,48 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$google_icon         = '';
-$google_icon_sources = [];
+$google_icon       = '';
+$plugin_dir        = dirname(__DIR__, 2);
+$icon_relative     = 'assets/images/google.png';
+$icon_file         = trailingslashit($plugin_dir) . $icon_relative;
+$google_icon_paths = [];
 
-if (defined('JP_URL') && JP_URL !== '') {
-    $google_icon_sources[] = trailingslashit(JP_URL) . 'assets/images/google.png';
-}
+if (file_exists($icon_file)) {
+    if (defined('JP_URL') && JP_URL !== '') {
+        $google_icon_paths[] = trailingslashit(JP_URL) . $icon_relative;
+    }
 
-$plugin_dir = dirname(__DIR__, 2);
+    if (function_exists('plugins_url')) {
+        $main_file = trailingslashit($plugin_dir) . 'juntaplay.php';
+        $google_icon_paths[] = plugins_url($icon_relative, file_exists($main_file) ? $main_file : __FILE__);
+    }
 
-if (defined('WP_PLUGIN_DIR') && defined('WP_PLUGIN_URL')) {
-    $normalize = static function (string $path): string {
-        if (function_exists('wp_normalize_path')) {
-            return wp_normalize_path($path);
+    if (defined('WP_PLUGIN_DIR') && defined('WP_PLUGIN_URL')) {
+        $normalize = static function (string $path): string {
+            if (function_exists('wp_normalize_path')) {
+                return wp_normalize_path($path);
+            }
+
+            return str_replace('\\', '/', $path);
+        };
+
+        $normalized_plugin_dir  = $normalize($plugin_dir);
+        $normalized_plugins_dir = $normalize(WP_PLUGIN_DIR);
+
+        if ($normalized_plugin_dir !== '' && strpos($normalized_plugin_dir, $normalized_plugins_dir) === 0) {
+            $relative_plugin_dir = trim(substr($normalized_plugin_dir, strlen($normalized_plugins_dir)), '/');
+            $base_plugin_url     = trailingslashit(WP_PLUGIN_URL);
+
+            if ($relative_plugin_dir !== '') {
+                $base_plugin_url .= trailingslashit($relative_plugin_dir);
+            }
+
+            $google_icon_paths[] = $base_plugin_url . $icon_relative;
         }
-
-        return str_replace('\\', '/', $path);
-    };
-
-    $normalized_plugin_dir   = $normalize($plugin_dir);
-    $normalized_plugins_dir  = $normalize(WP_PLUGIN_DIR);
-
-    if ($normalized_plugin_dir !== '' && strpos($normalized_plugin_dir, $normalized_plugins_dir) === 0) {
-        $relative_plugin_dir = trim(substr($normalized_plugin_dir, strlen($normalized_plugins_dir)), '/');
-        $base_plugin_url     = trailingslashit(WP_PLUGIN_URL);
-
-        if ($relative_plugin_dir !== '') {
-            $base_plugin_url .= trailingslashit($relative_plugin_dir);
-        }
-
-        $google_icon_sources[] = $base_plugin_url . 'assets/images/google.png';
     }
 }
 
-$google_icon_sources[] = plugins_url('juntaplay/assets/images/google.png');
-
-foreach ($google_icon_sources as $source) {
+foreach (array_filter(array_unique($google_icon_paths)) as $source) {
     if ($source !== '') {
         $google_icon = $source;
         break;
@@ -57,7 +63,7 @@ foreach ($google_icon_sources as $source) {
 }
 
 if ($google_icon === '') {
-    $google_icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOCAxOCI+PHBhdGggZmlsbD0iIzQyODVGNCIgZD0iTTE3LjY0IDkuMjA0NWMwLS42Mzg3LS4wNTczLTEuMjUxOC0uMTYzNi0xLjgzNjRIOXYzLjQ3MjdoNC44NDQ1Yy0uMjA5IDEuMTI1LS44NDM2IDIuMDc4Mi0xLjc5NzMgMi43MTY0djIuMjU4MWgyLjkwOWMxLjcwMy0xLjU2OTggMi42ODM4LTMuODgyNyAyLjY4MzgtNi42MTA4eiIvPjxwYXRoIGZpbGw9IiMzNEE4NTMiIGQ9Ik05IDE4YzIuNDMgMCA0LjQ2Ni0uODA2IDUuOTU1LTIuMTg0bC0yLjkwOS0yLjI1OGMtLjgwNi41NC0xLjgzOC44NTktMy4wNDYuODU5LTIuMzQ0IDAtNC4zMjgtMS41ODQtNS4wMzYtMy43MWgtMy4wMXYyLjMzMUMxLjQ4MiAxNS45MTUgNC45NTEgMTggOSAxOHoiLz48cGF0aCBmaWxsPSIjRkJCQzA1IiBkPSJNMy45NjQgMTAuNzA3Yy0uMTgtLjU0LS4yODItMS4xMTYtLjI4Mi0xLjcwN3MuMTAyLTEuMTY3LjI4Mi0xLjcwN1Y0Ljk2MkguOTU0Qy4zNDcgNi4xNzQgMCA3LjU1NSAwIDlzLjM0NyAyLjgyNi45NTQgNC4wMzhsMy4wMS0yLjMzMXoiLz48cGF0aCBmaWxsPSIjRUE0MzM1IiBkPSJNOSAzLjU3OWMxLjMyMSAwIDIuNTA2LjQ1NCAzLjQzOCAxLjM0NmwyLjU3OS0yLjU3OUMxMy40NjYuODg5IDExLjQzIDAgOSAwIDQuOTUxIDAgMS40ODIgMi4wODUuOTU0IDQuOTYybDMuMDEgMi4zMzFDNC42NzIgNS4xNjMgNi42NTYgMy41NzkgOSAzLjU3OXoiLz48L3N2Zz4=';
+    $google_icon = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOCAxOCI+PHBhdGggZmlsbD0iIzQyODVGNCIgZD0iTTE3LjY0IDkuMjA0NWMwLS42Mzg3LS4wNTczLTEuMjUxOC0uMTYzNi0xLjgzNjRIOXYzLjQ3MjdoNC44NDQ1Yy0uMjA5IDEuMTI1LS44NDM2IDIuMDc4Mi0xLjc5NzMgMi43MTY0djIuMjU4MWgyLjkwOWMxLjcwMy0xLjU2OTggMi42ODM4LTMuODgyNyAyLjY4MzgtNi42MTA4eiIvPjxwYXRoIGZpbGw9IiMzNEE4NTMiIGQ9Ik05IDE4YzIuNDMgMCA0LjQ2Ni0uODA2IDUuOTU1LTIuMTg0bC0yLjkwOS0yLjI1OGMtLjgwNi41NC0xLjgzOC44NTktMy4wNDYuODU5LTIuMzQ0IDAtNC4zMjgtMS41ODQtNS4wMzYtMy43MWgtMy4wMXYyLjMzMUMxLjQ4MiAxNS45MTUgNC45NTEgMTggOSAxOHoiLz48cGF0aCBmaWxsPSIjRkJCQzA1IiBkPSJNMy45NjQgMTAuNzA3Yy0uMTgtLjU0LS4yODItMS4xMTYtLjI4Mi0xLjcwN3MuMTAyLTEuMTY3LjI4Mi0xLjcwN1Y0Ljk2MkguOTU0Qy4zNDcgNi4xNzQgMCA3LjU1NSAwIDlzLjM0NyAyLjgyNi45NTQgNC4wMzhMMy4wMS0yLjMzMXoiLz48cGF0aCBmaWxsPSIjRUE0MzM1IiBkPSJNOSAzLjU3OWMxLjMyMSAwIDIuNTA2LjQ1NCAzLjQzOCAxLjM0NmwyLjU3OS0yLjU3OUMxMy40NjYuODg5IDExLjQzIDAgOSAwIDQuOTUxIDAgMS40ODIgMi4wODUuOTU0IDQuOTYybDMuMDEgMi4zMzFDNC42NzIgNS4xNjMgNi42NTYgMy41NzkgOSAzLjU3OXoiLz48L3N2Zz4=';
 }
 
 $google_icon = apply_filters('juntaplay/login/google_icon', $google_icon);
@@ -118,7 +124,7 @@ $render_social_block = static function (array $providers, bool $social_hooks, st
                     $icon    = isset($provider['icon']) ? (string) $provider['icon'] : '';
                     $popup   = !empty($provider['popup']);
                     $classes = 'juntaplay-auth__social-btn juntaplay-auth__social-btn--' . $key;
-                    $disabled = $href === '#';
+                    $disabled = !empty($provider['disabled']) || $href === '#';
                     $label_key = $context === 'register' && isset($provider['register_label']) ? 'register_label' : 'label';
                     $label   = isset($provider[$label_key]) ? esc_html($provider[$label_key]) : '';
                     $data_attrs = $key !== '' ? ' data-jp-auth-provider="' . esc_attr($key) . '"' : '';
