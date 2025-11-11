@@ -53,7 +53,13 @@ wc_print_notices();
         <div class="jp-credit-checkout__layout">
             <section class="jp-credit-checkout__form" aria-label="<?php esc_attr_e('Formulário de checkout seguro', 'juntaplay'); ?>">
                 <div class="woocommerce">
-                    <?php woocommerce_checkout_form($checkout); ?>
+                    <?php
+                    if (function_exists('woocommerce_checkout_form')) {
+                        woocommerce_checkout_form();
+                    } else {
+                        wc_get_template('checkout/form-checkout.php', ['checkout' => $checkout]);
+                    }
+                    ?>
                 </div>
             </section>
 
