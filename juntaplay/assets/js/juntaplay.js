@@ -5,18 +5,26 @@
 
     var i18n = (window.wp && window.wp.i18n) ? window.wp.i18n : null;
 
-    function __(text, domain) {
-        if (i18n && typeof i18n.__ === 'function') {
-            return i18n.__.apply(i18n, arguments);
+    function withI18n(method, fallback, args) {
+        if (i18n && typeof i18n[method] === 'function') {
+            try {
+                return i18n[method].apply(i18n, args);
+            } catch (error) {
+                if (window.console && typeof window.console.warn === 'function') {
+                    window.console.warn('[JuntaPlay] Falha ao traduzir com wp.i18n.', error);
+                }
+            }
         }
-        return text;
+
+        return fallback;
+    }
+
+    function __(text, domain) {
+        return withI18n('__', text, arguments);
     }
 
     function _n(single, plural, number, domain) {
-        if (i18n && typeof i18n._n === 'function') {
-            return i18n._n.apply(i18n, arguments);
-        }
-        return number === 1 ? single : plural;
+        return withI18n('_n', number === 1 ? single : plural, arguments);
     }
 
     function collectNumbers($scope) {
