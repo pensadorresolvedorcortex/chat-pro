@@ -5740,6 +5740,8 @@
         }, 0);
     });
 
+    $(document).on('juntaplay:group-modal-ready', initGroupSuccessState);
+
     $(function () {
         initGroupSuccessState();
     });

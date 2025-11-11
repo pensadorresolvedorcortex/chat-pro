@@ -35,10 +35,21 @@ $complaint_max_files = isset($complaint_limits['max_files']) ? (int) $complaint_
 $complaint_max_size  = isset($complaint_limits['max_size']) ? (int) $complaint_limits['max_size'] : 5 * 1024 * 1024;
 $complaint_max_size_mb = max(1, round($complaint_max_size / 1048576, 1));
 
-$success_message = isset($create_success['message']) ? (string) $create_success['message'] : '';
-$should_open_success = $success_message !== '';
-$success_heading = isset($create_success['heading']) ? (string) $create_success['heading'] : __('Grupo cadastrado com sucesso!', 'juntaplay');
-$success_body = isset($create_success['body']) ? (string) $create_success['body'] : __('Aguarde que nossa equipe vai validar e você será notificado.', 'juntaplay');
+$success_heading_raw = isset($create_success['heading']) ? (string) $create_success['heading'] : '';
+$success_body_raw = isset($create_success['body']) ? (string) $create_success['body'] : '';
+$success_message_raw = isset($create_success['message']) ? (string) $create_success['message'] : '';
+
+$should_open_success = $success_message_raw !== '' || $success_heading_raw !== '' || $success_body_raw !== '';
+
+$success_heading = $success_heading_raw !== ''
+    ? $success_heading_raw
+    : __('Grupo cadastrado com sucesso!', 'juntaplay');
+$success_body = $success_body_raw !== ''
+    ? $success_body_raw
+    : __('Aguarde que nossa equipe vai validar e você será notificado.', 'juntaplay');
+$success_message = $success_message_raw !== ''
+    ? $success_message_raw
+    : trim($success_heading_raw . ' ' . $success_body_raw);
 
 $success_image = '';
 if (defined('JP_URL') && JP_URL !== '') {
