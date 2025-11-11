@@ -760,11 +760,6 @@
         openGroupCreate();
     });
 
-    $(document).on('click', '[data-group-success-close]', function (event) {
-        event.preventDefault();
-        closeModal($(this).closest('.juntaplay-modal'));
-    });
-
     $(document).on('click', '[data-modal-close]', function (event) {
         event.preventDefault();
         closeModal($(this).closest('.juntaplay-modal'));

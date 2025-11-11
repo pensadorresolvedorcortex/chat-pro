@@ -1407,9 +1407,6 @@ if ($group_suggestions) {
             <p class="juntaplay-group-success__body" data-group-success-body></p>
             <div class="juntaplay-group-success__actions">
                 <div class="juntaplay-group-success__cta" data-group-success-cta></div>
-                <button type="button" class="juntaplay-button juntaplay-button--primary" data-group-success-close>
-                    <?php echo esc_html__('Fechar', 'juntaplay'); ?>
-                </button>
             </div>
         </div>
     </template>
