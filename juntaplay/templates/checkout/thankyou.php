@@ -381,8 +381,13 @@ $success_image_alt  = $is_credit_topup ? __('Confirmação da recarga de saldo J
                 <div class="jp-checkout-flow__success-inner">
                     <div class="jp-checkout-flow__summary-card">
                         <h2><?php echo esc_html($summary_title); ?></h2>
+                        <?php
+                        $order_number_label = $is_credit_topup
+                            ? __('Número da recarga', 'juntaplay')
+                            : __('Número da assinatura', 'juntaplay');
+                        ?>
                         <dl>
-                            <dt><?php esc_html_e('Número da assinatura', 'juntaplay'); ?></dt>
+                            <dt><?php echo esc_html($order_number_label); ?></dt>
                             <dd><?php echo esc_html($order_number); ?></dd>
 
                             <dt><?php esc_html_e('Data da compra', 'juntaplay'); ?></dt>
