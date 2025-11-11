@@ -44,7 +44,7 @@ class CheckoutDeposit
 
     public function init(): void
     {
-        add_action('template_redirect', [$this, 'maybe_render_template'], 9);
+        add_filter('template_include', [$this, 'filter_template_include'], 99);
         add_action('wp_enqueue_scripts', [$this, 'enqueue_assets'], 30);
         add_filter('body_class', [$this, 'filter_body_class']);
         add_filter('woocommerce_checkout_fields', [$this, 'filter_checkout_fields']);
@@ -221,20 +221,20 @@ CSS;
         wp_add_inline_style('juntaplay', $css);
     }
 
-    public function maybe_render_template(): void
+    public function filter_template_include(string $template): string
     {
         if ($this->rendering || !$this->is_deposit_checkout()) {
-            return;
+            return $template;
         }
 
         if (!function_exists('WC')) {
-            return;
+            return $template;
         }
 
         $checkout = WC()->checkout();
 
         if (!$checkout) {
-            return;
+            return $template;
         }
 
         $context = $this->build_template_context();
@@ -245,14 +245,9 @@ CSS;
         status_header(200);
         nocache_headers();
 
-        get_header();
+        $GLOBALS['juntaplay_deposit_template_context'] = $context;
 
-        $template_context = $context;
-
-        include JP_DIR . 'templates/checkout/deposit.php';
-
-        get_footer();
-        exit;
+        return JP_DIR . 'templates/checkout/deposit-page.php';
     }
 
     /**
