@@ -175,7 +175,7 @@ class EmailHelper
                         <tr>
                             <td style="padding:48px 40px 24px;text-align:center;background:#ffffff;">
                                 <?php if ($logo_url !== '') : ?>
-                                    <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>" style="display:block;margin:0 auto 24px;max-width:60px;width:100%;height:auto;">
+                                    <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>" style="display:block;margin:0 auto 24px;width:100%;height:auto;">
                                 <?php endif; ?>
                                 <div style="margin:0 auto 32px;width:120px;height:8px;background:#00CCC0;border-radius:25px;"></div>
                                 <?php if ($headline !== '') : ?>
@@ -199,7 +199,7 @@ class EmailHelper
                                             <td style="padding:48px 32px 52px;text-align:center;color:#ffffff;font-family:'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif;">
                                                 <?php if ($footer_logo_url !== '') : ?>
                                                     <div style="margin:0 0 18px;">
-                                                        <img src="<?php echo esc_url($footer_logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>" style="display:block;margin:0 auto;max-width:180px;width:100%;height:auto;">
+                                                        <img src="<?php echo esc_url($footer_logo_url); ?>" alt="<?php echo esc_attr($site_name); ?>" style="display:block;margin:0 auto;max-width:60px;width:100%;height:auto;">
                                                     </div>
                                                 <?php elseif ($site_name !== '') : ?>
                                                     <p style="margin:0 0 12px;font-size:13px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.7);">
