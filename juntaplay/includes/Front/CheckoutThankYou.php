@@ -23,6 +23,7 @@ use function home_url;
 use function in_array;
 use function is_checkout;
 use function is_order_received_page;
+use function is_numeric;
 use function nocache_headers;
 use function ob_get_clean;
 use function ob_start;
@@ -474,6 +475,12 @@ class CheckoutThankYou
             $product = $item->get_product();
 
             if ($product && $product->is_type('juntaplay_credit_topup')) {
+                return true;
+            }
+
+            $deposit_amount = $item->get_meta('_juntaplay_deposit_amount', true);
+
+            if (is_numeric($deposit_amount) && (float) $deposit_amount > 0.0) {
                 return true;
             }
         }
