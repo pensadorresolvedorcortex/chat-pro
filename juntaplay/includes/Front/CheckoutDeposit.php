@@ -191,7 +191,7 @@ class CheckoutDeposit
 .jp-credit-checkout__form .woocommerce table.shop_table th,
 .jp-credit-checkout__form .woocommerce table.shop_table td{padding:14px 18px;} 
 .jp-credit-checkout__form .woocommerce .woocommerce-checkout-payment{background:#f8fafc;border-radius:16px;padding:20px;} 
-.jp-credit-checkout__sidebar{flex:1 1 32%;min-width:min(320px,100%);display:flex;flex-direction:column;gap:24px;} 
+.jp-credit-checkout__sidebar{flex:1 1 2%;min-width:min(230px,100%);display:flex;flex-direction:column;gap:24px;}
 .jp-credit-checkout__card{background:#ffffff;border-radius:24px;padding:24px 26px;box-shadow:0 22px 50px rgba(15,23,42,0.08);} 
 .jp-credit-checkout__card h2,
 .jp-credit-checkout__card h3{margin:0 0 16px;font-size:18px;color:#0f172a;} 
@@ -214,7 +214,7 @@ class CheckoutDeposit
     .jp-credit-checkout{padding:32px 0 48px;}
     .jp-credit-checkout__container{gap:24px;}
     .jp-credit-checkout__form .woocommerce{padding:24px;border-radius:20px;}
-    .jp-credit-checkout__sidebar{min-width:100%;}
+    .jp-credit-checkout__sidebar{flex:1 1 100%;min-width:100%;}
 }
 CSS;
 
