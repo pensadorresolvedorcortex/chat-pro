@@ -31,8 +31,11 @@ class DAP_Dashboard {
 
     /**
      * Renders the dashboard view.
+     *
+     * @param mixed $object        Dashboard object placeholder (unused).
+     * @param array $callback_args Optional callback arguments.
      */
-    public function render_dashboard() {
+    public function render_dashboard( $object = null, $callback_args = [] ) {
         $hero_slug = dap_get_option( 'hero_button_slug', 'admin.php?page=juntaplay-groups' );
         $hero_slug = ltrim( $hero_slug, '/' );
         $hero_url  = admin_url( $hero_slug );
