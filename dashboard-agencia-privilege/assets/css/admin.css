@@ -234,3 +234,49 @@ body.dap-global-skin .wrap .card {
 body.dap-global-skin .wrap .card-header {
     background-color: rgba(59, 130, 246, 0.06);
 }
+
+.dap-admin .dap-error-logs {
+    border: 1px solid rgba(239, 68, 68, 0.08);
+    box-shadow: 0 14px 40px rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .dap-error-logs .card-header {
+    border-bottom-color: rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .dap-log-list {
+    counter-reset: dap-log-count;
+}
+
+.dap-admin .dap-log-item {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.dap-admin .dap-log-item:last-child {
+    border-bottom: 0;
+}
+
+.dap-admin .dap-log-item::before {
+    counter-increment: dap-log-count;
+    content: counter(dap-log-count);
+    position: absolute;
+    left: 0;
+    top: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.18);
+}
+
+.dap-admin .dap-log-item {
+    position: relative;
+    padding-left: 2.25rem;
+}
+
+.dap-admin .dap-log-context dt {
+    min-width: 120px;
+}
+
+.dap-admin .dap-log-empty {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(148, 163, 184, 0.12));
+    border-radius: 14px;
+}

@@ -9,9 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-$widget_area   = isset( $data['widget_area'] ) ? $data['widget_area'] : '';
-$cta_url       = isset( $data['cta_url'] ) ? $data['cta_url'] : '';
-$elementor_cta = isset( $data['elementor_cta'] ) ? $data['elementor_cta'] : '';
+$widget_area            = isset( $data['widget_area'] ) ? $data['widget_area'] : '';
+$cta_url                = isset( $data['cta_url'] ) ? $data['cta_url'] : '';
+$elementor_cta          = isset( $data['elementor_cta'] ) ? $data['elementor_cta'] : '';
+$error_logs             = isset( $data['error_logs'] ) && is_array( $data['error_logs'] ) ? $data['error_logs'] : [];
+$clear_logs_url         = isset( $data['clear_logs_url'] ) ? $data['clear_logs_url'] : '';
+$logs_recently_cleared  = ! empty( $data['logs_recently_cleared'] );
 
 $hero_image = DAP_URL . 'assets/ubold/assets/images/hero-1.png';
 if ( ! dap_asset_exists( 'assets/ubold/assets/images/hero-1.png' ) ) {
@@ -297,6 +300,68 @@ $project_table_header = [
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row g-4 mb-4">
+            <div class="col-12">
+                <div class="card dap-error-logs">
+                    <div class="card-header border-0 pb-0 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                        <div>
+                            <p class="text-muted mb-1 text-uppercase small fw-semibold"><?php echo esc_html__( 'Plugin Logs', 'dap' ); ?></p>
+                            <h2 class="fw-semibold mb-0"><?php echo esc_html__( 'Últimos erros registrados', 'dap' ); ?></h2>
+                            <p class="text-muted mb-0"><?php echo esc_html__( 'Consulte os eventos capturados pelo plugin e compartilhe com a equipe técnica para depuração.', 'dap' ); ?></p>
+                        </div>
+                        <div class="d-flex flex-column flex-md-row gap-2">
+                            <span class="text-muted small"><?php echo esc_html__( 'Use dap_record_error_log() para adicionar entradas personalizadas.', 'dap' ); ?></span>
+                            <?php if ( ! empty( $clear_logs_url ) ) : ?>
+                                <a class="btn btn-soft-danger" href="<?php echo esc_url( $clear_logs_url ); ?>"><?php echo esc_html__( 'Limpar registros', 'dap' ); ?></a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <?php if ( $logs_recently_cleared ) : ?>
+                            <div class="alert alert-success py-2 px-3 mb-3">
+                                <?php echo esc_html__( 'Logs limpos com sucesso.', 'dap' ); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ( ! empty( $error_logs ) ) : ?>
+                            <ul class="dap-log-list list-unstyled mb-0">
+                                <?php foreach ( $error_logs as $log ) :
+                                    $log_time    = isset( $log['time'] ) ? $log['time'] : '';
+                                    $log_message = isset( $log['message'] ) ? $log['message'] : '';
+                                    $log_context = isset( $log['context'] ) && is_array( $log['context'] ) ? $log['context'] : [];
+                                    $timestamp   = $log_time ? strtotime( $log_time ) : false;
+                                    $formatted   = $timestamp ? date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $timestamp ) : '';
+                                    ?>
+                                    <li class="dap-log-item py-3">
+                                        <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
+                                            <span class="badge bg-soft-danger text-danger fw-semibold text-uppercase small"><?php echo esc_html__( 'Erro', 'dap' ); ?></span>
+                                            <?php if ( $formatted ) : ?>
+                                                <span class="text-muted small text-md-end"><?php echo esc_html( $formatted ); ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                        <p class="fw-semibold mt-3 mb-2 text-body"><?php echo esc_html( $log_message ); ?></p>
+                                        <?php if ( ! empty( $log_context ) ) : ?>
+                                            <dl class="dap-log-context mb-0">
+                                                <?php foreach ( $log_context as $context_key => $context_value ) : ?>
+                                                    <div class="d-flex flex-column flex-sm-row gap-1 gap-sm-2">
+                                                        <dt class="text-muted small text-uppercase fw-semibold mb-0"><?php echo esc_html( $context_key ); ?>:</dt>
+                                                        <dd class="text-muted small mb-0 flex-grow-1"><?php echo esc_html( $context_value ); ?></dd>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </dl>
+                                        <?php endif; ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else : ?>
+                            <div class="dap-log-empty text-center py-4">
+                                <p class="fw-semibold mb-1"><?php echo esc_html__( 'Nenhum erro capturado até agora.', 'dap' ); ?></p>
+                                <p class="text-muted mb-0"><?php echo esc_html__( 'Quando o plugin registrar inconsistências elas aparecerão automaticamente aqui.', 'dap' ); ?></p>
+                            </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

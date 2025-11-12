@@ -26,6 +26,7 @@ Para reproduzir fielmente o visual do Ubold:
 - API REST (`/wp-json/dap/v1/stats`) preparada para integração futura.
 - Página de configurações simples para personalizar o comportamento do painel.
 - Área dedicada "Widgets Elementor" para construir os widgets introdutórios com Elementor, antes do layout analítico principal.
+- Card "Plugin Logs" com limpeza rápida e suporte à função `dap_record_error_log()` para inspecionar problemas diretamente do dashboard.
 
 ### Widgets iniciais com Elementor
 
@@ -37,6 +38,7 @@ Para reproduzir fielmente o visual do Ubold:
 
 - Ative o plugin e visite `/wp-admin/index.php` para verificar o layout Ubold.
 - Copie os ativos do Ubold e confirme se estilos e scripts são carregados sem erros no console.
+- Gere uma entrada de log com `dap_record_error_log( 'Minha mensagem' );` e verifique se o card **Plugin Logs** exibe e permite limpar o histórico.
 - Navegue em outras telas do admin (WooCommerce, Elementor, etc.) para validar que o layout permanece intacto.
 
 > Dica: substitua `assets/images/hero-placeholder.svg` por uma arte do Ubold (ex.: `assets/ubold/assets/images/hero-1.png`) para reproduzir o visual original do hero.

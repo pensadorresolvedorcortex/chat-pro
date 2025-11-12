@@ -25,6 +25,7 @@ class DAP_Admin {
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
         add_filter( 'admin_body_class', [ $this, 'filter_admin_body_class' ] );
         add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
+        add_action( 'admin_post_dap_clear_logs', [ $this, 'handle_clear_logs_request' ] );
     }
 
     /**
@@ -172,6 +173,30 @@ class DAP_Admin {
                 'onProgress' => esc_html__( 'On Progress', 'dap' ),
             ],
         ];
+    }
+
+    /**
+     * Handles requests to clear stored error logs from the dashboard.
+     */
+    public function handle_clear_logs_request() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'You do not have permission to perform this action.', 'dap' ) );
+        }
+
+        check_admin_referer( 'dap_clear_logs' );
+
+        dap_clear_error_logs();
+
+        $redirect = wp_get_referer();
+
+        if ( ! $redirect ) {
+            $redirect = admin_url( 'index.php' );
+        }
+
+        $redirect = add_query_arg( 'dap_logs_cleared', '1', $redirect );
+
+        wp_safe_redirect( $redirect );
+        exit;
     }
 
     /**

@@ -41,9 +41,12 @@ class DAP_Dashboard {
         $hero_url  = admin_url( $hero_slug );
 
         $data = [
-            'cta_url'      => esc_url( $hero_url ),
-            'widget_area'  => dap_get_widget_area_markup(),
-            'elementor_cta' => admin_url( 'index.php?page=dap-dashboard-widgets' ),
+            'cta_url'              => esc_url( $hero_url ),
+            'widget_area'          => dap_get_widget_area_markup(),
+            'elementor_cta'        => admin_url( 'index.php?page=dap-dashboard-widgets' ),
+            'error_logs'           => dap_get_error_logs(),
+            'clear_logs_url'       => wp_nonce_url( admin_url( 'admin-post.php?action=dap_clear_logs' ), 'dap_clear_logs' ),
+            'logs_recently_cleared' => isset( $_GET['dap_logs_cleared'] ) && (int) $_GET['dap_logs_cleared'] === 1,
         ];
 
         include DAP_PATH . 'includes/views/dashboard.php';
