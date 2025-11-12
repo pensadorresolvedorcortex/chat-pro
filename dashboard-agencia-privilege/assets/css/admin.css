@@ -1,0 +1,236 @@
+/*
+ * Dashboard Agência Privilege - admin styles.
+ */
+
+body.dap-dashboard-screen #wpcontent {
+    padding-left: 0;
+}
+
+body.dap-dashboard-screen #wpbody-content {
+    padding-bottom: 30px;
+}
+
+body.dap-dashboard-screen #dashboard-widgets-wrap {
+    padding-top: 0;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget.postbox {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget .postbox-header,
+body.dap-dashboard-screen #dap_dashboard_widget .handlediv,
+body.dap-dashboard-screen #dap_dashboard_widget .hndle {
+    display: none;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.dap-admin {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    color: #1f222b;
+}
+
+.dap-admin .dap-dashboard {
+    background-color: #f4f6fb;
+    border-radius: 24px 24px 0 0;
+    padding-top: 2.5rem;
+}
+
+.dap-admin .card {
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.dap-admin .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.dap-admin .card-title {
+    font-weight: 600;
+}
+
+.dap-admin .badge.bg-soft-primary {
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+.dap-admin .badge.bg-soft-success {
+    background-color: rgba(16, 185, 129, 0.12);
+}
+
+.dap-admin .badge.bg-soft-warning {
+    background-color: rgba(245, 158, 11, 0.12);
+}
+
+.dap-admin .badge.bg-soft-danger {
+    background-color: rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .badge.bg-soft-light {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.dap-admin .btn-soft-primary {
+    color: #2563eb;
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+.dap-admin .btn-soft-secondary {
+    color: #64748b;
+    background-color: rgba(100, 116, 139, 0.12);
+}
+
+.dap-admin .btn-soft-primary:hover,
+.dap-admin .btn-soft-primary.active {
+    background-color: rgba(59, 130, 246, 0.18);
+    color: #1d4ed8;
+}
+
+.dap-admin .btn-soft-secondary:hover,
+.dap-admin .btn-soft-secondary.active {
+    background-color: rgba(100, 116, 139, 0.2);
+    color: #475569;
+}
+
+.dap-admin .dap-elementor-widgets {
+    position: relative;
+    z-index: 1;
+}
+
+.dap-admin .dap-elementor-placeholder .card-body {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(14, 165, 233, 0.12));
+    border-radius: 16px;
+}
+
+.dap-admin .dap-hero {
+    background: linear-gradient(135deg, #4f46e5, #22d3ee);
+    border: 0;
+    box-shadow: 0 20px 40px rgba(79, 70, 229, 0.35);
+    color: #fff;
+}
+
+.dap-admin .dap-hero .card-body {
+    min-height: 260px;
+}
+
+.dap-admin .dap-hero-figure img {
+    max-width: 260px;
+}
+
+.dap-admin .dap-kpi-card {
+    border: 0;
+    background: #fff;
+}
+
+.dap-admin .dap-kpi-chip {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    background: conic-gradient(currentColor 0 270deg, rgba(148, 163, 184, 0.2) 270deg 360deg);
+    position: relative;
+}
+
+.dap-admin .dap-kpi-chip::after {
+    content: '';
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.dap-admin .dap-chart {
+    min-height: 300px;
+}
+
+.dap-admin .btn-group .btn {
+    min-width: 105px;
+}
+
+.dap-admin .table thead th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+}
+
+.dap-admin .table tbody td {
+    vertical-align: middle;
+    font-size: 0.95rem;
+}
+
+.dap-admin .dap-progress-bar {
+    position: relative;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.25);
+    overflow: hidden;
+}
+
+.dap-admin .dap-progress-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(79, 70, 229, 0.85), rgba(14, 165, 233, 0.85));
+}
+
+.dap-admin .dap-progress-bar strong {
+    position: absolute;
+    top: -26px;
+    right: 0;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.dap-admin .list-group-item {
+    border: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    padding: 1rem 1.25rem;
+}
+
+.dap-admin .list-group-item:last-child {
+    border-bottom: 0;
+}
+
+.dap-admin .dap-activity-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    margin-top: 6px;
+}
+
+.dap-admin .dap-activity-list .list-group-item {
+    background-color: transparent;
+}
+
+.dap-admin .dap-activity-list h6 {
+    font-weight: 600;
+}
+
+.dap-admin .dap-important-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+body.dap-global-skin .wrap .card {
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+body.dap-global-skin .wrap .card-header {
+    background-color: rgba(59, 130, 246, 0.06);
+}
