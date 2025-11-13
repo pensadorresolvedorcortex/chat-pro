@@ -15,12 +15,13 @@ Para reproduzir fielmente o visual do Ubold:
 1. Obtenha o pacote original do Ubold (licença necessária).
 2. Copie a pasta `Docs/assets` do Ubold para `wp-content/plugins/dashboard-agencia-privilege/assets/ubold/assets`.
 3. Certifique-se de que os arquivos `css/app.min.css`, `css/icons.min.css`, `js/vendor.min.js`, `js/app.min.js` e `vendor/apexcharts/apexcharts.min.js` estejam presentes. O plugin detecta automaticamente esses arquivos e utiliza fallbacks caso estejam ausentes.
+4. Se os ativos não forem encontrados, o plugin carregará Bootstrap 5, Remix Icon e ApexCharts via CDN para garantir que o layout continue funcional, além de exibir um aviso apenas para administradores informando o diretório correto para subir o tema.
 
 > ⚠️ A pasta `assets/ubold/assets` incluída no plugin contém apenas um arquivo `.gitkeep` como placeholder. Nenhum ativo proprietário do Ubold é distribuído junto com o plugin.
 
 ## Funcionalidades
 
-- Skin completa do Ubold aplicada ao `/wp-admin/index.php` com wrapper namespaced `.dap-admin`.
+- Skin completa do Ubold aplicada ao `/wp-admin/index.php` com wrapper namespaced `.dap-admin` e fallback automático via CDN quando os arquivos oficiais não estiverem presentes.
 - Dashboard Modern inspirado no HTML do Ubold com hero gradiente, KPIs, gráficos ApexCharts e listas atualizadas.
 - Carregamento condicional de assets apenas no Dashboard (e CSS opcional em outras telas).
 - API REST (`/wp-json/dap/v1/stats`) preparada para integração futura.

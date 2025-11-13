@@ -26,6 +26,7 @@ class DAP_Admin {
         add_filter( 'admin_body_class', [ $this, 'filter_admin_body_class' ] );
         add_action( 'rest_api_init', [ $this, 'register_rest_routes' ] );
         add_action( 'admin_post_dap_clear_logs', [ $this, 'handle_clear_logs_request' ] );
+        add_action( 'admin_notices', [ $this, 'maybe_display_missing_assets_notice' ] );
     }
 
     /**
@@ -51,6 +52,8 @@ class DAP_Admin {
 
         $this->has_ubold_assets = $this->determine_ubold_assets();
 
+        $style_dependencies = [];
+
         if ( $is_dashboard ) {
             wp_register_script(
                 'dap-admin',
@@ -60,12 +63,16 @@ class DAP_Admin {
                 true
             );
 
-            $this->enqueue_dashboard_assets();
+            $dashboard_assets = $this->enqueue_dashboard_assets();
+
+            if ( ! empty( $dashboard_assets['styles'] ) ) {
+                $style_dependencies = array_merge( $style_dependencies, $dashboard_assets['styles'] );
+            }
 
             wp_enqueue_style(
                 'dap-admin',
                 DAP_URL . 'assets/css/admin.css',
-                $this->has_ubold_assets ? [ 'dap-ubold-app' ] : [],
+                $style_dependencies,
                 DAP_VERSION
             );
 
@@ -85,12 +92,21 @@ class DAP_Admin {
      * Determines whether local Ubold assets exist and enqueues them if available.
      */
     protected function enqueue_dashboard_assets() {
+        $style_dependencies = [];
+
         if ( $this->has_ubold_assets ) {
             wp_enqueue_style( 'dap-ubold-icons', DAP_URL . 'assets/ubold/assets/css/icons.min.css', [], DAP_VERSION );
             wp_enqueue_style( 'dap-ubold-app', DAP_URL . 'assets/ubold/assets/css/app.min.css', [ 'dap-ubold-icons' ], DAP_VERSION );
+            $style_dependencies = [ 'dap-ubold-app' ];
 
             wp_enqueue_script( 'dap-ubold-vendor', DAP_URL . 'assets/ubold/assets/js/vendor.min.js', [], DAP_VERSION, true );
             wp_enqueue_script( 'dap-ubold-app', DAP_URL . 'assets/ubold/assets/js/app.min.js', [ 'dap-ubold-vendor' ], DAP_VERSION, true );
+        } else {
+            wp_enqueue_style( 'dap-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', [], '5.3.3' );
+            wp_enqueue_style( 'dap-remixicon', 'https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css', [], '3.5.0' );
+            $style_dependencies = [ 'dap-bootstrap', 'dap-remixicon' ];
+
+            wp_enqueue_script( 'dap-bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', [], '5.3.3', true );
         }
 
         if ( dap_asset_exists( 'assets/ubold/assets/vendor/apexcharts/apexcharts.min.js' ) ) {
@@ -105,6 +121,52 @@ class DAP_Admin {
             ]
         ) . ';';
         wp_add_inline_script( 'dap-admin', $inline_settings, 'before' );
+
+        return [
+            'styles' => $style_dependencies,
+        ];
+    }
+
+    /**
+     * Displays a warning when the bundled Ubold assets are missing.
+     */
+    public function maybe_display_missing_assets_notice() {
+        if ( $this->has_ubold_assets ) {
+            return;
+        }
+
+        if ( ! $this->has_ubold_assets && $this->determine_ubold_assets() ) {
+            $this->has_ubold_assets = true;
+
+            return;
+        }
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        $screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+
+        if ( ! $screen || 'dashboard' !== $screen->id ) {
+            return;
+        }
+
+        $assets_dir   = trailingslashit( DAP_PATH ) . 'assets/ubold/assets';
+        $relative_dir = wp_normalize_path( $assets_dir );
+        $relative_dir = str_replace( wp_normalize_path( ABSPATH ), '/', $relative_dir );
+        ?>
+        <div class="notice notice-warning">
+            <p>
+                <?php
+                printf(
+                    /* translators: %s: plugin assets path */
+                    esc_html__( 'A aparência completa do Dashboard Agência Privilege usa o tema Ubold. Copie a pasta Docs/assets do Ubold para %s para substituir os arquivos de fallback.', 'dap' ),
+                    '<code>' . esc_html( $relative_dir ) . '</code>'
+                );
+                ?>
+            </p>
+        </div>
+        <?php
     }
 
     /**
