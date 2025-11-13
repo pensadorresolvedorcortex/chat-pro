@@ -1,0 +1,515 @@
+/*
+ * Dashboard Agência Privilege - admin styles.
+ */
+
+body.dap-dashboard-screen #wpcontent {
+    padding-left: 0;
+}
+
+body.dap-dashboard-screen #wpbody-content {
+    padding-bottom: 30px;
+}
+
+body.dap-dashboard-screen #dashboard-widgets-wrap {
+    padding-top: 0;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget.postbox {
+    border: 0;
+    box-shadow: none;
+    background: transparent;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget .postbox-header,
+body.dap-dashboard-screen #dap_dashboard_widget .handlediv,
+body.dap-dashboard-screen #dap_dashboard_widget .hndle {
+    display: none;
+}
+
+body.dap-dashboard-screen #dap_dashboard_widget .inside {
+    margin: 0;
+    padding: 0;
+}
+
+.dap-admin .dap-dashboard-toolbar .badge,
+.dap-admin .dap-dashboard-toolbar .btn,
+body.dap-global-skin #wpadminbar .ab-item,
+body.dap-global-skin #wpadminbar a.ab-item {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+}
+
+.dap-admin {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    color: #1f222b;
+}
+
+.dap-admin .dap-dashboard {
+    background-color: #f4f6fb;
+    border-radius: 24px 24px 0 0;
+    padding-top: 2.5rem;
+}
+
+.dap-admin .dap-dashboard-toolbar {
+    background: #fff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.04);
+}
+
+.dap-admin .dap-dashboard-toolbar .badge {
+    letter-spacing: 0.02em;
+}
+
+.dap-admin .dap-dashboard-toolbar .btn {
+    font-weight: 600;
+}
+
+.dap-admin .card {
+    border-radius: 16px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+}
+
+.dap-admin .card-header {
+    background: transparent;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.dap-admin .card-title {
+    font-weight: 600;
+}
+
+.dap-admin .badge.bg-soft-primary {
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+.dap-admin .badge.bg-soft-success {
+    background-color: rgba(16, 185, 129, 0.12);
+}
+
+.dap-admin .badge.bg-soft-warning {
+    background-color: rgba(245, 158, 11, 0.12);
+}
+
+.dap-admin .badge.bg-soft-danger {
+    background-color: rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .badge.bg-soft-info {
+    background-color: rgba(14, 165, 233, 0.12);
+}
+
+.dap-admin .badge.bg-soft-light {
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+.dap-admin .btn-soft-primary {
+    color: #2563eb;
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+.dap-admin .btn-soft-secondary {
+    color: #64748b;
+    background-color: rgba(100, 116, 139, 0.12);
+}
+
+.dap-admin .btn-soft-primary:hover,
+.dap-admin .btn-soft-primary.active {
+    background-color: rgba(59, 130, 246, 0.18);
+    color: #1d4ed8;
+}
+
+.dap-admin .btn-soft-secondary:hover,
+.dap-admin .btn-soft-secondary.active {
+    background-color: rgba(100, 116, 139, 0.2);
+    color: #475569;
+}
+
+body.dap-global-skin {
+    background-color: #f4f6fb;
+    color: #1f222b;
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+}
+
+body.dap-global-skin #wpwrap,
+body.dap-global-skin #wpcontent,
+body.dap-global-skin #wpbody-content {
+    background-color: transparent;
+}
+
+body.dap-global-skin #wpadminbar {
+    background: linear-gradient(135deg, #312e81 0%, #1e1b4b 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dap-global-skin #wpadminbar .ab-item,
+body.dap-global-skin #wpadminbar .ab-label,
+body.dap-global-skin #wpadminbar .ab-icon {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+body.dap-global-skin #wpadminbar .ab-top-menu > li:hover > .ab-item,
+body.dap-global-skin #wpadminbar .ab-top-menu > li > .ab-item:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+body.dap-global-skin #adminmenu,
+body.dap-global-skin #adminmenu .wp-submenu {
+    background-color: #0f172a;
+}
+
+body.dap-global-skin #adminmenu a {
+    color: #cbd5f5;
+    font-weight: 500;
+}
+
+body.dap-global-skin #adminmenu .wp-has-current-submenu > a.menu-top,
+body.dap-global-skin #adminmenu .current a.menu-top,
+body.dap-global-skin #adminmenu a.menu-top:hover,
+body.dap-global-skin #adminmenu li.menu-top:hover > a.menu-top {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: #fff;
+    box-shadow: 0 8px 18px rgba(79, 70, 229, 0.35);
+}
+
+body.dap-global-skin #adminmenu .wp-submenu a {
+    color: rgba(226, 232, 240, 0.85);
+}
+
+body.dap-global-skin #adminmenu .wp-submenu a:hover,
+body.dap-global-skin #adminmenu .wp-submenu li.current a {
+    color: #fff;
+}
+
+body.dap-global-skin #adminmenuback,
+body.dap-global-skin #adminmenuwrap {
+    background-color: #0f172a;
+}
+
+body.dap-global-skin .wrap h1,
+body.dap-global-skin .wrap h2,
+body.dap-global-skin .wrap h3 {
+    color: #111827;
+    letter-spacing: -0.02em;
+}
+
+body.dap-global-skin .wrap .page-title-action,
+body.dap-global-skin .wp-core-ui .button,
+body.dap-global-skin .wp-core-ui .button-secondary {
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    background-color: #fff;
+    color: #1f2937;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+body.dap-global-skin .wrap .page-title-action:hover,
+body.dap-global-skin .wp-core-ui .button:hover,
+body.dap-global-skin .wp-core-ui .button-secondary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.1);
+    color: #111827;
+}
+
+body.dap-global-skin .wp-core-ui .button-primary,
+body.dap-global-skin .wrap .button-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    border: 0;
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+}
+
+body.dap-global-skin .wp-core-ui .button-primary:hover,
+body.dap-global-skin .wrap .button-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 38px rgba(79, 70, 229, 0.45);
+}
+
+body.dap-global-skin .wrap .notice,
+body.dap-global-skin .wrap .update-nag {
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    background-color: #fff;
+}
+
+body.dap-global-skin .wrap .widefat,
+body.dap-global-skin .wrap .wp-list-table {
+    border-radius: 16px;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.06);
+}
+
+body.dap-global-skin .wrap .wp-list-table thead th {
+    background-color: #f8fafc;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+body.dap-global-skin .wrap .wp-list-table tbody tr:nth-child(odd) {
+    background-color: rgba(241, 245, 249, 0.65);
+}
+
+body.dap-global-skin .wrap .wp-list-table tbody tr:hover {
+    background-color: rgba(191, 219, 254, 0.3);
+}
+
+body.dap-global-skin .wrap .form-table th {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+body.dap-global-skin .wrap .form-table td,
+body.dap-global-skin .wrap .form-table input,
+body.dap-global-skin .wrap .form-table select,
+body.dap-global-skin .wrap .form-table textarea {
+    border-radius: 12px;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: none;
+}
+
+body.dap-global-skin .wrap .form-table input:focus,
+body.dap-global-skin .wrap .form-table select:focus,
+body.dap-global-skin .wrap .form-table textarea:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    outline: 0;
+}
+
+body.dap-global-skin .wrap .subsubsub a.current,
+body.dap-global-skin .wrap .subsubsub a:hover {
+    color: #4f46e5;
+}
+
+body.dap-global-skin #screen-meta,
+body.dap-global-skin #contextual-help-link-wrap,
+body.dap-global-skin #screen-options-wrap {
+    background-color: #fff;
+    border: 1px solid rgba(148, 163, 184, 0.25);
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+body.dap-fallback-assets .dap-admin .card,
+body.dap-fallback-assets .dap-admin .dap-dashboard-toolbar,
+body.dap-fallback-assets .dap-admin .dap-elementor-placeholder {
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+}
+
+.dap-admin .dap-elementor-widgets {
+    position: relative;
+    z-index: 1;
+}
+
+.dap-admin .dap-elementor-placeholder .card-body {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.12), rgba(14, 165, 233, 0.12));
+    border-radius: 16px;
+}
+
+.dap-admin .dap-hero {
+    background: linear-gradient(135deg, #4f46e5, #22d3ee);
+    border: 0;
+    box-shadow: 0 20px 40px rgba(79, 70, 229, 0.35);
+    color: #fff;
+}
+
+.dap-admin .dap-hero .card-body {
+    min-height: 260px;
+}
+
+.dap-admin .text-white-75 {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.dap-admin .dap-hero-figure img {
+    max-width: 260px;
+}
+
+.dap-admin .dap-kpi-card {
+    border: 0;
+    background: #fff;
+}
+
+.dap-admin .dap-kpi-chip {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+    background: conic-gradient(currentColor 0 270deg, rgba(148, 163, 184, 0.2) 270deg 360deg);
+    position: relative;
+}
+
+.dap-admin .dap-kpi-chip::after {
+    content: '';
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.dap-admin .dap-chart {
+    min-height: 300px;
+}
+
+.dap-admin .btn-group .btn {
+    min-width: 105px;
+}
+
+.dap-admin .table thead th {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+}
+
+.dap-admin .table tbody td {
+    vertical-align: middle;
+    font-size: 0.95rem;
+}
+
+.dap-admin .dap-progress-bar {
+    position: relative;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(148, 163, 184, 0.25);
+    overflow: hidden;
+}
+
+.dap-admin .dap-progress-bar span {
+    display: block;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(79, 70, 229, 0.85), rgba(14, 165, 233, 0.85));
+}
+
+.dap-admin .dap-progress-bar strong {
+    position: absolute;
+    top: -26px;
+    right: 0;
+    font-size: 0.8rem;
+    color: #475569;
+}
+
+.dap-admin .list-group-item {
+    border: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+    padding: 1rem 1.25rem;
+}
+
+.dap-admin .list-group-item:last-child {
+    border-bottom: 0;
+}
+
+.dap-admin .dap-activity-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    margin-top: 6px;
+}
+
+.dap-admin .dap-activity-list .list-group-item {
+    background-color: transparent;
+}
+
+.dap-admin .dap-activity-list h6 {
+    font-weight: 600;
+}
+
+.dap-admin .dap-important-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.25rem;
+    background-color: rgba(59, 130, 246, 0.12);
+}
+
+body.dap-global-skin .wrap .card {
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+body.dap-global-skin .wrap .card-header {
+    background-color: rgba(59, 130, 246, 0.06);
+}
+
+.dap-admin .dap-error-logs {
+    border: 1px solid rgba(239, 68, 68, 0.08);
+    box-shadow: 0 14px 40px rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .dap-error-logs .card-header {
+    border-bottom-color: rgba(239, 68, 68, 0.12);
+}
+
+.dap-admin .dap-diagnostics {
+    border: 1px solid rgba(59, 130, 246, 0.1);
+    box-shadow: 0 12px 36px rgba(37, 99, 235, 0.12);
+}
+
+.dap-admin .dap-diagnostics-list {
+    margin: 0;
+    padding: 0;
+}
+
+.dap-admin .dap-diagnostics-item {
+    list-style: none;
+}
+
+.dap-admin .dap-diagnostics-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    flex-shrink: 0;
+    margin-top: 0.4rem;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.dap-admin .dap-diagnostics .btn-soft-primary,
+.dap-admin .dap-diagnostics .btn-soft-secondary {
+    font-weight: 600;
+}
+
+.dap-admin .dap-log-list {
+    counter-reset: dap-log-count;
+}
+
+.dap-admin .dap-log-item {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.dap-admin .dap-log-item:last-child {
+    border-bottom: 0;
+}
+
+.dap-admin .dap-log-item::before {
+    counter-increment: dap-log-count;
+    content: counter(dap-log-count);
+    position: absolute;
+    left: 0;
+    top: 16px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: rgba(15, 23, 42, 0.18);
+}
+
+.dap-admin .dap-log-item {
+    position: relative;
+    padding-left: 2.25rem;
+}
+
+.dap-admin .dap-log-context dt {
+    min-width: 120px;
+}
+
+.dap-admin .dap-log-empty {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(148, 163, 184, 0.12));
+    border-radius: 14px;
+}
