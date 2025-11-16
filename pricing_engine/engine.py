@@ -211,17 +211,20 @@ def calculate_price(request: PricingRequest) -> PricingResponse:
 def compute_breakdown(
     price: float, product: Product, ctx: OfferContext, mp: MarketplaceConfig
 ) -> PricingBreakdown:
-    product_cost = product.cost_of_goods
-    operational_cost = product.operational_cost
-    shipping_cost_seller = product.shipping_cost_seller
+    quantity = ctx.quantity
+    total_price = price * quantity
+
+    product_cost = product.cost_of_goods * quantity
+    operational_cost = product.operational_cost * quantity
+    shipping_cost_seller = product.shipping_cost_seller * quantity
 
     fees_total, fees_by_rule = compute_marketplace_fees(price, ctx, mp)
 
-    taxes = price * product.tax_rate_on_sale
-    net_revenue = price - fees_total - taxes
+    taxes = total_price * product.tax_rate_on_sale
+    net_revenue = total_price - fees_total - taxes
     total_cost = product_cost + operational_cost + shipping_cost_seller
     profit = net_revenue - total_cost
-    margin_over_price = profit / price if price > 0 else 0.0
+    margin_over_price = profit / total_price if total_price > 0 else 0.0
     margin_over_cost = profit / total_cost if total_cost > 0 else 0.0
 
     return PricingBreakdown(
