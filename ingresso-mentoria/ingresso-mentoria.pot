@@ -1,0 +1,119 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Ingresso Mentoria\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-28 14:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.3.22\n"
+"X-Domain: ingresso-mentoria"
+
+#: ingresso-mentoria.php:52
+msgid "Configurações do Ingresso"
+msgstr ""
+
+#: ingresso-mentoria.php:54
+msgid "Defina o link do produto WooCommerce que será utilizado pelo shortcode para montar o cartão de ingresso."
+msgstr ""
+
+#: ingresso-mentoria.php:61
+msgid "Link do produto"
+msgstr ""
+
+#: ingresso-mentoria.php:88
+msgid "Cole aqui o link permanente do produto WooCommerce que você deseja destacar."
+msgstr ""
+
+#: ingresso-mentoria.php:93 ingresso-mentoria.php:94
+msgid "Ingresso Mentoria"
+msgstr ""
+
+#: ingresso-mentoria.php:110
+msgid "Ingresso Mentoria – Dashboard"
+msgstr ""
+
+#: ingresso-mentoria.php:113
+msgid "Produto em Destaque"
+msgstr ""
+
+#: ingresso-mentoria.php:114
+msgid "Selecione o link do produto que será utilizado como base para o cartão gerado pelo shortcode [wc_mentoria]."
+msgstr ""
+
+#: ingresso-mentoria.php:119
+msgid "Salvar link do produto"
+msgstr ""
+
+#: ingresso-mentoria.php:126
+msgid "Como usar"
+msgstr ""
+
+#: ingresso-mentoria.php:128
+msgid "Salve o link do produto acima."
+msgstr ""
+
+#: ingresso-mentoria.php:129
+msgid "Insira o shortcode [wc_mentoria] em qualquer página ou post."
+msgstr ""
+
+#: ingresso-mentoria.php:130
+msgid "Opcionalmente, forneça outro link via atributo product_link para sobrepor este padrão."
+msgstr ""
+
+#: ingresso-mentoria.php:279
+msgid "WooCommerce precisa estar ativo para utilizar este shortcode."
+msgstr ""
+
+#: ingresso-mentoria.php:285
+msgid "COMPRAR AGORA"
+msgstr ""
+
+#: ingresso-mentoria.php:307
+msgid "Não foi possível identificar o produto. Verifique o link informado."
+msgstr ""
+
+#: ingresso-mentoria.php:313
+msgid "Produto inválido."
+msgstr ""
+
+#: ingresso-mentoria.php:318
+msgid "Grátis"
+msgstr ""
+
+#. translators: %s is the formatted end date.
+#: ingresso-mentoria.php:335
+msgid "Vendas até %s"
+msgstr ""
+
+#. translators: %1$s installment count, %2$s installment price.
+#: ingresso-mentoria.php:344
+msgid "em até %1$sx %2$s"
+msgstr ""
+
+#: ingresso-mentoria.php:357
+msgid "Ingressos"
+msgstr ""
+
+#: ingresso-mentoria.php:371
+msgid "Diminuir quantidade"
+msgstr ""
+
+#: ingresso-mentoria.php:372
+msgid "Quantidade"
+msgstr ""
+
+#: ingresso-mentoria.php:373
+msgid "Aumentar quantidade"
+msgstr ""
+
+#: ingresso-mentoria.php:381
+msgid "Entenda nossa taxa"
+msgstr ""

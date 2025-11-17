@@ -1,22 +1,22 @@
 <?php
 /**
- * Plugin Name:       WC Ingresso Shortcode
+ * Plugin Name:       Ingresso Mentoria
  * Description:       Fornece um shortcode para exibir um cartão estilizado de ingresso de um produto WooCommerce.
  * Version:           1.0.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            ChatGPT
- * Text Domain:       wc-ingresso-shortcode
+ * Text Domain:       ingresso-mentoria
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class WC_Ingresso_Shortcode {
+class Ingresso_Mentoria {
     private static $instance = null;
     private $assets_enqueued = false;
-    private $option_name      = 'wc_ingresso_shortcode_options';
+    private $option_name      = 'ingresso_mentoria_options';
 
     public static function get_instance() {
         if ( null === self::$instance ) {
@@ -38,7 +38,7 @@ class WC_Ingresso_Shortcode {
 
     public function register_settings() {
         register_setting(
-            'wc_ingresso_shortcode_settings',
+            'ingresso_mentoria_settings',
             $this->option_name,
             [
                 'type'              => 'array',
@@ -48,20 +48,20 @@ class WC_Ingresso_Shortcode {
         );
 
         add_settings_section(
-            'wc_ingresso_shortcode_main',
-            __( 'Configurações do Ingresso', 'wc-ingresso-shortcode' ),
+            'ingresso_mentoria_main',
+            __( 'Configurações do Ingresso', 'ingresso-mentoria' ),
             function () {
-                echo '<p>' . esc_html__( 'Defina o link do produto WooCommerce que será utilizado pelo shortcode para montar o cartão de ingresso.', 'wc-ingresso-shortcode' ) . '</p>';
+                echo '<p>' . esc_html__( 'Defina o link do produto WooCommerce que será utilizado pelo shortcode para montar o cartão de ingresso.', 'ingresso-mentoria' ) . '</p>';
             },
-            'wc_ingresso_shortcode_settings'
+            'ingresso_mentoria_settings'
         );
 
         add_settings_field(
-            'wc_ingresso_shortcode_product_link',
-            __( 'Link do produto', 'wc-ingresso-shortcode' ),
+            'ingresso_mentoria_product_link',
+            __( 'Link do produto', 'ingresso-mentoria' ),
             [ $this, 'render_product_link_field' ],
-            'wc_ingresso_shortcode_settings',
-            'wc_ingresso_shortcode_main'
+            'ingresso_mentoria_settings',
+            'ingresso_mentoria_main'
         );
     }
 
@@ -80,20 +80,20 @@ class WC_Ingresso_Shortcode {
         $product_link = isset( $options['product_link'] ) ? $options['product_link'] : '';
 
         printf(
-            '<input type="url" id="wc_ingresso_shortcode_product_link" name="%1$s[product_link]" value="%2$s" class="regular-text" placeholder="https://">',
+            '<input type="url" id="ingresso_mentoria_product_link" name="%1$s[product_link]" value="%2$s" class="regular-text" placeholder="https://">',
             esc_attr( $this->option_name ),
             esc_attr( $product_link )
         );
 
-        echo '<p class="description">' . esc_html__( 'Cole aqui o link permanente do produto WooCommerce que você deseja destacar.', 'wc-ingresso-shortcode' ) . '</p>';
+        echo '<p class="description">' . esc_html__( 'Cole aqui o link permanente do produto WooCommerce que você deseja destacar.', 'ingresso-mentoria' ) . '</p>';
     }
 
     public function register_admin_page() {
         add_menu_page(
-            __( 'WC Ingresso', 'wc-ingresso-shortcode' ),
-            __( 'WC Ingresso', 'wc-ingresso-shortcode' ),
+            __( 'Ingresso Mentoria', 'ingresso-mentoria' ),
+            __( 'Ingresso Mentoria', 'ingresso-mentoria' ),
             'manage_options',
-            'wc-ingresso-shortcode',
+            'ingresso-mentoria',
             [ $this, 'render_admin_page' ],
             'dashicons-tickets',
             56
@@ -107,16 +107,16 @@ class WC_Ingresso_Shortcode {
 
         ?>
         <div class="wrap wc-ingresso-admin">
-            <h1><?php esc_html_e( 'WC Ingresso – Dashboard', 'wc-ingresso-shortcode' ); ?></h1>
+            <h1><?php esc_html_e( 'Ingresso Mentoria – Dashboard', 'ingresso-mentoria' ); ?></h1>
             <div class="wc-ingresso-admin-card">
                 <div class="wc-ingresso-admin-card__body">
-                    <h2><?php esc_html_e( 'Produto em Destaque', 'wc-ingresso-shortcode' ); ?></h2>
-                    <p><?php esc_html_e( 'Selecione o link do produto que será utilizado como base para o cartão gerado pelo shortcode [wc_mentoria].', 'wc-ingresso-shortcode' ); ?></p>
+                    <h2><?php esc_html_e( 'Produto em Destaque', 'ingresso-mentoria' ); ?></h2>
+                    <p><?php esc_html_e( 'Selecione o link do produto que será utilizado como base para o cartão gerado pelo shortcode [wc_mentoria].', 'ingresso-mentoria' ); ?></p>
                     <form action="options.php" method="post">
                         <?php
-                        settings_fields( 'wc_ingresso_shortcode_settings' );
-                        do_settings_sections( 'wc_ingresso_shortcode_settings' );
-                        submit_button( __( 'Salvar link do produto', 'wc-ingresso-shortcode' ) );
+                        settings_fields( 'ingresso_mentoria_settings' );
+                        do_settings_sections( 'ingresso_mentoria_settings' );
+                        submit_button( __( 'Salvar link do produto', 'ingresso-mentoria' ) );
                         ?>
                     </form>
                 </div>
@@ -124,11 +124,11 @@ class WC_Ingresso_Shortcode {
                     <span class="wc-ingresso-admin-glow wc-ingresso-admin-glow--pink"></span>
                     <span class="wc-ingresso-admin-glow wc-ingresso-admin-glow--peach"></span>
                     <div class="wc-ingresso-admin-meta">
-                        <h3><?php esc_html_e( 'Como usar', 'wc-ingresso-shortcode' ); ?></h3>
+                        <h3><?php esc_html_e( 'Como usar', 'ingresso-mentoria' ); ?></h3>
                         <ol>
-                            <li><?php esc_html_e( 'Salve o link do produto acima.', 'wc-ingresso-shortcode' ); ?></li>
-                            <li><?php esc_html_e( 'Insira o shortcode [wc_mentoria] em qualquer página ou post.', 'wc-ingresso-shortcode' ); ?></li>
-                            <li><?php esc_html_e( 'Opcionalmente, forneça outro link via atributo product_link para sobrepor este padrão.', 'wc-ingresso-shortcode' ); ?></li>
+                            <li><?php esc_html_e( 'Salve o link do produto acima.', 'ingresso-mentoria' ); ?></li>
+                            <li><?php esc_html_e( 'Insira o shortcode [wc_mentoria] em qualquer página ou post.', 'ingresso-mentoria' ); ?></li>
+                            <li><?php esc_html_e( 'Opcionalmente, forneça outro link via atributo product_link para sobrepor este padrão.', 'ingresso-mentoria' ); ?></li>
                         </ol>
                     </div>
                 </div>
@@ -248,14 +248,14 @@ class WC_Ingresso_Shortcode {
         $plugin_url = plugin_dir_url( __FILE__ );
 
         wp_register_style(
-            'wc-ingresso-shortcode',
+            'ingresso-mentoria',
             $plugin_url . 'assets/css/ingresso-shortcode.css',
             [],
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/css/ingresso-shortcode.css' )
         );
 
         wp_register_script(
-            'wc-ingresso-shortcode',
+            'ingresso-mentoria',
             $plugin_url . 'assets/js/ingresso-shortcode.js',
             [ 'jquery' ],
             filemtime( plugin_dir_path( __FILE__ ) . 'assets/js/ingresso-shortcode.js' ),
@@ -268,21 +268,21 @@ class WC_Ingresso_Shortcode {
             return;
         }
 
-        wp_enqueue_style( 'wc-ingresso-shortcode' );
-        wp_enqueue_script( 'wc-ingresso-shortcode' );
+        wp_enqueue_style( 'ingresso-mentoria' );
+        wp_enqueue_script( 'ingresso-mentoria' );
 
         $this->assets_enqueued = true;
     }
 
     public function render_shortcode( $atts ) {
         if ( ! class_exists( 'WooCommerce' ) ) {
-            return '<p class="wc-ingresso-error">' . esc_html__( 'WooCommerce precisa estar ativo para utilizar este shortcode.', 'wc-ingresso-shortcode' ) . '</p>';
+            return '<p class="wc-ingresso-error">' . esc_html__( 'WooCommerce precisa estar ativo para utilizar este shortcode.', 'ingresso-mentoria' ) . '</p>';
         }
 
         $atts = shortcode_atts(
             [
                 'product_link'   => '',
-                'button_label'   => __( 'COMPRAR AGORA', 'wc-ingresso-shortcode' ),
+                'button_label'   => __( 'COMPRAR AGORA', 'ingresso-mentoria' ),
                 'installments'   => 12,
                 'sales_until'    => '',
             ],
@@ -304,18 +304,18 @@ class WC_Ingresso_Shortcode {
         }
 
         if ( ! $product_id ) {
-            return '<p class="wc-ingresso-error">' . esc_html__( 'Não foi possível identificar o produto. Verifique o link informado.', 'wc-ingresso-shortcode' ) . '</p>';
+            return '<p class="wc-ingresso-error">' . esc_html__( 'Não foi possível identificar o produto. Verifique o link informado.', 'ingresso-mentoria' ) . '</p>';
         }
 
         $product = wc_get_product( $product_id );
 
         if ( ! $product ) {
-            return '<p class="wc-ingresso-error">' . esc_html__( 'Produto inválido.', 'wc-ingresso-shortcode' ) . '</p>';
+            return '<p class="wc-ingresso-error">' . esc_html__( 'Produto inválido.', 'ingresso-mentoria' ) . '</p>';
         }
 
         $this->enqueue_assets();
 
-        $price_html      = $product->get_price() ? $product->get_price_html() : __( 'Grátis', 'wc-ingresso-shortcode' );
+        $price_html      = $product->get_price() ? $product->get_price_html() : __( 'Grátis', 'ingresso-mentoria' );
         $product_title   = $product->get_name();
         $installments     = absint( $atts['installments'] );
         $regular_price    = (float) $product->get_price();
@@ -332,7 +332,7 @@ class WC_Ingresso_Shortcode {
             if ( $sale_end_date ) {
                 $sales_until = sprintf(
                     /* translators: %s is the formatted end date. */
-                    __( 'Vendas até %s', 'wc-ingresso-shortcode' ),
+                    __( 'Vendas até %s', 'ingresso-mentoria' ),
                     $sale_end_date->date_i18n( get_option( 'date_format' ) )
                 );
             }
@@ -341,7 +341,7 @@ class WC_Ingresso_Shortcode {
         if ( $per_installment > 0 ) {
             /* translators: %1$s installment count, %2$s installment price. */
             $installment_html = sprintf(
-                esc_html__( 'em até %1$sx %2$s', 'wc-ingresso-shortcode' ),
+                esc_html__( 'em até %1$sx %2$s', 'ingresso-mentoria' ),
                 number_format_i18n( $installments ),
                 wp_strip_all_tags( wc_price( $per_installment ) )
             );
@@ -354,7 +354,7 @@ class WC_Ingresso_Shortcode {
         <div class="wc-ingresso-card" data-product-id="<?php echo esc_attr( $product_id ); ?>">
             <div class="wc-ingresso-surface">
                 <header class="wc-ingresso-header">
-                    <h2 class="wc-ingresso-heading"><?php echo esc_html__( 'Ingressos', 'wc-ingresso-shortcode' ); ?></h2>
+                    <h2 class="wc-ingresso-heading"><?php echo esc_html__( 'Ingressos', 'ingresso-mentoria' ); ?></h2>
                 </header>
                 <div class="wc-ingresso-ticket">
                     <div class="wc-ingresso-ticket__info">
@@ -368,9 +368,9 @@ class WC_Ingresso_Shortcode {
                         <?php endif; ?>
                     </div>
                     <div class="wc-ingresso-quantity" data-add-to-cart="<?php echo esc_attr( $add_to_cart_url ); ?>">
-                        <button class="wc-ingresso-qty-btn" data-action="decrease" aria-label="<?php esc_attr_e( 'Diminuir quantidade', 'wc-ingresso-shortcode' ); ?>">&minus;</button>
-                        <input type="number" name="quantity" min="1" value="1" class="wc-ingresso-qty" aria-label="<?php esc_attr_e( 'Quantidade', 'wc-ingresso-shortcode' ); ?>" />
-                        <button class="wc-ingresso-qty-btn" data-action="increase" aria-label="<?php esc_attr_e( 'Aumentar quantidade', 'wc-ingresso-shortcode' ); ?>">+</button>
+                        <button class="wc-ingresso-qty-btn" data-action="decrease" aria-label="<?php esc_attr_e( 'Diminuir quantidade', 'ingresso-mentoria' ); ?>">&minus;</button>
+                        <input type="number" name="quantity" min="1" value="1" class="wc-ingresso-qty" aria-label="<?php esc_attr_e( 'Quantidade', 'ingresso-mentoria' ); ?>" />
+                        <button class="wc-ingresso-qty-btn" data-action="increase" aria-label="<?php esc_attr_e( 'Aumentar quantidade', 'ingresso-mentoria' ); ?>">+</button>
                     </div>
                 </div>
                 <footer class="wc-ingresso-footer">
@@ -378,7 +378,7 @@ class WC_Ingresso_Shortcode {
                         <?php echo esc_html( $atts['button_label'] ); ?>
                     </a>
                     <a class="wc-ingresso-fee" href="<?php echo esc_url( $product->get_permalink() ); ?>#taxas">
-                        <?php echo esc_html__( 'Entenda nossa taxa', 'wc-ingresso-shortcode' ); ?>
+                        <?php echo esc_html__( 'Entenda nossa taxa', 'ingresso-mentoria' ); ?>
                     </a>
                 </footer>
             </div>
@@ -388,4 +388,4 @@ class WC_Ingresso_Shortcode {
     }
 }
 
-WC_Ingresso_Shortcode::get_instance();
+Ingresso_Mentoria::get_instance();

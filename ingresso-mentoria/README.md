@@ -1,16 +1,16 @@
-# WC Ingresso Shortcode
+# Ingresso Mentoria
 
 ## Onde encontrar o plugin no WordPress
 
 1. Acesse o painel administrativo do WordPress e navegue até **Plugins ▸ Plugins instalados**.
-2. Procure pelo plugin **WC Ingresso Shortcode**. Ele aparecerá utilizando as informações definidas no cabeçalho do arquivo `wc-ingresso-shortcode.php`, como nome, descrição e versão.
+2. Procure pelo plugin **Ingresso Mentoria**. Ele aparecerá utilizando as informações definidas no cabeçalho do arquivo `ingresso-mentoria.php`, como nome, descrição e versão.
 3. Clique em **Ativar** (se ainda não estiver ativo) ou em **Configurações** conforme necessário para usar o shortcode `[wc_mentoria]` em suas páginas ou posts.
 
-As metainformações exibidas na tela de plugins — título, descrição, autor, requisitos — são as mesmas declaradas no cabeçalho padrão do plugin localizado no arquivo principal `wc-ingresso-shortcode.php`.
+As metainformações exibidas na tela de plugins — título, descrição, autor, requisitos — são as mesmas declaradas no cabeçalho padrão do plugin localizado no arquivo principal `ingresso-mentoria.php`.
 
 ## Dashboard do shortcode
 
-Após ativar o plugin, um item de menu chamado **WC Ingresso** será exibido no painel. Nele você encontra um pequeno dashboard onde é possível:
+Após ativar o plugin, um item de menu chamado **Ingresso Mentoria** será exibido no painel. Nele você encontra um pequeno dashboard onde é possível:
 
 - Definir o link permanente do produto WooCommerce que será utilizado como padrão pelo shortcode.
 - Salvar as alterações clicando em **Salvar link do produto**.
