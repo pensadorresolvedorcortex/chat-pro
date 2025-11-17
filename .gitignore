@@ -1,0 +1,8 @@
+# Ignore large binary asset directories removed in favor of CDN assets
+ux-agencia-privilege/assets/fontawesome5/
+ux-agencia-privilege/assets/icon-picker/fonts/
+ux-agencia-privilege/assets/lineicons/
+ux-agencia-privilege/assets/images/
+ux-agencia-privilege/assets/liquido-template/images/
+# Ignore compiled translation binaries
+ux-agencia-privilege/languages/*.mo

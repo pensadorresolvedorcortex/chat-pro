@@ -1,0 +1,158 @@
+/* License Details Container */
+.wps-license-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.license-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #35fef4;
+}
+
+.license-item.no-border {
+  border: 0;
+}
+
+.license-item strong {
+  color: #444;
+}
+
+/* Form Styling */
+.wps-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wps-form .form-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Input Field */
+.form-wrap .wps-input {
+  display: inline-block;
+  min-height: 40px;
+  width: 76%;
+  font-size: 1.5em;
+  line-height: 1.5;
+  padding: .375rem .75rem;
+  vertical-align: middle;
+  color: #32236f;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #cec6ef;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  border-radius: 6px;
+}
+
+.form-wrap .wps-input::placeholder {
+    color: #d0c8ef;
+}
+
+.wps-form .form-wrap{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* Buttons */
+.wps-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  padding: 0 50px;
+  height: 50px;
+  color: white;
+  background-color: #6b49f2;
+  font-size: 16px;
+  border: none;
+  border-radius: 7px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  cursor: pointer;
+}
+
+.deactivate-license.wps-button {
+    margin-top: 20px;
+}
+
+.wps-button svg.loader {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+  transition: opacity 0.3s ease, width 0.3s ease, margin-right 0.3s ease;
+}
+
+.wps-button .btn-label {
+  display: inline-block;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wps-button.btn-spin .btn-label {
+  opacity: 0;
+  transform: translateX(-5px);
+  pointer-events: none;
+}
+
+.wps-button.btn-spin svg.loader {
+  opacity: 1;
+  width: 30px;
+  margin-right: 10px;
+}
+
+.wps-button.primary {
+  background: #6b49f2;
+  color: white;
+}
+
+.wps-button.primary:hover {
+  background: #270b98;
+}
+
+.wps-button.outline {
+  margin-left: auto;
+  background: #fff;
+  color: #68747d;
+  border: 2px solid #30F0E6;
+  display: inline-block;
+  width: auto;
+  margin-top: 20px;
+  transition: all 0.2s ease-in-out 0s;
+  -webkit-transition: all 0.2s ease-in-out 0s;
+  -ms-transition: all 0.2s ease-in-out 0s;
+  -moz-transition: all 0.2s ease-in-out 0s;
+}
+
+.wps-button.outline:hover {
+  color: #495157;
+  border-color: #495157;
+}
+.wps-license-details .license-active{
+  background-color: #18F2B2;
+  padding: 2px 9px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-size: 0.7rem;
+  line-height: 2em;
+}
+.deactivate-license.wps-button {
+  color: rgba(57, 60, 62, 0.91);
+  background:transparent;
+  -webkit-box-shadow: 0 0 0 2px rgba(57, 60, 62, 0.91) inset;
+  box-shadow: 0 0 0 2px rgba(57, 60, 62, 0.91) inset;
+}
+.deactivate-license.wps-button:hover {
+  color: #fff;
+  -webkit-box-shadow: 0 0 0 2px rgb(39, 11, 152) inset;
+  box-shadow: 0 0 0 2px rgb(39, 11, 152) inset;
+}
