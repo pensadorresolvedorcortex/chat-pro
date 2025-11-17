@@ -1,0 +1,195 @@
+:root {
+    --wc-ingresso-pink: #FF0AB6;
+    --wc-ingresso-peach: #FFAA83;
+    --wc-ingresso-surface: #f4f7fb;
+    --wc-ingresso-border: #dbe4ef;
+    --wc-ingresso-heading: #1f2c3d;
+    --wc-ingresso-text: #24344a;
+    --wc-ingresso-muted: #64748b;
+    --wc-ingresso-card-radius: 22px;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.wc-ingresso-card {
+    max-width: 380px;
+    margin: 32px auto;
+    padding: 2px;
+    border-radius: var(--wc-ingresso-card-radius);
+    background: linear-gradient(135deg, rgba(255, 10, 182, 0.25), rgba(255, 170, 131, 0.2));
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+}
+
+.wc-ingresso-surface {
+    border-radius: calc(var(--wc-ingresso-card-radius) - 2px);
+    background: var(--wc-ingresso-surface);
+    border: 1px solid var(--wc-ingresso-border);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.wc-ingresso-header {
+    background: linear-gradient(135deg, #B8860B, #FFD700);
+    padding: 18px 22px;
+}
+
+.wc-ingresso-heading {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #ffffff;
+}
+
+.wc-ingresso-ticket {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 20px 22px;
+    background: #ffffff;
+    margin: 18px 18px 0;
+    border-radius: 18px;
+    border: 1px solid rgba(15, 23, 42, 0.04);
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.wc-ingresso-ticket__info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wc-ingresso-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--wc-ingresso-heading);
+}
+
+.wc-ingresso-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--wc-ingresso-text);
+}
+
+.wc-ingresso-price ins {
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.wc-ingresso-price del {
+    color: var(--wc-ingresso-muted);
+    margin-right: 6px;
+}
+
+.wc-ingresso-installments {
+    font-size: 13px;
+    font-weight: 600;
+    color: #22c55e;
+}
+
+.wc-ingresso-sales-until {
+    font-size: 12px;
+    color: var(--wc-ingresso-muted);
+}
+
+.wc-ingresso-quantity {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #f1f5f9;
+    border-radius: 999px;
+    padding: 6px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.wc-ingresso-qty-btn {
+    width: 40px;
+    height: 25px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, rgba(255, 10, 182, 0.16), rgba(255, 170, 131, 0.16));
+    color: var(--wc-ingresso-heading);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wc-ingresso-qty-btn:hover,
+.wc-ingresso-qty-btn:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(255, 10, 182, 0.22);
+}
+
+.wc-ingresso-qty {
+    width: 42px;
+    text-align: center;
+    border: none;
+    background: transparent;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--wc-ingresso-heading);
+}
+
+.wc-ingresso-qty:focus {
+    outline: none;
+}
+
+.wc-ingresso-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 22px 24px;
+}
+
+.wc-ingresso-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #0f172a;
+    background: linear-gradient(135deg, #B8860B, #FFD700);;
+    box-shadow: 0 16px 32px rgba(255, 10, 182, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.wc-ingresso-button:hover,
+.wc-ingresso-button:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 36px rgba(255, 10, 182, 0.28);
+}
+
+.wc-ingresso-fee {
+    font-size: 13px;
+    color: var(--wc-ingresso-muted);
+    text-decoration: underline;
+    text-decoration-color: rgba(148, 163, 184, 0.4);
+    text-underline-offset: 3px;
+    align-self: center;
+}
+
+@media (max-width: 420px) {
+    .wc-ingresso-card {
+        margin: 24px;
+    }
+
+    .wc-ingresso-ticket {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .wc-ingresso-quantity {
+        align-self: flex-end;
+    }
+}
