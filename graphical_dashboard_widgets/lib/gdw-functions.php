@@ -158,13 +158,23 @@ function gdw_admin_neon_scripts() {
     $screen = function_exists('get_current_screen') ? get_current_screen() : null;
 
     if ( $screen && $screen->id === 'dashboard' ) {
+        wp_register_script(
+            'gdw-echarts-world',
+            plugins_url( '../js/echarts-world.js', __FILE__ ),
+            array( 'gdw-echarts-js' ),
+            '5.5.0',
+            true
+        );
+
         wp_enqueue_script(
             'gdw-admin-ux',
             plugins_url( '../js/gdw-admin-ux.js', __FILE__ ),
-            array( 'gdw-echarts-js', 'jquery' ),
+            array( 'gdw-echarts-js', 'gdw-echarts-world', 'jquery' ),
             '1.0',
             true
         );
+
+        wp_enqueue_script( 'gdw-echarts-world' );
     }
 }
 

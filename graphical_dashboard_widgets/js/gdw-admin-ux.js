@@ -47,10 +47,16 @@
 
         chart.dispatchAction({ type: 'downplay', seriesIndex });
         chart.dispatchAction({ type: 'highlight', seriesIndex, dataIndex: cursor });
-        chart.dispatchAction({ type: 'showTip', seriesIndex, dataIndex: cursor });
+
+        const currentIndex = cursor;
+        setTimeout(function () {
+          if (chart && chart.dispatchAction) {
+            chart.dispatchAction({ type: 'downplay', seriesIndex, dataIndex: currentIndex });
+          }
+        }, 900);
 
         cursor += 1;
-      }, 2400);
+      }, 2600);
     };
 
     chart.on('finished', runCycle);
@@ -70,6 +76,10 @@
 
     echarts.init = function () {
       const chart = originalInit.apply(this, arguments);
+      const chartDom = chart && chart.getDom ? chart.getDom() : null;
+      if (chartDom && chartDom.classList) {
+        chartDom.classList.add('gdw-chart-pulse', 'chart-content');
+      }
       const baseOption = {
         backgroundColor: 'transparent',
         color: ['#7b6cff', '#4b7cfb', '#4fd2ff', '#ff6fb5', '#32e0c4'],

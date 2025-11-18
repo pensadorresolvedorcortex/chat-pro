@@ -64,7 +64,11 @@ $getcolor[4] = "#FF8A65";
 $getcolor[5] = "#FFF176";*/
 ?>
             <div class="chartBox"><?php //echo "<pre>"; print_r($totalPagesArray); echo "Total Pages: ".$countPages; echo "</pre>"; ?>
-                <div id="totalPages_wiseChart" style='height:180px;'></div>
+                <div id="totalPages_wiseChart" class="chart-content" style='height:180px;'></div>
+                <div class="chart-meta">
+                    <span class="meta-pill"><?php echo __("Total de páginas","gdwlang"); ?>: <?php echo intval($countPages); ?></span>
+                    <span class="meta-pill"><?php echo __("Estados mapeados","gdwlang"); ?>: <?php echo count($totalPagesArray); ?></span>
+                </div>
             </div>
 
             <script type="text/javascript">

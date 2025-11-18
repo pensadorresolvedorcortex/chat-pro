@@ -55,9 +55,11 @@
 
          $x_countries = "";
          $max = 100;
+         $country_used = 0;
          foreach ($country_stats as $key => $value) {
             $x_countries .= "{name : '".$key."', value : ".$value."}, ";
             if($value > $max){ $max = $value; }
+            if($value > 0){ $country_used++; }
          }
 
             if ($max % 100){
@@ -75,7 +77,10 @@
 
       <div class="chartBox">
         <h4 class="widhead"><?php echo __("Visits (by Country) in last","gdwlang"); ?> <?php echo $days; ?> <?php echo __("days","gdwlang"); ?></h4>
-          <div class="" style="height:300px" id="country_type"></div>
+          <div class="chart-content" style="height:300px" id="country_type"></div>
+          <div class="chart-meta">
+            <span class="meta-pill"><?php echo __("Países com visitas","gdwlang"); ?>: <?php echo intval($country_used); ?></span>
+          </div>
       </div>
 
 <?php 

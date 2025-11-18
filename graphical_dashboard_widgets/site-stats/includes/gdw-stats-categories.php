@@ -23,11 +23,36 @@ function wp_show_stats_categories() {
 
        
         <div class="stat-charts-main"><?php // echo "Total: "; print_r($totalCategory); ?>
-            <div class="chartBoxLarge"><?php // echo "<pre>Most used: "; //print_r($mostUsedcategories); ?>
-                <div id="mostUsedChart"></div>
+            <div class="chartBoxLarge">
+                <h4 class='widhead'><?php echo __("Resumo de categorias","gdwlang"); ?></h4>
+                <div class="chart-meta">
+                    <span class="meta-pill"><?php echo __("Total de categorias","gdwlang"); ?>: <?php echo esc_html($totalCategory); ?></span>
+                    <?php if (!empty($mostUsedcategories)) : $top = reset($mostUsedcategories); ?>
+                        <span class="meta-pill"><?php echo __("Mais usada","gdwlang"); ?>: <?php echo esc_html($top->name); ?> (<?php echo intval($top->count); ?>)</span>
+                    <?php endif; ?>
+                    <?php if (!empty($lessUsedcategories)) : $least = reset($lessUsedcategories); ?>
+                        <span class="meta-pill"><?php echo __("Menos usada","gdwlang"); ?>: <?php echo esc_html($least->name); ?> (<?php echo intval($least->count); ?>)</span>
+                    <?php endif; ?>
+                </div>
+                <?php if (!empty($mostUsedcategories)) : ?>
+                <ul class="chart-meta-list">
+                    <?php foreach ($mostUsedcategories as $cat) : ?>
+                        <li><strong><?php echo esc_html($cat->name); ?></strong> <span><?php echo intval($cat->count); ?></span></li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php endif; ?>
             </div>
-            <div class="chartBoxLarge"><?php // echo "<pre>Less Used: ";// print_r($lessUsedcategories); ?>
-                <div id="lessUsedChart"></div>
+            <div class="chartBoxLarge">
+                <h4 class='widhead'><?php echo __("Categorias menos usadas","gdwlang"); ?></h4>
+                <?php if (!empty($lessUsedcategories)) : ?>
+                <ul class="chart-meta-list">
+                    <?php foreach ($lessUsedcategories as $cat) : ?>
+                        <li><strong><?php echo esc_html($cat->name); ?></strong> <span><?php echo intval($cat->count); ?></span></li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php else : ?>
+                    <div class="chart-meta"><span class="meta-pill"><?php echo __("Sem dados de categorias","gdwlang"); ?></span></div>
+                <?php endif; ?>
             </div>
         </div>
     

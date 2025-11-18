@@ -728,3 +728,30 @@ msgstr "&raquo;"
 #: visitor-stats/index.php:867
 msgid "Visitors in last 15 days"
 msgstr "Visitantes nos últimos 15 dias"
+
+msgid "Resumo de categorias"
+msgstr "Resumo de categorias"
+
+msgid "Total de categorias"
+msgstr "Total de categorias"
+
+msgid "Mais usada"
+msgstr "Mais usada"
+
+msgid "Menos usada"
+msgstr "Menos usada"
+
+msgid "Categorias menos usadas"
+msgstr "Categorias menos usadas"
+
+msgid "Sem dados de categorias"
+msgstr "Sem dados de categorias"
+
+msgid "Países com visitas"
+msgstr "Países com visitas"
+
+msgid "Total de páginas"
+msgstr "Total de páginas"
+
+msgid "Estados mapeados"
+msgstr "Estados mapeados"

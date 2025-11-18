@@ -23,6 +23,8 @@ O prompt em `luxury_ui_prompt.md` orienta um visual high-end baseado em neumorfi
 - Cards, botões e campos arredondados em tons claros (`#f5f7fb`) com bordas de vidro, blur e gradientes sutis apenas dentro dos componentes.
 - Tipografia limpa e mais compacta, chips/KPIs menores e legíveis, mantendo bastante respiro visual.
 - Barras, sliders e indicadores com gradientes pastel (azul, ciano, rosa, verde, laranja) e animações leves em gráficos.
+- Cartões de métricas com rodapés internos para números destacados (totais, estados mapeados etc.) e listas resumo de categorias preenchidas.
+- Gráficos ECharts com loop de destaque mais sutil (pulsar/balançar) e bundle de mapa mundial local incluso (`graphical_dashboard_widgets/js/echarts-world.js`) para manter o mapa de visitas por país funcionando offline.
 
 O tema neumórfico com efeito glass acompanha o plugin e é carregado automaticamente no painel do WordPress (dashboard e página de configurações), estilizando widgets e formulários sem alterar a lógica. Os gráficos continuam animados pelo ECharts incluso (`graphical_dashboard_widgets/js/echarts-all.js`), com destaques em loop e tooltips suaves.
 
