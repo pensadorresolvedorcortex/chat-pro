@@ -1,0 +1,158 @@
+:root {
+  --gdw-bg: #080b14;
+  --gdw-card: rgba(20, 26, 38, 0.8);
+  --gdw-card-border: rgba(255, 255, 255, 0.08);
+  --gdw-neon-cyan: #17f3ff;
+  --gdw-neon-pink: #ff33cc;
+  --gdw-neon-purple: #a259ff;
+  --gdw-neon-lime: #c8ff3a;
+  --gdw-text-primary: #e7f2ff;
+  --gdw-text-muted: #9ab3d5;
+  --gdw-shadow: 0 20px 60px rgba(10, 15, 30, 0.6);
+  --gdw-blur: saturate(140%) blur(12px);
+}
+
+body.toplevel_page_gdw_settings {
+  background: radial-gradient(circle at 15% 20%, rgba(255, 51, 204, 0.08), transparent 28%),
+    radial-gradient(circle at 80% 10%, rgba(23, 243, 255, 0.08), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(162, 89, 255, 0.08), transparent 30%),
+    #05070f;
+  color: var(--gdw-text-primary);
+}
+
+body.toplevel_page_gdw_settings .wrap {
+  background: linear-gradient(135deg, rgba(23, 243, 255, 0.12), rgba(255, 51, 204, 0.06));
+  border: 1px solid var(--gdw-card-border);
+  border-radius: 18px;
+  box-shadow: var(--gdw-shadow);
+  padding: 28px 32px 36px;
+  backdrop-filter: var(--gdw-blur);
+}
+
+body.toplevel_page_gdw_settings h1,
+body.toplevel_page_gdw_settings h2 {
+  color: var(--gdw-text-primary);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 18px rgba(23, 243, 255, 0.35);
+}
+
+body.toplevel_page_gdw_settings .form-table th {
+  color: var(--gdw-text-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+body.toplevel_page_gdw_settings .form-table td,
+body.toplevel_page_gdw_settings .form-table p.description {
+  color: var(--gdw-text-muted);
+}
+
+body.toplevel_page_gdw_settings .form-table tr {
+  background: linear-gradient(90deg, rgba(162, 89, 255, 0.08), rgba(23, 243, 255, 0.04));
+  border: 1px solid var(--gdw-card-border);
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+body.toplevel_page_gdw_settings .form-table input,
+body.toplevel_page_gdw_settings .form-table select,
+body.toplevel_page_gdw_settings .form-table textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: var(--gdw-text-primary);
+  box-shadow: 0 0 0 1px rgba(23, 243, 255, 0.15);
+}
+
+body.toplevel_page_gdw_settings .button-primary {
+  background: linear-gradient(135deg, var(--gdw-neon-cyan), var(--gdw-neon-pink));
+  border: none;
+  box-shadow: 0 0 22px rgba(23, 243, 255, 0.45), 0 0 38px rgba(255, 51, 204, 0.28);
+  color: #0b0e12;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+body.toplevel_page_gdw_settings .button-primary:hover {
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 0 28px rgba(23, 243, 255, 0.6), 0 0 45px rgba(255, 51, 204, 0.4);
+}
+
+body.toplevel_page_gdw_settings .button-secondary,
+body.toplevel_page_gdw_settings .button {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--gdw-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Neon cards for dashboard widgets */
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"],
+#dashboard-widgets .postbox[id*="visitors"],
+#dashboard-widgets .postbox[id*="gdw"] {
+  background: radial-gradient(circle at 20% 20%, rgba(162, 89, 255, 0.2), transparent 42%),
+    radial-gradient(circle at 80% 10%, rgba(23, 243, 255, 0.16), transparent 38%),
+    var(--gdw-card);
+  border: 1px solid var(--gdw-card-border);
+  border-radius: 18px;
+  box-shadow: var(--gdw-shadow);
+  color: var(--gdw-text-primary);
+  overflow: hidden;
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .handlediv:before,
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] h2,
+#dashboard-widgets .postbox[id*="visitors"] h2,
+#dashboard-widgets .postbox[id*="gdw"] h2 {
+  color: var(--gdw-text-primary);
+  text-shadow: 0 0 12px rgba(23, 243, 255, 0.35);
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .inside,
+#dashboard-widgets .postbox[id*="visitors"] .inside,
+#dashboard-widgets .postbox[id*="gdw"] .inside {
+  background: linear-gradient(145deg, rgba(255, 51, 204, 0.08), rgba(23, 243, 255, 0.12));
+  border-radius: 14px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .inside canvas,
+#dashboard-widgets .postbox[id*="visitors"] .inside canvas,
+#dashboard-widgets .postbox[id*="gdw"] .inside canvas {
+  filter: drop-shadow(0 0 12px rgba(23, 243, 255, 0.25));
+}
+
+/* Glassy KPI tags */
+#dashboard-widgets .postbox[id*="gdw"] .kpi-badge,
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .kpi-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(23, 243, 255, 0.16), rgba(255, 51, 204, 0.16));
+  color: var(--gdw-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 30px rgba(5, 8, 15, 0.55);
+}
+
+/* Animated glow outline for charts */
+#dashboard-widgets .postbox[id*="gdw"] .inside::before,
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .inside::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(120deg, rgba(23, 243, 255, 0.18), rgba(255, 51, 204, 0.12), rgba(200, 255, 58, 0.12));
+  opacity: 0;
+  transition: opacity 220ms ease;
+  pointer-events: none;
+}
+
+#dashboard-widgets .postbox[id*="gdw"]:hover .inside::before,
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"]:hover .inside::before {
+  opacity: 1;
+}
