@@ -1,0 +1,730 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-06-06 19:49+0530\n"
+"PO-Revision-Date: 2018-06-06 19:49+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.0.5\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: settings/class.settings-api.php:402
+msgid "Choose File"
+msgstr "Escolher arquivo"
+
+#: settings/gdw_fields.php:31
+msgid "Dashboard Widgets"
+msgstr "Widgets do painel"
+
+#: settings/gdw_fields.php:42
+msgid "Graphical Dashboard Widgets - Settings"
+msgstr "Widgets Gráficos do Painel - Configurações"
+
+#: settings/gdw_fields.php:137
+msgid "Pick Dashboard Widget Colors"
+msgstr "Escolha as cores dos widgets do painel"
+
+#: settings/gdw_fields.php:138
+msgid ""
+"Pick colors for dashboard widgets. Pick <strong>minimum 6</strong> colors, "
+"else default plugin colors will be used."
+msgstr ""
+"Escolha cores para os widgets do painel. Escolha <strong>no mínimo "
+"6</strong> cores; caso contrário, as cores padrão do plugin serão usadas."
+
+#: settings/gdw_fields.php:144
+msgid "Enable User Location Tracking"
+msgstr "Ativar rastreamento de localização do usuário"
+
+#: settings/gdw_fields.php:145
+msgid ""
+"Check ON to enable user tracking based on IP. This option records user IP, "
+"country, city and region etc., OFF to disable."
+msgstr ""
+"Marque ATIVADO para habilitar o rastreamento com base no IP. Esta opção "
+"registra IP do usuário, país, cidade e região etc.; DESATIVADO para "
+"desligar."
+
+#: settings/gdw_fields.php:149
+msgid "Yes"
+msgstr "Sim"
+
+#: settings/gdw_fields.php:150
+msgid "No"
+msgstr "Não"
+
+#: settings/gdw_fields.php:169
+msgid "Enable Dashboard Widgets"
+msgstr "Ativar widgets do painel"
+
+#: settings/gdw_fields.php:170
+msgid ""
+"Select the widgets to display on dashboard. These widgets are added by this "
+"plugin."
+msgstr ""
+"Selecione os widgets para exibir no painel. Esses widgets são adicionados "
+"por este plugin."
+
+#: settings/gdw_fields.php:187
+msgid "Visitors in Last 15 days"
+msgstr "Visitantes nos últimos 15 dias"
+
+#: settings/gdw_fields.php:188 visitor-stats/index.php:889
+msgid "Users in last 15 days"
+msgstr "Usuários nos últimos 15 dias"
+
+#: settings/gdw_fields.php:189 visitor-stats/index.php:911
+msgid "Browsers Used"
+msgstr "Navegadores usados"
+
+#: settings/gdw_fields.php:190 visitor-stats/index.php:929
+msgid "Platforms Used"
+msgstr "Plataformas usadas"
+
+#: settings/gdw_fields.php:191 visitor-stats/index.php:948
+msgid "Visits by Country"
+msgstr "Visitas por país"
+
+#: settings/gdw_fields.php:192 visitor-stats/index.php:848
+msgid "Today Page Views & Online Users"
+msgstr "Visualizações de hoje e usuários online"
+
+#: settings/gdw_fields.php:194 site-stats/index.php:8
+msgid "Pages Count & Type"
+msgstr "Contagem e tipo de páginas"
+
+#: settings/gdw_fields.php:195 site-stats/index.php:28
+msgid "Posts Statistics"
+msgstr "Estatísticas de posts"
+
+#: settings/gdw_fields.php:196 site-stats/index.php:48
+msgid "User Comments"
+msgstr "Comentários de usuários"
+
+#: settings/gdw_fields.php:197 site-stats/index.php:72
+msgid "Category Statistics"
+msgstr "Estatísticas de categorias"
+
+#: settings/gdw_fields.php:198 site-stats/index.php:93
+msgid "User Statistics"
+msgstr "Estatísticas de usuários"
+
+#: settings/gdw_fields.php:206
+msgid "Check Default Dashboard Widgets"
+msgstr "Verificar widgets padrão do painel"
+
+#: settings/gdw_fields.php:207
+msgid ""
+"Select the widgets to display on dashboard. This includes default dashboard "
+"widgets<br>Some default widgets might not be found in your current wordpress"
+" version."
+msgstr ""
+"Selecione os widgets para exibir no painel. Isso inclui widgets padrão do "
+"WordPress<br>Alguns widgets padrão podem não estar disponíveis na sua versão"
+" atual do WordPress."
+
+#: settings/gdw_fields.php:222
+msgid "Welcome Panel"
+msgstr "Painel de boas-vindas"
+
+#: settings/gdw_fields.php:223
+msgid "WordPress News"
+msgstr "Notícias do WordPress"
+
+#: settings/gdw_fields.php:224
+msgid "Quick Draft"
+msgstr "Rascunho rápido"
+
+#: settings/gdw_fields.php:225
+msgid "Recent Drafts"
+msgstr "Rascunhos recentes"
+
+#: settings/gdw_fields.php:226
+msgid "Recent Comments"
+msgstr "Comentários recentes"
+
+#: settings/gdw_fields.php:227
+msgid "At a Glance"
+msgstr "Visão geral"
+
+#: settings/gdw_fields.php:228
+msgid "Activity"
+msgstr "Atividade"
+
+#: settings/gdw_fields.php:229
+msgid "Incoming Links"
+msgstr "Links de entrada"
+
+#: settings/gdw_fields.php:230
+msgid "Plugins Widget"
+msgstr "Widget de plugins"
+
+#: settings/gdw_fields.php:231
+msgid "Secondary Widget"
+msgstr "Widget secundário"
+
+#: site-stats/includes/gdw-stats-categories.php:56
+msgid "Most Used Categories"
+msgstr "Categorias mais usadas"
+
+#: site-stats/includes/gdw-stats-categories.php:105
+#: site-stats/includes/gdw-stats-categories.php:298
+#: site-stats/includes/gdw-stats-comments.php:122
+#: site-stats/includes/gdw-stats-comments.php:329
+#: site-stats/includes/gdw-stats-posts.php:131
+#: site-stats/includes/gdw-stats-posts.php:337
+#: site-stats/includes/gdw-stats-users.php:127
+#: site-stats/includes/gdw-stats-users.php:330
+#: visitor-stats/gdw-stats-browser-type.php:186
+#: visitor-stats/gdw-stats-country-type.php:131
+#: visitor-stats/gdw-stats-platform-type-backup.php:153
+#: visitor-stats/gdw-stats-platform-type.php:175
+#: visitor-stats/gdw-stats-user-type.php:154
+#: visitor-stats/gdw-stats-visitors-online-today.php:105
+#: visitor-stats/gdw-stats-visitors-type.php:149
+msgid "Data Zoom"
+msgstr "Zoom de dados"
+
+#: site-stats/includes/gdw-stats-categories.php:106
+#: site-stats/includes/gdw-stats-categories.php:299
+#: site-stats/includes/gdw-stats-comments.php:123
+#: site-stats/includes/gdw-stats-comments.php:330
+#: site-stats/includes/gdw-stats-posts.php:132
+#: site-stats/includes/gdw-stats-posts.php:338
+#: site-stats/includes/gdw-stats-users.php:128
+#: site-stats/includes/gdw-stats-users.php:331
+#: visitor-stats/gdw-stats-browser-type.php:187
+#: visitor-stats/gdw-stats-country-type.php:132
+#: visitor-stats/gdw-stats-platform-type-backup.php:154
+#: visitor-stats/gdw-stats-platform-type.php:176
+#: visitor-stats/gdw-stats-user-type.php:155
+#: visitor-stats/gdw-stats-visitors-online-today.php:106
+#: visitor-stats/gdw-stats-visitors-type.php:150
+msgid "Reset Zoom"
+msgstr "Redefinir zoom"
+
+#: site-stats/includes/gdw-stats-categories.php:113
+#: site-stats/includes/gdw-stats-categories.php:306
+#: site-stats/includes/gdw-stats-comments.php:130
+#: site-stats/includes/gdw-stats-comments.php:337
+#: site-stats/includes/gdw-stats-posts.php:139
+#: site-stats/includes/gdw-stats-posts.php:345
+#: site-stats/includes/gdw-stats-users.php:135
+#: site-stats/includes/gdw-stats-users.php:338
+#: visitor-stats/gdw-stats-browser-type.php:194
+#: visitor-stats/gdw-stats-country-type.php:139
+#: visitor-stats/gdw-stats-platform-type-backup.php:161
+#: visitor-stats/gdw-stats-platform-type.php:183
+#: visitor-stats/gdw-stats-user-type.php:162
+#: visitor-stats/gdw-stats-visitors-type.php:157
+msgid "Area"
+msgstr "Área"
+
+#: site-stats/includes/gdw-stats-categories.php:114
+#: site-stats/includes/gdw-stats-categories.php:307
+#: site-stats/includes/gdw-stats-comments.php:131
+#: site-stats/includes/gdw-stats-comments.php:338
+#: site-stats/includes/gdw-stats-posts.php:140
+#: site-stats/includes/gdw-stats-posts.php:346
+#: site-stats/includes/gdw-stats-users.php:136
+#: site-stats/includes/gdw-stats-users.php:339
+#: visitor-stats/gdw-stats-browser-type.php:195
+#: visitor-stats/gdw-stats-country-type.php:140
+#: visitor-stats/gdw-stats-platform-type-backup.php:162
+#: visitor-stats/gdw-stats-platform-type.php:184
+#: visitor-stats/gdw-stats-user-type.php:163
+#: visitor-stats/gdw-stats-visitors-online-today.php:114
+#: visitor-stats/gdw-stats-visitors-type.php:158
+msgid "Bar"
+msgstr "Barra"
+
+#: site-stats/includes/gdw-stats-categories.php:119
+#: site-stats/includes/gdw-stats-categories.php:312
+#: site-stats/includes/gdw-stats-comments.php:138
+#: site-stats/includes/gdw-stats-comments.php:343
+#: site-stats/includes/gdw-stats-comments.php:528
+#: site-stats/includes/gdw-stats-pages.php:100
+#: site-stats/includes/gdw-stats-posts.php:147
+#: site-stats/includes/gdw-stats-posts.php:351
+#: site-stats/includes/gdw-stats-posts.php:531
+#: site-stats/includes/gdw-stats-users.php:143
+#: site-stats/includes/gdw-stats-users.php:344
+#: site-stats/includes/gdw-stats-users.php:526
+#: visitor-stats/gdw-stats-browser-type.php:200
+#: visitor-stats/gdw-stats-country-type.php:145
+#: visitor-stats/gdw-stats-platform-type-backup.php:167
+#: visitor-stats/gdw-stats-platform-type.php:189
+#: visitor-stats/gdw-stats-user-type.php:170
+#: visitor-stats/gdw-stats-visitors-online-today.php:129
+#: visitor-stats/gdw-stats-visitors-type.php:165
+msgid "Save as Image"
+msgstr "Salvar como imagem"
+
+#: site-stats/includes/gdw-stats-categories.php:196
+#: site-stats/includes/gdw-stats-categories.php:389
+msgid "Post in Category"
+msgstr "Post na categoria"
+
+#: site-stats/includes/gdw-stats-categories.php:249
+msgid "Least Used Categories"
+msgstr "Categorias menos usadas"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Jan"
+msgstr "Jan"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Feb"
+msgstr "Fev"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Mar"
+msgstr "Mar"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Apr"
+msgstr "Abr"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "May"
+msgstr "Mai"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Jun"
+msgstr "Jun"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Jul"
+msgstr "Jul"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Aug"
+msgstr "Ago"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Sep"
+msgstr "Set"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Oct"
+msgstr "Out"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Nov"
+msgstr "Nov"
+
+#: site-stats/includes/gdw-stats-comments.php:64
+#: site-stats/includes/gdw-stats-posts.php:72
+#: site-stats/includes/gdw-stats-users.php:68
+msgid "Dec"
+msgstr "Dez"
+
+#: site-stats/includes/gdw-stats-comments.php:74
+msgid "Comments By Months in Each Year"
+msgstr "Comentários por mês em cada ano"
+
+#: site-stats/includes/gdw-stats-comments.php:132
+#: site-stats/includes/gdw-stats-posts.php:141
+#: site-stats/includes/gdw-stats-users.php:137
+#: visitor-stats/gdw-stats-user-type.php:164
+#: visitor-stats/gdw-stats-visitors-type.php:159
+msgid "Stacked Bar"
+msgstr "Barra empilhada"
+
+#: site-stats/includes/gdw-stats-comments.php:133
+#: site-stats/includes/gdw-stats-posts.php:142
+#: site-stats/includes/gdw-stats-users.php:138
+#: visitor-stats/gdw-stats-user-type.php:165
+#: visitor-stats/gdw-stats-visitors-type.php:160
+msgid "Tiled Bar"
+msgstr "Barra em mosaico"
+
+#: site-stats/includes/gdw-stats-comments.php:280
+msgid "Comments By Year"
+msgstr "Comentários por ano"
+
+#: site-stats/includes/gdw-stats-comments.php:420
+msgid "Comments"
+msgstr "Comentários"
+
+#: site-stats/includes/gdw-stats-comments.php:461
+msgid "Trashed with Post"
+msgstr "Enviados para a lixeira com o post"
+
+#: site-stats/includes/gdw-stats-comments.php:462
+msgid "Pending"
+msgstr "Pendente"
+
+#: site-stats/includes/gdw-stats-comments.php:479
+msgid "Comments Count and Type"
+msgstr "Contagem e tipo de comentários"
+
+#: site-stats/includes/gdw-stats-comments.php:511
+#: site-stats/includes/gdw-stats-pages.php:83
+#: site-stats/includes/gdw-stats-posts.php:514
+#: site-stats/includes/gdw-stats-users.php:509
+msgid "Pie"
+msgstr "Pizza"
+
+#: site-stats/includes/gdw-stats-comments.php:512
+#: site-stats/includes/gdw-stats-pages.php:84
+#: site-stats/includes/gdw-stats-posts.php:515
+#: site-stats/includes/gdw-stats-users.php:510
+msgid "Funnel"
+msgstr "Funil"
+
+#: site-stats/includes/gdw-stats-comments.php:534
+msgid "Comments Count"
+msgstr "Contagem de comentários"
+
+#: site-stats/includes/gdw-stats-pages.php:106
+msgid "Page Count"
+msgstr "Contagem de páginas"
+
+#: site-stats/includes/gdw-stats-posts.php:82
+msgid "Posts By Months in Each Year"
+msgstr "Posts por mês em cada ano"
+
+#: site-stats/includes/gdw-stats-posts.php:288
+msgid "Posts Count By Year"
+msgstr "Contagem de posts por ano"
+
+#: site-stats/includes/gdw-stats-posts.php:428
+#: site-stats/includes/gdw-stats-posts.php:537
+msgid "Post Count"
+msgstr "Contagem de posts"
+
+#: site-stats/includes/gdw-stats-posts.php:482
+msgid "Posts Count and Type"
+msgstr "Contagem e tipo de posts"
+
+#: site-stats/includes/gdw-stats-users.php:78
+msgid "User Registrations By Months in Each Year"
+msgstr "Registros de usuários por mês em cada ano"
+
+#: site-stats/includes/gdw-stats-users.php:281
+msgid "User Registrations By Year"
+msgstr "Registros de usuários por ano"
+
+#: site-stats/includes/gdw-stats-users.php:421
+msgid "User Registrations"
+msgstr "Registros de usuários"
+
+#: site-stats/includes/gdw-stats-users.php:477
+msgid "User Count and Type"
+msgstr "Contagem e tipo de usuários"
+
+#: site-stats/includes/gdw-stats-users.php:532
+msgid "User Count"
+msgstr "Contagem de usuários"
+
+# Additional status and label translations
+msgid "Publish"
+msgstr "Publicado"
+
+msgid "Future"
+msgstr "Agendado"
+
+msgid "Draft"
+msgstr "Rascunho"
+
+msgid "Private"
+msgstr "Privado"
+
+msgid "Hired"
+msgstr "Contratado"
+
+msgid "Denied"
+msgstr "Negado"
+
+msgid "Cancelled"
+msgstr "Cancelado"
+
+msgid "Completed"
+msgstr "Concluído"
+
+msgid "Expired"
+msgstr "Expirado"
+
+msgid "Pending_aprove"
+msgstr "Aguardando aprovação"
+
+msgid "Pending_payment"
+msgstr "Pagamento pendente"
+
+msgid "Preview"
+msgstr "Pré-visualização"
+
+msgid "None"
+msgstr "Nenhum"
+
+msgid "Administrator"
+msgstr "Administrador"
+
+msgid "Editor"
+msgstr "Editor"
+
+msgid "Author"
+msgstr "Autor"
+
+msgid "Contributor"
+msgstr "Colaborador"
+
+msgid "Subscriber"
+msgstr "Assinante"
+
+msgid "Others"
+msgstr "Outros"
+
+msgid "Request-confirmed"
+msgstr "Solicitação confirmada"
+
+msgid "Request-failed"
+msgstr "Solicitação falhou"
+
+msgid "Request-completed"
+msgstr "Solicitação concluída"
+
+msgid "Wc-pending"
+msgstr "Pagamento pendente"
+
+msgid "Wc-processing"
+msgstr "Processando pedido"
+
+msgid "Wc-on-hold"
+msgstr "Em espera"
+
+msgid "Wc-completed"
+msgstr "Concluído"
+
+msgid "Wc-cancelled"
+msgstr "Cancelado"
+
+msgid "Wc-refunded"
+msgstr "Reembolsado"
+
+msgid "Wc-failed"
+msgstr "Pagamento com falha"
+
+msgid "Wc-checkout"
+msgstr "Checkout"
+
+msgid "Trash"
+msgstr "Lixeira"
+
+msgid "Request Pending"
+msgstr "Solicitação pendente"
+
+msgid "High"
+msgstr "Alto"
+
+msgid "Low"
+msgstr "Baixo"
+
+msgid "Direct Visit"
+msgstr "Visita direta"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Domain is undefined or missing, might be localhost"
+msgstr "Domínio indefinido ou ausente, pode ser localhost"
+
+msgid "No Views Yet"
+msgstr "Ainda sem visualizações"
+
+#: visitor-stats/gdw-stats-browser-type-ajaxcall.php:40
+#: visitor-stats/gdw-stats-country-type-ajaxcall.php:36
+#: visitor-stats/gdw-stats-platform-type-ajaxcall.php:35
+#: visitor-stats/gdw-stats-user-type-ajaxcall.php:33
+#: visitor-stats/gdw-stats-visitors-online-today-ajaxcall.php:35
+#: visitor-stats/gdw-stats-visitors-type-ajaxcall.php:34
+msgid "Loading..."
+msgstr "Carregando..."
+
+#: visitor-stats/gdw-stats-browser-type.php:137
+msgid "Browsers used in last"
+msgstr "Navegadores usados nos últimos"
+
+#: visitor-stats/gdw-stats-browser-type.php:137
+#: visitor-stats/gdw-stats-country-type.php:88
+#: visitor-stats/gdw-stats-country-type.php:160
+#: visitor-stats/gdw-stats-platform-type.php:126
+msgid "days"
+msgstr "dias"
+
+#: visitor-stats/gdw-stats-browser-type.php:277
+#: visitor-stats/gdw-stats-platform-type.php:266
+msgid "Total Visits"
+msgstr "Visitas totais"
+
+#: visitor-stats/gdw-stats-browser-type.php:311
+#: visitor-stats/gdw-stats-browser-type.php:452
+#: visitor-stats/gdw-stats-platform-type.php:291
+#: visitor-stats/gdw-stats-platform-type.php:434
+msgid "No Data Recorded Yet!"
+msgstr "Nenhum dado registrado ainda!"
+
+#: visitor-stats/gdw-stats-browser-type.php:317
+msgid "Browsers Used By Date"
+msgstr "Navegadores usados por data"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+msgid "Chrome"
+msgstr "Chrome"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+msgid "Firefox"
+msgstr "Firefox"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+msgid "Safari"
+msgstr "Safari"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+msgid "Opera"
+msgstr "Opera"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+msgid "Internet-Explorer"
+msgstr "Internet Explorer"
+
+#: visitor-stats/gdw-stats-browser-type.php:372
+#: visitor-stats/gdw-stats-platform-type.php:354
+msgid "Others"
+msgstr "Outros"
+
+#: visitor-stats/gdw-stats-country-type.php:88
+msgid "Visits (by Country) in last"
+msgstr "Visitas (por país) nos últimos"
+
+#: visitor-stats/gdw-stats-country-type.php:160
+msgid "Visits in last"
+msgstr "Visitas nos últimos"
+
+#: visitor-stats/gdw-stats-online.php:27
+msgid "Users"
+msgstr "Usuários"
+
+#: visitor-stats/gdw-stats-online.php:27
+msgid "Online"
+msgstr "Online"
+
+#: visitor-stats/gdw-stats-platform-type.php:126
+msgid "Platforms used in last"
+msgstr "Plataformas usadas nos últimos"
+
+#: visitor-stats/gdw-stats-platform-type.php:299
+msgid "Platforms Used By Date"
+msgstr "Plataformas usadas por data"
+
+#: visitor-stats/gdw-stats-platform-type.php:354
+msgid "Apple"
+msgstr "Apple"
+
+#: visitor-stats/gdw-stats-platform-type.php:354
+msgid "Windows"
+msgstr "Windows"
+
+#: visitor-stats/gdw-stats-platform-type.php:354
+msgid "Linux"
+msgstr "Linux"
+
+#: visitor-stats/gdw-stats-platform-type.php:354
+msgid "Android"
+msgstr "Android"
+
+#: visitor-stats/gdw-stats-user-type.php:140
+#: visitor-stats/gdw-stats-user-type.php:264
+msgid "Guest Visitors"
+msgstr "Visitantes convidados"
+
+#: visitor-stats/gdw-stats-user-type.php:140
+#: visitor-stats/gdw-stats-user-type.php:247
+msgid "Registered Users"
+msgstr "Usuários registrados"
+
+#: visitor-stats/gdw-stats-visitors-online-today.php:52
+#: visitor-stats/gdw-stats-visitors-online-today.php:208
+msgid "Page Views"
+msgstr "Visualizações de página"
+
+#: visitor-stats/gdw-stats-visitors-online-today.php:52
+msgid "Today"
+msgstr "Hoje"
+
+#: visitor-stats/gdw-stats-visitors-online-today.php:57
+msgid "Page Views Today"
+msgstr "Visualizações de página hoje"
+
+#: visitor-stats/gdw-stats-visitors-online-today.php:57
+msgid "By Hour"
+msgstr "Por hora"
+
+#: visitor-stats/gdw-stats-visitors-online-today.php:113
+msgid "Line"
+msgstr "Linha"
+
+#: visitor-stats/gdw-stats-visitors-type.php:135
+#: visitor-stats/gdw-stats-visitors-type.php:242
+msgid "Unique Visitors"
+msgstr "Visitantes únicos"
+
+#: visitor-stats/gdw-stats-visitors-type.php:135
+#: visitor-stats/gdw-stats-visitors-type.php:259
+msgid "Total Visitors"
+msgstr "Visitantes totais"
+
+#: visitor-stats/gdw-stats-visitors.php:18
+msgid "Recent Visitors"
+msgstr "Visitantes recentes"
+
+#: visitor-stats/gdw-stats-visitors.php:21
+msgid "List of recent visitors by time."
+msgstr "Lista de visitantes recentes por horário."
+
+#: visitor-stats/gdw-stats-visitors.php:26
+msgid "Recent Visitor List"
+msgstr "Lista de visitantes recentes"
+
+#: visitor-stats/gdw-stats-visitors.php:233
+msgid "&laquo;"
+msgstr "&laquo;"
+
+#: visitor-stats/gdw-stats-visitors.php:234
+msgid "&raquo;"
+msgstr "&raquo;"
+
+#: visitor-stats/index.php:867
+msgid "Visitors in last 15 days"
+msgstr "Visitantes nos últimos 15 dias"
