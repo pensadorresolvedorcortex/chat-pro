@@ -281,6 +281,9 @@ function gdw_load_dashboard_widgets(){
     add_action( 'wp_dashboard_setup', $widgetid );
     }
 
+    // Ensure the GRUPOS widget stays no topo da página
+    add_action( 'wp_dashboard_setup', 'gdw_prioritize_groups_widget', 100 );
+
     $widgetid = "gdw_visitors_type";
     if( isset($gdwadmin[$element][$widgetid]) && $gdwadmin[$element][$widgetid] == $widgetid){
     add_action( 'wp_dashboard_setup', $widgetid );
@@ -441,6 +444,24 @@ function gdw_dashboard_widget_color(){
 
     return $getcolor;
 
+}
+
+/**
+ * Move the GRUPOS widget to the first position on the dashboard.
+ */
+function gdw_prioritize_groups_widget() {
+    global $wp_meta_boxes;
+
+    if ( ! isset( $wp_meta_boxes['dashboard']['normal']['core']['gdw_groups_wp_dashboard'] ) ) {
+        return;
+    }
+
+    $normal_boxes = $wp_meta_boxes['dashboard']['normal']['core'];
+    $groups_box  = array( 'gdw_groups_wp_dashboard' => $normal_boxes['gdw_groups_wp_dashboard'] );
+    unset( $normal_boxes['gdw_groups_wp_dashboard'] );
+
+    // Rebuild order with GRUPOS first and keep demais widgets intact.
+    $wp_meta_boxes['dashboard']['normal']['core'] = $groups_box + $normal_boxes;
 }
 
 /**

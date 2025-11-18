@@ -61,6 +61,8 @@ body.toplevel_page_gdw_settings,
   width: 100%;
   min-height: 370px;
   overflow: hidden;
+  grid-column: 1 / -1;
+  justify-self: center;
 }
 
 #gdw_groups_wp_dashboard .hndle,
