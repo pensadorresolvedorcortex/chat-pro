@@ -71,6 +71,40 @@
     });
   }
 
+  function arrangeGroupsWidget() {
+    const normal = document.querySelector('#dashboard-widgets .meta-box-sortables#normal-sortables');
+    if (!normal) {
+      return;
+    }
+
+    const groupCard = normal.querySelector('#gdw_groups_wp_dashboard');
+    if (!groupCard) {
+      return;
+    }
+
+    // Ensure the GRUPOS card sits on its own row at the top.
+    if (normal.firstElementChild !== groupCard) {
+      normal.prepend(groupCard);
+    }
+
+    let others = normal.querySelector('.gdw-other-widgets');
+    if (!others) {
+      others = document.createElement('div');
+      others.className = 'gdw-other-widgets';
+      normal.appendChild(others);
+    }
+
+    const boxes = Array.from(normal.querySelectorAll('.postbox'));
+    boxes.forEach(function (box) {
+      if (box === groupCard) {
+        return;
+      }
+      if (box.parentElement !== others) {
+        others.appendChild(box);
+      }
+    });
+  }
+
   if (window.echarts) {
     const originalInit = echarts.init;
 
@@ -344,6 +378,7 @@
   }
 
   jQuery(function () {
+    arrangeGroupsWidget();
     bindGroupsRefresh();
   });
 

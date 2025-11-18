@@ -47,15 +47,27 @@ body.toplevel_page_gdw_settings,
 }
 
 #dashboard-widgets .meta-box-sortables#normal-sortables {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
   align-items: stretch;
 }
 
 #dashboard-widgets .meta-box-sortables#normal-sortables > .postbox {
   width: 100%;
   margin: 0;
+}
+
+#dashboard-widgets .meta-box-sortables#normal-sortables > .gdw-other-widgets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+#dashboard-widgets .meta-box-sortables#normal-sortables > .gdw-other-widgets > .postbox {
+  margin: 0;
+  width: 100%;
 }
 
 #dashboard-widgets .postbox-header,
