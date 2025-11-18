@@ -1,0 +1,481 @@
+/*
+ * Graphical Dashboard Widgets – Neumorphic premium skin
+ * Only visual adjustments – no functional changes.
+ */
+
+:root {
+  --gdw-bg-base: #ffffff;
+  --gdw-card: rgba(245, 247, 251, 0.78);
+  --gdw-card-strong: rgba(242, 245, 255, 0.9);
+  --gdw-card-glow: linear-gradient(135deg, rgba(75, 124, 251, 0.08), rgba(79, 210, 255, 0.05));
+  --gdw-border-glass: 1px solid rgba(255, 255, 255, 0.72);
+  --gdw-text-strong: #3f4b5b;
+  --gdw-text-soft: #53627a;
+  --gdw-text-muted: #8d98b3;
+  --gdw-shadow-dark: rgba(15, 32, 73, 0.14);
+  --gdw-shadow-light: rgba(255, 255, 255, 0.9);
+  --gdw-shadow-inset-dark: rgba(15, 32, 73, 0.12);
+  --gdw-shadow-inset-light: rgba(255, 255, 255, 0.9);
+  --gdw-blue: #4b7cfb;
+  --gdw-blue-soft: #4fd2ff;
+  --gdw-purple: #7b6cff;
+  --gdw-pink: #ff6fb5;
+  --gdw-green: #32e0c4;
+  --gdw-yellow: #ffb347;
+  --gdw-neutral: #aab3d0;
+  --gdw-radius-sm: 16px;
+  --gdw-radius-md: 22px;
+  --gdw-radius-lg: 28px;
+  --gdw-shadow-raised: 10px 10px 25px var(--gdw-shadow-dark), -10px -10px 25px var(--gdw-shadow-light);
+  --gdw-shadow-raised-sm: 6px 6px 18px var(--gdw-shadow-dark), -6px -6px 18px var(--gdw-shadow-light);
+  --gdw-shadow-inset: inset 6px 6px 16px var(--gdw-shadow-inset-dark), inset -6px -6px 16px var(--gdw-shadow-inset-light);
+  --gdw-transition: all 0.18s ease-out;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Roboto", "Inter", "Segoe UI", sans-serif;
+}
+
+body.toplevel_page_gdw_settings,
+#dashboard-widgets-wrap {
+  background: var(--gdw-bg-base);
+  color: var(--gdw-text-strong);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Roboto", "Inter", "Segoe UI", sans-serif;
+  padding: 0 12px 24px;
+}
+
+body.toplevel_page_gdw_settings .wrap {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 32px 24px 36px;
+}
+
+body.toplevel_page_gdw_settings h1,
+body.toplevel_page_gdw_settings h2,
+#dashboard-widgets .hndle {
+  color: var(--gdw-text-strong);
+  letter-spacing: 0.01em;
+}
+
+body.toplevel_page_gdw_settings h1 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+body.toplevel_page_gdw_settings h2,
+#dashboard-widgets .hndle {
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 750;
+}
+
+body.toplevel_page_gdw_settings .form-table {
+  width: 100%;
+  border-spacing: 0 18px;
+}
+
+body.toplevel_page_gdw_settings .form-table tr {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(244, 246, 255, 0.88)), var(--gdw-card-glow);
+  border-radius: var(--gdw-radius-lg);
+  box-shadow: var(--gdw-shadow-raised);
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(14px) saturate(1.08);
+  overflow: hidden;
+}
+
+body.toplevel_page_gdw_settings .form-table th,
+body.toplevel_page_gdw_settings .form-table td {
+  padding: 18px 20px;
+  vertical-align: top;
+  color: var(--gdw-text-soft);
+  font-size: 12px;
+}
+
+body.toplevel_page_gdw_settings .form-table th {
+  width: 240px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+body.toplevel_page_gdw_settings .form-table p.description {
+  margin-top: 6px;
+  color: var(--gdw-text-muted);
+}
+
+body.toplevel_page_gdw_settings .form-table input,
+body.toplevel_page_gdw_settings .form-table select,
+body.toplevel_page_gdw_settings .form-table textarea {
+  width: 100%;
+  background: var(--gdw-card-strong);
+  border: none;
+  border-radius: 999px;
+  color: var(--gdw-text-strong);
+  padding: 12px 16px;
+  box-shadow: var(--gdw-shadow-inset);
+  transition: var(--gdw-transition);
+  outline: none;
+}
+
+body.toplevel_page_gdw_settings .form-table textarea {
+  border-radius: var(--gdw-radius-md);
+  min-height: 110px;
+}
+
+body.toplevel_page_gdw_settings .form-table input:focus,
+body.toplevel_page_gdw_settings .form-table select:focus,
+body.toplevel_page_gdw_settings .form-table textarea:focus {
+  box-shadow: var(--gdw-shadow-inset), 0 0 0 2px rgba(75, 124, 251, 0.2);
+}
+
+body.toplevel_page_gdw_settings .button-primary,
+body.toplevel_page_gdw_settings .button-secondary,
+body.toplevel_page_gdw_settings .button,
+#dashboard-widgets .button {
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-size: 12.5px;
+  border: none;
+  transition: var(--gdw-transition);
+  box-shadow: var(--gdw-shadow-raised-sm);
+}
+
+body.toplevel_page_gdw_settings .button-primary,
+#dashboard-widgets .button-primary {
+  background: linear-gradient(135deg, var(--gdw-blue), var(--gdw-blue-soft));
+  color: #fff;
+}
+
+body.toplevel_page_gdw_settings .button-secondary,
+body.toplevel_page_gdw_settings .button,
+#dashboard-widgets .button {
+  background: var(--gdw-card-strong);
+  color: var(--gdw-text-soft);
+  box-shadow: var(--gdw-shadow-raised-sm);
+}
+
+body.toplevel_page_gdw_settings .button-primary:hover,
+#dashboard-widgets .button-primary:hover,
+body.toplevel_page_gdw_settings .button-secondary:hover,
+body.toplevel_page_gdw_settings .button:hover,
+#dashboard-widgets .button:hover {
+  transform: translateY(-2px);
+  box-shadow: 12px 12px 28px var(--gdw-shadow-dark), -12px -12px 28px var(--gdw-shadow-light);
+}
+
+body.toplevel_page_gdw_settings .button-primary:active,
+#dashboard-widgets .button-primary:active,
+body.toplevel_page_gdw_settings .button-secondary:active,
+body.toplevel_page_gdw_settings .button:active,
+#dashboard-widgets .button:active {
+  transform: translateY(1px);
+  box-shadow: 6px 6px 14px var(--gdw-shadow-dark), -6px -6px 14px var(--gdw-shadow-light);
+}
+
+/* Dashboard cards */
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"],
+#dashboard-widgets .postbox[id*="visitors"],
+#dashboard-widgets .postbox[id*="gdw"] {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(244, 246, 255, 0.84)), var(--gdw-card-glow);
+  border-radius: var(--gdw-radius-md);
+  box-shadow: var(--gdw-shadow-raised);
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(14px) saturate(1.08);
+  overflow: hidden;
+  color: var(--gdw-text-strong);
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .hndle,
+#dashboard-widgets .postbox[id*="visitors"] .hndle,
+#dashboard-widgets .postbox[id*="gdw"] .hndle {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 246, 255, 0.92));
+  border-bottom: 1px solid rgba(63, 75, 91, 0.05);
+  padding: 14px 18px;
+  border-radius: var(--gdw-radius-md) var(--gdw-radius-md) 14px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"] .inside,
+#dashboard-widgets .postbox[id*="visitors"] .inside,
+#dashboard-widgets .postbox[id*="gdw"] .inside {
+  padding: 22px 22px 24px;
+  color: var(--gdw-text-soft);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+#dashboard-widgets .postbox .inside p {
+  margin: 0 0 12px;
+}
+
+#dashboard-widgets .postbox .inside ul,
+#dashboard-widgets .postbox .inside ol {
+  margin: 0 0 12px 16px;
+  padding: 0;
+}
+
+#dashboard-widgets .postbox .inside strong,
+#dashboard-widgets .postbox .inside b {
+  color: var(--gdw-text-strong);
+}
+
+/* Widget chips and labels */
+.gdw-chip,
+.widhead {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--gdw-card-strong);
+  color: var(--gdw-text-strong);
+  box-shadow: var(--gdw-shadow-raised-sm);
+  font-weight: 700;
+  font-size: 10.75px;
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(10px) saturate(1.05);
+}
+
+/* Chart containers */
+.chartBox,
+.chartBoxLarge {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(244, 246, 255, 0.86));
+  border-radius: var(--gdw-radius-md);
+  padding: 22px 22px;
+  box-shadow: var(--gdw-shadow-raised-sm);
+  color: var(--gdw-text-strong);
+  min-height: 300px;
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.chartBoxLarge {
+  min-height: 380px;
+}
+
+/* Tables */
+#dashboard-widgets .widefat,
+#dashboard-widgets table,
+body.toplevel_page_gdw_settings table {
+  background: transparent;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--gdw-text-soft);
+}
+
+#dashboard-widgets .widefat thead th,
+body.toplevel_page_gdw_settings table th {
+  color: var(--gdw-text-strong);
+  font-weight: 700;
+  background: transparent;
+  padding-bottom: 12px;
+}
+
+#dashboard-widgets .widefat tbody tr,
+body.toplevel_page_gdw_settings table tbody tr {
+  background: transparent;
+  box-shadow: none;
+}
+
+#dashboard-widgets .widefat tbody tr td,
+body.toplevel_page_gdw_settings table tbody tr td {
+  padding: 10px 8px;
+  font-size: 12px;
+}
+
+/* KPIs and numbers */
+.gdw-kpi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.gdw-kpi .kpi-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(244, 246, 255, 0.9)), var(--gdw-card-glow);
+  border-radius: var(--gdw-radius-lg);
+  padding: 18px 20px;
+  box-shadow: var(--gdw-shadow-raised-sm);
+  display: grid;
+  gap: 8px;
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(14px) saturate(1.08);
+}
+
+.gdw-kpi .kpi-title {
+  color: var(--gdw-text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+
+.gdw-kpi .kpi-value {
+  font-size: 22px;
+  color: var(--gdw-text-strong);
+  font-weight: 800;
+}
+
+.gdw-kpi .kpi-sub {
+  font-size: 12px;
+  color: var(--gdw-text-soft);
+}
+
+/* Search / input pills */
+.gdw-search,
+.search-box input[type="search"],
+.search-box input[type="text"] {
+  background: var(--gdw-card-strong);
+  border: none;
+  border-radius: 999px;
+  padding: 12px 16px;
+  box-shadow: var(--gdw-shadow-inset);
+  color: var(--gdw-text-strong);
+  width: 100%;
+  transition: var(--gdw-transition);
+}
+
+.gdw-search:focus,
+.search-box input[type="search"]:focus,
+.search-box input[type="text"]:focus {
+  box-shadow: var(--gdw-shadow-inset), 0 0 0 2px rgba(75, 124, 251, 0.2);
+  outline: none;
+}
+
+/* Toggles and checkboxes */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--gdw-blue);
+  width: 18px;
+  height: 18px;
+  box-shadow: var(--gdw-shadow-raised-sm);
+  border-radius: 6px;
+}
+
+/* Progress bars */
+.gdw-progress {
+  position: relative;
+  height: 12px;
+  border-radius: 999px;
+  background: #e9edf7;
+  box-shadow: var(--gdw-shadow-inset);
+  overflow: hidden;
+}
+
+.gdw-progress .gdw-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--gdw-pink), var(--gdw-yellow));
+}
+
+/* Utility gradient pills */
+.gdw-pill-primary {
+  background: linear-gradient(135deg, var(--gdw-blue), var(--gdw-blue-soft));
+  color: #fff;
+}
+
+.gdw-pill-pink {
+  background: linear-gradient(135deg, var(--gdw-pink), var(--gdw-yellow));
+  color: #fff;
+}
+
+/* Grid layout for dashboard areas */
+#dashboard-widgets .meta-box-sortables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+#dashboard-widgets .postbox {
+  margin: 0;
+}
+
+/* Charts inner labels */
+.chart-legend,
+.chart-summary,
+.chart-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  color: var(--gdw-text-soft);
+  font-size: 13px;
+}
+
+/* Hover interactions */
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"],
+#dashboard-widgets .postbox[id*="visitors"],
+#dashboard-widgets .postbox[id*="gdw"],
+.gdw-kpi .kpi-card,
+.chartBox,
+.chartBoxLarge,
+body.toplevel_page_gdw_settings .form-table tr {
+  transition: var(--gdw-transition);
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"]:hover,
+#dashboard-widgets .postbox[id*="visitors"]:hover,
+#dashboard-widgets .postbox[id*="gdw"]:hover,
+.gdw-kpi .kpi-card:hover,
+.chartBox:hover,
+.chartBoxLarge:hover,
+body.toplevel_page_gdw_settings .form-table tr:hover {
+  transform: translateY(-2px);
+  box-shadow: 12px 12px 28px var(--gdw-shadow-dark), -12px -12px 28px var(--gdw-shadow-light);
+}
+
+#dashboard-widgets .postbox[id*="stats_wp_dashboard"]:active,
+#dashboard-widgets .postbox[id*="visitors"]:active,
+#dashboard-widgets .postbox[id*="gdw"]:active,
+.gdw-kpi .kpi-card:active,
+.chartBox:active,
+.chartBoxLarge:active,
+body.toplevel_page_gdw_settings .form-table tr:active {
+  transform: translateY(1px);
+  box-shadow: 6px 6px 14px var(--gdw-shadow-dark), -6px -6px 14px var(--gdw-shadow-light);
+}
+
+/* Data tables inside cards */
+#dashboard-widgets .postbox table.wp-list-table th,
+#dashboard-widgets .postbox table.wp-list-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+/* Badges */
+.status-display,
+.visitor-role,
+.gdw-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--gdw-text-strong);
+  background: var(--gdw-card-strong);
+  box-shadow: var(--gdw-shadow-raised-sm);
+  border: var(--gdw-border-glass);
+  backdrop-filter: blur(10px) saturate(1.05);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  body.toplevel_page_gdw_settings .form-table th {
+    width: auto;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  body.toplevel_page_gdw_settings .form-table td,
+  body.toplevel_page_gdw_settings .form-table th {
+    display: block;
+    width: 100%;
+  }
+
+  #dashboard-widgets .meta-box-sortables {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
