@@ -46,6 +46,18 @@ body.toplevel_page_gdw_settings,
   padding: 0 12px 24px;
 }
 
+#dashboard-widgets .meta-box-sortables#normal-sortables {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+#dashboard-widgets .meta-box-sortables#normal-sortables > .postbox {
+  width: 100%;
+  margin: 0;
+}
+
 #dashboard-widgets .postbox-header,
 #editor .postbox > .postbox-header:hover {
   background-color: #00ccc0;
@@ -63,6 +75,7 @@ body.toplevel_page_gdw_settings,
   overflow: hidden;
   grid-column: 1 / -1;
   justify-self: center;
+  order: -50;
 }
 
 #gdw_groups_wp_dashboard .hndle,
