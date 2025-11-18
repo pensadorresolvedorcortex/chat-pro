@@ -26,7 +26,8 @@ O prompt em `luxury_ui_prompt.md` orienta um visual high-end com:
 
 Um tema neon/glassmorphism acompanha o plugin e é carregado automaticamente no painel do WordPress (dashboard e página de configurações),
 estilizando os widgets e formulários com gradientes difusos, cartões translúcidos, brilho elegante e tipografia premium. Os gráficos usam paleta neon vibrante,
-tooltips com blur e animação contínua para manter os widgets em movimento, incluindo laços automáticos de destaque sem vazamentos de memória.
+tooltips com blur e animação contínua para manter os widgets em movimento, incluindo laços automáticos de destaque sem vazamentos de memória. O bundle do
+ECharts (`graphical_dashboard_widgets/js/echarts-all.js`) está incluído para que os gráficos animem mesmo sem acesso a CDN.
 
 ## Estrutura dos fontes
 - PHP principal: `graphical_dashboard_widgets/gdw-core.php`.

@@ -123,8 +123,8 @@ function gdw_scripts(){
     if (isset($plug) && $plug == "dashboard"){
         $url = plugins_url('/', __FILE__).'../js/echarts-all.js';
         wp_deregister_script('gdw-echarts-js');
-        wp_register_script('gdw-echarts-js', $url);
-        wp_enqueue_script('gdw-echarts-js','jquery');
+        wp_register_script('gdw-echarts-js', $url, array('jquery'), '5.5.0', true);
+        wp_enqueue_script('gdw-echarts-js');
 
     }
 

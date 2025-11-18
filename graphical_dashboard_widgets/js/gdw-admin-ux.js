@@ -26,7 +26,17 @@
       let cursor = 0;
 
       chart.gdwLoopTimer = setInterval(function () {
-        const length = (chart.getOption().series || [])[seriesIndex].data.length;
+        if ((chart.isDisposed && chart.isDisposed()) || !chart.getOption) {
+          clearInterval(chart.gdwLoopTimer);
+          chart.gdwLoopTimer = null;
+          chart.gdwLoopStarted = false;
+          return;
+        }
+
+        const liveOption = chart.getOption();
+        const liveSeries = (liveOption.series || [])[seriesIndex];
+        const length = liveSeries && liveSeries.data ? liveSeries.data.length : 0;
+
         if (!length) {
           return;
         }
