@@ -21,10 +21,11 @@ if ( ! function_exists( 'gdw_get_groups_card_snapshot' ) ) {
 
         if ( function_exists( 'wc_get_orders' ) ) {
             $month_start = gmdate( 'Y-m-01 00:00:00' );
+            // Use the comparator string format so WooCommerce doesn't receive an array in strtotime().
             $orders_this_month = wc_get_orders(
                 array(
                     'status'       => array( 'wc-processing', 'wc-completed', 'wc-on-hold' ),
-                    'date_created' => array( 'after' => $month_start ),
+                    'date_created' => '>=' . $month_start,
                     'limit'        => -1,
                     'return'       => 'objects',
                 )
