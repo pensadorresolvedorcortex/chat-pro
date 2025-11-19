@@ -10253,6 +10253,53 @@ body .juntaplay-complaints__placeholder img {
     font-size: 1rem;
 }
 
+.juntaplay-service-list__content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.juntaplay-service-list__title {
+    font-size: 1.02rem;
+    font-weight: 700;
+    color: var(--jp-text, #162033);
+}
+
+.juntaplay-service-list__description {
+    font-size: 0.95rem;
+    color: var(--jp-text-muted, #54627a);
+    line-height: 1.4;
+}
+
+.juntaplay-service-list__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--jp-text-muted, #54627a);
+}
+
+.juntaplay-service-list__pill {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--jp-text, #162033);
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.juntaplay-service-list__pill--muted {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--jp-text-muted, #54627a);
+}
+
+.juntaplay-service-list__price {
+    color: var(--jp-primary, #00ccc0);
+    font-weight: 700;
+}
+
 .juntaplay-service-list__chevron {
     width: 9px;
     height: 9px;
@@ -10330,10 +10377,51 @@ body .juntaplay-complaints__placeholder img {
     border: 1px solid rgba(0, 204, 192, 0.22);
 }
 
+.juntaplay-service-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+}
+
 .juntaplay-service-card__title {
     text-align: center;
     font-size: 0.98rem;
     line-height: 1.4;
+}
+
+.juntaplay-service-card__description {
+    font-size: 0.95rem;
+    color: var(--jp-text-muted, #54627a);
+    line-height: 1.4;
+}
+
+.juntaplay-service-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--jp-text-muted, #54627a);
+}
+
+.juntaplay-service-card__pill {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--jp-text, #162033);
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.juntaplay-service-card__pill--muted {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--jp-text-muted, #54627a);
+}
+
+.juntaplay-service-card__price {
+    color: var(--jp-primary, #00ccc0);
+    font-weight: 700;
 }
 
 .juntaplay-service-grid__footer {

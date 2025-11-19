@@ -16,6 +16,8 @@ $groups_member  = isset($group_context['groups_member']) && is_array($group_cont
 $pagination     = isset($group_context['pagination']) && is_array($group_context['pagination']) ? $group_context['pagination'] : [];
 $group_counts   = isset($group_context['group_counts']) && is_array($group_context['group_counts']) ? $group_context['group_counts'] : [];
 $pool_choices   = isset($group_context['pool_choices']) && is_array($group_context['pool_choices']) ? $group_context['pool_choices'] : [];
+$pool_featured  = isset($group_context['pool_featured']) && is_array($group_context['pool_featured']) ? $group_context['pool_featured'] : [];
+$pool_catalog   = isset($group_context['pool_catalog']) && is_array($group_context['pool_catalog']) ? $group_context['pool_catalog'] : [];
 $group_categories = isset($group_context['group_categories']) && is_array($group_context['group_categories']) ? $group_context['group_categories'] : [];
 $group_suggestions = isset($group_context['group_suggestions']) && is_array($group_context['group_suggestions']) ? $group_context['group_suggestions'] : [];
 $form_errors    = isset($group_context['form_errors']) && is_array($group_context['form_errors']) ? $group_context['form_errors'] : [];
@@ -68,6 +70,9 @@ if ($success_redirect === '') {
 $current_user_id = get_current_user_id();
 
 $pool_choices_trim = array_slice($pool_choices, 0, 6, true);
+if (!$pool_featured && $pool_catalog) {
+    $pool_featured = array_slice($pool_catalog, 0, 6);
+}
 
 do_action('juntaplay/profile/enable_group_cover_upload');
 
@@ -1022,19 +1027,54 @@ if ($group_suggestions) {
                             <div class="juntaplay-service-list__header">
                                 <h4><?php echo esc_html__('O que vai compartilhar hoje?', 'juntaplay'); ?></h4>
                             </div>
-                            <?php if ($pool_choices_trim) : ?>
+                            <?php if ($pool_featured) : ?>
                                 <ul class="juntaplay-service-list">
-                                    <?php foreach ($pool_choices_trim as $pool_id => $pool_title) : ?>
+                                    <?php foreach ($pool_featured as $pool) :
+                                        $pool_id       = isset($pool['id']) ? (int) $pool['id'] : 0;
+                                        $pool_title    = isset($pool['title']) ? (string) $pool['title'] : '';
+                                        $pool_price    = isset($pool['price']) ? (float) $pool['price'] : 0.0;
+                                        $pool_excerpt  = isset($pool['excerpt']) ? (string) $pool['excerpt'] : '';
+                                        $pool_category = isset($pool['category']) ? (string) $pool['category'] : '';
+                                        $pool_total    = isset($pool['quotas_total']) ? (int) $pool['quotas_total'] : 0;
+                                        $pool_start    = isset($pool['quota_start']) ? (int) $pool['quota_start'] : 0;
+                                        $pool_end      = isset($pool['quota_end']) ? (int) $pool['quota_end'] : 0;
+                                        $category_label = $pool_category !== '' && isset($group_categories[$pool_category]) ? (string) $group_categories[$pool_category] : '';
+                                        $display_price = function_exists('wc_price') ? wc_price($pool_price) : number_format((float) $pool_price, 2, ',', '.');
+                                        $initial_icon_raw = $pool_title !== ''
+                                            ? (function_exists('mb_substr') ? mb_substr($pool_title, 0, 1) : substr($pool_title, 0, 1))
+                                            : '';
+                                        $initial_icon  = strtoupper($initial_icon_raw);
+                                    ?>
                                         <li>
                                             <button
                                                 type="button"
                                                 class="juntaplay-service-list__item"
                                                 data-group-pool-apply
                                                 data-pool-id="<?php echo esc_attr((string) $pool_id); ?>"
-                                                data-pool-name="<?php echo esc_attr((string) $pool_title); ?>"
+                                                data-pool-name="<?php echo esc_attr($pool_title); ?>"
+                                                data-pool-price="<?php echo esc_attr((string) $pool_price); ?>"
+                                                data-pool-category="<?php echo esc_attr($pool_category); ?>"
+                                                data-pool-excerpt="<?php echo esc_attr($pool_excerpt); ?>"
+                                                data-pool-total="<?php echo esc_attr((string) $pool_total); ?>"
+                                                data-pool-start="<?php echo esc_attr((string) $pool_start); ?>"
+                                                data-pool-end="<?php echo esc_attr((string) $pool_end); ?>"
                                             >
-                                                <span class="juntaplay-service-list__icon" aria-hidden="true"></span>
-                                                <span class="juntaplay-service-list__label"><?php echo esc_html((string) $pool_title); ?></span>
+                                                <span class="juntaplay-service-list__icon" aria-hidden="true"><?php echo esc_html($initial_icon); ?></span>
+                                                <span class="juntaplay-service-list__content">
+                                                    <span class="juntaplay-service-list__title"><?php echo esc_html($pool_title); ?></span>
+                                                    <?php if ($pool_excerpt !== '') : ?>
+                                                        <span class="juntaplay-service-list__description"><?php echo esc_html($pool_excerpt); ?></span>
+                                                    <?php endif; ?>
+                                                    <span class="juntaplay-service-list__meta">
+                                                        <?php if ($category_label !== '') : ?>
+                                                            <span class="juntaplay-service-list__pill"><?php echo esc_html($category_label); ?></span>
+                                                        <?php endif; ?>
+                                                        <span class="juntaplay-service-list__price"><?php echo wp_kses_post($display_price); ?></span>
+                                                        <?php if ($pool_total > 0) : ?>
+                                                            <span class="juntaplay-service-list__pill juntaplay-service-list__pill--muted"><?php echo esc_html(sprintf(_n('%d vaga', '%d vagas', $pool_total, 'juntaplay'), $pool_total)); ?></span>
+                                                        <?php endif; ?>
+                                                    </span>
+                                                </span>
                                                 <span class="juntaplay-service-list__chevron" aria-hidden="true"></span>
                                             </button>
                                         </li>
@@ -1059,16 +1099,47 @@ if ($group_suggestions) {
                                 <h4><?php echo esc_html__('O que vai compartilhar hoje?', 'juntaplay'); ?></h4>
                             </div>
                             <div class="juntaplay-service-grid">
-                                <?php foreach ($pool_choices as $pool_id => $pool_title) : ?>
+                                <?php foreach ($pool_catalog as $pool) :
+                                    $pool_id       = isset($pool['id']) ? (int) $pool['id'] : 0;
+                                    $pool_title    = isset($pool['title']) ? (string) $pool['title'] : '';
+                                    $pool_price    = isset($pool['price']) ? (float) $pool['price'] : 0.0;
+                                    $pool_excerpt  = isset($pool['excerpt']) ? (string) $pool['excerpt'] : '';
+                                    $pool_category = isset($pool['category']) ? (string) $pool['category'] : '';
+                                    $pool_total    = isset($pool['quotas_total']) ? (int) $pool['quotas_total'] : 0;
+                                    $pool_start    = isset($pool['quota_start']) ? (int) $pool['quota_start'] : 0;
+                                    $pool_end      = isset($pool['quota_end']) ? (int) $pool['quota_end'] : 0;
+                                    $category_label = $pool_category !== '' && isset($group_categories[$pool_category]) ? (string) $group_categories[$pool_category] : '';
+                                    $display_price = function_exists('wc_price') ? wc_price($pool_price) : number_format((float) $pool_price, 2, ',', '.');
+                                ?>
                                     <button
                                         type="button"
                                         class="juntaplay-service-card"
                                         data-group-pool-apply
                                         data-pool-id="<?php echo esc_attr((string) $pool_id); ?>"
-                                        data-pool-name="<?php echo esc_attr((string) $pool_title); ?>"
+                                        data-pool-name="<?php echo esc_attr($pool_title); ?>"
+                                        data-pool-price="<?php echo esc_attr((string) $pool_price); ?>"
+                                        data-pool-category="<?php echo esc_attr($pool_category); ?>"
+                                        data-pool-excerpt="<?php echo esc_attr($pool_excerpt); ?>"
+                                        data-pool-total="<?php echo esc_attr((string) $pool_total); ?>"
+                                        data-pool-start="<?php echo esc_attr((string) $pool_start); ?>"
+                                        data-pool-end="<?php echo esc_attr((string) $pool_end); ?>"
                                     >
                                         <span class="juntaplay-service-card__icon" aria-hidden="true"></span>
-                                        <span class="juntaplay-service-card__title"><?php echo esc_html((string) $pool_title); ?></span>
+                                        <span class="juntaplay-service-card__body">
+                                            <span class="juntaplay-service-card__title"><?php echo esc_html($pool_title); ?></span>
+                                            <?php if ($pool_excerpt !== '') : ?>
+                                                <span class="juntaplay-service-card__description"><?php echo esc_html($pool_excerpt); ?></span>
+                                            <?php endif; ?>
+                                            <span class="juntaplay-service-card__meta">
+                                                <?php if ($category_label !== '') : ?>
+                                                    <span class="juntaplay-service-card__pill"><?php echo esc_html($category_label); ?></span>
+                                                <?php endif; ?>
+                                                <span class="juntaplay-service-card__price"><?php echo wp_kses_post($display_price); ?></span>
+                                                <?php if ($pool_total > 0) : ?>
+                                                    <span class="juntaplay-service-card__pill juntaplay-service-card__pill--muted"><?php echo esc_html(sprintf(_n('%d vaga', '%d vagas', $pool_total, 'juntaplay'), $pool_total)); ?></span>
+                                                <?php endif; ?>
+                                            </span>
+                                        </span>
                                     </button>
                                 <?php endforeach; ?>
                             </div>

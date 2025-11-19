@@ -1470,6 +1470,34 @@ class Profile
             $pool_choices = $data['group_pool_options'];
         }
 
+        $pool_featured = [];
+        $pool_catalog  = [];
+
+        $pool_catalog_query = Pools::query([
+            'status'   => 'publish',
+            'per_page' => 18,
+            'order'    => 'DESC',
+            'orderby'  => 'created_at',
+        ]);
+
+        if (isset($pool_catalog_query['items']) && is_array($pool_catalog_query['items'])) {
+            $pool_catalog = $pool_catalog_query['items'];
+        }
+
+        $pool_featured_query = Pools::query([
+            'status'   => 'publish',
+            'featured' => 1,
+            'per_page' => 6,
+        ]);
+
+        if (isset($pool_featured_query['items']) && is_array($pool_featured_query['items'])) {
+            $pool_featured = $pool_featured_query['items'];
+        }
+
+        if (empty($pool_featured) && !empty($pool_catalog)) {
+            $pool_featured = array_slice($pool_catalog, 0, 6);
+        }
+
         $group_categories  = $this->get_group_categories();
         $group_suggestions = $this->get_group_suggestions();
 
@@ -1551,6 +1579,8 @@ class Profile
             'groups_member_full'=> $groups_member,
             'group_counts'      => $group_counts,
             'pool_choices'      => $pool_choices,
+            'pool_catalog'      => $pool_catalog,
+            'pool_featured'     => $pool_featured,
             'group_categories'  => $group_categories,
             'group_suggestions' => $group_suggestions,
             'form_errors'       => $this->errors['group_create'] ?? [],
@@ -1572,6 +1602,8 @@ class Profile
             'groups_member'    => $groups_member,
             'group_counts'     => $group_counts,
             'pool_choices'     => $pool_choices,
+            'pool_catalog'     => $pool_catalog,
+            'pool_featured'    => $pool_featured,
             'group_categories' => $group_categories,
             'group_suggestions'=> $group_suggestions,
         ];

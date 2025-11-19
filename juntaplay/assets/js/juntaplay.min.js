@@ -1429,6 +1429,13 @@
 
         var poolId = ($button.data('poolId') || '').toString();
         var poolName = ($button.data('poolName') || '').toString();
+        var poolPrice = parseFloat(($button.data('poolPrice') || '').toString().replace(',', '.'));
+        var poolCategory = ($button.data('poolCategory') || '').toString();
+        var poolExcerpt = ($button.data('poolExcerpt') || '').toString();
+        var poolTotal = parseInt(($button.data('poolTotal') || '').toString(), 10);
+        var poolStart = parseInt(($button.data('poolStart') || '').toString(), 10);
+        var poolEnd = parseInt(($button.data('poolEnd') || '').toString(), 10);
+        var poolReserved = Number.isFinite(poolStart) && poolStart > 0 ? Math.max(0, poolStart - 1) : 0;
 
         var $select = $form.find('[name="jp_profile_group_pool"]');
         if ($select.length) {
@@ -1441,9 +1448,42 @@
             $service.val(poolName).trigger('input');
         }
 
+        var $description = $form.find('[name="jp_profile_group_description"]');
+        if ($description.length && !$.trim(($description.val() || '').toString()) && poolExcerpt) {
+            $description.val(poolExcerpt).trigger('input');
+        }
+
         var $name = $form.find('[name="jp_profile_group_name"]');
         if ($name.length && !$.trim(($name.val() || '').toString()) && poolName) {
             $name.val('Grupo ' + poolName).trigger('input');
+        }
+
+        if (Number.isFinite(poolPrice) && poolPrice > 0) {
+            var $price = $form.find('[name="jp_profile_group_price"]');
+            if ($price.length) {
+                $price.val(toLocaleDecimal(poolPrice)).trigger('input');
+            }
+        }
+
+        if (poolCategory) {
+            var $category = $form.find('[name="jp_profile_group_category"]');
+            if ($category.length) {
+                $category.val(poolCategory).trigger('change');
+            }
+        }
+
+        if (Number.isFinite(poolTotal) && poolTotal > 0) {
+            var $total = $form.find('[name="jp_profile_group_slots_total"]');
+            if ($total.length) {
+                $total.val(poolTotal).trigger('input');
+            }
+        }
+
+        if (Number.isFinite(poolReserved) && poolReserved >= 0) {
+            var $reserved = $form.find('[name="jp_profile_group_slots_reserved"]');
+            if ($reserved.length) {
+                $reserved.val(poolReserved).trigger('input');
+            }
         }
 
         var $viewRoot = $button.closest('[data-group-view-root]');
