@@ -167,6 +167,10 @@ if ($current_delivery === '') {
 
 $initial_create_view = 'selector';
 
+if ($form_errors || array_filter($form_values)) {
+    $initial_create_view = 'wizard';
+}
+
 $default_rule_items = [
     __('Não compartilhe a senha com ninguém fora deste grupo de assinatura', 'juntaplay'),
     __('Não utilize esta conta compartilhada para postar em meu nome do administrador', 'juntaplay'),
