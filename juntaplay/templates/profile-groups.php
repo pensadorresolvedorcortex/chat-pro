@@ -160,7 +160,7 @@ if ($current_delivery === '') {
         : __('Após liberação manual do administrador', 'juntaplay');
 }
 
-$initial_create_view = empty($form_errors) ? 'selector' : 'wizard';
+$initial_create_view = 'selector';
 
 $default_rule_items = [
     __('Não compartilhe a senha com ninguém fora deste grupo de assinatura', 'juntaplay'),
