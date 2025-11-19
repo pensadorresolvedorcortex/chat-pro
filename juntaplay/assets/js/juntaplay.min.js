@@ -1347,6 +1347,54 @@
         showStep(currentIndex);
     }
 
+    function setGroupCreateView($root, view) {
+        if (!$root || !$root.length) {
+            return;
+        }
+
+        var target = (view || '').toString();
+        var $panels = $root.find('[data-group-view]');
+
+        if (!$panels.length) {
+            return;
+        }
+
+        var matched = false;
+
+        $panels.each(function () {
+            var $panel = $(this);
+            var panelName = ($panel.data('groupView') || '').toString();
+            if (target && panelName === target) {
+                $panel.removeClass('is-hidden');
+                matched = true;
+            } else if (!target && !matched) {
+                $panel.removeClass('is-hidden');
+                matched = true;
+            } else {
+                $panel.addClass('is-hidden');
+            }
+        });
+
+        if (!matched && $panels.length) {
+            $panels.addClass('is-hidden');
+            $panels.first().removeClass('is-hidden');
+            target = ($panels.first().data('groupView') || '').toString();
+        }
+
+        if (target) {
+            $root.attr('data-group-view-active', target);
+        }
+    }
+
+    function initGroupViewRoot($root) {
+        if (!$root || !$root.length) {
+            return;
+        }
+
+        var active = ($root.data('groupViewActive') || '').toString();
+        setGroupCreateView($root, active);
+    }
+
     $(document).on('click', '[data-group-pool-apply]', function (event) {
         event.preventDefault();
 
@@ -1376,6 +1424,61 @@
         if ($name.length && !$.trim(($name.val() || '').toString()) && poolName) {
             $name.val('Grupo ' + poolName).trigger('input');
         }
+
+        var $viewRoot = $button.closest('[data-group-view-root]');
+        if ($viewRoot.length) {
+            setGroupCreateView($viewRoot, 'wizard');
+        }
+    });
+
+    $(document).on('click', '[data-group-view-target]', function (event) {
+        event.preventDefault();
+
+        var $button = $(this);
+        var target = ($button.data('groupViewTarget') || '').toString();
+
+        if (!target) {
+            return;
+        }
+
+        var $root = $button.closest('[data-group-view-root]');
+        if (!$root.length) {
+            $root = $('[data-group-view-root]').first();
+        }
+
+        if (!$root.length) {
+            return;
+        }
+
+        setGroupCreateView($root, target);
+
+        if (target === 'wizard') {
+            var $focusTarget = $root.find('form[data-group-wizard]').first().find('input, select, textarea').filter(':visible').first();
+            if ($focusTarget.length) {
+                $focusTarget.trigger('focus');
+            }
+        }
+    });
+
+    $(document).on('click', '[data-group-start-scratch]', function (event) {
+        event.preventDefault();
+
+        var $button = $(this);
+        var $root = $button.closest('[data-group-view-root]');
+
+        if (!$root.length) {
+            return;
+        }
+
+        var $form = $root.find('form[data-group-wizard]').first();
+        if ($form.length) {
+            var $poolSelect = $form.find('[name="jp_profile_group_pool"]');
+            if ($poolSelect.length) {
+                $poolSelect.val('').trigger('change');
+            }
+        }
+
+        setGroupCreateView($root, 'wizard');
     });
 
     $(document).on('change', '[name="jp_profile_group_pool"]', function () {
@@ -3471,6 +3574,7 @@
             $container.empty().append($content);
             initGroupCoverPicker($modal.find('[data-group-cover]'));
             initGroupWizard($modal.find('form[data-group-wizard]'));
+            initGroupViewRoot($modal.find('[data-group-view-root]'));
             $template.attr('data-auto-open', '0');
 
             setTimeout(function () {
@@ -6067,6 +6171,12 @@
     });
 
     $(document).on('juntaplay:group-modal-ready', initGroupSuccessState);
+
+    $(function () {
+        $('[data-group-view-root]').each(function () {
+            initGroupViewRoot($(this));
+        });
+    });
 
     $(function () {
         initGroupSuccessState();

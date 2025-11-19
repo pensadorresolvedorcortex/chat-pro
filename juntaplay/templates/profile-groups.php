@@ -158,6 +158,8 @@ if ($current_delivery === '') {
         : __('Após liberação manual do administrador', 'juntaplay');
 }
 
+$initial_create_view = !empty($pool_choices) && empty($form_errors) ? 'selector' : 'wizard';
+
 $default_rule_items = [
     __('Não compartilhe a senha com ninguém fora deste grupo de assinatura', 'juntaplay'),
     __('Não utilize esta conta compartilhada para postar em meu nome do administrador', 'juntaplay'),
@@ -996,7 +998,11 @@ if ($group_suggestions) {
     <?php endif; ?>
 
     <template id="jp-group-create-template" data-auto-open="<?php echo !empty($form_errors) ? '1' : '0'; ?>" data-loading-text="<?php echo esc_attr__('Carregando formulário...', 'juntaplay'); ?>">
-            <div class="juntaplay-groups__create-modal">
+            <div
+                class="juntaplay-groups__create-modal"
+                data-group-view-root
+                data-group-view-active="<?php echo esc_attr($initial_create_view); ?>"
+            >
                 <header class="juntaplay-groups__create-header">
                     <div class="juntaplay-groups__create-heading">
                         <h3><?php echo esc_html__('Criar novo grupo', 'juntaplay'); ?></h3>
@@ -1006,19 +1012,26 @@ if ($group_suggestions) {
 
                 <div class="juntaplay-groups__create-body">
                     <?php if ($pool_choices) :
-                        $pool_catalog_url  = apply_filters('juntaplay/pools/catalog_url', home_url('/servicos'));
                         $pool_choices_trim = array_slice($pool_choices, 0, 6, true);
                     ?>
-                        <aside class="juntaplay-groups__create-side" aria-live="polite">
-                            <div class="juntaplay-groups__ideas">
-                                <h4><?php echo esc_html__('Serviços pré-aprovados', 'juntaplay'); ?></h4>
-                                <p class="juntaplay-groups__ideas-description"><?php echo esc_html__('Escolha um serviço pronto para dispensar aprovação manual. Você pode listar todos ou selecionar um abaixo para preencher o formulário automaticamente.', 'juntaplay'); ?></p>
-                                <div class="juntaplay-groups__ideas-list">
+                        <section
+                            class="juntaplay-groups__panel juntaplay-groups__service-view<?php echo $initial_create_view === 'selector' ? '' : ' is-hidden'; ?>"
+                            data-group-view="selector"
+                            aria-live="polite"
+                        >
+                            <div class="juntaplay-groups__service-header">
+                                <p class="juntaplay-eyebrow"><?php echo esc_html__('Serviços pré-criados', 'juntaplay'); ?></p>
+                                <h4><?php echo esc_html__('Escolha um serviço para começar', 'juntaplay'); ?></h4>
+                                <p><?php echo esc_html__('Selecione um serviço oficial e publique seu grupo imediatamente, sem aguardar aprovação manual.', 'juntaplay'); ?></p>
+                            </div>
+                            <?php if ($pool_choices_trim) : ?>
+                                <div class="juntaplay-groups__service-grid">
                                     <?php foreach ($pool_choices_trim as $pool_id => $pool_title) : ?>
-                                        <article class="juntaplay-groups__idea" data-group-pool-card>
-                                            <header class="juntaplay-groups__idea-header">
+                                        <article class="juntaplay-groups__service-card" data-group-pool-card>
+                                            <div class="juntaplay-groups__service-info">
                                                 <h5><?php echo esc_html((string) $pool_title); ?></h5>
-                                            </header>
+                                                <p><?php echo esc_html__('Dispensa aprovação manual e preenche o formulário automaticamente.', 'juntaplay'); ?></p>
+                                            </div>
                                             <button
                                                 type="button"
                                                 class="juntaplay-button juntaplay-button--ghost"
@@ -1026,19 +1039,66 @@ if ($group_suggestions) {
                                                 data-pool-id="<?php echo esc_attr((string) $pool_id); ?>"
                                                 data-pool-name="<?php echo esc_attr((string) $pool_title); ?>"
                                             >
-                                                <?php echo esc_html__('Usar este serviço', 'juntaplay'); ?>
+                                                <?php echo esc_html__('Selecionar serviço', 'juntaplay'); ?>
                                             </button>
                                         </article>
                                     <?php endforeach; ?>
                                 </div>
-                                <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($pool_catalog_url); ?>">
+                            <?php else : ?>
+                                <p class="juntaplay-groups__catalog-empty"><?php echo esc_html__('Nenhum serviço disponível no momento.', 'juntaplay'); ?></p>
+                            <?php endif; ?>
+                            <div class="juntaplay-groups__service-actions">
+                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-view-target="catalog">
                                     <?php echo esc_html__('Listar todos os serviços', 'juntaplay'); ?>
-                                </a>
+                                </button>
+                                <button type="button" class="juntaplay-button juntaplay-button--subtle" data-group-start-scratch>
+                                    <?php echo esc_html__('O serviço que procura não está disponível? Crie um grupo', 'juntaplay'); ?>
+                                </button>
                             </div>
-                        </aside>
+                        </section>
+                        <section
+                            class="juntaplay-groups__panel juntaplay-groups__service-catalog is-hidden"
+                            data-group-view="catalog"
+                            aria-live="polite"
+                        >
+                            <div class="juntaplay-groups__catalog-header">
+                                <div>
+                                    <p class="juntaplay-eyebrow"><?php echo esc_html__('Catálogo completo', 'juntaplay'); ?></p>
+                                    <h4><?php echo esc_html__('Todos os serviços pré-aprovados', 'juntaplay'); ?></h4>
+                                    <p><?php echo esc_html__('Selecione um serviço pronto ou volte aos destaques.', 'juntaplay'); ?></p>
+                                </div>
+                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-view-target="selector">
+                                    <?php echo esc_html__('Voltar para destaques', 'juntaplay'); ?>
+                                </button>
+                            </div>
+                            <div class="juntaplay-groups__catalog-grid">
+                                <?php foreach ($pool_choices as $pool_id => $pool_title) : ?>
+                                    <article class="juntaplay-groups__catalog-item" data-group-pool-card>
+                                        <div class="juntaplay-groups__catalog-info">
+                                            <h5 class="juntaplay-groups__catalog-title"><?php echo esc_html((string) $pool_title); ?></h5>
+                                            <p><?php echo esc_html__('Grupo publicado imediatamente após envio.', 'juntaplay'); ?></p>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            class="juntaplay-button juntaplay-button--ghost"
+                                            data-group-pool-apply
+                                            data-pool-id="<?php echo esc_attr((string) $pool_id); ?>"
+                                            data-pool-name="<?php echo esc_attr((string) $pool_title); ?>"
+                                        >
+                                            <?php echo esc_html__('Usar serviço', 'juntaplay'); ?>
+                                        </button>
+                                    </article>
+                                <?php endforeach; ?>
+                            </div>
+                            <div class="juntaplay-groups__service-actions">
+                                <button type="button" class="juntaplay-button juntaplay-button--subtle" data-group-start-scratch>
+                                    <?php echo esc_html__('O serviço que procura não está disponível? Crie um grupo', 'juntaplay'); ?>
+                                </button>
+                            </div>
+                        </section>
                     <?php endif; ?>
 
-                    <div class="juntaplay-groups__form-wrapper">
+                    <div class="juntaplay-groups__panel juntaplay-groups__form-wrapper<?php echo $initial_create_view === 'wizard' ? '' : ' is-hidden'; ?>" data-group-view="wizard">
                         <?php if ($form_errors) : ?>
                             <ul class="juntaplay-form__errors" role="alert">
                                 <?php foreach ($form_errors as $error_message) : ?>
