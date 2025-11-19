@@ -1392,7 +1392,28 @@
         }
 
         var active = ($root.data('groupViewActive') || '').toString();
+        var fallback = ($root.data('groupViewDefault') || '').toString();
+
+        if (!active && fallback) {
+            active = fallback;
+        }
+
+        if (!active) {
+            active = 'selector';
+        }
+
         setGroupCreateView($root, active);
+    }
+
+    function resetGroupViewRoot($root) {
+        if (!$root || !$root.length) {
+            return;
+        }
+
+        var fallback = ($root.data('groupViewDefault') || '').toString();
+        var target = fallback || 'selector';
+
+        setGroupCreateView($root, target);
     }
 
     $(document).on('click', '[data-group-pool-apply]', function (event) {
@@ -3575,6 +3596,7 @@
             initGroupCoverPicker($modal.find('[data-group-cover]'));
             initGroupWizard($modal.find('form[data-group-wizard]'));
             initGroupViewRoot($modal.find('[data-group-view-root]'));
+            resetGroupViewRoot($modal.find('[data-group-view-root]'));
             $template.attr('data-auto-open', '0');
 
             setTimeout(function () {

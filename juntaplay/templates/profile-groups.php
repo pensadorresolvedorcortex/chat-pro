@@ -1004,6 +1004,7 @@ if ($group_suggestions) {
                 class="juntaplay-groups__create-modal"
                 data-group-view-root
                 data-group-view-active="<?php echo esc_attr($initial_create_view); ?>"
+                data-group-view-default="selector"
             >
                 <header class="juntaplay-groups__create-header">
                     <div class="juntaplay-groups__create-heading">
