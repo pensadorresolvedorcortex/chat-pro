@@ -1,0 +1,17 @@
+name: Binary scan
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  binary-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run binary scan
+        run: |
+          chmod +x tools/check-binaries.sh
+          ./tools/check-binaries.sh
