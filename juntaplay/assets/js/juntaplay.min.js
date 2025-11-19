@@ -1410,8 +1410,9 @@
             return;
         }
 
+        var active = ($root.data('groupViewActive') || '').toString();
         var fallback = ($root.data('groupViewDefault') || '').toString();
-        var target = fallback || 'selector';
+        var target = active || fallback || 'selector';
 
         setGroupCreateView($root, target);
     }
