@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace JuntaPlay\Data;
 
 use WC_Product_Simple;
+use JuntaPlay\Data\PoolCategories;
 
 use function absint;
 use function apply_filters;
@@ -25,23 +26,7 @@ class Pools
      */
     public static function get_category_labels(): array
     {
-        $categories = [
-            'boloes'      => __('Bolões e rifas', 'juntaplay'),
-            'video'       => __('Vídeo e streaming', 'juntaplay'),
-            'music'       => __('Música e áudio', 'juntaplay'),
-            'education'   => __('Cursos e educação', 'juntaplay'),
-            'reading'     => __('Leitura e revistas', 'juntaplay'),
-            'office'      => __('Escritório e produtividade', 'juntaplay'),
-            'software'    => __('Software e ferramentas', 'juntaplay'),
-            'games'       => __('Jogos e esportes', 'juntaplay'),
-            'ai'          => __('Ferramentas de IA', 'juntaplay'),
-            'security'    => __('Segurança e VPN', 'juntaplay'),
-            'marketplace' => __('Mercado e delivery', 'juntaplay'),
-            'lifestyle'   => __('Lifestyle e clubes', 'juntaplay'),
-            'other'       => __('Outros serviços', 'juntaplay'),
-        ];
-
-        return apply_filters('juntaplay/pools/categories', $categories);
+        return apply_filters('juntaplay/pools/categories', PoolCategories::all());
     }
 
     /**

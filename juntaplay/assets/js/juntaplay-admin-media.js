@@ -15,6 +15,8 @@
         const placeholder = preview ? preview.innerHTML : '';
         const currentWidth = Number(picker.dataset.mediaCurrentWidth || 0);
         const currentHeight = Number(picker.dataset.mediaCurrentHeight || 0);
+        const minWidth = Number(picker.dataset.mediaMinWidth || 0);
+        const minHeight = Number(picker.dataset.mediaMinHeight || 0);
 
         if (!selectBtn || !removeBtn || !hiddenInput || !preview) {
             return;
@@ -49,6 +51,14 @@
             const { width, height } = getDimensions(data || {});
             if (!width || !height) {
                 setHint(defaultHint, false);
+                return;
+            }
+
+            if ((minWidth && width < minWidth) || (minHeight && height < minHeight)) {
+                setHint(
+                    `Use arquivos com ao menos ${minWidth || width}px de largura e ${minHeight || height}px de altura. Tamanho atual: ${width}×${height} px.`,
+                    true
+                );
                 return;
             }
 

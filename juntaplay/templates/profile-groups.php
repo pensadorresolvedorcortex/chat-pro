@@ -1311,7 +1311,7 @@ if ($group_suggestions) {
                                     data-upload-context="profile-group-cover"
                                     data-group-cover-ready="0"
                                 >
-                                    <label for="jp-group-cover"><?php echo esc_html__('Capa do grupo (495x370 px)', 'juntaplay'); ?></label>
+                                    <label for="jp-group-cover"><?php echo esc_html__('Capa do grupo (formato horizontal)', 'juntaplay'); ?></label>
                                     <div class="juntaplay-cover-picker" data-group-cover-wrapper>
                                         <div class="juntaplay-cover-picker__media"
                                             data-group-cover-preview
@@ -1326,7 +1326,7 @@ if ($group_suggestions) {
                                             <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-cover-select><?php echo esc_html__('Escolher imagem', 'juntaplay'); ?></button>
                                             <button type="button" class="juntaplay-button juntaplay-button--subtle" data-group-cover-remove <?php disabled($current_cover_id === 0); ?>><?php echo esc_html__('Remover', 'juntaplay'); ?></button>
                                         </div>
-                                        <p class="juntaplay-form__help"><?php echo esc_html__('Essa capa será usada nos cards públicos do seu grupo. Utilize dimensões proporcionais a 495x370 px.', 'juntaplay'); ?></p>
+                                        <p class="juntaplay-form__help"><?php echo esc_html__('Essa capa será usada nos cards públicos do seu grupo. Use uma imagem horizontal com pelo menos 500px de largura; o recorte é automático.', 'juntaplay'); ?></p>
                                     </div>
                                 </div>
 

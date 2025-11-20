@@ -32,9 +32,9 @@ $editing    = $context['editing'] ?? null;
                         <th scope="row"><label for="title"><?php esc_html_e('Título', 'juntaplay'); ?></label></th>
                         <td><input type="text" class="regular-text" id="title" name="title" value="<?php echo esc_attr($editing->title ?? ''); ?>" required /></td>
                     </tr>
-                    <tr>
+                    <tr style="display:none;">
                         <th scope="row"><label for="slug"><?php esc_html_e('Slug', 'juntaplay'); ?></label></th>
-                        <td><input type="text" class="regular-text" id="slug" name="slug" value="<?php echo esc_attr($editing->slug ?? ''); ?>" required /></td>
+                        <td><input type="text" class="regular-text" id="slug" name="slug" value="<?php echo esc_attr($editing->slug ?? ''); ?>" /></td>
                     </tr>
                     <tr>
                         <th scope="row"><label for="price"><?php esc_html_e('Preço', 'juntaplay'); ?></label></th>
@@ -43,7 +43,6 @@ $editing    = $context['editing'] ?? null;
                     <tr>
                         <th scope="row">
                             <label for="service_url" class="juntaplay-admin-assets__title"><?php esc_html_e('Identidade visual e site', 'juntaplay'); ?></label>
-                            <p class="description juntaplay-admin-assets__subtitle"><?php esc_html_e('Adicione todos os elementos que aparecem nos cards aprovados para facilitar a publicação.', 'juntaplay'); ?></p>
                         </th>
                         <td>
                             <?php
@@ -54,29 +53,6 @@ $editing    = $context['editing'] ?? null;
                             $icon_meta  = is_object($editing) && isset($editing->icon_meta) && is_array($editing->icon_meta) ? $editing->icon_meta : [];
                             $cover_meta = is_object($editing) && isset($editing->cover_meta) && is_array($editing->cover_meta) ? $editing->cover_meta : [];
                             ?>
-                            <div class="juntaplay-admin-assets__status">
-                                <div class="juntaplay-admin-assets__status-card<?php echo $has_site ? ' is-complete' : ' is-pending'; ?>">
-                                    <span class="juntaplay-admin-assets__status-icon dashicons dashicons-admin-site" aria-hidden="true"></span>
-                                    <div>
-                                        <strong><?php esc_html_e('Site oficial pronto?', 'juntaplay'); ?></strong>
-                                        <p><?php echo $has_site ? esc_html__('Link será exibido no card aprovado.', 'juntaplay') : esc_html__('Adicione o link para aparecer no card.', 'juntaplay'); ?></p>
-                                    </div>
-                                </div>
-                                <div class="juntaplay-admin-assets__status-card<?php echo $has_icon ? ' is-complete' : ' is-pending'; ?>">
-                                    <span class="juntaplay-admin-assets__status-icon dashicons dashicons-format-image" aria-hidden="true"></span>
-                                    <div>
-                                        <strong><?php esc_html_e('Ícone do card', 'juntaplay'); ?></strong>
-                                        <p><?php echo $has_icon ? esc_html__('Ícone visível nos serviços aprovados.', 'juntaplay') : esc_html__('Envie a arte quadrada para liberar o ícone.', 'juntaplay'); ?></p>
-                                    </div>
-                                </div>
-                                <div class="juntaplay-admin-assets__status-card<?php echo $has_cover ? ' is-complete' : ' is-pending'; ?>">
-                                    <span class="juntaplay-admin-assets__status-icon dashicons dashicons-format-gallery" aria-hidden="true"></span>
-                                    <div>
-                                        <strong><?php esc_html_e('Capa 495×370', 'juntaplay'); ?></strong>
-                                        <p><?php echo $has_cover ? esc_html__('Capa pronta para os cards aprovados.', 'juntaplay') : esc_html__('Envie a capa 495×370 px para publicar.', 'juntaplay'); ?></p>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="juntaplay-admin-assets">
                                 <div class="juntaplay-admin-asset-card">
                                     <div class="juntaplay-admin-asset-card__header">
@@ -121,14 +97,16 @@ $editing    = $context['editing'] ?? null;
                                 <div class="juntaplay-admin-asset-card">
                                     <div class="juntaplay-admin-asset-card__header">
                                         <h3><?php esc_html_e('Capa do grupo', 'juntaplay'); ?></h3>
-                                        <span class="juntaplay-admin-asset-card__badge"><?php esc_html_e('495×370 px', 'juntaplay'); ?></span>
+                                        <span class="juntaplay-admin-asset-card__badge"><?php esc_html_e('Formato horizontal', 'juntaplay'); ?></span>
                                     </div>
                                     <p class="description"><?php esc_html_e('Selecione ou edite a arte que será aplicada aos grupos aprovados.', 'juntaplay'); ?></p>
                                     <div
                                         class="juntaplay-media-picker"
                                         data-media-field="cover_id"
-                                        data-media-size="495x370"
-                                        data-media-default-hint="<?php echo esc_attr__('A capa deve ter exatamente 495×370 px para evitar cortes e distorções.', 'juntaplay'); ?>"
+                                        data-media-size="495:370"
+                                        data-media-min-width="500"
+                                        data-media-min-height="375"
+                                        data-media-default-hint="<?php echo esc_attr__('Use uma imagem horizontal, com largura mínima de 500px, para manter o enquadramento automático.', 'juntaplay'); ?>"
                                         data-media-current-width="<?php echo isset($cover_meta['width']) ? esc_attr((string) $cover_meta['width']) : ''; ?>"
                                         data-media-current-height="<?php echo isset($cover_meta['height']) ? esc_attr((string) $cover_meta['height']) : ''; ?>"
                                     >
@@ -145,7 +123,7 @@ $editing    = $context['editing'] ?? null;
                                             <button type="button" class="button button-secondary" data-media-remove><?php esc_html_e('Remover', 'juntaplay'); ?></button>
                                         </div>
                                         <p class="juntaplay-admin-asset-card__hint" data-media-hint>
-                                            <?php echo esc_html__('A capa deve ter exatamente 495×370 px para evitar cortes e manter a vitrine consistente.', 'juntaplay'); ?>
+                                            <?php echo esc_html__('As imagens são ajustadas automaticamente; prefira arquivos horizontais com pelo menos 500px de largura.', 'juntaplay'); ?>
                                         </p>
                                     </div>
                                 </div>
@@ -208,7 +186,6 @@ $editing    = $context['editing'] ?? null;
                 <th class="column-icon"><?php esc_html_e('Ícone', 'juntaplay'); ?></th>
                 <th class="column-cover"><?php esc_html_e('Capa', 'juntaplay'); ?></th>
                 <th><?php esc_html_e('Título', 'juntaplay'); ?></th>
-                <th><?php esc_html_e('Slug', 'juntaplay'); ?></th>
                 <th><?php esc_html_e('Categoria', 'juntaplay'); ?></th>
                 <th><?php esc_html_e('Site oficial', 'juntaplay'); ?></th>
                 <th><?php esc_html_e('Preço', 'juntaplay'); ?></th>
@@ -245,7 +222,6 @@ $editing    = $context['editing'] ?? null;
                             </span>
                         </td>
                         <td><?php echo esc_html($pool['title'] ?? ''); ?></td>
-                        <td><?php echo esc_html($pool['slug'] ?? ''); ?></td>
                         <td><?php echo esc_html($categories[$pool['category'] ?? ''] ?? ''); ?></td>
                         <td class="column-site">
                             <?php if (!empty($pool['service_url'])) : ?>

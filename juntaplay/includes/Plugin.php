@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace JuntaPlay;
 
 use JuntaPlay\Admin\Settings;
+use JuntaPlay\Admin\PoolCategories;
 use JuntaPlay\Notifications\EmailHelper;
 use function get_role;
 use function trailingslashit;
@@ -19,6 +20,7 @@ class Plugin
         // Admin
         (new Admin\Menu())->init();
         (new Admin\Settings())->init();
+        (new Admin\PoolCategories())->init();
         (new Admin\Importer())->init();
         (new Admin\Groups())->init();
         (new Admin\Pools())->init();

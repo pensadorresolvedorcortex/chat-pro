@@ -5975,7 +5975,7 @@ class Profile
         }
 
         if ($cover_id <= 0) {
-            $this->add_error('group_create', __('Envie uma capa para o grupo (495x370 px) antes de enviar para análise.', 'juntaplay'));
+            $this->add_error('group_create', __('Envie uma capa horizontal com pelo menos 500px de largura antes de enviar para análise.', 'juntaplay'));
 
             return;
         }

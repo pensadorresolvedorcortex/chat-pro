@@ -149,8 +149,12 @@ class Pools
             $payload['cover_id'] = null;
         }
 
+        if ($payload['slug'] === '') {
+            $payload['slug'] = sanitize_title($payload['title']);
+        }
+
         if ($payload['title'] === '' || $payload['slug'] === '') {
-            $this->store_notice('error', esc_html__('Título e slug são obrigatórios.', 'juntaplay'));
+            $this->store_notice('error', esc_html__('Título é obrigatório e o identificador será gerado automaticamente.', 'juntaplay'));
             $this->redirect_back();
         }
 
