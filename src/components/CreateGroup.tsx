@@ -67,6 +67,8 @@ const CreateGroup = () => {
       >
         <div className="panel-veil" />
         <div className="panel-glow" />
+        <div className="panel-grid" />
+        <div className="panel-halo" />
         <div className="create-header">
           <div>
             <p className="tagline" style={{ margin: 0 }}>
@@ -81,6 +83,7 @@ const CreateGroup = () => {
             <span className="chip" style={{ background: 'rgba(94, 234, 212, 0.14)', color: '#ccfbf1' }}>
               Live blur 24px
             </span>
+            <span className="chip glow-outline">+ microinterações</span>
           </div>
         </div>
 
@@ -135,7 +138,10 @@ const CreateGroup = () => {
 
           <div className="create-actions">
             <div className="status-bubble">
-              <strong>Pronto para lançar</strong>
+              <div className="status-top">
+                <strong>Pronto para lançar</strong>
+                <div className="completion-chip">100%</div>
+              </div>
               <p>Resumo em tempo real, IA ativa e convites preparados.</p>
               <div className="status-progress">
                 <span style={{ width: '100%' }} />
@@ -144,10 +150,34 @@ const CreateGroup = () => {
                 <span>100% Glass</span>
                 <span>Blur + contraste equilibrado</span>
               </div>
+              <div className="status-hints">
+                <span>• Chips flutuantes e gradientes suaves</span>
+                <span>• Inputs translúcidos e bordas luminosas</span>
+              </div>
             </div>
-            <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <div className="action-stack">
               <button className="pill-button">Criar grupo</button>
               <button className="pill-button secondary-button">Pré-visualizar convite</button>
+              <div className="action-footnote">Glassmorphism reforçado: bordas, blur e brilho em toda a jornada.</div>
+            </div>
+          </div>
+
+          <div className="create-ia">
+            <div>
+              <p className="tagline">Sugestões da IA</p>
+              <h4 className="ia-title">Tom visual coerente e fluido</h4>
+              <p className="ia-desc">Ajuste tons, contraste e microanimações para manter a experiência memorável.</p>
+              <div className="ia-suggestions">
+                <span className="ia-chip">Bordas luminescentes</span>
+                <span className="ia-chip">Blur 24-30px</span>
+                <span className="ia-chip">Sombras cinéticas</span>
+                <span className="ia-chip">Gradiente duotone</span>
+              </div>
+            </div>
+            <div className="ia-badge">
+              <div className="ring" />
+              <div className="ia-meter">Glass 100%</div>
+              <p>Paleta coerente com o plugin e microinterações presentes em cada passo.</p>
             </div>
           </div>
         </div>
