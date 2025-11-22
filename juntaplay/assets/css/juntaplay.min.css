@@ -2158,7 +2158,7 @@ body .juntaplay-cover-picker {
     background: #fff;
     border: 1px dashed rgba(7, 20, 55, 0.18);
     border-radius: 20px;
-    padding: 18px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -2166,7 +2166,7 @@ body .juntaplay-cover-picker {
 
 body .juntaplay-cover-picker__media {
     width: 100%;
-    padding-bottom: 52%;
+    padding-bottom: 40%;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -2185,10 +2185,10 @@ body .juntaplay-cover-picker__media img {
 }
 @media (min-width: 900px) {
     body .juntaplay-form__group--cover .juntaplay-cover-picker {
-        max-width: 360px;
+        max-width: 140px;
     }
     body .juntaplay-cover-picker__media {
-        padding-bottom: 36%;
+        padding-bottom: 20%;
     }
 }
 
@@ -10090,19 +10090,19 @@ body .juntaplay-complaints__placeholder img {
 
 .juntaplay-questionnaire {
     margin-top: 0.75rem;
-    padding: 1.25rem 1.5rem;
+    padding: 1.35rem 1.5rem;
     border-radius: 18px;
-    background: #ffffff;
+    background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
     border: 1px solid rgba(4, 41, 64, 0.08);
-    box-shadow: 0 18px 45px -32px rgba(11, 57, 87, 0.35);
+    box-shadow: 0 18px 45px -32px rgba(11, 57, 87, 0.32);
 }
 
 .juntaplay-questionnaire__header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .juntaplay-questionnaire__eyebrow {
@@ -10116,8 +10116,9 @@ body .juntaplay-complaints__placeholder img {
 
 .juntaplay-questionnaire__title {
     margin: 0;
-    font-size: 1.55rem;
+    font-size: 1.35rem;
     color: #0b1f33;
+    letter-spacing: 0.01em;
 }
 
 .juntaplay-questionnaire__progress {
@@ -10146,11 +10147,11 @@ body .juntaplay-complaints__placeholder img {
 .juntaplay-questionnaire__grid {
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
+    gap: 1.05rem;
 }
 
 .juntaplay-question {
-    padding: 1rem 1.1rem;
+    padding: 1rem 1.15rem;
     border-radius: 16px;
     background: #ffffff;
     border: 1px solid rgba(4, 41, 64, 0.08);
@@ -10175,6 +10176,10 @@ body .juntaplay-complaints__placeholder img {
 }
 @media (min-width: 900px) {
     .juntaplay-choice-grid--two-cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .juntaplay-questionnaire .juntaplay-choice-grid--compact {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
@@ -10726,10 +10731,10 @@ body .juntaplay-complaints__placeholder img {
 
 .juntaplay-rule-builder__item textarea,
 .juntaplay-rule-builder__textarea {
-    min-height: 64px;
-    font-size: 0.95rem;
+    min-height: 48px;
+    font-size: 0.88rem;
     font-weight: 400;
-    line-height: 1.4;
+    line-height: 1.28;
 }
 
 .juntaplay-rule-builder__header h4 {
