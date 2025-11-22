@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 64 64" fill="#0A3D91">
+  <title>Disney Plus</title>
+  <rect width="64" height="64" rx="12" fill="#0A2540"/>
+  <path fill="#0A3D91" fill="none" stroke="#1EA0F2" stroke-width="3" d="M12 28c8-8 20-12 32-8"/>
+  <path fill="#0A3D91" fill="#FFFFFF" d="M18 42c2.4 0 4.5-2 4.5-5.2 0-3.3-2.2-5.2-4.7-5.2H14v14.2h2.6V42h1.4Zm-.1-8c1.2 0 2.1.9 2.1 2.7 0 1.7-.9 2.6-2.1 2.6h-1.3v-5.3h1.3Z"/>
+  <rect x="42" y="36" width="10" height="2.4" fill="#1EA0F2" rx="1"/>
+  <rect x="45.8" y="32.2" width="2.4" height="10" fill="#1EA0F2" rx="1"/>
+</svg>
