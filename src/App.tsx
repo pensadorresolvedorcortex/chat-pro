@@ -5,6 +5,7 @@ import AIPanel from './components/AIPanel';
 import FlowShowcase from './components/FlowShowcase';
 import Highlights from './components/Highlights';
 import ProgressStatus from './components/ProgressStatus';
+import CreateGroup from './components/CreateGroup';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Highlights />
         <ServiceGrid />
         <AIPanel />
+        <CreateGroup />
         <FlowShowcase />
         <ProgressStatus />
       </main>
