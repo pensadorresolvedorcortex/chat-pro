@@ -18,7 +18,7 @@ const personas = [
 const CreateGroup = () => {
   return (
     <section className="section-shell create-grid">
-      <div>
+      <div className="create-intro">
         <div className="chip">Criar um grupo</div>
         <h2 className="section-title" style={{ marginTop: '0.9rem' }}>
           Glassmorphism orientado por IA para configurar grupos em minutos.
@@ -27,6 +27,13 @@ const CreateGroup = () => {
           Estrutura clara, cartões translúcidos e microinterações que guiam cada escolha. O copiloto sugere serviços, define
           cotas e já envia convites elegantes para todos.
         </p>
+
+        <div className="floating-chips">
+          <span className="chip glass">Vibração futurista</span>
+          <span className="chip glass">Blur suave</span>
+          <span className="chip glass">Contraste equilibrado</span>
+        </div>
+
         <div className="persona-grid">
           {personas.map((persona, index) => (
             <motion.div
@@ -50,6 +57,7 @@ const CreateGroup = () => {
           ))}
         </div>
       </div>
+
       <motion.div
         className="glass create-panel"
         initial={{ opacity: 0, scale: 0.98 }}
@@ -57,6 +65,8 @@ const CreateGroup = () => {
         viewport={{ once: true, amount: 0.45 }}
         transition={{ duration: 0.4 }}
       >
+        <div className="panel-veil" />
+        <div className="panel-glow" />
         <div className="create-header">
           <div>
             <p className="tagline" style={{ margin: 0 }}>
@@ -64,10 +74,22 @@ const CreateGroup = () => {
             </p>
             <h3 style={{ margin: '0.25rem 0 0', color: '#f8fafc' }}>Defina o grupo com feedback imediato</h3>
           </div>
-          <span className="chip" style={{ background: 'rgba(255,255,255,0.08)' }}>
-            Glass ready
-          </span>
+          <div className="badge-stack">
+            <span className="chip" style={{ background: 'rgba(255,255,255,0.08)' }}>
+              Glass ready
+            </span>
+            <span className="chip" style={{ background: 'rgba(94, 234, 212, 0.14)', color: '#ccfbf1' }}>
+              Live blur 24px
+            </span>
+          </div>
         </div>
+
+        <div className="glass-tracks">
+          <div className="track-dot" />
+          <div className="track-dot" />
+          <div className="track-dot" />
+        </div>
+
         <div className="create-form">
           <label className="form-field">
             <span>Nome do grupo</span>
@@ -104,10 +126,24 @@ const CreateGroup = () => {
               className="glass-input"
             />
           </label>
+
+          <div className="micro-guides">
+            <div className="guide-chip">Habilitar convite automático</div>
+            <div className="guide-chip">Lembrete semanal</div>
+            <div className="guide-chip">Validar e-mails</div>
+          </div>
+
           <div className="create-actions">
             <div className="status-bubble">
               <strong>Pronto para lançar</strong>
               <p>Resumo em tempo real, IA ativa e convites preparados.</p>
+              <div className="status-progress">
+                <span style={{ width: '100%' }} />
+              </div>
+              <div className="status-meta">
+                <span>100% Glass</span>
+                <span>Blur + contraste equilibrado</span>
+              </div>
             </div>
             <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
               <button className="pill-button">Criar grupo</button>
