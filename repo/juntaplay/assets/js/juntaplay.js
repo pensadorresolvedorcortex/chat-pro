@@ -782,18 +782,33 @@
         var auth = resolveAuthConfig($context);
         var loginUrl = (auth.loginUrl || '').toString();
         var redirectParam = (auth.redirectParam || 'redirect_to').toString();
+        var redirectTarget = targetUrl;
 
         if (!loginUrl) {
             return targetUrl;
         }
 
         try {
+            var redirectUrl = new URL(targetUrl, window.location.href);
+            if (redirectUrl.hash) {
+                var hashValue = redirectUrl.hash.replace(/^#/, '');
+                redirectUrl.hash = '';
+                if (hashValue) {
+                    redirectUrl.searchParams.set('jp_group_anchor', hashValue);
+                }
+            }
+            redirectTarget = redirectUrl.toString();
+        } catch (err) {
+            // ignore parse errors and fall back to the raw targetUrl
+        }
+
+        try {
             var url = new URL(loginUrl, window.location.origin);
-            url.searchParams.set(redirectParam, targetUrl);
+            url.searchParams.set(redirectParam, redirectTarget);
             return url.toString();
         } catch (error) {
             var joiner = loginUrl.indexOf('?') === -1 ? '?' : '&';
-            return loginUrl + joiner + encodeURIComponent(redirectParam) + '=' + encodeURIComponent(targetUrl);
+            return loginUrl + joiner + encodeURIComponent(redirectParam) + '=' + encodeURIComponent(redirectTarget);
         }
     }
 
@@ -5070,6 +5085,8 @@
                 return 0;
             }
 
+            ensureAnchorFromQuery();
+
             var hash = (window.location.hash || '').toString();
             if (!hash) {
                 return 0;
@@ -5081,6 +5098,46 @@
             }
 
             return parseInt(match[1], 10) || 0;
+        }
+
+        function ensureAnchorFromQuery() {
+            if (typeof window === 'undefined') {
+                return;
+            }
+
+            if (window.location.hash) {
+                return;
+            }
+
+            var anchor = '';
+
+            try {
+                var url = new URL(window.location.href);
+                anchor = (url.searchParams.get('jp_group_anchor') || '').toString();
+
+                if (anchor) {
+                    url.searchParams.delete('jp_group_anchor');
+                    var cleaned = url.toString();
+                    window.history.replaceState({}, document.title, cleaned);
+                }
+            } catch (err) {
+                var search = window.location.search || '';
+                var match = search.match(/[?&]jp_group_anchor=([^&#]*)/);
+                if (match && match[1]) {
+                    anchor = decodeURIComponent(match[1].replace(/\+/g, ' '));
+                }
+            }
+
+            if (!anchor) {
+                return;
+            }
+
+            var sanitized = anchor.replace(/[^A-Za-z0-9_-]/g, '');
+            if (!sanitized) {
+                return;
+            }
+
+            window.location.hash = '#' + sanitized;
         }
 
         function restoreAnchorTarget() {
