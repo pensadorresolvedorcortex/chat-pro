@@ -734,12 +734,52 @@
         openGroupDetail(target);
     });
 
-    function buildGroupLoginRedirect(targetUrl) {
-        if (typeof window === 'undefined' || typeof window.JuntaPlay === 'undefined') {
+    function resolveAuthConfig($context) {
+        var auth = (typeof window !== 'undefined' && typeof window.JuntaPlay !== 'undefined' && window.JuntaPlay.auth)
+            ? window.JuntaPlay.auth
+            : {};
+
+        var config = {
+            loginUrl: (auth.loginUrl || '').toString(),
+            redirectParam: (auth.redirectParam || 'redirect_to').toString(),
+            loggedIn: !!auth.loggedIn
+        };
+
+        if ($context && typeof $context.closest === 'function') {
+            var $rotator = $context.closest('.juntaplay-group-rotator');
+
+            if ($rotator && $rotator.length) {
+                var dataLoginUrl = ($rotator.data('loginUrl') || '').toString();
+                var dataRedirect = ($rotator.data('redirectParam') || '').toString();
+                var dataLogged = $rotator.data('loggedIn');
+
+                if (!config.loginUrl && dataLoginUrl) {
+                    config.loginUrl = dataLoginUrl;
+                }
+
+                if (dataRedirect) {
+                    config.redirectParam = dataRedirect;
+                }
+
+                if (typeof dataLogged !== 'undefined') {
+                    config.loggedIn = !!dataLogged;
+                }
+            }
+        }
+
+        if (!config.redirectParam) {
+            config.redirectParam = 'redirect_to';
+        }
+
+        return config;
+    }
+
+    function buildGroupLoginRedirect(targetUrl, $context) {
+        if (typeof window === 'undefined') {
             return targetUrl;
         }
 
-        var auth = window.JuntaPlay.auth || {};
+        var auth = resolveAuthConfig($context);
         var loginUrl = (auth.loginUrl || '').toString();
         var redirectParam = (auth.redirectParam || 'redirect_to').toString();
 
@@ -764,12 +804,10 @@
         return base + hash;
     }
 
-    function handleGroupGuestRedirect($trigger, groupId) {
-        if (typeof window === 'undefined' || typeof window.JuntaPlay === 'undefined' || !window.JuntaPlay.auth) {
-            return false;
-        }
+    function handleGroupGuestRedirect($trigger, groupId, event) {
+        var auth = resolveAuthConfig($trigger);
 
-        if (window.JuntaPlay.auth.loggedIn) {
+        if (auth.loggedIn) {
             return false;
         }
 
@@ -778,7 +816,13 @@
         }
 
         var target = getGroupAnchor(groupId);
-        window.location.href = buildGroupLoginRedirect(target);
+
+        if (event && typeof event.preventDefault === 'function') {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        window.location.href = buildGroupLoginRedirect(target, $trigger);
 
         return true;
     }
@@ -802,7 +846,7 @@
             return;
         }
 
-        if (handleGroupGuestRedirect($trigger, groupId)) {
+        if (handleGroupGuestRedirect($trigger, groupId, event)) {
             return;
         }
 

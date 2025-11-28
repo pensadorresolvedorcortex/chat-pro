@@ -227,14 +227,25 @@ class Shortcodes
             $default_category = '';
         }
 
-        $groups_page_id   = (int) get_option('juntaplay_page_grupos');
-        $directory_url    = $groups_page_id ? get_permalink($groups_page_id) : home_url('/grupos');
+        $groups_page_id = (int) get_option('juntaplay_page_grupos');
+        $directory_url  = $groups_page_id ? get_permalink($groups_page_id) : home_url('/grupos');
+
+        $login_page_id = (int) get_option('juntaplay_page_entrar');
+        $login_url     = $login_page_id ? get_permalink($login_page_id) : wp_login_url();
+        $redirect_param = 'redirect_to';
+
+        $rotator_logged_in  = is_user_logged_in();
+        $rotator_login_url  = $login_url;
+        $rotator_redirect_param = $redirect_param;
 
         ob_start();
         $rotator_limit            = $limit;
         $rotator_categories       = $categories;
         $rotator_default_category = $default_category;
         $rotator_directory_url    = $directory_url;
+        $rotator_logged_in        = $rotator_logged_in;
+        $rotator_login_url        = $rotator_login_url;
+        $rotator_redirect_param   = $rotator_redirect_param;
         include JP_DIR . 'templates/group-rotator.php';
 
         return (string) ob_get_clean();

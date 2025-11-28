@@ -58,7 +58,15 @@ if (!function_exists('juntaplay_group_rotator_icon')) {
     }
 }
 ?>
-<section class="juntaplay-group-rotator" data-group-rotator data-limit="<?php echo esc_attr((string) max(4, $rotator_limit)); ?>" data-default-category="<?php echo esc_attr($rotator_default_category); ?>">
+<section
+    class="juntaplay-group-rotator"
+    data-group-rotator
+    data-limit="<?php echo esc_attr((string) max(4, $rotator_limit)); ?>"
+    data-default-category="<?php echo esc_attr($rotator_default_category); ?>"
+    data-login-url="<?php echo esc_url($rotator_login_url); ?>"
+    data-redirect-param="<?php echo esc_attr($rotator_redirect_param); ?>"
+    data-logged-in="<?php echo esc_attr($rotator_logged_in ? '1' : '0'); ?>"
+>
 
     <?php if ($rotator_categories) : ?>
         <nav class="juntaplay-group-rotator__controls" aria-label="<?php esc_attr_e('Filtrar categorias de grupos', 'juntaplay'); ?>">

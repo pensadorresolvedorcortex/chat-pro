@@ -6041,6 +6041,7 @@ body .juntaplay-header__avatar-img {
 body .juntaplay-header__avatar {
   width: 42px;
   height: 42px;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: 1px solid rgba(148, 163, 184, 0.35);
   background: rgba(255, 255, 255, 0.72);
@@ -6048,6 +6049,7 @@ body .juntaplay-header__avatar {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   overflow: hidden;
 }
 
