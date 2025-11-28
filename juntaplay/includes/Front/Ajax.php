@@ -80,8 +80,6 @@ class Ajax
         add_action('wp_ajax_juntaplay_group_edit_form', [$this, 'group_edit_form']);
         add_action('wp_ajax_juntaplay_group_edit_save', [$this, 'group_edit_save']);
         add_action('wp_ajax_juntaplay_group_credentials', [$this, 'group_credentials']);
-        add_filter('user_has_cap', [$this, 'grant_group_owner_upload_cap'], 10, 4);
-        add_filter('upload_capability', [$this, 'filter_group_owner_upload_cap']);
     }
 
     public function pools(): void
@@ -873,39 +871,6 @@ class Ajax
         }
 
         return $base;
-    }
-
-    /**
-     * @param array<string, bool> $allcaps
-     * @param string[] $caps
-     * @param array<int|string, mixed> $args
-     */
-    public function grant_group_owner_upload_cap(array $allcaps, array $caps, array $args, WP_User $user): array
-    {
-        if (!in_array('upload_files', $caps, true)) {
-            return $allcaps;
-        }
-
-        if (!isset($user->ID) || $user->ID <= 0) {
-            return $allcaps;
-        }
-
-        if (!$this->profile->is_group_cover_upload_context_for_user((int) $user->ID)) {
-            return $allcaps;
-        }
-
-        $allcaps['upload_files'] = true;
-
-        return $allcaps;
-    }
-
-    public function filter_group_owner_upload_cap(string $required_cap): string
-    {
-        if ($this->profile->is_group_cover_upload_context_for_user()) {
-            return 'upload_files';
-        }
-
-        return $required_cap;
     }
 
     private function resolve_group_link(array $group): string

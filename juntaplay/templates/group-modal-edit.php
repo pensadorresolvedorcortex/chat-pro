@@ -32,21 +32,6 @@ $access_password = isset($group['access_password']) ? (string) $group['access_pa
 $access_observations = isset($group['access_observations']) ? (string) $group['access_observations'] : '';
 $category        = isset($group['category']) ? (string) $group['category'] : '';
 $instant_access  = !empty($group['instant_access']);
-$cover_id        = isset($group['cover_id']) ? (int) $group['cover_id'] : 0;
-$cover_url       = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
-$cover_placeholder = defined('JP_GROUP_COVER_PLACEHOLDER') && JP_GROUP_COVER_PLACEHOLDER !== ''
-    ? JP_GROUP_COVER_PLACEHOLDER
-    : '';
-if ($cover_placeholder === '' && defined('JP_URL') && JP_URL !== '') {
-    $cover_placeholder = trailingslashit(JP_URL) . 'assets/img/group-cover-placeholder.svg';
-}
-if ($cover_placeholder === '') {
-    $cover_placeholder = plugins_url('../assets/img/group-cover-placeholder.svg', __FILE__);
-}
-if ($cover_placeholder === '') {
-    $cover_placeholder = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDUiIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIHNsaWNlIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImpwQ292ZXIiIHgxPSIwIiB4Mj0iMSIgeTE9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRERFM0VBIiAvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0YxRjNGNiIgLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iNiIgaGVpZ2h0PSI1IiBmaWxsPSJ1cmwoI2pwQ292ZXIpIiAvPjxnIGZpbGw9IiM5MEE0QjgiIG9wYWNpdHk9IjAuOCI+PHBhdGggZD0iTTEgMy4yIDIuNCAxLjZsLjguOS44LS43TDUgMy40di44SDF6IiAvPjxjaXJjbGUgY3g9IjEuNCIgY3k9IjEuMyIgcj0iMC41IiAvPjwvZz48L3N2Zz4=';
-}
-$cover_preview   = $cover_url !== '' ? $cover_url : $cover_placeholder;
 $current_user_id = get_current_user_id();
 
 if ($category === '' || !isset($categories[$category])) {

@@ -1041,7 +1041,6 @@ if ($group_suggestions) {
                                         $pool_end      = isset($pool['quota_end']) ? (int) $pool['quota_end'] : 0;
                                         $pool_icon   = isset($pool['icon']) ? (string) $pool['icon'] : '';
                                         $pool_thumb  = isset($pool['thumbnail']) ? (string) $pool['thumbnail'] : '';
-                                        $pool_cover  = isset($pool['cover']) ? (string) $pool['cover'] : '';
                                         $pool_thumbnail = $pool_icon !== '' ? $pool_icon : $pool_thumb;
                                         if ($pool_thumbnail === '' && $pool_slug !== '') {
                                             $pool_thumbnail = ServiceIcons::get($pool_slug);
@@ -1076,7 +1075,6 @@ if ($group_suggestions) {
                                                 data-pool-start="<?php echo esc_attr((string) $pool_start); ?>"
                                                 data-pool-end="<?php echo esc_attr((string) $pool_end); ?>"
                                                 data-pool-icon="<?php echo esc_url($pool_icon); ?>"
-                                                data-pool-cover="<?php echo esc_url($pool_cover); ?>"
                                                 data-pool-url="<?php echo esc_url($pool['service_url'] ?? ''); ?>"
                                             >
                                                 <span class="juntaplay-service-list__icon<?php echo $pool_thumbnail !== '' ? ' has-image' : ''; ?>"<?php if ($pool_thumbnail !== '') : ?> style="background-image: url('<?php echo esc_url($pool_thumbnail); ?>');"<?php endif; ?> aria-hidden="true"><?php echo $pool_thumbnail === '' ? esc_html($initial_icon) : ''; ?></span>
@@ -1131,7 +1129,6 @@ if ($group_suggestions) {
                                     $pool_end      = isset($pool['quota_end']) ? (int) $pool['quota_end'] : 0;
                                     $pool_icon   = isset($pool['icon']) ? (string) $pool['icon'] : '';
                                     $pool_thumb  = isset($pool['thumbnail']) ? (string) $pool['thumbnail'] : '';
-                                    $pool_cover  = isset($pool['cover']) ? (string) $pool['cover'] : '';
                                     $pool_thumbnail = $pool_icon !== '' ? $pool_icon : $pool_thumb;
                                     if ($pool_thumbnail === '' && $pool_slug !== '') {
 
@@ -1166,7 +1163,6 @@ if ($group_suggestions) {
                                         data-pool-start="<?php echo esc_attr((string) $pool_start); ?>"
                                         data-pool-end="<?php echo esc_attr((string) $pool_end); ?>"
                                         data-pool-icon="<?php echo esc_url($pool_icon); ?>"
-                                        data-pool-cover="<?php echo esc_url($pool_cover); ?>"
                                         data-pool-url="<?php echo esc_url($pool['service_url'] ?? ''); ?>"
                                     >
                                         <span class="juntaplay-service-card__icon<?php echo $pool_thumbnail !== '' ? ' has-image' : ''; ?>"<?php if ($pool_thumbnail !== '') : ?> style="background-image: url('<?php echo esc_url($pool_thumbnail); ?>');"<?php endif; ?> aria-hidden="true"><?php echo $pool_thumbnail === '' ? esc_html($initial_icon) : ''; ?></span>

@@ -121,8 +121,6 @@ if (!defined('ABSPATH')) {
 
 class Profile
 {
-    private const GROUP_COVER_CONTEXT_META = '_juntaplay_group_cover_window';
-
     private const DIAGNOSTICS_OPTION = 'juntaplay_diagnostics_status';
 
     private const SECTION_COMPLAINTS = 'complaints_center';
@@ -165,10 +163,6 @@ class Profile
     /** @var array<int, array<string, mixed>> */
     private array $group_cancellation_events = [];
 
-    private bool $group_cover_upload_context = false;
-
-    private ?bool $group_cover_request_detected = null;
-
     public function init(): void
     {
         add_action('init', [$this, 'synchronize_subscriber_capabilities'], 5);
@@ -176,9 +170,6 @@ class Profile
         add_filter('ajax_query_attachments_args', [$this, 'limit_media_library_to_author']);
         add_action('pre_get_posts', [$this, 'limit_media_library_query']);
         add_filter('wp_prepare_attachment_for_js', [$this, 'maybe_hide_foreign_attachments'], 10, 3);
-        add_action('juntaplay/profile/enable_group_cover_upload', [$this, 'enable_group_cover_upload_context']);
-        add_filter('user_has_cap', [$this, 'maybe_grant_group_cover_upload_cap'], 10, 4);
-        add_filter('map_meta_cap', [$this, 'maybe_map_group_cover_cap'], 10, 4);
         add_action('rest_api_init', [$this, 'register_rest_routes']);
         add_action('template_redirect', [$this, 'maybe_prepare_group_checkout']);
     }
@@ -419,282 +410,6 @@ class Profile
         $query->set('author', $user_id);
     }
 
-    public function enable_group_cover_upload_context(): void
-    {
-        $this->group_cover_upload_context = true;
-        $this->group_cover_request_detected = true;
-
-        if (!is_user_logged_in()) {
-            return;
-        }
-
-        $user_id = get_current_user_id();
-        if ($user_id <= 0) {
-            return;
-        }
-
-        $expiry = time() + (10 * MINUTE_IN_SECONDS);
-        update_user_meta($user_id, self::GROUP_COVER_CONTEXT_META, $expiry);
-    }
-
-    public function is_group_cover_upload_context_for_user(?int $user_id = null): bool
-    {
-        if ($user_id === null) {
-            $user_id = get_current_user_id();
-        }
-
-        if ($user_id <= 0) {
-            return false;
-        }
-
-        if (!is_user_logged_in() || get_current_user_id() !== $user_id) {
-            return false;
-        }
-
-        if ($this->group_cover_upload_context) {
-            return true;
-        }
-
-        return $this->is_group_cover_upload_request();
-    }
-
-    private function sanitize_group_cover_flag(string $value): string
-    {
-        $value = strtolower(trim($value));
-        if ($value === '') {
-            return '';
-        }
-
-        $normalized = preg_replace('/[^a-z0-9_-]/', '', $value);
-
-        return is_string($normalized) ? $normalized : '';
-    }
-
-    /**
-     * @param array<string, mixed> $request
-     */
-    private function extract_group_cover_flag($request): string
-    {
-        $flag = '';
-
-        if (isset($request['juntaplay_group_cover'])) {
-            $flag = $this->sanitize_group_cover_flag((string) $request['juntaplay_group_cover']);
-        } elseif (
-            isset($request['query'])
-            && is_array($request['query'])
-            && isset($request['query']['juntaplay_group_cover'])
-        ) {
-            $flag = $this->sanitize_group_cover_flag((string) $request['query']['juntaplay_group_cover']);
-        }
-
-        return $flag;
-    }
-
-    private function infer_group_cover_flag_from_referer(string $referer): string
-    {
-        $parts = wp_parse_url($referer);
-        $path  = '';
-
-        if (is_array($parts)) {
-            $path = isset($parts['path']) ? (string) $parts['path'] : '';
-            if (!empty($parts['query'])) {
-                $query_args = [];
-                parse_str((string) $parts['query'], $query_args);
-                if (isset($query_args['jp_profile_section']) && $query_args['jp_profile_section'] === 'group_create') {
-                    return 'profile-group-cover';
-                }
-            }
-        } elseif (is_string($parts)) {
-            $path = $parts;
-        }
-
-        if ($path !== '' && strpos($path, 'perfil') !== false) {
-            return 'profile-group-cover';
-        }
-
-        return '';
-    }
-
-    private function is_group_cover_upload_request(): bool
-    {
-        if ($this->group_cover_request_detected !== null) {
-            return $this->group_cover_request_detected;
-        }
-
-        if (!is_user_logged_in()) {
-            $this->group_cover_request_detected = false;
-            return false;
-        }
-
-        $current_user = wp_get_current_user();
-        if (!$current_user instanceof WP_User || !$current_user->exists()) {
-            $this->group_cover_request_detected = false;
-            return false;
-        }
-
-        if ((int) $current_user->ID !== get_current_user_id()) {
-            $this->group_cover_request_detected = false;
-            return false;
-        }
-
-        $action = isset($_REQUEST['action']) ? sanitize_key(wp_unslash((string) $_REQUEST['action'])) : '';
-        $allowed_actions = [
-            'upload-attachment',
-            'query-attachments',
-            'send-attachment-to-editor',
-            'send-link-to-editor',
-            'save-attachment',
-            'save-attachment-compat',
-            'juntaplay_group_edit_save',
-        ];
-
-        $flag = $this->extract_group_cover_flag($_REQUEST);
-        $referer = isset($_REQUEST['_wp_http_referer']) ? sanitize_text_field(wp_unslash((string) $_REQUEST['_wp_http_referer'])) : '';
-
-        if ($referer === '' && isset($_SERVER['HTTP_REFERER'])) {
-            $referer = sanitize_text_field(wp_unslash((string) $_SERVER['HTTP_REFERER']));
-        }
-
-        if ($flag === '' && $referer !== '') {
-            $flag = $this->infer_group_cover_flag_from_referer($referer);
-        }
-
-        $is_ajax = (function_exists('wp_doing_ajax') && wp_doing_ajax()) || (defined('DOING_AJAX') && DOING_AJAX);
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? sanitize_text_field(wp_unslash((string) $_SERVER['REQUEST_URI'])) : '';
-        $is_async_endpoint = strpos($request_uri, 'async-upload.php') !== false;
-
-        $window_expires = (int) get_user_meta($current_user->ID, self::GROUP_COVER_CONTEXT_META, true);
-        $now            = time();
-        $has_recent_context = $this->group_cover_upload_context || ($window_expires > $now);
-
-        if ($flag !== '') {
-            $has_recent_context = true;
-        }
-
-        if ($action === 'juntaplay_group_edit_save') {
-            $this->group_cover_request_detected = true;
-        } elseif (!$has_recent_context && $flag === '' && !$is_ajax && !$is_async_endpoint) {
-            $this->group_cover_request_detected = false;
-        } elseif (!$has_recent_context && $flag === '' && $referer === '' && !in_array($action, $allowed_actions, true)) {
-            $this->group_cover_request_detected = false;
-        } else {
-            if ($window_expires <= $now) {
-                if ($has_recent_context) {
-                    update_user_meta($current_user->ID, self::GROUP_COVER_CONTEXT_META, $now + (10 * MINUTE_IN_SECONDS));
-                } elseif ($window_expires > 0) {
-                    delete_user_meta($current_user->ID, self::GROUP_COVER_CONTEXT_META);
-                }
-            } elseif ($has_recent_context) {
-                update_user_meta($current_user->ID, self::GROUP_COVER_CONTEXT_META, $now + (10 * MINUTE_IN_SECONDS));
-            }
-
-            $this->group_cover_request_detected = true;
-        }
-
-        return $this->group_cover_request_detected;
-    }
-
-    /**
-     * @param array<string, mixed>|false $response
-     * @param WP_Post                    $attachment
-     * @param array<string, mixed>       $meta
-     * @return array<string, mixed>|false
-     */
-    public function maybe_hide_foreign_attachments($response, $attachment, $meta)
-    {
-        if ($response === false) {
-            return false;
-        }
-
-        if (!is_user_logged_in()) {
-            return $response;
-        }
-
-        if (current_user_can('manage_options') || current_user_can('edit_others_posts')) {
-            return $response;
-        }
-
-        $user_id = get_current_user_id();
-        if ($user_id <= 0) {
-            return $response;
-        }
-
-        if ((int) $attachment->post_author !== $user_id) {
-            return false;
-        }
-
-        return $response;
-    }
-
-    /**
-     * @param array<string, bool> $allcaps
-     * @param string[]            $caps
-     * @param array<int|string, mixed> $args
-     */
-    public function maybe_grant_group_cover_upload_cap(
-        array $allcaps,
-        array $caps,
-        array $args,
-        WP_User $user
-    ): array {
-        if (!in_array('upload_files', $caps, true)) {
-            return $allcaps;
-        }
-
-        if (!isset($user->ID) || $user->ID <= 0) {
-            return $allcaps;
-        }
-
-        if (!$this->is_group_cover_upload_context_for_user((int) $user->ID)) {
-            return $allcaps;
-        }
-
-        $allcaps['upload_files'] = true;
-
-        return $allcaps;
-    }
-
-    /**
-     * @param array<int, string> $caps
-     * @param array<int|string, mixed> $args
-     * @return array<int, string>
-     */
-    public function maybe_map_group_cover_cap(array $caps, string $cap, int $user_id, array $args): array
-    {
-        $allowed_caps = ['upload_files', 'edit_post', 'delete_post', 'read_post'];
-        if (!in_array($cap, $allowed_caps, true)) {
-            return $caps;
-        }
-
-        if (!$this->is_group_cover_upload_context_for_user($user_id)) {
-            return $caps;
-        }
-
-        if ($cap === 'upload_files') {
-            return ['exist'];
-        }
-
-        $attachment_id = isset($args[0]) ? (int) $args[0] : 0;
-        if ($attachment_id <= 0) {
-            return $caps;
-        }
-
-        $attachment = get_post($attachment_id);
-        if (!$attachment instanceof WP_Post) {
-            return $caps;
-        }
-
-        if ($attachment->post_type !== 'attachment' || (int) $attachment->post_author !== $user_id) {
-            return $caps;
-        }
-
-        return ['exist'];
-    }
-
-    private function get_group_cover_placeholder(): string
-    {
-        return '';
-    }
 
     public function get_active_section(): ?string
     {
@@ -5627,7 +5342,6 @@ class Profile
         $service_raw     = isset($_POST['jp_profile_group_service']) ? wp_unslash($_POST['jp_profile_group_service']) : '';
         $service_url_raw = isset($_POST['jp_profile_group_service_url']) ? wp_unslash($_POST['jp_profile_group_service_url']) : '';
         $rules_raw       = isset($_POST['jp_profile_group_rules']) ? wp_unslash($_POST['jp_profile_group_rules']) : '';
-        $cover_raw       = isset($_POST['jp_profile_group_cover']) ? wp_unslash($_POST['jp_profile_group_cover']) : '';
         $price_raw       = isset($_POST['jp_profile_group_price']) ? wp_unslash($_POST['jp_profile_group_price']) : '';
         $promo_toggle    = isset($_POST['jp_profile_group_promo_toggle']) ? wp_unslash($_POST['jp_profile_group_promo_toggle']) : '';
         $promo_raw       = isset($_POST['jp_profile_group_price_promo']) ? wp_unslash($_POST['jp_profile_group_price_promo']) : '';
@@ -5668,7 +5382,6 @@ class Profile
         if (!in_array($access_timing, ['immediate', 'scheduled'], true)) {
             $access_timing = 'scheduled';
         }
-        $cover_id       = 0;
         $category_input = sanitize_key(is_string($category_raw) ? $category_raw : '');
         $categories     = array_keys($this->get_group_categories());
         $category       = in_array($category_input, $categories, true) ? $category_input : 'other';
@@ -6839,7 +6552,7 @@ class Profile
             'edit_modal_opens'       => false,
             'single_click_media'     => false,
             'cover_preview_ok'       => false,
-            'can_upload_as_subscriber' => $this->has_group_cover_capability_filter(),
+            'can_upload_as_subscriber' => false,
             'no_duplicate_nonce_ids' => true,
             'no_backbone_url_error'  => empty($state['flags']['backbone_url_error']),
         ];
@@ -6856,11 +6569,6 @@ class Profile
         }
 
         return $defaults;
-    }
-
-    private function has_group_cover_capability_filter(): bool
-    {
-        return has_filter('user_has_cap', [$this, 'maybe_grant_group_cover_upload_cap']) !== false;
     }
 
     private function user_can_manage_group(int $group_id): bool
