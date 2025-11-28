@@ -2484,6 +2484,49 @@ body .juntaplay-group-card {
     min-height: 100%;
 }
 
+body .juntaplay-groups__list .juntaplay-group-card--iconic {
+    background: #f6fbff;
+    border: 1px solid #dbe9f7;
+    border-radius: 16px;
+    box-shadow: 0 14px 36px -24px rgba(0, 0, 0, 0.18);
+    gap: 0.7rem;
+    padding: 12px;
+}
+
+body .juntaplay-groups__list .juntaplay-group-card__link {
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+}
+
+body .juntaplay-groups__list .juntaplay-group-card__media--icon {
+    align-items: flex-start;
+    background: transparent;
+    border: 0;
+    min-height: 0;
+    padding: 0;
+    width: auto;
+}
+
+body .juntaplay-groups__list .juntaplay-group-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+body .juntaplay-groups__list .juntaplay-group-card__meta {
+    margin-top: 2px;
+}
+
+body .juntaplay-groups__list .juntaplay-group-card__cta-text {
+    align-items: center;
+    display: inline-flex;
+    gap: 6px;
+    text-decoration: none;
+}
+
 body .juntaplay-group-card__header {
     display: flex;
     align-items: flex-start;

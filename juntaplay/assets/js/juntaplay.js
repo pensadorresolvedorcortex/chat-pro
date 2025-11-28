@@ -3159,11 +3159,11 @@
 
     function renderGroupCard(item, variant) {
         var mode = (variant || 'spotlight').toString();
-        var classes = ['juntaplay-group-card'];
+        var classes = ['juntaplay-group-card', 'juntaplay-group-card--iconic'];
 
         var iconUrl = item.iconUrl || '';
         var iconInitial = (item.iconInitial || '').toString();
-        var avatarClasses = ['juntaplay-group-card__avatar'];
+        var avatarClasses = ['juntaplay-group-card__avatar', 'juntaplay-service-card__icon'];
         if (iconUrl) {
             avatarClasses.push('has-image');
         }
@@ -3174,6 +3174,7 @@
             classes.push('juntaplay-group-card--spotlight');
         } else if (mode === 'compact') {
             classes.push('juntaplay-group-card--compact');
+            classes.push('juntaplay-service-card');
         }
 
         var groupId = parseInt(item.id, 10) || 0;
