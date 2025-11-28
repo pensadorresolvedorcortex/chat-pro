@@ -5005,6 +5005,8 @@
             loading: false
         };
 
+        var restoredAnchor = false;
+
         var $grid = $root.find('[data-rotator-grid]');
         var $track = $root.find('[data-rotator-track]');
         var $empty = $root.find('[data-rotator-empty]');
@@ -5059,6 +5061,79 @@
             if ($empty.length) {
                 $empty.attr('hidden', 'hidden');
             }
+
+            restoreAnchorTarget();
+        }
+
+        function getAnchorTargetId() {
+            if (typeof window === 'undefined') {
+                return 0;
+            }
+
+            var hash = (window.location.hash || '').toString();
+            if (!hash) {
+                return 0;
+            }
+
+            var match = hash.match(/^#jp-group-card-(\d+)/i);
+            if (!match || match.length < 2) {
+                return 0;
+            }
+
+            return parseInt(match[1], 10) || 0;
+        }
+
+        function restoreAnchorTarget() {
+            if (restoredAnchor) {
+                return;
+            }
+
+            var targetId = getAnchorTargetId();
+            if (!targetId) {
+                return;
+            }
+
+            var $card = $('#jp-group-card-' + targetId);
+            if (!$card.length) {
+                return;
+            }
+
+            restoredAnchor = true;
+
+            var cardEl = $card.get(0);
+            if (cardEl && typeof cardEl.scrollIntoView === 'function') {
+                try {
+                    cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } catch (e) {
+                    try {
+                        cardEl.scrollIntoView();
+                    } catch (err) {
+                        // ignore scroll errors
+                    }
+                }
+            }
+
+            window.setTimeout(function () {
+                var $current = $('#jp-group-card-' + targetId);
+                if (!$current.length) {
+                    return;
+                }
+
+                if (!$current.attr('tabindex')) {
+                    $current.attr('tabindex', '-1');
+                }
+
+                try {
+                    $current.focus();
+                } catch (err) {
+                    // ignore focus errors
+                }
+
+                var $trigger = $current.find('[data-jp-group-open]').first();
+                if ($trigger.length) {
+                    $trigger.trigger('click');
+                }
+            }, 120);
         }
 
         function fetch() {
