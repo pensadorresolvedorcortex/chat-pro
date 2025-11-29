@@ -5055,7 +5055,7 @@
             }
 
             var html = items.map(function (item) {
-                return renderGroupCard(item, 'spotlight');
+                return renderGroupCard(item, 'compact');
             }).join('');
 
             $grid.html(html);
