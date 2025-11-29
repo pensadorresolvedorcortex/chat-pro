@@ -11550,6 +11550,52 @@ body .juntaplay-complaints__placeholder img {
     font-weight: 700;
 }
 
+.juntaplay-group-card--service {
+    border: 1px solid #dbe9f7;
+    border-radius: 16px;
+    background: #f6fbff;
+    padding: 18px;
+    box-shadow: 0 14px 36px -24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.juntaplay-group-card--service:hover,
+.juntaplay-group-card--service:focus-within {
+    transform: translateY(-1px);
+    border-color: rgba(0, 204, 192, 0.35);
+    box-shadow: 0 14px 30px -22px rgba(0, 204, 192, 0.4);
+    outline: none;
+}
+
+.juntaplay-group-card--service .juntaplay-group-card__body {
+    gap: 10px;
+}
+
+.juntaplay-group-card--service .juntaplay-group-card__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(0, 204, 192, 0.18), rgba(0, 204, 192, 0.32));
+    border: 1px solid rgba(0, 204, 192, 0.22);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--jp-primary, #00ccc0);
+}
+
+.juntaplay-group-card--service .juntaplay-group-card__avatar.has-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: transparent;
+}
+
+.juntaplay-group-card__cta-inline {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .juntaplay-service-grid__footer {
     margin-top: 16px;
     display: grid;

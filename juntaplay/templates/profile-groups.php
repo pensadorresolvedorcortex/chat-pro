@@ -507,6 +507,17 @@ if ($group_suggestions) {
                                                 <span class="juntaplay-group-card__role-pill juntaplay-badge juntaplay-badge--<?php echo esc_attr($role_tone ?: 'info'); ?>"><?php echo esc_html($role_label); ?></span>
                                             <?php endif; ?>
                                         </header>
+                                        <div class="juntaplay-group-card__cta-inline">
+                                            <button
+                                                type="button"
+                                                class="juntaplay-service-card__cta-button"
+                                                data-jp-group-open
+                                                data-group-id="<?php echo esc_attr((string) $group_id); ?>"
+                                                <?php echo $cta_disabled ? ' disabled' : ''; ?>
+                                            >
+                                                <?php echo esc_html($cta_label !== '' ? $cta_label : __('Confira', 'juntaplay')); ?>
+                                            </button>
+                                        </div>
                                         <div class="juntaplay-group-card__actions juntaplay-group-card__actions--primary">
                                             <button type="button" class="juntaplay-group-card__toggle" aria-expanded="false">
                                                 <span class="juntaplay-group-card__toggle-label"><?php esc_html_e('Ver detalhes', 'juntaplay'); ?></span>
