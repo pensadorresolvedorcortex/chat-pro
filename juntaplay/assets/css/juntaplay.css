@@ -11596,6 +11596,15 @@ body .juntaplay-complaints__placeholder img {
     justify-content: flex-end;
 }
 
+.juntaplay-group-card__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
 .juntaplay-service-grid__footer {
     margin-top: 16px;
     display: grid;

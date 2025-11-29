@@ -481,32 +481,57 @@ if ($group_suggestions) {
                     $icon_initial = $icon_initial_raw !== ''
                         ? (function_exists('mb_substr') ? mb_substr($icon_initial_raw, 0, 1) : substr($icon_initial_raw, 0, 1))
                         : '';
-                    $icon_classes = ['juntaplay-group-card__avatar'];
+                    $icon_classes = ['juntaplay-group-card__avatar', 'juntaplay-service-card__icon'];
                     if ($icon_source !== '') {
                         $icon_classes[] = 'has-image';
                     }
-                    $card_classes = [
+
+                    $meta_items = [];
+                    if ($category_label !== '') {
+                        $meta_items[] = '<span class="juntaplay-service-card__pill">' . esc_html($category_label) . '</span>';
+                    }
+
+                    if ($slots_available_label !== '') {
+                        $meta_items[] = '<span class="juntaplay-service-card__pill juntaplay-service-card__pill--muted">' . esc_html($slots_available_label) . '</span>';
+                    } elseif ($slots_total_label !== '') {
+                        $meta_items[] = '<span class="juntaplay-service-card__pill juntaplay-service-card__pill--muted">' . esc_html($slots_total_label) . '</span>';
+                    }
+
+                    if ($role_label !== '') {
+                        $meta_items[] = '<span class="juntaplay-group-card__role-pill juntaplay-badge juntaplay-badge--' . esc_attr($role_tone ?: 'info') . '">' . esc_html($role_label) . '</span>';
+                    }
+
+                    if ($price_highlight !== '') {
+                        $meta_items[] = '<span class="juntaplay-service-card__price">' . wp_kses_post($price_highlight) . '</span>';
+                    }
+
+                    $service_classes = [
                         'juntaplay-group-card',
                         'juntaplay-group-card--profile',
                         'juntaplay-service-card',
                         'juntaplay-group-card--service',
                     ];
+
+                    $card_link_attrs = $cta_url !== ''
+                        ? ' href="' . esc_url($cta_url) . '"'
+                        : ' href="#"';
                     ?>
-                    <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
-                                    <div class="juntaplay-group-card__media">
+                    <article class="<?php echo esc_attr(implode(' ', $service_classes)); ?>" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
+                                    <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>">
                                         <span
                                             class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
                                             <?php echo $icon_source !== '' ? ' style="background-image: url(' . esc_url($icon_source) . ')"' : ''; ?>
                                             aria-hidden="true"
                                         ><?php echo $icon_source === '' ? esc_html($icon_initial) : ''; ?></span>
-                                    </div>
-                                    <div class="juntaplay-group-card__body">
-                                        <header class="juntaplay-group-card__header juntaplay-group-card__header--compact">
-                                            <h3 class="juntaplay-group-card__title" title="<?php echo esc_attr($group_title_full); ?>"><?php echo esc_html($group_title_full); ?></h3>
-                                            <?php if ($role_label !== '') : ?>
-                                                <span class="juntaplay-group-card__role-pill juntaplay-badge juntaplay-badge--<?php echo esc_attr($role_tone ?: 'info'); ?>"><?php echo esc_html($role_label); ?></span>
-                                            <?php endif; ?>
-                                        </header>
+                                        <span class="juntaplay-service-card__title" title="<?php echo esc_attr($group_title_full); ?>"><?php echo esc_html($group_title_full); ?></span>
+                                        <?php if ($service_name !== '' && $service_name !== $group_title_full) : ?>
+                                            <span class="juntaplay-service-card__description"><?php echo esc_html($service_name); ?></span>
+                                        <?php endif; ?>
+                                        <?php if (!empty($meta_items)) : ?>
+                                            <span class="juntaplay-service-card__meta"><?php echo implode('', $meta_items); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+                                        <?php endif; ?>
+                                    </a>
+                                    <div class="juntaplay-group-card__footer">
                                         <div class="juntaplay-group-card__cta-inline">
                                             <button
                                                 type="button"
@@ -526,6 +551,7 @@ if ($group_suggestions) {
                                                 </svg>
                                             </button>
                                         </div>
+                                    </div>
                                         <div class="juntaplay-group-card__details-extended" hidden>
                                             <div class="juntaplay-group-card__chips">
                                                 <?php if ($availability_label !== '') : ?>
