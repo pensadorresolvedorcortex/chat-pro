@@ -3222,6 +3222,10 @@
 
             var metaHtml = serviceMeta.length ? '<span class="juntaplay-service-card__meta">' + serviceMeta.join('') + '</span>' : '';
 
+            var cardCta = '<button type="button" class="juntaplay-service-card__cta-button"' + detailAttributes + '>'
+                + __('Confira', 'juntaplay')
+                + '</button>';
+
             return '<article class="' + serviceClasses.join(' ') + '"' + articleIdAttr + articleAttributes + '>'
                 + '<a class="juntaplay-service-card__link" href="' + link + '"' + detailAttributes + '>'
                 + avatar
@@ -3229,6 +3233,7 @@
                 + (serviceSubtitle ? '<span class="juntaplay-service-card__description">' + escapeHtml(serviceSubtitle) + '</span>' : '')
                 + metaHtml
                 + '</a>'
+                + cardCta
                 + '</article>';
         }
 

@@ -8073,6 +8073,15 @@ body .juntaplay-group-card--profile {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+body .juntaplay-group-card--profile:hover,
+body .juntaplay-group-card--profile:focus-visible {
+    transform: translateY(-1px);
+    border-color: rgba(0, 204, 192, 0.35);
+    box-shadow: 0 14px 30px -22px rgba(0, 204, 192, 0.4);
+    outline: none;
 }
 
 body .juntaplay-group-card--profile .juntaplay-group-card__media {
@@ -11474,6 +11483,39 @@ body .juntaplay-complaints__placeholder img {
     align-items: center;
     font-size: 0.9rem;
     color: var(--jp-text-muted, #54627a);
+}
+
+.juntaplay-service-card__cta-button {
+    background-color: #00ccc0;
+    font-size: 15px;
+    font-weight: 500;
+    fill: #000000;
+    color: #000000;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #00ccc0;
+    border-radius: 60px;
+    padding: 10px 12px 10px 22px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease;
+}
+
+.juntaplay-service-card__cta-button:hover,
+.juntaplay-service-card__cta-button:focus-visible {
+    background-color: #00b5aa;
+    border-color: #00b5aa;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px -18px rgba(0, 204, 192, 0.5);
+    outline: none;
+}
+
+.juntaplay-service-card__cta-button:active {
+    transform: translateY(0);
+    box-shadow: none;
 }
 
 .juntaplay-service-card__link {

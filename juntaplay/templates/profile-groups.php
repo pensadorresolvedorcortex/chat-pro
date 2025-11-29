@@ -485,8 +485,14 @@ if ($group_suggestions) {
                     if ($icon_source !== '') {
                         $icon_classes[] = 'has-image';
                     }
+                    $card_classes = [
+                        'juntaplay-group-card',
+                        'juntaplay-group-card--profile',
+                        'juntaplay-service-card',
+                        'juntaplay-group-card--service',
+                    ];
                     ?>
-                    <article class="juntaplay-group-card juntaplay-group-card--profile" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
+                    <article class="<?php echo esc_attr(implode(' ', $card_classes)); ?>" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
                                     <div class="juntaplay-group-card__media">
                                         <span
                                             class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
