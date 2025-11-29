@@ -7548,10 +7548,10 @@ body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     height: 100%;
     border-radius: 16px;
-    padding: 16px;
+    padding: 18px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(246, 251, 255, 0.86));
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 14px 32px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.56);
@@ -7566,13 +7566,23 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__link {
     width: 100%;
     flex: 1 1 auto;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-service-card__title {
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: #0f172a;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-service-card__description {
+    color: rgba(15, 23, 42, 0.76);
 }
 
 body .juntaplay-my-groups-grid .juntaplay-service-card__meta {
     margin-top: auto;
     display: flex;
-    gap: 8px;
+    gap: 6px;
     flex-wrap: wrap;
 }
 
@@ -7613,13 +7623,16 @@ body .juntaplay-my-groups-grid .juntaplay-group-card__footer {
 
 body .juntaplay-my-groups-grid .juntaplay-group-card__cta-inline {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 body .juntaplay-my-groups-grid .juntaplay-group-card__actions {
     justify-content: flex-start;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button {
