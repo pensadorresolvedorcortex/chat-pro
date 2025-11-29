@@ -1809,14 +1809,28 @@
             var $coverInput = $form.find('[data-group-cover-input]');
             var $coverPreview = $form.find('[data-group-cover-preview]');
             var $coverRemove = $form.find('[data-group-cover-remove]');
+            var hasCustomCover = false;
+
             if ($coverInput.length) {
-                $coverInput.val(poolIconId ? poolIconId.toString() : '').data('externalCover', poolCover);
+                var currentCover = ($coverInput.val() || '').toString().trim();
+                hasCustomCover = currentCover !== '';
             }
-            if ($coverPreview.length) {
-                $coverPreview.css('background-image', 'url(' + poolCover + ')').find('img').attr('src', poolCover);
-            }
-            if ($coverRemove.length) {
-                $coverRemove.prop('disabled', false);
+
+            if (!hasCustomCover) {
+                var coverSource = poolCover || ($coverPreview.closest('[data-group-cover]').data('placeholder') || '');
+
+                if ($coverInput.length) {
+                    $coverInput.val(poolIconId ? poolIconId.toString() : '').data('externalCover', poolCover);
+                }
+                if ($coverPreview.length) {
+                    $coverPreview
+                        .css('background-image', coverSource ? 'url(' + coverSource + ')' : 'none')
+                        .find('img')
+                        .attr('src', coverSource || '');
+                }
+                if ($coverRemove.length) {
+                    $coverRemove.prop('disabled', false);
+                }
             }
         }
 
