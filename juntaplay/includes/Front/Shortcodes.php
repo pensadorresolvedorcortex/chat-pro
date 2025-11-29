@@ -193,9 +193,9 @@ class Shortcodes
         }
 
         $general = get_option(Settings::OPTION_GENERAL, []);
-        $default_limit = isset($general['group_rotator_limit']) ? (int) $general['group_rotator_limit'] : 12;
+        $default_limit = isset($general['group_rotator_limit']) ? (int) $general['group_rotator_limit'] : 18;
         if ($default_limit <= 0) {
-            $default_limit = 12;
+            $default_limit = 18;
         }
 
         $atts = shortcode_atts([

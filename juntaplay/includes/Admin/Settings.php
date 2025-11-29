@@ -84,7 +84,7 @@ class Settings
                         <tr>
                             <th scope="row"><?php esc_html_e('Cards na vitrine de grupos', 'juntaplay'); ?></th>
                             <td>
-                                <?php $rotator_limit = isset($general['group_rotator_limit']) ? (int) $general['group_rotator_limit'] : 12; ?>
+                                <?php $rotator_limit = isset($general['group_rotator_limit']) ? (int) $general['group_rotator_limit'] : 18; ?>
                                 <input type="number" min="4" max="40" step="1" name="<?php echo esc_attr(self::OPTION_GENERAL); ?>[group_rotator_limit]" value="<?php echo esc_attr((string) $rotator_limit); ?>" />
                                 <p class="description"><?php esc_html_e('Quantidade padrão de grupos exibidos no carrossel rotativo (entre 4 e 40).', 'juntaplay'); ?></p>
                             </td>
@@ -332,7 +332,7 @@ class Settings
     public function sanitize_general(array $input): array
     {
         $color = sanitize_hex_color($input['primary_color'] ?? '#ff5a5f') ?: '#ff5a5f';
-        $limit = isset($input['group_rotator_limit']) ? absint($input['group_rotator_limit']) : 12;
+        $limit = isset($input['group_rotator_limit']) ? absint($input['group_rotator_limit']) : 18;
 
         if ($limit < 4) {
             $limit = 4;
