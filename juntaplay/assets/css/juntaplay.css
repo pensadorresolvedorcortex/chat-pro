@@ -7545,8 +7545,11 @@ body .juntaplay-my-groups-grid [data-group-list] {
 
 body .juntaplay-my-groups-grid .juntaplay-group-card,
 body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card {
-    height: 100%;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
     border-radius: 16px;
     padding: 16px;
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(246, 251, 255, 0.86));
@@ -7560,6 +7563,8 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__link {
     display: flex;
     flex-direction: column;
     height: 100%;
+    width: 100%;
+    flex: 1 1 auto;
     align-items: flex-start;
     gap: 8px;
 }
@@ -7575,9 +7580,15 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__icon {
     width: 56px;
     height: 56px;
     border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: radial-gradient(circle at 28% 22%, rgba(0, 204, 192, 0.18), rgba(0, 204, 192, 0.28));
     border: 1px solid rgba(0, 204, 192, 0.26);
     box-shadow: 0 10px 22px -16px rgba(0, 204, 192, 0.32);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 body .juntaplay-my-groups-grid .juntaplay-service-card__pill {
@@ -7594,7 +7605,7 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__price {
 }
 
 body .juntaplay-my-groups-grid .juntaplay-group-card__footer {
-    margin-top: 12px;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
