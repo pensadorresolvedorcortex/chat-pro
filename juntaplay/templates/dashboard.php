@@ -879,7 +879,10 @@ $display_email    = $user && $user->exists() ? (string) $user->user_email : '';
                                 $pool_slug   = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
                                 $service_name = isset($group['service_name']) ? (string) $group['service_name'] : '';
                                 $service_url  = isset($group['service_url']) ? (string) $group['service_url'] : '';
-                                $group_icon   = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+                                $group_icon   = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
+                                if ($group_icon === '') {
+                                    $group_icon = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+                                }
                                 if ($group_icon === '') {
                                     $group_icon = ServiceIcons::resolve($pool_slug, $service_name !== '' ? $service_name : ($group['title'] ?? ''), $service_url);
                                 }
@@ -954,7 +957,10 @@ $display_email    = $user && $user->exists() ? (string) $user->user_email : '';
                                 $pool_slug     = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
                                 $service_name  = isset($group['service_name']) ? (string) $group['service_name'] : '';
                                 $service_url   = isset($group['service_url']) ? (string) $group['service_url'] : '';
-                                $group_icon    = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+                                $group_icon    = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
+                                if ($group_icon === '') {
+                                    $group_icon = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+                                }
                                 if ($group_icon === '') {
                                     $group_icon = ServiceIcons::resolve($pool_slug, $service_name !== '' ? $service_name : ($group['title'] ?? ''), $service_url);
                                 }

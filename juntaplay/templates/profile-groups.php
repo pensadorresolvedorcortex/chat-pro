@@ -103,6 +103,11 @@ $current_access      = isset($form_values['access']) ? (string) $form_values['ac
 $current_access_url  = isset($form_values['access_url']) ? (string) $form_values['access_url'] : '';
 $current_access_login = isset($form_values['access_login']) ? (string) $form_values['access_login'] : '';
 $current_access_password = isset($form_values['access_password']) ? (string) $form_values['access_password'] : '';
+$current_icon_id     = isset($form_values['icon']) ? (int) $form_values['icon'] : 0;
+$icon_placeholder    = defined('JP_URL') && JP_URL !== ''
+    ? trailingslashit(JP_URL) . 'assets/img/services/default.svg'
+    : plugins_url('assets/img/services/default.svg', JP_FILE);
+$current_icon_url    = $current_icon_id > 0 ? (string) wp_get_attachment_image_url($current_icon_id, 'thumbnail') : '';
 $current_relationship = isset($form_values['relationship']) ? (string) $form_values['relationship'] : '';
 $relationship_options = \JuntaPlay\Data\Groups::get_relationship_options();
 $current_category    = isset($form_values['category']) ? (string) $form_values['category'] : 'other';
@@ -462,7 +467,10 @@ if ($group_suggestions) {
                     $service_name    = isset($group['service_name']) ? (string) $group['service_name'] : '';
                     $service_url     = isset($group['service_url']) ? (string) $group['service_url'] : '';
                     $service_slug    = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
-                    $icon_source     = $service_slug !== '' ? ServiceIcons::get($service_slug) : '';
+                    $icon_source     = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
+                    if ($icon_source === '') {
+                        $icon_source = $service_slug !== '' ? ServiceIcons::get($service_slug) : '';
+                    }
                     if ($icon_source === '') {
                         $icon_source = ServiceIcons::resolve($service_slug, $service_name !== '' ? $service_name : $group_title_full, $service_url);
                     }
@@ -1276,6 +1284,25 @@ if ($group_suggestions) {
                                         data-group-share-watch
                                         data-group-pool-url
                                     />
+                                </div>
+
+                                <div class="juntaplay-form__group juntaplay-form__group--inline">
+                                    <div class="juntaplay-cover-field" data-group-cover data-placeholder="<?php echo esc_url($icon_placeholder); ?>">
+                                        <label for="jp-group-icon"><?php echo esc_html__('Ícone do grupo', 'juntaplay'); ?></label>
+                                        <div class="juntaplay-cover-field__preview" data-group-cover-preview>
+                                            <img src="<?php echo esc_url($current_icon_url !== '' ? $current_icon_url : $icon_placeholder); ?>" alt="" loading="lazy" />
+                                        </div>
+                                        <div class="juntaplay-cover-field__actions">
+                                            <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-cover-select>
+                                                <?php echo esc_html__('Escolher ícone', 'juntaplay'); ?>
+                                            </button>
+                                            <button type="button" class="juntaplay-button juntaplay-button--link" data-group-cover-remove <?php disabled($current_icon_id === 0); ?>>
+                                                <?php echo esc_html__('Remover', 'juntaplay'); ?>
+                                            </button>
+                                        </div>
+                                        <input type="hidden" id="jp-group-icon" name="jp_profile_group_icon" value="<?php echo esc_attr((string) $current_icon_id); ?>" data-group-cover-input />
+                                    </div>
+                                    <p class="juntaplay-form__help"><?php echo esc_html__('Use um ícone quadrado para representar o grupo. Se você não escolher, aplicaremos o ícone do serviço.', 'juntaplay'); ?></p>
                                 </div>
 
                                 <div class="juntaplay-form__group">

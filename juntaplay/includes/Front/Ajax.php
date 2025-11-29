@@ -738,7 +738,11 @@ class Ajax
         $pool_id   = isset($group['pool_id']) ? (int) $group['pool_id'] : 0;
         $pool_link = '';
 
-        $icon_url = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+        $icon_url = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
+
+        if ($icon_url === '') {
+            $icon_url = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+        }
         if ($icon_url === '') {
             $icon_url = ServiceIcons::resolve($pool_slug, $service_name !== '' ? $service_name : $title, $service_url);
         }

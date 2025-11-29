@@ -5360,6 +5360,7 @@ class Profile
         $access_timing_raw = isset($_POST['jp_profile_group_access_timing']) ? wp_unslash($_POST['jp_profile_group_access_timing']) : '';
         $category_raw    = isset($_POST['jp_profile_group_category']) ? wp_unslash($_POST['jp_profile_group_category']) : '';
         $instant_raw     = isset($_POST['jp_profile_group_instant']) ? wp_unslash($_POST['jp_profile_group_instant']) : '';
+        $icon_raw        = isset($_POST['jp_profile_group_icon']) ? wp_unslash($_POST['jp_profile_group_icon']) : '';
 
         $name        = sanitize_text_field(is_string($name_raw) ? $name_raw : '');
         $service     = sanitize_text_field(is_string($service_raw) ? $service_raw : '');
@@ -5378,6 +5379,7 @@ class Profile
         $relationship_input = sanitize_key(is_string($relationship_raw) ? $relationship_raw : '');
         $relationship_options = Groups::get_relationship_options();
         $relationship = array_key_exists($relationship_input, $relationship_options) ? $relationship_input : '';
+        $icon_id      = absint(is_string($icon_raw) ? $icon_raw : 0);
         $access_timing = sanitize_key(is_string($access_timing_raw) ? $access_timing_raw : '');
         if (!in_array($access_timing, ['immediate', 'scheduled'], true)) {
             $access_timing = 'scheduled';
@@ -5437,6 +5439,7 @@ class Profile
             'instant_access' => $instant_access ? 'on' : 'off',
             'relationship'   => $relationship,
             'access_timing'  => $access_timing,
+            'icon'           => $icon_id > 0 ? (string) $icon_id : '',
         ];
 
         if ($name === '' || strlen($name) < 3) {
@@ -5543,6 +5546,7 @@ class Profile
             'relationship_type' => $relationship,
             'category'          => $category,
             'instant_access'    => $instant_access,
+            'cover_id'          => $icon_id,
         ]);
 
         if ($group_id <= 0) {
@@ -6379,7 +6383,7 @@ class Profile
         $access_observations = sanitize_textarea_field(wp_unslash($data['access_observations'] ?? ''));
         $category        = sanitize_key((string) ($data['category'] ?? ''));
         $instant_access  = !empty($data['instant_access']);
-        $cover_id        = 0;
+        $cover_id        = isset($data['cover_id']) ? absint($data['cover_id']) : 0;
 
         if (!isset($categories[$category])) {
             $category = 'other';
@@ -6461,6 +6465,7 @@ class Profile
             'access_observations' => $access_observations,
             'category'          => $category,
             'instant_access'    => $instant_access,
+            'cover_id'          => $cover_id,
             'pool_id'           => isset($context['group']['pool_id']) ? (int) $context['group']['pool_id'] : 0,
         ];
 

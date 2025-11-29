@@ -33,6 +33,17 @@ $access_observations = isset($group['access_observations']) ? (string) $group['a
 $category        = isset($group['category']) ? (string) $group['category'] : '';
 $instant_access  = !empty($group['instant_access']);
 $current_user_id = get_current_user_id();
+$icon_id         = isset($group['cover_id']) ? (int) $group['cover_id'] : 0;
+$icon_placeholder = defined('JP_URL') && JP_URL !== ''
+    ? trailingslashit(JP_URL) . 'assets/img/services/default.svg'
+    : plugins_url('assets/img/services/default.svg', JP_FILE);
+$icon_url        = $icon_id > 0 ? (string) wp_get_attachment_image_url($icon_id, 'thumbnail') : '';
+if ($icon_url === '' && isset($group['cover_url'])) {
+    $icon_url = (string) $group['cover_url'];
+}
+if ($icon_url === '') {
+    $icon_url = $icon_placeholder;
+}
 
 if ($category === '' || !isset($categories[$category])) {
     $category = 'other';
@@ -56,6 +67,23 @@ if ($category === '' || !isset($categories[$category])) {
             <label for="jp-group-edit-service-url"><?php esc_html_e('Link do serviço (opcional)', 'juntaplay'); ?></label>
             <input type="url" id="jp-group-edit-service-url" name="service_url" class="juntaplay-form__input" value="<?php echo esc_attr($service_url); ?>" placeholder="https://" />
         </div>
+    </div>
+
+    <div class="juntaplay-form__field juntaplay-cover-field" data-group-cover data-placeholder="<?php echo esc_url($icon_placeholder); ?>">
+        <label for="jp-group-edit-icon"><?php esc_html_e('Ícone do grupo', 'juntaplay'); ?></label>
+        <div class="juntaplay-cover-field__preview" data-group-cover-preview>
+            <img src="<?php echo esc_url($icon_url); ?>" alt="" loading="lazy" />
+        </div>
+        <div class="juntaplay-cover-field__actions">
+            <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-cover-select>
+                <?php esc_html_e('Escolher ícone', 'juntaplay'); ?>
+            </button>
+            <button type="button" class="juntaplay-button juntaplay-button--link" data-group-cover-remove <?php disabled($icon_id === 0); ?>>
+                <?php esc_html_e('Remover', 'juntaplay'); ?>
+            </button>
+        </div>
+        <input type="hidden" id="jp-group-edit-icon" name="cover_id" value="<?php echo esc_attr((string) $icon_id); ?>" data-group-cover-input />
+        <p class="juntaplay-form__help"><?php esc_html_e('Carregue um ícone quadrado. Caso não selecione, utilizaremos o ícone automático do serviço.', 'juntaplay'); ?></p>
     </div>
 
     <div class="juntaplay-form__field">

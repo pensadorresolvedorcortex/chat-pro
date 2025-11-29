@@ -45,7 +45,10 @@ $support_masked   = !empty($group['support_channel_masked']);
 $support_notice   = isset($group['support_channel_notice']) ? (string) $group['support_channel_notice'] : '';
 $support_label    = isset($group['support_channel_label']) ? (string) $group['support_channel_label'] : __('Suporte a Membros', 'juntaplay');
 $pool_slug        = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
-$group_icon       = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+$group_icon       = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
+if ($group_icon === '') {
+    $group_icon = $pool_slug !== '' ? ServiceIcons::get($pool_slug) : '';
+}
 if ($group_icon === '') {
     $group_icon = ServiceIcons::resolve($pool_slug, $service_name !== '' ? $service_name : $title, $service_url);
 }
