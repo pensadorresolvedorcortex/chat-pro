@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 64 64" fill="#E60012">
+  <title>Nintendo Switch Online</title>
+  <rect width="64" height="64" rx="12" fill="#E60012"/>
+  <path fill="#E60012" fill="#FFFFFF" d="M16 10h12a6 6 0 0 1 6 6v32a6 6 0 0 1-6 6H16a6 6 0 0 1-6-6V16a6 6 0 0 1 6-6Zm20 0h12a6 6 0 0 1 6 6v32a6 6 0 0 1-6 6H36a6 6 0 0 1-6-6V16a6 6 0 0 1 6-6Z"/>
+  <circle cx="22" cy="24" r="3" fill="#E60012"/>
+  <circle cx="42" cy="40" r="3" fill="#E60012"/>
+</svg>

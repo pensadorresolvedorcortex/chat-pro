@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 64 64">
+  <title>PlayPlus</title>
+  <defs>
+    <linearGradient id="playPlusGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5A35E3" />
+      <stop offset="100%" stop-color="#9B2BCF" />
+    </linearGradient>
+  </defs>
+  <circle cx="32" cy="32" r="30" fill="url(#playPlusGradient)" />
+  <polygon points="27,20 46,32 27,44" fill="#FFFFFF" />
+  <rect x="12" y="28" width="8" height="8" rx="1.5" fill="#FFFFFF" />
+  <rect x="14" y="30.8" width="4" height="2.4" rx="0.8" fill="#9B2BCF" />
+  <rect x="15.8" y="29" width="2.4" height="5" rx="0.8" fill="#9B2BCF" />
+</svg>

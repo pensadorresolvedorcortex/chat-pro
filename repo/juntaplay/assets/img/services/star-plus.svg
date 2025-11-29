@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" viewBox="0 0 120 32">
+  <title>Star Plus</title>
+  <defs>
+    <linearGradient id="starPlusGlow" x1="0%" x2="100%" y1="0%" y2="0%">
+      <stop offset="0%" stop-color="#F05A28" />
+      <stop offset="100%" stop-color="#F89A1C" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="32" rx="6" fill="#0B0D17" />
+  <path fill="url(#starPlusGlow)" d="M74.5 6.5 70.8 13.7 63 14.8 68.7 20.2 67.3 28 74.5 24.3 81.7 28 80.3 20.2 86 14.8 78.2 13.7z" />
+  <g fill="#FFFFFF" font-family="'Helvetica Neue', Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="0.5">
+    <text x="12" y="20">STAR</text>
+    <text x="88" y="20">+</text>
+  </g>
+</svg>
