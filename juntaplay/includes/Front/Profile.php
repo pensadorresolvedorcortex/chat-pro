@@ -410,6 +410,40 @@ class Profile
         $query->set('author', $user_id);
     }
 
+    /**
+     * Hide attachments from other users when preparing media responses.
+     *
+     * @param array<string, mixed>|false $response
+     * @param WP_Post                     $attachment
+     * @param array<string, mixed>        $meta
+     * @return array<string, mixed>|false
+     */
+    public function maybe_hide_foreign_attachments($response, $attachment, $meta)
+    {
+        if (!is_array($response) || !$attachment instanceof WP_Post) {
+            return $response;
+        }
+
+        if (current_user_can('manage_options') || current_user_can('edit_others_posts')) {
+            return $response;
+        }
+
+        if (!is_user_logged_in()) {
+            return false;
+        }
+
+        $user_id = get_current_user_id();
+        if ($user_id <= 0) {
+            return false;
+        }
+
+        if ((int) $attachment->post_author !== $user_id) {
+            return false;
+        }
+
+        return $response;
+    }
+
 
     public function get_active_section(): ?string
     {
@@ -2387,6 +2421,11 @@ class Profile
         $cover_alt = '';
         $cover_placeholder = false;
 
+        $group['pool_link']       = $this->build_group_pool_link((int) ($group['pool_id'] ?? 0), (string) ($group['pool_slug'] ?? ''));
+        $checkout_url             = $this->build_group_checkout_url($group_id, $group_slug, $group['pool_link']);
+        $relationship_url         = $this->build_group_relationship_url($group_id, $group_slug, $group['pool_link']);
+        $settings_url             = $this->build_group_settings_url($group_id);
+
         $group['status']            = $status;
         $group['membership_status'] = $membership_status;
         $group['membership_role']   = $role;
@@ -2396,14 +2435,10 @@ class Profile
         $group['role_label']        = $this->format_group_role($role, $is_owner);
         $group['role_tone']         = $is_owner ? 'positive' : 'info';
         $group['created_human']     = $this->format_group_created_at((string) ($group['created_at'] ?? ''));
-        $group['pool_link']         = $this->build_group_pool_link((int) ($group['pool_id'] ?? 0), (string) ($group['pool_slug'] ?? ''));
         $group['relationship_type'] = $relationship_type;
         $group['relationship_label'] = $relationship_label;
         $group['relationship_url']   = $relationship_url;
         $group['settings_url']       = $settings_url;
-        $checkout_url               = $this->build_group_checkout_url($group_id, $group_slug, $group['pool_link']);
-        $relationship_url           = $this->build_group_relationship_url($group_id, $group_slug, $group['pool_link']);
-        $settings_url               = $this->build_group_settings_url($group_id);
 
         $availability = $this->describe_group_availability(
             $status,
