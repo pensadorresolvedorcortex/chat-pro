@@ -7467,7 +7467,9 @@ body .juntaplay-header--guest {
 .juntaplay-service-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
     gap: 14px;
+    align-items: stretch;
 }
 
 .juntaplay-group-rotator__grid {
@@ -8490,6 +8492,9 @@ body .juntaplay-group-card__actions .juntaplay-group-card__edit {
     font-size: 0.86rem;
     font-weight: 600;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
@@ -11474,13 +11479,15 @@ body .juntaplay-complaints__placeholder img {
     padding: 18px 18px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+    justify-content: space-between;
     gap: 10px;
     font-weight: 700;
     color: var(--jp-text, #162033);
     text-align: left;
     box-shadow: 0 14px 36px -24px rgba(0, 0, 0, 0.18);
     transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    height: 100%;
 }
 
 .juntaplay-service-card:hover,
@@ -11567,6 +11574,7 @@ body .juntaplay-complaints__placeholder img {
     color: inherit;
     text-decoration: none;
     width: 100%;
+    flex: 1 1 auto;
 }
 
 .juntaplay-service-card__link:focus-visible {
@@ -11644,7 +11652,8 @@ body .juntaplay-complaints__placeholder img {
     justify-content: space-between;
     gap: 12px;
     flex-wrap: wrap;
-    margin-top: 6px;
+    margin-top: auto;
+    width: 100%;
 }
 
 .juntaplay-service-grid__footer {

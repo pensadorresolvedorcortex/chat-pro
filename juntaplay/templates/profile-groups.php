@@ -598,7 +598,12 @@ if ($group_suggestions) {
                                             <?php endif; ?>
                                             <div class="juntaplay-group-card__details-actions">
                                                 <?php if ($is_owner) : ?>
-                                                    <button type="button" class="juntaplay-group-card__edit" data-group-id="<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Editar grupo', 'juntaplay'); ?></button>
+                                                    <button type="button" class="juntaplay-group-card__edit" data-group-id="<?php echo esc_attr((string) $group_id); ?>">
+                                                        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                                                            <path d="M11.013 2.338c.33-.33.866-.33 1.196 0l1.453 1.453c.33.33.33.866 0 1.196l-6.6 6.6a.85.85 0 0 1-.42.228l-2.32.53a.5.5 0 0 1-.6-.6l.53-2.32a.85.85 0 0 1 .228-.42zM9.5 4L3.75 9.75l-.4 1.74l1.74-.4L11 5.5z" fill="currentColor" />
+                                                        </svg>
+                                                        <span><?php esc_html_e('Editar grupo', 'juntaplay'); ?></span>
+                                                    </button>
                                                 <?php endif; ?>
                                                 <?php if ($membership_status !== 'guest') : ?>
                                                     <button type="button" class="juntaplay-group-card__access-btn" data-group-access="<?php echo esc_attr((string) $group_id); ?>">
