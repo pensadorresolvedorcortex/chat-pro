@@ -1,0 +1,5296 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: JuntaPlay — Gestão de Cotas\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-11 21:54+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.0; wp-6.8.3; php-8.2.22\n"
+"X-Domain: juntaplay"
+
+#: includes/Notifications/Groups.php:742
+#, php-format
+msgid "%1$s atualizou o grupo “%2$s”: %3$s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:811
+#, php-format
+msgid "%1$s entrou no grupo “%2$s”."
+msgstr ""
+
+#: includes/Notifications/Groups.php:415
+#, php-format
+msgid "%1$s registrou a reclamação #%2$d no grupo “%3$s”."
+msgstr ""
+
+#. 1: group title, 2: quantity, 3: payment details
+#: includes/Notifications/Groups.php:1037
+#, php-format
+msgid "%1$s — %2$d cotas (%3$s)"
+msgstr ""
+
+#: includes/Woo/Hooks.php:812
+msgid "%d cota"
+msgid_plural "%d cotas"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/profile-network.php:54
+msgid "%d grupo em comum"
+msgid_plural "%d grupos em comum"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/credits.php:218 templates/profile-credit-history.php:221
+msgid "%d movimento"
+msgid_plural "%d movimentos"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/group-modal-detail.php:79
+msgid "%d participante"
+msgid_plural "%d participantes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Front/Ajax.php:789
+msgid "%d vaga restante"
+msgid_plural "%d vagas restantes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/dashboard.php:702
+#, php-format
+msgid "%s cota ativa"
+msgid_plural "%s cotas ativas"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/statement.php:117
+#, php-format
+msgid "%s cota selecionada"
+msgid_plural "%s cotas selecionadas"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/dashboard.php:903
+#, php-format
+msgid "%s membro ativo"
+msgid_plural "%s membros ativos"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/dashboard.php:954
+#, php-format
+msgid "%s participante"
+msgid_plural "%s participantes"
+msgstr[0] ""
+msgstr[1] ""
+
+#. %s: percentage of paid quotas
+#: templates/quota-grid.php:84
+#, php-format
+msgid "%s%% das cotas já foram pagas."
+msgstr ""
+
+#: templates/admin-groups.php:150
+msgid "(Sem título)"
+msgstr ""
+
+#: includes/Front/Ajax.php:786
+msgid "1 vaga restante"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:631
+msgid "2 TB de armazenamento e VPN Google para a família."
+msgstr ""
+
+#: includes/Installer.php:239
+msgid "A cada minuto"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:73
+msgid "A equipe Juntaplay vai avaliar se o grupo cumpre todos os requisitos."
+msgstr ""
+
+#: templates/dashboard.php:876
+#, php-format
+msgid "A partir de %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:223
+#, php-format
+msgid "A recarga de R$ %s foi estornada e o saldo ajustado."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:75
+msgid "A reclamação foi encerrada após análise da equipe JuntaPlay."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:69
+msgid "A reclamação foi resolvida e os créditos envolvidos foram liberados."
+msgstr ""
+
+#: includes/Admin/Importer.php:137
+msgid ""
+"A senha padrão utilizada para todos os perfis de exemplo é JuntaPlay#2024. "
+"Execute apenas em ambientes de testes."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:86
+msgid "Aberta"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:81
+#, php-format
+msgid "Aberta em %s"
+msgstr ""
+
+#: templates/profile-complaints.php:76
+msgid "Abertas"
+msgstr ""
+
+#: templates/dashboard.php:429 templates/header-bar.php:123
+msgid "Abrir notificações"
+msgstr ""
+
+#: templates/profile-complaints.php:97
+msgid "Abrir nova reclamação"
+msgstr ""
+
+#: templates/header-bar.php:100
+msgid "Abrir opções da conta"
+msgstr ""
+
+#: templates/profile-complaints.php:134
+msgid "Abrir primeira reclamação"
+msgstr ""
+
+#: includes/Notifications/Groups.php:347
+msgid "Abrir reclamação no painel"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:212
+msgid "Aceitar proposta"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:203
+msgid "Aceitar proposta do administrador"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1243
+msgid "Acessar agora"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:497 includes/Front/CheckoutThankYou.php:383
+msgid "Acessar meu painel"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1120
+msgid "Acessar Meus Grupos"
+msgstr ""
+
+#: templates/dashboard.php:582
+msgid "Acesse as tarefas mais importantes sem sair do painel."
+msgstr ""
+
+#: includes/Notifications/Groups.php:627
+msgid ""
+"Acesse o painel do JuntaPlay para gerenciar convites e acompanhar as cotas."
+msgstr ""
+
+#: templates/dashboard.php:977
+msgid "Acesse rapidamente as áreas de perfil, segurança e preferências."
+msgstr ""
+
+#: templates/auth/modal.php:190
+msgid "Acesse sua conta"
+msgstr ""
+
+#: templates/auth/login.php:192
+msgid ""
+"Acesse sua conta para acompanhar campanhas, reservar cotas e gerenciar seus "
+"pedidos com facilidade."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1259
+#, php-format
+msgid "Acesso ao grupo %s"
+msgstr ""
+
+#: templates/groups-directory.php:85
+msgid "Acesso imediato"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:480
+msgid "Acesso individual, não compartilhar prints públicos."
+msgstr ""
+
+#: templates/group-modal-detail.php:188
+msgid "Acesso instantâneo"
+msgstr ""
+
+#: templates/group-modal-edit.php:140
+msgid "Acesso instantâneo ativado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:886
+msgid "acesso instantâneo ativado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:887
+msgid "acesso instantâneo desativado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:120 includes/Notifications/Groups.php:168
+#, php-format
+msgid "Acesso instantâneo: %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:411
+msgid "Acesso liberado automaticamente após a aprovação."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:744
+msgid "Acesso restrito."
+msgstr ""
+
+#: includes/Notifications/Groups.php:853
+#, php-format
+msgid "acesso será entregue por %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:556
+msgid "Acesso somente pessoal. Não divulgar login."
+msgstr ""
+
+#: templates/admin-groups.php:189
+#, php-format
+msgid "Acesso: %s"
+msgstr ""
+
+#: templates/dashboard.php:463
+msgid "Acessos rápidos"
+msgstr ""
+
+#: includes/Notifications/Credits.php:124
+#: includes/Notifications/Credits.php:250
+msgid "Acompanhar no painel"
+msgstr ""
+
+#: templates/profile.php:454
+msgid "Acompanhe a sua rede de participantes."
+msgstr ""
+
+#: templates/dashboard.php:678
+msgid "Acompanhe as campanhas em que você já participa."
+msgstr ""
+
+#: templates/profile-credit-history.php:223
+msgid "Acompanhe entradas, saídas e ajustes da sua carteira."
+msgstr ""
+
+#: templates/profile-credit-history.php:267
+msgid "Acompanhe o status das suas retiradas."
+msgstr ""
+
+#: templates/credits.php:343
+msgid "Acompanhe o status das suas solicitações de retirada recentes."
+msgstr ""
+
+#: templates/dashboard.php:221
+msgid "Acompanhe pagamentos, extratos e saldos."
+msgstr ""
+
+#: templates/credits.php:61
+msgid "Acompanhe saldos, recargas e retiradas em tempo real."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:378
+msgid "Acompanhe todos os jogos da temporada regular e playoffs."
+msgstr ""
+
+#: includes/Notifications/Groups.php:569
+#, php-format
+msgid "Acordo registrado por %1$s: %2$s"
+msgstr ""
+
+#: templates/dashboard.php:158 templates/credits.php:130
+#: templates/credits.php:386 templates/profile-credit-history.php:86
+#: templates/profile-credit-history.php:172 templates/checkout/deposit.php:35
+msgid "Adicionar créditos"
+msgstr ""
+
+#: templates/profile-avatar.php:53
+msgid "Adicionar ou atualizar foto"
+msgstr ""
+
+#: templates/terms.php:6
+msgid ""
+"Adicione aqui seus termos, condições e regras de participação nas campanhas."
+msgstr ""
+
+#: templates/profile-avatar.php:41
+msgid "Adicione, atualize ou remova sua foto de perfil usando as ações abaixo."
+msgstr ""
+
+#: templates/profile-complaints.php:126 templates/dashboard.php:377
+#: templates/profile-complaint-detail.php:143
+msgid "Administrador"
+msgstr ""
+
+#: includes/Notifications/Groups.php:738
+msgid "Administrador do grupo"
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:44
+msgid "Administrador não responde ou sumiu"
+msgstr ""
+
+#: templates/dashboard.php:841
+msgid "Administrados por você"
+msgstr ""
+
+#: includes/Notifications/Groups.php:802
+msgid ""
+"Agora você pode acompanhar as instruções do administrador na área Meus "
+"Grupos."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1080
+msgid ""
+"Agora é só aguardar: o administrador do grupo vai compartilhar os dados de "
+"acesso por e-mail e na área “Meus grupos”."
+msgstr ""
+
+#: templates/dashboard.php:756
+msgid "Aguardando liberação da equipe financeira."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:173
+msgid "Ainda não existem interações registradas neste ticket."
+msgstr ""
+
+#: templates/auth/login.php:354
+msgid "Ainda não possui conta?"
+msgstr ""
+
+#: templates/profile.php:660
+msgid "Ajuda"
+msgstr ""
+
+#: includes/Front/Ajax.php:674
+msgid "Ajuste de saldo"
+msgstr ""
+
+#: templates/profile.php:702
+msgid "Ajuste senha e autenticação 2FA"
+msgstr ""
+
+#: includes/Woo/Hooks.php:151
+msgid "Algumas cotas escolhidas não estão mais disponíveis."
+msgstr ""
+
+#: templates/email/reservation-expired.php:32
+msgid "Algumas cotas ficaram livres novamente por falta de pagamento."
+msgstr ""
+
+#: includes/Front/Ajax.php:422
+msgid "Algumas cotas já foram reservadas. Atualize e tente novamente."
+msgstr ""
+
+#: includes/Admin/Importer.php:98
+msgid ""
+"Alguns grupos foram ignorados por já existirem ou por falta do responsável."
+msgstr ""
+
+#: templates/profile.php:150
+msgid "Alterar"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:417 includes/Data/Groups.php:70
+msgid "Amigos"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:290
+msgid "Analista de cibersegurança focada em privacidade digital."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:184
+msgid "Anexar arquivos (opcional)"
+msgstr ""
+
+#: includes/Notifications/Groups.php:317
+msgid "Anexos enviados:"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:93
+msgid "Anexos iniciais"
+msgstr ""
+
+#: templates/group-relationship.php:147
+msgid ""
+"Ao continuar você confirma que possui o vínculo indicado e que cumprirá as "
+"regras do serviço."
+msgstr ""
+
+#: templates/header-bar.php:136
+msgid "Apagar notificações"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:240
+msgid "Apaixonada por cinema independente e estreias semanais."
+msgstr ""
+
+#: templates/admin-groups.php:221
+msgid "Aplicar"
+msgstr ""
+
+#: templates/pool-list.php:62 templates/quota-grid.php:114
+msgid "Aplicar filtros"
+msgstr ""
+
+#: templates/dashboard.php:751
+msgid "Aplique em novas participações."
+msgstr ""
+
+#: includes/Admin/Settings.php:190
+msgid "App ID do Facebook"
+msgstr ""
+
+#: includes/Admin/Settings.php:192
+msgid "App secret do Facebook"
+msgstr ""
+
+#: includes/Data/Groups.php:957
+msgid "Aprovado"
+msgstr ""
+
+#: templates/admin-groups.php:28
+msgid "Aprovados (%d)"
+msgstr ""
+
+#: templates/admin-groups.php:123
+msgid "Aprovar"
+msgstr ""
+
+#: templates/admin-groups.php:135
+msgid "Aprovar novamente"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:277
+msgid ""
+"Após enviar vamos validar com um código de 2 fatores para manter sua "
+"comunidade segura."
+msgstr ""
+
+#: includes/Admin/Settings.php:103
+msgid ""
+"Após esse tempo, cotas reservadas e não pagas serão liberadas "
+"automaticamente."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1200
+#, php-format
+msgid "Aqui estão os dados de acesso do grupo %s."
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:370 templates/auth/two-factor.php:43
+msgid ""
+"Aqui, cada ideia conecta pessoas, e cada comunidade impulsiona resultados."
+msgstr ""
+
+#: templates/dashboard.php:373 includes/Data/Groups.php:959
+msgid "Arquivado"
+msgstr ""
+
+#: templates/admin-groups.php:30
+msgid "Arquivados (%d)"
+msgstr ""
+
+#: templates/admin-groups.php:129 templates/admin-groups.php:136
+msgid "Arquivar"
+msgstr ""
+
+#: templates/email/reservation-expired.php:15
+msgid ""
+"As cotas abaixo expiraram e voltaram para o estoque por falta de pagamento:"
+msgstr ""
+
+#: includes/Front/Auth.php:419
+msgid "As senhas informadas não coincidem."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:217
+msgid ""
+"Assim que o administrador enviar uma proposta, você poderá avaliá-la por "
+"aqui."
+msgstr ""
+
+#: templates/checkout/deposit.php:136
+msgid ""
+"Assim que o pagamento for aprovado, adicionaremos automaticamente os "
+"créditos na sua conta e enviaremos uma confirmação por e-mail."
+msgstr ""
+
+#: templates/dashboard.php:413 templates/header-bar.php:62
+#: templates/profile.php:785 templates/profile-avatar.php:20
+msgid "assinante"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1019
+#, php-format
+msgid "assinatura %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1129
+msgid "Assinatura confirmada!"
+msgstr ""
+
+#: includes/Woo/GroupsProduct.php:78
+msgid "Assinatura de grupo"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:205
+#, php-format
+msgid "Assinatura por cota: %s"
+msgstr ""
+
+#: includes/Woo/Hooks.php:840
+msgid "Assinaturas"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1052
+#, php-format
+msgid "Assinaturas: %s"
+msgstr ""
+
+#: templates/dashboard.php:982
+msgid "Atalhos da conta"
+msgstr ""
+
+#: templates/profile.php:829
+msgid "Atalhos do perfil"
+msgstr ""
+
+#: templates/dashboard.php:768
+msgid "Atalhos financeiros"
+msgstr ""
+
+#: templates/dashboard.php:581 templates/profile.php:920
+msgid "Atalhos rápidos"
+msgstr ""
+
+#: templates/admin-groups.php:191 includes/Notifications/Groups.php:82
+msgid "Ativado"
+msgstr ""
+
+#: includes/Admin/Settings.php:113
+msgid "Ativar SMTP"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:513
+msgid "Ativação em até 24 horas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:487
+msgid "Ativação em até 4 horas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:588
+msgid "Ativação manual em até 12 horas."
+msgstr ""
+
+#: templates/groups-directory.php:106
+msgid "Ative o JavaScript para explorar e filtrar os grupos disponíveis."
+msgstr ""
+
+#: templates/group-search-results.php:78
+msgid "Ative o JavaScript para visualizar os resultados da pesquisa de grupos."
+msgstr ""
+
+#: templates/dashboard.php:371
+msgid "Ativo"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:84
+#, php-format
+msgid "Atualizada em %s"
+msgstr ""
+
+#: templates/statement.php:60
+#, php-format
+msgid "Atualizado em %s"
+msgstr ""
+
+#: templates/dashboard.php:740
+#, php-format
+msgid "Atualizado há %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:683
+msgid ""
+"Atualizamos o status do seu grupo para análise novamente. Em breve "
+"entraremos em contato."
+msgstr ""
+
+#: templates/credits.php:259
+msgid "Atualizar"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:150
+msgid "Atualização"
+msgstr ""
+
+#: includes/Notifications/Groups.php:753
+#, php-format
+msgid "Atualizações no grupo “%s”"
+msgstr ""
+
+#: templates/dashboard.php:190
+msgid "Atualize informações da conta e preferências."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:186
+#, php-format
+msgid "Até %1$d arquivo de até %2$s MB."
+msgid_plural "Até %1$d arquivos de até %2$s MB cada."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Setup/DemoSeeder.php:505
+msgid "Audiobooks e podcasts originais para ouvir offline."
+msgstr ""
+
+#. 1: user display name, 2: user email
+#: includes/Notifications/Mailer.php:131
+#, php-format
+msgid "Autor: %1$s (%2$s)"
+msgstr ""
+
+#: includes/Front/Auth.php:1107
+msgid "Autorização cancelada pelo provedor."
+msgstr ""
+
+#: templates/dashboard.php:413 templates/header-bar.php:145
+#: templates/profile.php:790
+#, php-format
+msgid "Avatar de %s"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:514
+msgid "Avisaremos assim que a validação estiver concluída."
+msgstr ""
+
+#: includes/Admin/Groups.php:136
+msgid "Ação não suportada para o status atual."
+msgstr ""
+
+#: templates/admin-groups.php:77
+msgid "Ações"
+msgstr ""
+
+#: templates/dashboard.php:579
+msgid "Ações rápidas"
+msgstr ""
+
+#: templates/my-groups.php:71
+msgid "Ações rápidas de grupos"
+msgstr ""
+
+#: templates/header-bar.php:151
+msgid "Bem-vindo"
+msgstr ""
+
+#. %1$s: customer name, %2$s: primary item
+#: templates/checkout/thankyou.php:58
+#, php-format
+msgid ""
+"Bem-vindo(a) ao grupo %2$s, %1$s! Agora é só acessar o painel para começar a "
+"participar."
+msgstr ""
+
+#: templates/auth/login.php:197
+msgid "Bem-vindo(a)!"
+msgstr ""
+
+#: templates/dashboard.php:746
+msgid "Bloqueado em compras em andamento."
+msgstr ""
+
+#: includes/Data/Pools.php:29
+msgid "Bolões e rifas"
+msgstr ""
+
+#: includes/Support/SupportChannel.php:31
+msgid "Brasil"
+msgstr ""
+
+#: templates/group-search-results.php:73
+msgid "Buscando grupos..."
+msgstr ""
+
+#: templates/group-search-hero.php:16 includes/Front/Shortcodes.php:132
+msgid "Buscar"
+msgstr ""
+
+#: templates/pool-list.php:26
+msgid "Buscar campanha"
+msgstr ""
+
+#: templates/admin-groups.php:58
+msgid "Buscar grupo"
+msgstr ""
+
+#: templates/groups-directory.php:58
+msgid "Buscar grupos"
+msgstr ""
+
+#: templates/quota-grid.php:103
+msgid "Buscar número ou intervalo"
+msgstr ""
+
+#: templates/admin-groups.php:59
+msgid "Buscar por nome ou criador"
+msgstr ""
+
+#: templates/credits.php:229
+msgid "Bônus"
+msgstr ""
+
+#: templates/dashboard.php:749 templates/profile-credit-history.php:75
+msgid "Bônus disponível"
+msgstr ""
+
+#: includes/Front/Ajax.php:671
+msgid "Bônus promocional"
+msgstr ""
+
+#: templates/credits.php:109
+#, php-format
+msgid "Bônus válido até %s"
+msgstr ""
+
+#: templates/pool-single.php:42
+#, php-format
+msgid "Cada cota custa %s"
+msgstr ""
+
+#: templates/credits.php:163 templates/profile-credit-history.php:120
+msgid "Cadastre uma chave Pix ou uma conta bancária para habilitar os saques."
+msgstr ""
+
+#: templates/header-bar.php:75 templates/header-bar.php:79
+#: templates/header-bar.php:108 templates/header-bar.php:112
+#: templates/auth/modal.php:197
+msgid "Cadastre-se"
+msgstr ""
+
+#: templates/my-quotas.php:33 templates/my-quotas.php:46
+#: templates/admin-groups.php:74
+msgid "Campanha"
+msgstr ""
+
+#: templates/dashboard.php:648 templates/pool-single.php:40
+msgid "Campanha ativa"
+msgstr ""
+
+#: includes/Woo/ProductType.php:18
+msgid "Campanha JuntaPlay"
+msgstr ""
+
+#: templates/pool-single.php:83 templates/quota-grid.php:11
+#: includes/Front/Rest.php:44
+msgid "Campanha não encontrada."
+msgstr ""
+
+#: templates/dashboard.php:631
+msgid "Campanhas alinhadas ao seu perfil e prontas para entrar."
+msgstr ""
+
+#. Description of the plugin
+msgid "Campanhas com cotas integradas ao WooCommerce e Elementor."
+msgstr ""
+
+#: templates/group-modal-edit.php:115
+msgid "Canal de suporte"
+msgstr ""
+
+#: includes/Notifications/Groups.php:843
+#, php-format
+msgid "canal de suporte atualizado para %s"
+msgstr ""
+
+#: templates/my-quotas.php:24 templates/statement.php:43
+msgid "Cancelada"
+msgstr ""
+
+#: includes/Front/Ajax.php:682
+msgid "Cancelado"
+msgstr ""
+
+#: templates/group-modal-edit.php:197 templates/credits.php:423
+#: templates/profile.php:275 templates/profile-credit-history.php:209
+msgid "Cancelar"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:729
+msgid "Capa demo JuntaPlay"
+msgstr ""
+
+#: templates/group-modal-edit.php:181 templates/group-modal-detail.php:17
+#: includes/Data/Groups.php:1109
+msgid "Capa do grupo"
+msgstr ""
+
+#: includes/Admin/Settings.php:79
+msgid "Cards na vitrine de grupos"
+msgstr ""
+
+#: templates/groups-directory.php:101
+msgid "Carregando grupos..."
+msgstr ""
+
+#: templates/dashboard.php:455 templates/header-bar.php:133
+msgid "Carregando notificações..."
+msgstr ""
+
+#: templates/pool-list.php:71
+msgid "Carregar mais campanhas"
+msgstr ""
+
+#: templates/profile-credit-history.php:254
+msgid "Carregar mais movimentações"
+msgstr ""
+
+#: templates/credits.php:333
+msgid "Carregar mais movimentos"
+msgstr ""
+
+#: templates/profile.php:708
+msgid "Carteira"
+msgstr ""
+
+#: templates/dashboard.php:236
+msgid "Carteira e créditos"
+msgstr ""
+
+#: templates/profile.php:437
+msgid "Carteira e extrato"
+msgstr ""
+
+#: templates/dashboard.php:731
+msgid "Carteira e pagamentos"
+msgstr ""
+
+#: includes/Notifications/Credits.php:246
+msgid ""
+"Caso o pagamento tenha sido realizado, o estorno será processado pelo mesmo "
+"meio utilizado."
+msgstr ""
+
+#: templates/group-modal-edit.php:130 templates/groups-directory.php:63
+#: templates/pool-list.php:30 templates/group-search-hero.php:30
+#: templates/group-search-hero.php:37 templates/group-modal-detail.php:122
+msgid "Categoria"
+msgstr ""
+
+#. %s: category label
+#: templates/admin-groups.php:176 templates/group-search-results.php:33
+#: includes/Notifications/Groups.php:96 includes/Notifications/Groups.php:167
+#, php-format
+msgid "Categoria: %s"
+msgstr ""
+
+#: templates/group-rotator.php:65
+msgid "Categorias anteriores"
+msgstr ""
+
+#: includes/Woo/Hooks.php:847 includes/Woo/Checkout.php:394
+msgid "Caução"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1022
+#, php-format
+msgid "caução %s"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:208
+#, php-format
+msgid "Caução por participante: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1056
+#, php-format
+msgid "Caução: %s"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:129
+#: templates/checkout/thankyou-groups.php:236
+msgid "Central de ajuda"
+msgstr ""
+
+#: templates/profile.php:468
+msgid "Centralize as reclamações e acompanhe o andamento dos tickets."
+msgstr ""
+
+#: includes/Admin/Settings.php:176
+msgid "Client ID do Google"
+msgstr ""
+
+#: includes/Admin/Settings.php:178
+msgid "Client secret do Google"
+msgstr ""
+
+#: includes/Notifications/Groups.php:295
+msgid "Cliente"
+msgstr ""
+
+#: includes/Notifications/Groups.php:309
+#, php-format
+msgid "Cliente: %1$s (ID %2$d)"
+msgstr ""
+
+#: templates/quota-grid.php:143
+msgid "Clique para adicionar ou remover números."
+msgstr ""
+
+#: templates/dashboard.php:378
+msgid "Co-administrador"
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:43
+msgid "Cobrança incorreta ou duplicada"
+msgstr ""
+
+#: includes/Admin/Settings.php:201
+msgid "Cole abaixo trechos adicionais de CSS que serão carregados após o tema."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:260
+msgid "Colecionador de revistas e audiobooks digitais."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:419 includes/Data/Groups.php:71
+msgid "Colegas de trabalho"
+msgstr ""
+
+#: includes/Admin/Importer.php:117
+msgid ""
+"Colunas esperadas: title, slug, price, quota_start, quota_end, category "
+"(opcional), excerpt, thumbnail_id, is_featured."
+msgstr ""
+
+#: templates/profile-complaints.php:91
+msgid "Como administrador"
+msgstr ""
+
+#: templates/profile-complaints.php:87
+msgid "Como participante"
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:396 templates/auth/two-factor.php:48
+msgid "Compartilhar"
+msgstr ""
+
+#: templates/group-modal-detail.php:226
+msgid "Compartilhar anúncio"
+msgstr ""
+
+#: templates/group-modal-detail.php:268
+msgid "Compartilhar no Facebook"
+msgstr ""
+
+#: templates/group-modal-detail.php:254
+msgid "Compartilhar no Telegram"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:269
+msgid "Compartilhe detalhes que ajudam a aprovação mais rápida."
+msgstr ""
+
+#: includes/Front/Ajax.php:672
+msgid "Compra de cotas"
+msgstr ""
+
+#: templates/statement.php:93
+msgid "Comprar cotas"
+msgstr ""
+
+#: templates/credits.php:227
+msgid "Compras"
+msgstr ""
+
+#: templates/dashboard.php:211
+msgid "Comunicações"
+msgstr ""
+
+#: templates/profile.php:453
+msgid "Comunidade"
+msgstr ""
+
+#: templates/dashboard.php:828
+msgid "Comunidades e grupos"
+msgstr ""
+
+#: includes/Front/Ajax.php:683
+msgid "Concluído"
+msgstr ""
+
+#: templates/profile-network.php:19
+msgid "Conexões"
+msgstr ""
+
+#: includes/Front/Auth.php:1066
+msgid "Configuração do provedor ausente. Informe as credenciais no painel."
+msgstr ""
+
+#: templates/dashboard.php:189 templates/admin-panel.php:9
+#: templates/profile.php:404 includes/Admin/Menu.php:40
+#: includes/Admin/Menu.php:41
+msgid "Configurações"
+msgstr ""
+
+#: includes/Admin/Settings.php:66
+msgid "Configurações do JuntaPlay"
+msgstr ""
+
+#: includes/Front/Auth.php:514
+msgid ""
+"Configure um e-mail ou telefone válido para receber o código de verificação."
+msgstr ""
+
+#: includes/Front/Ajax.php:799
+msgid "Confira"
+msgstr ""
+
+#: templates/group-search-results.php:60
+msgid ""
+"Confira abaixo os grupos que combinam com a sua pesquisa e escolha qual "
+"participar."
+msgstr ""
+
+#: templates/group-modal-detail.php:52
+msgid "Confira este grupo na JuntaPlay."
+msgstr ""
+
+#: templates/group-modal-detail.php:51
+#, php-format
+msgid "Confira o grupo %s na JuntaPlay."
+msgstr ""
+
+#: templates/auth/two-factor.php:132
+msgid "Confirmar acesso"
+msgstr ""
+
+#: templates/modal-2fa.php:34 includes/Forms/CreateGroupForm.php:75
+msgid "Confirmar código"
+msgstr ""
+
+#: templates/credits.php:208 templates/profile-credit-history.php:164
+msgid "Confirmar retirada"
+msgstr ""
+
+#: templates/auth/modal.php:299 templates/auth/login.php:308
+msgid "Confirmar senha"
+msgstr ""
+
+#: templates/checkout/thankyou.php:87
+msgid "Confirmação da assinatura JuntaPlay"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1126
+#, php-format
+msgid "Confirmação da compra — %s"
+msgstr ""
+
+#: templates/checkout/thankyou.php:87
+msgid "Confirmação da recarga de saldo JuntaPlay"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:361
+msgid "Confirmação em até 12 horas úteis."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:690
+msgid "Confirmação instantânea com recibo PDF."
+msgstr ""
+
+#: includes/Notifications/Groups.php:258
+msgid "Confirme o e-mail do grupo"
+msgstr ""
+
+#: templates/modal-2fa.php:13
+msgid "Confirme o envio para análise"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:445
+msgid "Confirme o relacionamento exigido para continuar."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:451
+msgid "Confirme que está ciente das condições antes de prosseguir."
+msgstr ""
+
+#: includes/Front/Auth.php:424
+msgid "Confirme que leu e aceita os termos para continuar."
+msgstr ""
+
+#: includes/Front/Auth.php:798 templates/auth/two-factor.php:88
+msgid "Confirme seu acesso"
+msgstr ""
+
+#. %s: group/service title
+#: templates/group-relationship.php:172
+#, php-format
+msgid ""
+"Confirmo estar ciente de que a plataforma JuntaPlay não possui vínculo com o "
+"serviço %s e concordo com os termos do grupo e da plataforma."
+msgstr ""
+
+#: templates/group-relationship.php:177
+msgid ""
+"Confirmo estar ciente de que a plataforma JuntaPlay não é afiliada ao "
+"serviço contratado e concordo com os termos do grupo e da plataforma."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1193
+#, php-format
+msgid ""
+"Conforme solicitado, aqui estão novamente os dados de acesso do grupo %s."
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:397 templates/auth/two-factor.php:49
+msgid "Construir"
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:369 templates/auth/two-factor.php:42
+msgid "Construímos pontes entre conhecimento, propósito e prosperidade."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:210
+msgid "Conta administrativa de demonstração para aprovação de grupos."
+msgstr ""
+
+#: templates/credits.php:190 templates/profile-credit-history.php:147
+msgid "Conta bancária"
+msgstr ""
+
+#: templates/credits.php:68 templates/my-groups.php:35
+#, php-format
+msgid "Conta vinculada: %s"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:504
+msgid "Conte conosco para criar experiências incríveis em grupo."
+msgstr ""
+
+#: elementor/Widgets/WidgetQuotaGrid.php:36
+#: elementor/Widgets/WidgetPoolList.php:36
+#: elementor/Widgets/WidgetPoolHero.php:36
+msgid "Conteúdo"
+msgstr ""
+
+#: templates/profile.php:111
+msgid "Conteúdo indisponível no momento."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:555
+msgid "Conteúdos exclusivos de saúde, bem-estar e alimentação balanceada."
+msgstr ""
+
+#: templates/dashboard.php:212
+msgid "Controle notificações e e-mails."
+msgstr ""
+
+#: templates/dashboard.php:732
+msgid "Controle seus créditos, retiradas e pagamentos em um só lugar."
+msgstr ""
+
+#: templates/profile.php:433
+msgid "Controle sua carteira, preferências e dados bancários."
+msgstr ""
+
+#: templates/dashboard.php:843
+msgid "Convide novos membros e mantenha o status em dia."
+msgstr ""
+
+#: includes/Notifications/Groups.php:630
+msgid ""
+"Convide participantes e mantenha o grupo atualizado para garantir o melhor "
+"desempenho."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:639
+msgid "Convite em até 1 hora."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:613
+msgid "Convite enviado automaticamente."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:436
+msgid "Convite enviado em até 2 horas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:437
+msgid "Convite família com endereço compartilhado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:336
+msgid "Convite família via e-mail cadastrado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:614
+msgid "Convite por e-mail com domínio verificado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:488
+msgid "Convite por e-mail com usuário dedicado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:589
+msgid "Convite por e-mail corporativo."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:362
+msgid "Convite por e-mail e senha compartilhada."
+msgstr ""
+
+#: templates/group-modal-detail.php:275 templates/group-modal-detail.php:283
+msgid "Copiar link"
+msgstr ""
+
+#: templates/group-modal-detail.php:223
+msgid "Copiar resumo"
+msgstr ""
+
+#: includes/Admin/Settings.php:73
+msgid "Cor principal (hex)"
+msgstr ""
+
+#: templates/my-quotas.php:34 templates/my-quotas.php:47
+msgid "Cota"
+msgstr ""
+
+#: templates/dashboard.php:650
+#, php-format
+msgid "Cota a partir de %s"
+msgstr ""
+
+#: templates/admin-groups.php:170
+#, php-format
+msgid "Cota por membro: R$ %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:105
+#, php-format
+msgid "Cota sugerida por membro: R$ %s"
+msgstr ""
+
+#: templates/statement.php:124
+msgid "Cotas adquiridas"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:691
+msgid "Cotas digitais com comprovante individual."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:682
+msgid "Cotas digitais para o maior concurso do ano com conferência automática."
+msgstr ""
+
+#: templates/dashboard.php:446 templates/dashboard.php:556
+msgid "Cotas pagas"
+msgstr ""
+
+#: templates/quota-grid.php:142
+msgid "Cotas selecionadas"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:202
+#, php-format
+msgid "Cotas selecionadas: %s"
+msgstr ""
+
+#: templates/profile.php:695
+msgid "CPF/CNPJ e endereço de faturamento"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:666
+msgid "Credenciais compartilhadas com OTP rotativo."
+msgstr ""
+
+#: templates/pool-list.php:50
+msgid "Crescente"
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:398 templates/auth/two-factor.php:50
+msgid "Crescer"
+msgstr ""
+
+#: includes/Admin/Importer.php:134
+msgid ""
+"Cria usuários fictícios, grupos populares (YouTube Premium, Spotify, Canva, "
+"ExpressVPN e outros) e relacionamentos para testar buscas e aprovações."
+msgstr ""
+
+#: templates/admin-groups.php:76
+msgid "Criado em"
+msgstr ""
+
+#: templates/statement.php:57
+#, php-format
+msgid "Criado em %s"
+msgstr ""
+
+#: templates/admin-groups.php:72
+msgid "Criador"
+msgstr ""
+
+#: templates/auth/modal.php:334 templates/auth/login.php:205
+#: templates/auth/login.php:345
+msgid "Criar conta"
+msgstr ""
+
+#: includes/Admin/Importer.php:142
+msgid "Criar dados de demonstração"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:239
+msgid "Criar grupo"
+msgstr ""
+
+#: templates/auth/modal.php:96 templates/auth/modal.php:103
+#: templates/auth/login.php:96 templates/auth/login.php:103
+msgid "Criar uma Conta"
+msgstr ""
+
+#: includes/Admin/Settings.php:130
+msgid "Criptografia"
+msgstr ""
+
+#: templates/profile.php:634
+msgid "Créditos"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1030
+#, php-format
+msgid "créditos -%s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:161
+#: includes/Notifications/Credits.php:195
+msgid "Créditos adicionados com sucesso"
+msgstr ""
+
+#: includes/Woo/Checkout.php:255
+msgid "Créditos ativos"
+msgstr ""
+
+#: includes/Notifications/Credits.php:192
+#, php-format
+msgid "Créditos confirmados — %s"
+msgstr ""
+
+#: includes/Woo/Hooks.php:861
+msgid "Créditos utilizados"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:214
+#, php-format
+msgid "Créditos utilizados: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1064
+#, php-format
+msgid "Créditos utilizados: -%s"
+msgstr ""
+
+#: includes/Admin/Settings.php:200
+msgid "CSS Personalizado"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:230
+msgid "Curador de playlists e experiências de áudio em alta fidelidade."
+msgstr ""
+
+#: includes/Data/Pools.php:32 includes/Data/Groups.php:47
+msgid "Cursos e educação"
+msgstr ""
+
+#: includes/Woo/Checkout.php:390
+msgid "Custos de Processamento"
+msgstr ""
+
+#: includes/Woo/Hooks.php:854
+msgid "Custos de processamento"
+msgstr ""
+
+#: includes/Admin/Settings.php:87
+msgid "Custos de processamento (R$)"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1060
+#: templates/checkout/thankyou-groups.php:211
+#, php-format
+msgid "Custos de processamento: %s"
+msgstr ""
+
+#: templates/credits.php:194 templates/profile-credit-history.php:151
+msgid "Código de confirmação"
+msgstr ""
+
+#: includes/Notifications/Groups.php:242
+#, php-format
+msgid "Código de validação de e-mail — %s"
+msgstr ""
+
+#: templates/modal-2fa.php:17 templates/auth/two-factor.php:114
+msgid "Código de verificação"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:29
+msgid "Código de verificação Juntaplay"
+msgstr ""
+
+#: includes/Front/Auth.php:767
+#, php-format
+msgid "Código de verificação — %s"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:195
+msgid "Código do país"
+msgstr ""
+
+#: includes/Front/Ajax.php:504
+msgid "Código enviado com sucesso."
+msgstr ""
+
+#: templates/credits.php:199 templates/profile-credit-history.php:156
+#, php-format
+msgid "Código enviado para %s"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:70 includes/Ajax/TwoFactor.php:85
+#: includes/Ajax/TwoFactor.php:101 includes/Ajax/TwoFactor.php:109
+#: includes/Ajax/TwoFactor.php:113
+msgid "Código inválido ou expirado. Solicite um novo código."
+msgstr ""
+
+#: includes/Front/Auth.php:721
+msgid "Código inválido. Verifique e tente novamente."
+msgstr ""
+
+#: includes/Front/Ajax.php:974
+msgid "d/m/Y \\à\\s H\\hi"
+msgstr ""
+
+#: templates/dashboard.php:976
+msgid "Dados da conta"
+msgstr ""
+
+#: includes/Notifications/Groups.php:895
+msgid "dados de acesso atualizados"
+msgstr ""
+
+#: templates/group-modal-edit.php:146
+msgid "Dados de acesso compartilhado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1256
+#, php-format
+msgid "Dados de acesso do grupo — %s"
+msgstr ""
+
+#: includes/Admin/Importer.php:78
+msgid "Dados de demonstração criados com sucesso."
+msgstr ""
+
+#: templates/profile.php:416 templates/profile.php:694
+msgid "Dados fiscais"
+msgstr ""
+
+#: includes/Front/Ajax.php:412
+msgid "Dados insuficientes para reservar cotas."
+msgstr ""
+
+#: templates/profile.php:409
+msgid "Dados pessoais"
+msgstr ""
+
+#: templates/admin-panel.php:7
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Woo/Hooks.php:882
+msgid "Data"
+msgstr ""
+
+#: templates/checkout/thankyou.php:393
+msgid "Data da compra"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:360
+#, php-format
+msgid "Data da compra: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:994
+#, php-format
+msgid "Data: %s"
+msgstr ""
+
+#: templates/pool-list.php:49
+msgid "Decrescente"
+msgstr ""
+
+#: includes/Front/Auth.php:415
+msgid "Defina uma senha com pelo menos 6 caracteres."
+msgstr ""
+
+#: templates/dashboard.php:237
+msgid "Depósitos, bônus e retiradas."
+msgstr ""
+
+#: templates/admin-groups.php:191 includes/Notifications/Groups.php:82
+msgid "Desativado"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:210
+msgid "Descreva como o acordo será concluído ou se há novas orientações."
+msgstr ""
+
+#: templates/group-modal-detail.php:208
+msgid "Descrição do grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:136 includes/Notifications/Groups.php:336
+#: includes/Notifications/Groups.php:386
+#, php-format
+msgid "Descrição enviada: %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:78
+msgid "Descrição para os participantes"
+msgstr ""
+
+#: includes/Notifications/Groups.php:202
+#, php-format
+msgid "Descrição: %s"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:200
+msgid "Descubra grupos com vagas agora"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:270
+msgid ""
+"Designer que administra ferramentas de produtividade para equipes remotas."
+msgstr ""
+
+#: templates/dashboard.php:231
+msgid "Detalhe dos pagamentos aprovados."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:182
+msgid "Detalhe o andamento, negociações ou anexos que deseja compartilhar."
+msgstr ""
+
+#: templates/credits.php:435 templates/profile-credit-history.php:303
+msgid "Detalhes da movimentação"
+msgstr ""
+
+#: templates/checkout/thankyou.php:84
+msgid "Detalhes da recarga"
+msgstr ""
+
+#: templates/pool-list.php:47
+msgid "Direção"
+msgstr ""
+
+#: templates/dashboard.php:656 templates/pool-single.php:47
+#: templates/quota-grid.php:59 templates/quota-grid.php:95
+msgid "Disponíveis"
+msgstr ""
+
+#: templates/quota-grid.php:96
+msgid "Disponíveis e reservadas"
+msgstr ""
+
+#: templates/my-quotas.php:21 templates/statement.php:40
+msgid "Disponível"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:327
+msgid "Divida música e vídeos sem anúncios com até 6 perfis no mesmo plano."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:506
+msgid "Download liberado para uso pessoal. Não compartilhar arquivos ripados."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:183 templates/auth/modal.php:289
+#: templates/auth/login.php:298
+msgid "E-mail"
+msgstr ""
+
+#: templates/auth/two-factor.php:25
+msgid "E-mail cadastrado"
+msgstr ""
+
+#: includes/Woo/Hooks.php:898 templates/checkout/thankyou.php:399
+msgid "E-mail de contato"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:222
+msgid "E-mail de suporte"
+msgstr ""
+
+#: templates/auth/modal.php:227 templates/auth/login.php:235
+msgid "E-mail ou usuário"
+msgstr ""
+
+#: templates/dashboard.php:426
+msgid "Editar perfil"
+msgstr ""
+
+#: includes/Notifications/Groups.php:216
+msgid "Ele está em análise e avisaremos assim que for aprovado."
+msgstr ""
+
+#: includes/Front/Auth.php:779
+msgid "Ele expira em %d minuto."
+msgid_plural "Ele expira em %d minutos."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/my-quotas.php:64
+msgid "Em aberto"
+msgstr ""
+
+#: templates/dashboard.php:370 includes/Data/Groups.php:960
+#: includes/Data/GroupComplaints.php:79
+msgid "Em análise"
+msgstr ""
+
+#: templates/admin-groups.php:27
+msgid "Em análise (%d)"
+msgstr ""
+
+#: templates/checkout/deposit.php:121
+msgid "Em caso de dúvidas, fale com nosso time de suporte."
+msgstr ""
+
+#: templates/checkout/deposit.php:117
+#, php-format
+msgid "Em caso de dúvidas, fale com nosso time em %s."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:73
+msgid "Encerrada"
+msgstr ""
+
+#: templates/groups-directory.php:52
+msgid ""
+"Encontre grupos ativos criados pela comunidade, compare valores e solicite "
+"participação com poucos cliques."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:429
+msgid "Endereço cadastrado único. Perfis com nome e avatar personalizado."
+msgstr ""
+
+#: includes/Front/Ajax.php:254
+msgid "Endereço de acesso"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1170
+#, php-format
+msgid "Endereço: %s"
+msgstr ""
+
+#: templates/dashboard.php:199
+msgid "Endereços"
+msgstr ""
+
+#. %s: customer email
+#: templates/checkout/thankyou.php:348
+#, php-format
+msgid ""
+"Enquanto isso, fique de olho no e-mail <strong>%s</strong>. Nós também "
+"enviaremos a confirmação por lá."
+msgstr ""
+
+#: includes/Front/Ajax.php:669
+msgid "Entrada de créditos"
+msgstr ""
+
+#: templates/credits.php:226
+msgid "Entradas"
+msgstr ""
+
+#: templates/header-bar.php:71 templates/header-bar.php:104
+#: includes/Front/Shortcodes.php:701 includes/Front/Shortcodes.php:722
+#: templates/auth/modal.php:194 templates/auth/modal.php:251
+#: templates/auth/login.php:202 templates/auth/login.php:259
+msgid "Entrar"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:366 includes/Front/Shortcodes.php:894
+msgid "Entrar agora"
+msgstr ""
+
+#: templates/auth/modal.php:95 templates/auth/login.php:95
+msgid "Entrar com Facebook"
+msgstr ""
+
+#: templates/auth/modal.php:102 templates/auth/login.php:102
+msgid "Entrar com Google"
+msgstr ""
+
+#: templates/header-bar.php:85
+msgid "Entrar para ver notificações"
+msgstr ""
+
+#: includes/Notifications/Groups.php:654
+msgid "Entre em contato com o suporte para ajustar o cadastro do grupo."
+msgstr ""
+
+#: includes/Notifications/Groups.php:649
+msgid "Entre em contato com o suporte para mais detalhes."
+msgstr ""
+
+#: templates/auth/login.php:191
+msgid "Entre, crie. Compartilhe e curta."
+msgstr ""
+
+#: includes/Notifications/Groups.php:114
+#, php-format
+msgid "Entrega do acesso: %s"
+msgstr ""
+
+#: templates/dashboard.php:200
+msgid "Entrega e cobrança."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:665
+msgid "Entrega manual em até 6 horas."
+msgstr ""
+
+#: templates/admin-groups.php:186
+#, php-format
+msgid "Entrega: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1203
+msgid "Enviamos automaticamente as credenciais do seu novo grupo."
+msgstr ""
+
+#: includes/Front/Auth.php:783
+#, php-format
+msgid "Enviamos para: %s"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:32
+msgid ""
+"Enviamos um código de 6 dígitos para confirmar o envio do seu grupo para "
+"análise."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:68 includes/Ajax/TwoFactor.php:70
+msgid ""
+"Enviamos um código de 6 dígitos para o seu e-mail. Digite-o para confirmar o "
+"envio para análise."
+msgstr ""
+
+#: templates/auth/two-factor.php:89
+#, php-format
+msgid ""
+"Enviamos um código de verificação para %1$s (%2$s). Digite abaixo para "
+"finalizar o login."
+msgstr ""
+
+#: templates/auth/two-factor.php:106
+msgid "Enviamos um novo código. Verifique seu contato."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:67
+msgid "Enviando código…"
+msgstr ""
+
+#: templates/credits.php:133 templates/profile-credit-history.php:89
+msgid "Enviar código de confirmação"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:190
+msgid "Enviar mensagem"
+msgstr ""
+
+#: templates/group-modal-detail.php:240
+msgid "Enviar no WhatsApp"
+msgstr ""
+
+#: templates/auth/two-factor.php:144
+msgid "Enviar novo código"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:274 includes/Forms/CreateGroupForm.php:252
+msgid "Enviar para análise"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:192
+msgid "Enviar proposta"
+msgstr ""
+
+#: templates/group-modal-edit.php:191
+msgid "Envie uma imagem JPG ou PNG com proporção semelhante a 495 x 370 px."
+msgstr ""
+
+#: includes/Notifications/Groups.php:190
+#, php-format
+msgid "Envio de acesso: %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:538
+msgid "Envio em até 3 horas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:335
+msgid "Envio imediato após confirmação do pagamento."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:143
+#: includes/Front/GroupCreation.php:503
+msgid "Equipe JuntaPlay"
+msgstr ""
+
+#: templates/profile-avatar.php:61
+msgid ""
+"Escolha uma imagem JPG, PNG ou WEBP de até 5MB e clique em \"Salvar foto de "
+"perfil\"."
+msgstr ""
+
+#: templates/group-modal-edit.php:188
+msgid "Escolher imagem"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:181
+msgid "Escreva sua mensagem"
+msgstr ""
+
+#: includes/Data/Pools.php:34 includes/Data/Groups.php:49
+msgid "Escritório e produtividade"
+msgstr ""
+
+#: includes/Support/SupportChannel.php:43
+msgid "Espanha"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:220
+msgid "Especialista em planos de streaming e vídeos on-line."
+msgstr ""
+
+#: templates/auth/modal.php:241 templates/auth/login.php:249
+msgid "Esqueci minha senha"
+msgstr ""
+
+#: templates/group-modal-edit.php:169
+msgid ""
+"Essas notas ajudam você a lembrar combinações, datas de troca ou suporte "
+"adicional."
+msgstr ""
+
+#: templates/checkout/thankyou.php:50
+msgid ""
+"Esse processo leva apenas alguns instantes. Assim que tudo estiver "
+"confirmado nós mostraremos os próximos passos aqui mesmo."
+msgstr ""
+
+#: includes/Support/SupportChannel.php:49
+msgid "Estados Unidos"
+msgstr ""
+
+#: includes/Notifications/Groups.php:405
+msgid "Estamos analisando sua reclamação"
+msgstr ""
+
+#: templates/checkout/thankyou.php:86
+msgid "Estamos atualizando seu saldo automaticamente…"
+msgstr ""
+
+#: includes/Notifications/Groups.php:406
+#, php-format
+msgid "Estamos avaliando sua solicitação sobre o grupo %s."
+msgstr ""
+
+#: templates/auth/modal.php:269 templates/auth/login.php:278
+msgid ""
+"Estamos com novas contas fechadas no momento. Entre em contato com nossa "
+"equipe para solicitar acesso."
+msgstr ""
+
+#: includes/Notifications/Credits.php:134
+msgid "Estamos processando sua retirada"
+msgstr ""
+
+#: templates/checkout/thankyou.php:338
+msgid "Estamos quase lá!"
+msgstr ""
+
+#: templates/checkout/thankyou.php:86
+msgid "Estamos redirecionando automaticamente…"
+msgstr ""
+
+#: includes/Notifications/Groups.php:679
+msgid "Estamos revisando novamente o cadastro."
+msgstr ""
+
+#: templates/checkout/thankyou.php:49
+msgid ""
+"Estamos validando as informações do seu pedido e preparando a ativação da "
+"sua assinatura."
+msgstr ""
+
+#: templates/checkout/thankyou.php:45
+msgid ""
+"Estamos validando os dados da sua recarga e atualizando o saldo da sua "
+"carteira."
+msgstr ""
+
+#: includes/Front/Auth.php:711
+msgid "Este código expirou. Solicitamos um novo automaticamente."
+msgstr ""
+
+#: includes/Front/Auth.php:411
+msgid ""
+"Este e-mail já está cadastrado. Faça login ou utilize a recuperação de senha."
+msgstr ""
+
+#. %s: relationship label
+#: templates/group-relationship.php:69
+#, php-format
+msgid ""
+"Este grupo aceita apenas participantes com relacionamento de %s com o "
+"administrador."
+msgstr ""
+
+#: templates/quota-grid.php:104
+msgid "Ex.: 10-50"
+msgstr ""
+
+#: templates/group-modal-edit.php:165
+msgid ""
+"Ex.: Atualizamos a senha a cada 30 dias. Confira o e-mail para novos dados."
+msgstr ""
+
+#: templates/admin-groups.php:125 templates/admin-groups.php:131
+#: templates/admin-groups.php:138 templates/admin-groups.php:144
+msgid "Excluir permanentemente"
+msgstr ""
+
+#: elementor/Widgets/WidgetPoolList.php:40
+msgid "Exibir busca"
+msgstr ""
+
+#: includes/Admin/Settings.php:155
+msgid "Exigir autenticação"
+msgstr ""
+
+#: templates/my-quotas.php:25 templates/statement.php:44
+msgid "Expirada"
+msgstr ""
+
+#: templates/dashboard.php:153
+msgid "Explorar campanhas"
+msgstr ""
+
+#: templates/groups-directory.php:51
+msgid "Explore grupos e campanhas compartilhadas"
+msgstr ""
+
+#: templates/statement.php:52 includes/Front/Shortcodes.php:848
+msgid "Extrato"
+msgstr ""
+
+#: templates/dashboard.php:230
+msgid "Extrato de cotas"
+msgstr ""
+
+#: templates/dashboard.php:176
+msgid "Extrato e pagamentos"
+msgstr ""
+
+#: includes/Admin/Settings.php:184
+msgid "Facebook"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:416 includes/Data/Groups.php:69
+msgid "Família"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:640
+msgid "Família Google com compartilhamento imediato."
+msgstr ""
+
+#: templates/profile.php:648
+msgid "Faturas"
+msgstr ""
+
+#: includes/Front/Ajax.php:214
+msgid "Faça login para acessar os dados deste grupo."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:893
+msgid "Faça login para acessar seu painel."
+msgstr ""
+
+#: includes/Front/Ajax.php:547
+msgid "Faça login para adicionar créditos."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:365
+msgid "Faça login para atualizar seus dados."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:111
+msgid "Faça login para criar um grupo."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:721
+msgid "Faça login para gerenciar seus grupos."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:120
+msgid "Faça login para ver suas cotas."
+msgstr ""
+
+#: includes/Front/Ajax.php:574
+msgid "Faça login para ver suas notificações."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:244
+msgid "Faça login para visualizar seu extrato."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:700
+msgid "Faça login para visualizar seus créditos."
+msgstr ""
+
+#: templates/pool-list.php:17
+msgid "Faça sua pesquisa"
+msgstr ""
+
+#: templates/email/reservation-expired.php:23
+msgid "Faça uma nova reserva para garantir sua participação."
+msgstr ""
+
+#: templates/groups-directory.php:133 templates/dashboard.php:458
+#: templates/header-bar.php:137 templates/credits.php:387
+#: templates/my-groups.php:185 templates/profile-credit-history.php:173
+#: templates/group-search-results.php:104 templates/group-rotator.php:119
+#: includes/Front/Auth.php:1501 includes/Front/Auth.php:1528
+#: includes/Forms/CreateGroupForm.php:74 templates/auth/modal-wrapper.php:31
+msgid "Fechar"
+msgstr ""
+
+#: templates/profile.php:893
+msgid "Fechar menu"
+msgstr ""
+
+#: templates/modal-2fa.php:10
+msgid "Fechar modal"
+msgstr ""
+
+#: includes/Data/Pools.php:37 includes/Data/Groups.php:52
+msgid "Ferramentas de IA"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:605
+msgid "Ferramentas premium de design com bibliotecas compartilhadas."
+msgstr ""
+
+#: templates/admin-groups.php:61
+msgid "Filtrar"
+msgstr ""
+
+#: templates/group-rotator.php:64
+msgid "Filtrar categorias de grupos"
+msgstr ""
+
+#: templates/groups-directory.php:90
+msgid "Filtrar grupos"
+msgstr ""
+
+#: templates/admin-groups.php:51
+msgid "Filtrar por status"
+msgstr ""
+
+#: templates/credits.php:234
+msgid "Filtrar por tipo de movimentação"
+msgstr ""
+
+#: templates/profile-complaints.php:74
+msgid "Filtrar reclamações"
+msgstr ""
+
+#: templates/profile-complaints.php:79
+msgid "Finalizadas"
+msgstr ""
+
+#: templates/checkout/deposit.php:36
+msgid "Finalize sua recarga de créditos"
+msgstr ""
+
+#: templates/dashboard.php:220 templates/dashboard.php:327
+#: templates/profile.php:432
+msgid "Financeiro"
+msgstr ""
+
+#: templates/group-modal-detail.php:182
+msgid "Forma de acesso"
+msgstr ""
+
+#: includes/Notifications/Groups.php:117 includes/Notifications/Groups.php:194
+#, php-format
+msgid "Forma de acesso: %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:123
+msgid "Forma de entrega"
+msgstr ""
+
+#: includes/Woo/Hooks.php:890 templates/checkout/thankyou.php:396
+msgid "Forma de pagamento"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1001
+#: includes/Front/CheckoutThankYou.php:363
+#, php-format
+msgid "Forma de pagamento: %s"
+msgstr ""
+
+#: templates/credits.php:187 templates/profile-credit-history.php:144
+msgid "Forma de recebimento"
+msgstr ""
+
+#: templates/checkout/deposit.php:54
+msgid "Formulário de checkout seguro"
+msgstr ""
+
+#: includes/Admin/Settings.php:117
+msgid "Forçar envio via SMTP configurado abaixo."
+msgstr ""
+
+#: templates/profile-avatar.php:23
+#, php-format
+msgid "Foto de perfil de %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:44
+msgid "Funções de usuário do WordPress indisponíveis."
+msgstr ""
+
+#: templates/dashboard.php:563
+msgid "Garanta a compra antes do prazo expirar."
+msgstr ""
+
+#: includes/Admin/Settings.php:69
+msgid "Gerais"
+msgstr ""
+
+#: includes/Admin/Importer.php:127
+msgid "Gerar Páginas Padrão"
+msgstr ""
+
+#: includes/Admin/Importer.php:123
+msgid "Gerar/Recriar Páginas com Shortcodes"
+msgstr ""
+
+#: templates/dashboard.php:910
+msgid "Gerenciar grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:634
+msgid "Gerenciar meu grupo"
+msgstr ""
+
+#: includes/Notifications/Credits.php:85
+msgid "Gerenciar retiradas"
+msgstr ""
+
+#: templates/dashboard.php:243
+msgid "Gerencie cartões e Pix."
+msgstr ""
+
+#: templates/profile.php:405
+msgid "Gerencie dados pessoais, fiscais e de segurança da sua conta."
+msgstr ""
+
+#: templates/profile.php:730
+msgid "Gerencie e acompanhe campanhas"
+msgstr ""
+
+#: templates/dashboard.php:829
+msgid ""
+"Gerencie os grupos que você administra e acompanhe as participações em "
+"andamento."
+msgstr ""
+
+#: templates/profile-complaints.php:72
+msgid "Gerencie tickets como participante ou administrador."
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:368 templates/auth/two-factor.php:40
+msgid "Gestão inteligente para um futuro compartilhado."
+msgstr ""
+
+#: includes/Admin/Settings.php:170
+msgid "Google"
+msgstr ""
+
+#: templates/admin-groups.php:71 templates/profile-complaint-detail.php:71
+#: includes/Notifications/Groups.php:60 includes/Notifications/Groups.php:284
+#: includes/Notifications/Groups.php:452 includes/Notifications/Groups.php:509
+#: includes/Notifications/Groups.php:599 includes/Notifications/Groups.php:739
+#: includes/Notifications/Groups.php:794 includes/Notifications/Groups.php:1010
+#: includes/Notifications/Groups.php:1153
+msgid "Grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:156
+msgid "Grupo aguardando aprovação"
+msgstr ""
+
+#: includes/Front/Ajax.php:198
+msgid "Grupo atualizado com sucesso."
+msgstr ""
+
+#: includes/Front/Ajax.php:780
+msgid "Grupo completo"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:194
+msgid "Grupo confirmado"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:389
+msgid ""
+"Grupo criado com sucesso! Revise os dados e envie para análise quando "
+"estiver pronto."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:92
+msgid "Grupo enviado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:267
+msgid "Grupo enviado para análise"
+msgstr ""
+
+#: includes/Admin/Groups.php:126
+msgid "Grupo excluído permanentemente."
+msgstr ""
+
+#: includes/Front/Ajax.php:182 includes/Front/Ajax.php:210
+#: includes/Ajax/TwoFactor.php:35
+msgid "Grupo inválido."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:412
+msgid "Grupo não encontrado ou indisponível no momento."
+msgstr ""
+
+#: includes/Front/Ajax.php:138 includes/Front/Ajax.php:226
+#: includes/Front/Ajax.php:323 includes/Admin/Groups.php:116
+msgid "Grupo não encontrado."
+msgstr ""
+
+#: templates/group-modal-detail.php:74
+msgid "Grupo sem nome"
+msgstr ""
+
+#: templates/group-modal-detail.php:194
+msgid "Grupo vinculado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:307 includes/Notifications/Groups.php:364
+#, php-format
+msgid "Grupo: %s"
+msgstr ""
+
+#: includes/Admin/Groups.php:48
+msgid "Grupos"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:191
+msgid "Grupos confirmados"
+msgstr ""
+
+#: templates/admin-groups.php:40 includes/Admin/Groups.php:47
+msgid "Grupos do JuntaPlay"
+msgstr ""
+
+#: templates/profile-network.php:23
+msgid "Grupos em comum"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:91
+msgid "Grupos enviados"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1094
+msgid "Grupos incluídos neste pedido"
+msgstr ""
+
+#: templates/dashboard.php:919
+msgid "Grupos que participo"
+msgstr ""
+
+#: templates/dashboard.php:846
+msgid "Grupos que você segue"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1237
+msgid ""
+"Guarde essas informações e, se algo estiver incorreto, fale com o "
+"administrador do grupo."
+msgstr ""
+
+#: includes/Admin/Settings.php:159
+msgid "Habilitar autenticação SMTP (recomendado)"
+msgstr ""
+
+#: templates/dashboard.php:225
+msgid "Histórico de compras e notas."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:127
+msgid "Histórico de mensagens"
+msgstr ""
+
+#: includes/Admin/Settings.php:122
+msgid "Host"
+msgstr ""
+
+#: elementor/Widgets/WidgetQuotaGrid.php:40
+#: elementor/Widgets/WidgetPoolHero.php:40
+msgid "ID da Campanha"
+msgstr ""
+
+#: templates/group-relationship.php:36
+msgid ""
+"Ideal para quem já compartilha o mesmo lar e quer dividir as assinaturas com "
+"praticidade."
+msgstr ""
+
+#: includes/Admin/Menu.php:32
+msgid "Importar"
+msgstr ""
+
+#: includes/Admin/Menu.php:31
+msgid "Importar & Gerar Páginas"
+msgstr ""
+
+#: templates/admin-panel.php:8
+msgid "Importar Campanhas"
+msgstr ""
+
+#: includes/Admin/Importer.php:110
+msgid "Importar Campanhas via CSV"
+msgstr ""
+
+#: includes/Admin/Importer.php:118
+msgid "Importar CSV"
+msgstr ""
+
+#: includes/Admin/Importer.php:69
+msgid "Importação e Páginas Automáticas"
+msgstr ""
+
+#: templates/dashboard.php:838
+msgid "Inclui grupos criados e que você participa."
+msgstr ""
+
+#: templates/statement.php:68
+msgid "Informações do pedido"
+msgstr ""
+
+#: templates/profile.php:688
+msgid "Informações pessoais e contato"
+msgstr ""
+
+#: includes/Hooks/SaveGroupMeta.php:80
+msgid "Informe a senha compartilhada."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:161
+msgid "Informe a senha ou código de acesso compartilhado."
+msgstr ""
+
+#: includes/Hooks/SaveGroupMeta.php:60
+msgid "Informe a URL de acesso compartilhado."
+msgstr ""
+
+#: templates/group-modal-edit.php:147
+msgid ""
+"Informe como os participantes entrarão no serviço após a confirmação da "
+"compra."
+msgstr ""
+
+#: includes/Front/Auth.php:188
+msgid "Informe e-mail/usuário e senha para continuar."
+msgstr ""
+
+#: includes/Notifications/Groups.php:254
+msgid ""
+"Informe este código apenas dentro do painel do JuntaPlay. Caso você não "
+"tenha solicitado a criação deste grupo, ignore esta mensagem."
+msgstr ""
+
+#: includes/Front/Auth.php:700
+msgid "Informe o código recebido para continuar."
+msgstr ""
+
+#: elementor/Widgets/WidgetPoolHero.php:43
+msgid ""
+"Informe o ID da campanha ou deixe 0 para detectar automaticamente em páginas "
+"de produto."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:216
+msgid ""
+"Informe o número com DDI e DDD. Será visível apenas para participantes "
+"aprovados."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:153
+msgid "Informe o serviço que será compartilhado."
+msgstr ""
+
+#: includes/Hooks/SaveGroupMeta.php:70
+msgid "Informe o usuário compartilhado."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:157
+msgid "Informe o usuário ou e-mail de acesso compartilhado."
+msgstr ""
+
+#: includes/Front/Auth.php:403
+msgid "Informe seu nome completo."
+msgstr ""
+
+#: templates/group-relationship.php:73
+msgid ""
+"Informe seu vínculo com o administrador antes de continuar para o checkout."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:399 includes/Hooks/SaveGroupMeta.php:124
+msgid "Informe um e-mail de suporte válido."
+msgstr ""
+
+#: includes/Support/SupportChannel.php:104
+msgid "Informe um e-mail válido para suporte."
+msgstr ""
+
+#: includes/Front/Auth.php:407
+msgid "Informe um e-mail válido."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:144
+msgid "Informe um nome para o grupo."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:398 includes/Hooks/SaveGroupMeta.php:132
+msgid "Informe um número de WhatsApp válido com DDI e DDD."
+msgstr ""
+
+#: includes/Support/SupportChannel.php:133
+msgid "Informe um número de WhatsApp válido."
+msgstr ""
+
+#: includes/Woo/Hooks.php:127
+msgid "Informe um valor válido para a recarga de créditos."
+msgstr ""
+
+#: templates/admin-groups.php:191
+#, php-format
+msgid "Instantâneo: %s"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:231
+msgid "Ir para Meus Grupos"
+msgstr ""
+
+#: templates/dashboard.php:831
+msgid "Ir para Meus grupos"
+msgstr ""
+
+#: templates/checkout/thankyou.php:85
+msgid "Ir para meus grupos"
+msgstr ""
+
+#: templates/credits.php:420 templates/profile-credit-history.php:206
+msgid "Ir para o pagamento"
+msgstr ""
+
+#: templates/checkout/thankyou.php:46
+msgid ""
+"Isso leva apenas alguns instantes. Assim que tudo estiver confirmado nós "
+"mostraremos os próximos passos aqui mesmo."
+msgstr ""
+
+#: templates/quota-grid.php:147
+msgid "itens"
+msgstr ""
+
+#: templates/checkout/thankyou.php:84
+msgid "Itens confirmados"
+msgstr ""
+
+#: elementor/Widgets/WidgetQuotaGrid.php:46
+msgid "Itens por página"
+msgstr ""
+
+#: includes/Data/Pools.php:36 includes/Data/Groups.php:51
+msgid "Jogos e esportes"
+msgstr ""
+
+#: templates/profile.php:399
+msgid "Jogue com a gente"
+msgstr ""
+
+#: templates/profile-avatar.php:29
+msgid "JP"
+msgstr ""
+
+#: includes/Admin/Menu.php:20 includes/Admin/Menu.php:21
+#: templates/auth/two-factor.php:85
+msgid "JuntaPlay"
+msgstr ""
+
+#: includes/Admin/Menu.php:55
+msgid "JuntaPlay — Dashboard"
+msgstr ""
+
+#. Name of the plugin
+msgid "JuntaPlay — Gestão de Cotas"
+msgstr ""
+
+#: elementor/Widgets/WidgetPoolHero.php:20
+msgid "JuntaPlay — Hero da Campanha"
+msgstr ""
+
+#: elementor/Widgets/WidgetPoolList.php:20
+msgid "JuntaPlay — Lista de Campanhas"
+msgstr ""
+
+#: elementor/Widgets/WidgetQuotaGrid.php:20
+msgid "JuntaPlay — Seletor de Cotas"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:194
+msgid "JuntaPlay • Transformando conhecimento em comunidades vibrantes."
+msgstr ""
+
+#: includes/Data/Pools.php:33 includes/Data/Groups.php:48
+msgid "Leitura e revistas"
+msgstr ""
+
+#: templates/auth/modal.php:239 templates/auth/login.php:247
+msgid "Lembrar-me"
+msgstr ""
+
+#. %s: terms link
+#: templates/auth/modal.php:310 templates/auth/login.php:319
+#, php-format
+msgid ""
+"Li e concordo com os <a href=\"%s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">Termos de uso</a>."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:563
+msgid "Liberação automática após pagamento."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:386
+msgid "Liberação em até 6 horas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:462
+msgid "Liberação em até 8 horas."
+msgstr ""
+
+#: includes/Data/Pools.php:40 includes/Data/Groups.php:55
+msgid "Lifestyle e clubes"
+msgstr ""
+
+#: templates/groups-directory.php:91 templates/admin-groups.php:64
+msgid "Limpar filtros"
+msgstr ""
+
+#: templates/group-modal-detail.php:276
+msgid "Link copiado!"
+msgstr ""
+
+#: templates/group-modal-edit.php:72 includes/Front/GroupCreation.php:253
+msgid "Link do serviço (opcional)"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:479
+#, php-format
+msgid "Link do serviço: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:863
+msgid "link oficial foi atualizado"
+msgstr ""
+
+#: templates/group-modal-detail.php:82
+#, php-format
+msgid "Link público: %s"
+msgstr ""
+
+#: includes/Front/Ajax.php:262
+msgid "Login"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:564
+msgid "Login compartilhado com autenticação em duas etapas."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:539
+msgid "Login individual com senha rotativa."
+msgstr ""
+
+#: templates/group-modal-edit.php:154
+msgid "Login ou e-mail"
+msgstr ""
+
+#: includes/Front/Auth.php:1494
+msgid "Login realizado com sucesso. Você pode fechar esta janela."
+msgstr ""
+
+#: includes/Front/Auth.php:1497 includes/Front/Auth.php:1524
+#: includes/Admin/Settings.php:166
+msgid "Login social"
+msgstr ""
+
+#: includes/Front/Auth.php:951 includes/Front/Auth.php:1005
+msgid "Login social indisponível no momento."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1174
+#, php-format
+msgid "Login: %s"
+msgstr ""
+
+#: templates/pool-list.php:43
+msgid "Maior adesão"
+msgstr ""
+
+#: templates/quota-grid.php:110
+msgid "Maior número"
+msgstr ""
+
+#: templates/groups-directory.php:77
+msgid "Maior preço"
+msgstr ""
+
+#: templates/profile-network.php:74
+msgid "mais %d grupo em comum"
+msgid_plural "mais %d grupos em comum"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/groups-directory.php:78
+msgid "Mais participantes"
+msgstr ""
+
+#: templates/groups-directory.php:75 templates/pool-list.php:41
+msgid "Mais recentes"
+msgstr ""
+
+#: templates/group-relationship.php:37
+msgid ""
+"Mantenha a organização da família em dia com acesso fácil para todo mundo."
+msgstr ""
+
+#: templates/dashboard.php:242
+msgid "Meios de pagamento"
+msgstr ""
+
+#: templates/profile.php:824
+#, php-format
+msgid "Membro desde %s"
+msgstr ""
+
+#: templates/admin-groups.php:75
+msgid "Membros"
+msgstr ""
+
+#: templates/quota-grid.php:109
+msgid "Menor número"
+msgstr ""
+
+#: templates/groups-directory.php:76 templates/pool-list.php:42
+msgid "Menor preço"
+msgstr ""
+
+#: templates/admin-groups.php:220
+msgid "Mensagem ao criador (opcional)"
+msgstr ""
+
+#: includes/Notifications/Groups.php:871
+#, php-format
+msgid "mensalidade por participante: %s"
+msgstr ""
+
+#: templates/profile.php:891
+msgid "Menu do usuário"
+msgstr ""
+
+#: includes/Data/Pools.php:39 includes/Data/Groups.php:54
+msgid "Mercado e delivery"
+msgstr ""
+
+#: templates/dashboard.php:193
+msgid "Meu perfil"
+msgstr ""
+
+#: templates/credits.php:65 includes/Front/Shortcodes.php:833
+msgid "Meus créditos"
+msgstr ""
+
+#: templates/profile.php:687
+msgid "Meus dados"
+msgstr ""
+
+#: templates/dashboard.php:166 templates/dashboard.php:332
+#: templates/dashboard.php:855 templates/my-groups.php:32
+#: templates/profile.php:729 includes/Front/Shortcodes.php:838
+msgid "Meus grupos"
+msgstr ""
+
+#: templates/dashboard.php:337 templates/header-bar.php:163
+#: templates/profile.php:818
+msgid "Minha conta"
+msgstr ""
+
+#: templates/profile.php:458 templates/profile.php:735
+msgid "Minha rede"
+msgstr ""
+
+#: templates/dashboard.php:171 includes/Front/Shortcodes.php:843
+msgid "Minhas cotas"
+msgstr ""
+
+#: includes/Data/Groups.php:68
+msgid "Moramos juntos"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:74
+msgid "Motivo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:653
+#, php-format
+msgid "Motivo informado pela moderação: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:649
+#, php-format
+msgid "Motivo informado: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:365
+#, php-format
+msgid "Motivo selecionado: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:308
+#, php-format
+msgid "Motivo: %s"
+msgstr ""
+
+#: templates/profile-credit-history.php:220
+msgid "Movimentações recentes"
+msgstr ""
+
+#: templates/statement.php:74
+msgid "Método de pagamento"
+msgstr ""
+
+#: includes/Notifications/Credits.php:102
+#, php-format
+msgid "Método escolhido: %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:72
+#, php-format
+msgid "Método: %s"
+msgstr ""
+
+#: includes/Data/Pools.php:31 includes/Data/Groups.php:46
+msgid "Música e áudio"
+msgstr ""
+
+#: templates/statement.php:127
+msgid "N/A"
+msgstr ""
+
+#: includes/Notifications/Groups.php:123 includes/Notifications/Groups.php:206
+msgid "Nenhum detalhe adicional informado."
+msgstr ""
+
+#: templates/groups-directory.php:97
+msgid "Nenhum grupo corresponde aos filtros selecionados."
+msgstr ""
+
+#: templates/group-search-results.php:69
+msgid "Nenhum grupo corresponde à sua pesquisa no momento."
+msgstr ""
+
+#: templates/group-rotator.php:93
+msgid "Nenhum grupo disponível para esta categoria no momento."
+msgstr ""
+
+#: templates/admin-groups.php:83
+msgid "Nenhum grupo encontrado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:107
+msgid ""
+"Nenhum usuário administrador disponível para vincular aos grupos de exemplo."
+msgstr ""
+
+#: templates/dashboard.php:671
+msgid "Nenhuma campanha disponível no momento."
+msgstr ""
+
+#: templates/my-quotas.php:72
+msgid "Nenhuma cota encontrada."
+msgstr ""
+
+#: templates/quota-grid.php:151
+msgid "Nenhuma cota selecionada ainda."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:324
+msgid "Nenhuma cota vinculada a este pedido."
+msgstr ""
+
+#: templates/credits.php:320 templates/credits.php:323
+#: templates/profile-credit-history.php:258
+msgid "Nenhuma movimentação registrada ainda."
+msgstr ""
+
+#: includes/Notifications/Groups.php:658 includes/Notifications/Groups.php:666
+msgid "Nenhuma nova cota poderá ser reservada até que ele seja reativado."
+msgstr ""
+
+#: templates/profile-complaints.php:132
+msgid "Nenhuma reclamação encontrada para o filtro selecionado."
+msgstr ""
+
+#: templates/credits.php:378 templates/profile-credit-history.php:295
+msgid "Nenhuma solicitação de saque foi realizada."
+msgstr ""
+
+#: templates/dashboard.php:1037
+msgid "Nenhuma área de conta disponível no momento."
+msgstr ""
+
+#: includes/Front/Auth.php:386
+msgid "No momento não é possível criar novas contas."
+msgstr ""
+
+#: templates/auth/modal.php:284 templates/auth/login.php:293
+msgid "Nome completo"
+msgstr ""
+
+#: templates/group-modal-edit.php:62 includes/Front/GroupCreation.php:238
+#: includes/Forms/CreateGroupForm.php:96
+msgid "Nome do grupo"
+msgstr ""
+
+#: templates/dashboard.php:194
+msgid "Nome, CPF e dados básicos."
+msgstr ""
+
+#: templates/pool-list.php:27
+msgid "Nome, serviço ou palavra-chave"
+msgstr ""
+
+#: includes/Notifications/Groups.php:392
+msgid ""
+"Nossa equipe e o administrador foram notificados e responderão em breve."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:81
+msgid ""
+"Nossa equipe está verificando as evidências enviadas. Você receberá "
+"atualizações por e-mail."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:493
+msgid ""
+"Nossa equipe valida se todas as regras são atendidas. Assim que o processo "
+"terminar você receberá um novo e-mail com o status."
+msgstr ""
+
+#: includes/Front/Ajax.php:289
+msgid "Notas adicionais"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:159
+msgid "Notas adicionais (opcional)"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1231
+#, php-format
+msgid "Notas adicionais: %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:168
+msgid "Notas internas ou lembretes"
+msgstr ""
+
+#: templates/dashboard.php:452 templates/header-bar.php:130
+msgid "Notificações"
+msgstr ""
+
+#: includes/Notifications/Groups.php:489
+#, php-format
+msgid "Nova mensagem no ticket %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:528
+#, php-format
+msgid "Nova proposta no ticket %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:325
+#, php-format
+msgid "Nova reclamação #%1$d registrada para o grupo “%2$s”."
+msgstr ""
+
+#: includes/Notifications/Groups.php:356
+msgid "Nova reclamação de grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:419
+msgid "Nova reclamação recebida"
+msgstr ""
+
+#: includes/Notifications/Credits.php:94
+msgid "Nova retirada aguardando análise"
+msgstr ""
+
+#: includes/Notifications/Credits.php:64
+#, php-format
+msgid "Nova solicitação de retirada no valor de R$ %s."
+msgstr ""
+
+#: includes/Notifications/Groups.php:153
+#, php-format
+msgid "Novo grupo aguardando aprovação — %s"
+msgstr ""
+
+#. %s: group title
+#: includes/Notifications/Mailer.php:114
+#, php-format
+msgid "Novo grupo enviado para revisão: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:796
+msgid "Novo participante"
+msgstr ""
+
+#: includes/Notifications/Groups.php:816
+msgid "Novo participante no seu grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:83
+msgid "Não"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:328
+msgid "Não alterar senha nem idioma. Perfis identificados pelo primeiro nome."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:658
+msgid ""
+"Não compartilhar credenciais fora do grupo. Respeitar limites de "
+"dispositivos."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:354
+msgid "Não compartilhar fora do grupo. Acesso individual com e-mail."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:581
+msgid ""
+"Não compartilhar histórico sensível. Limite de 5 prompts por hora por membro."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:379
+msgid "Não compartilhar streams públicos. Cada membro usa perfil dedicado."
+msgstr ""
+
+#: includes/Front/Auth.php:1127
+msgid "Não conseguimos obter seus dados de perfil."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:632
+msgid "Não excluir arquivos de outros membros. Gerenciar pastas pelo Drive."
+msgstr ""
+
+#: includes/Admin/Groups.php:152 includes/Ajax/TwoFactor.php:127
+msgid "Não foi possível atualizar o status do grupo."
+msgstr ""
+
+#: includes/Front/Auth.php:200
+msgid "Não foi possível autenticar no momento. Tente novamente."
+msgstr ""
+
+#: templates/checkout/deposit.php:13
+msgid ""
+"Não foi possível carregar o checkout agora. Atualize a página e tente "
+"novamente."
+msgstr ""
+
+#: includes/Front/Ajax.php:170
+msgid "Não foi possível carregar o formulário de edição."
+msgstr ""
+
+#: includes/Front/Ajax.php:147
+msgid "Não foi possível carregar os detalhes do grupo."
+msgstr ""
+
+#: includes/Front/Auth.php:1189
+msgid "Não foi possível concluir o login. Tente novamente."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:400
+msgid "Não foi possível criar o grupo. Tente novamente."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:491
+msgid ""
+"Não foi possível direcionar para o checkout no momento. Tente novamente em "
+"instantes."
+msgstr ""
+
+#: includes/Front/Auth.php:546
+msgid ""
+"Não foi possível enviar o código de verificação agora. Tente novamente em "
+"instantes."
+msgstr ""
+
+#: includes/Ajax/TwoFactor.php:62
+msgid "Não foi possível enviar o código. Tente novamente em instantes."
+msgstr ""
+
+#: includes/Admin/Groups.php:124
+msgid "Não foi possível excluir o grupo."
+msgstr ""
+
+#: includes/Front/Auth.php:218
+msgid "Não foi possível gerar o código de verificação. Tente novamente."
+msgstr ""
+
+#: includes/Admin/Importer.php:105
+msgid "Não foi possível gerar os dados de demonstração."
+msgstr ""
+
+#: includes/Front/Auth.php:667 includes/Front/Auth.php:693
+msgid "Não foi possível identificar sua conta. Faça login novamente."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:199
+msgid ""
+"Não foi possível iniciar a verificação em dois fatores agora. Tente "
+"novamente em instantes."
+msgstr ""
+
+#: includes/Front/Auth.php:1083
+msgid "Não foi possível iniciar o login social."
+msgstr ""
+
+#: includes/Hooks/SaveGroupMeta.php:86
+msgid "Não foi possível proteger a senha compartilhada."
+msgstr ""
+
+#: includes/Front/Ajax.php:189
+msgid "Não foi possível salvar as alterações do grupo."
+msgstr ""
+
+#: includes/Front/Auth.php:1121
+msgid "Não foi possível validar o token de acesso."
+msgstr ""
+
+#: templates/statement.php:32 templates/profile.php:142
+#: includes/Notifications/Groups.php:165
+msgid "Não informado"
+msgstr ""
+
+#: includes/Front/Auth.php:1113
+msgid "Não recebemos o código de autorização. Tente novamente."
+msgstr ""
+
+#: includes/Front/Auth.php:1149
+msgid ""
+"Não recebemos seu e-mail do provedor. Verifique as permissões e tente "
+"novamente."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:41
+msgid "Não recebi o acesso prometido"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:606
+msgid "Não remover marcas do time. Organizar pastas por projeto."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:203
+msgid "Número com DDD"
+msgstr ""
+
+#: includes/Woo/Hooks.php:874 templates/checkout/thankyou.php:387
+msgid "Número da assinatura"
+msgstr ""
+
+#: includes/Notifications/Groups.php:988
+#, php-format
+msgid "Número da assinatura: #%s"
+msgstr ""
+
+#: templates/checkout/thankyou.php:386
+msgid "Número da recarga"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:190
+msgid "Número de WhatsApp"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:357
+#, php-format
+msgid "Número do pedido: %s"
+msgstr ""
+
+#: includes/Front/Ajax.php:306
+msgid ""
+"O administrador ainda não cadastrou os dados de acesso deste grupo. Você "
+"receberá um e-mail assim que estiverem disponíveis."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1186
+#, php-format
+msgid "O administrador atualizou os dados de acesso do grupo %s."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1189
+msgid "O administrador compartilhou novos dados de acesso."
+msgstr ""
+
+#: includes/Notifications/Groups.php:341
+msgid "O cliente não adicionou detalhes adicionais."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:42
+msgid "O conteúdo entregue está diferente do combinado"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:38
+msgid ""
+"O código expira em 10 minutos. Se não foi você quem solicitou, ignore este e-"
+"mail."
+msgstr ""
+
+#: templates/auth/two-factor.php:139
+msgid "O código expira em instantes."
+msgstr ""
+
+#: includes/Notifications/Groups.php:157
+#, php-format
+msgid "O grupo %s aguarda moderação no JuntaPlay."
+msgstr ""
+
+#: includes/Notifications/Groups.php:235
+#, php-format
+msgid "O grupo %s está aguardando aprovação."
+msgstr ""
+
+#: includes/Notifications/Groups.php:357
+#, php-format
+msgid "O grupo %s recebeu uma nova reclamação."
+msgstr ""
+
+#: includes/Notifications/Groups.php:669
+msgid ""
+"O grupo está arquivado e não pode receber novos participantes até nova "
+"liberação."
+msgstr ""
+
+#: includes/Notifications/Groups.php:619
+msgid "O grupo foi liberado para convidar participantes."
+msgstr ""
+
+#: includes/Notifications/Groups.php:686
+msgid ""
+"O grupo voltou para análise. Acompanhe sua caixa de entrada para novas "
+"orientações."
+msgstr ""
+
+#: includes/Notifications/Groups.php:662
+#, php-format
+msgid "O grupo “%s” foi arquivado pelo super administrador."
+msgstr ""
+
+#: includes/Notifications/Groups.php:645
+#, php-format
+msgid "O grupo “%s” não foi aprovado neste momento."
+msgstr ""
+
+#: includes/Notifications/Groups.php:678
+#, php-format
+msgid "O grupo “%s” voltou para análise"
+msgstr ""
+
+#: templates/group-search-hero.php:21 templates/group-search-hero.php:27
+msgid "O que você está procurando?"
+msgstr ""
+
+#: includes/Admin/Groups.php:141
+msgid "O status do grupo já está atualizado."
+msgstr ""
+
+#: includes/Notifications/Groups.php:484
+#, php-format
+msgid "O ticket %s recebeu uma nova atualização."
+msgstr ""
+
+#: includes/Notifications/Credits.php:261
+#, php-format
+msgid "O valor de R$ %s voltou para o saldo anterior."
+msgstr ""
+
+#: templates/email/order-paid.php:15
+msgid "Obrigado pela sua compra. As cotas abaixo foram confirmadas:"
+msgstr ""
+
+#: includes/Notifications/Groups.php:673
+#, php-format
+msgid "Observação: %s"
+msgstr ""
+
+#: includes/Front/Ajax.php:280
+msgid "Observações"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:209
+msgid "Observações (opcional)"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:268
+msgid "Observações para nossa equipe (opcional)"
+msgstr ""
+
+#: templates/group-modal-edit.php:164
+msgid "Observações para os participantes"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1224
+#, php-format
+msgid "Observações: %s"
+msgstr ""
+
+#: templates/profile-network.php:87
+msgid "Ocultar detalhes"
+msgstr ""
+
+#: templates/group-modal-detail.php:134
+msgid "Oferta promocional"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:340
+#, php-format
+msgid "Olá %s,"
+msgstr ""
+
+#: includes/Notifications/Credits.php:238
+#, php-format
+msgid "Olá %s, a recarga de créditos não pôde ser concluída."
+msgstr ""
+
+#: includes/Notifications/Credits.php:177
+#, php-format
+msgid "Olá %s, confirmamos a entrada de créditos na sua carteira."
+msgstr ""
+
+#: includes/Notifications/Groups.php:212
+#, php-format
+msgid "Olá %s, recebemos o seu grupo público “%s”."
+msgstr ""
+
+#: includes/Notifications/Credits.php:112
+#, php-format
+msgid "Olá %s, recebemos seu pedido de retirada."
+msgstr ""
+
+#: includes/Notifications/Groups.php:375
+#, php-format
+msgid "Olá %s, recebemos sua reclamação."
+msgstr ""
+
+#: includes/Notifications/Mailer.php:31 includes/Front/CheckoutThankYou.php:341
+msgid "Olá!"
+msgstr ""
+
+#: templates/profile.php:819
+#, php-format
+msgid "Olá, %s"
+msgstr ""
+
+#: templates/credits.php:60
+#, php-format
+msgid "Olá, %s! Acompanhe saldos, recargas e retiradas em tempo real."
+msgstr ""
+
+#: templates/my-groups.php:26
+#, php-format
+msgid "Olá, %s! Organize os grupos que você administra ou participa."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1070
+#, php-format
+msgid "Olá, %s! Recebemos o pagamento da sua assinatura no JuntaPlay."
+msgstr ""
+
+#: templates/checkout/deposit.php:40
+#, php-format
+msgid ""
+"Olá, %s! Revise as informações da recarga e conclua o pagamento em um "
+"ambiente seguro."
+msgstr ""
+
+#: templates/group-modal-detail.php:227
+msgid "Opções de compartilhamento"
+msgstr ""
+
+#: templates/quota-grid.php:107
+msgid "Ordenar"
+msgstr ""
+
+#: templates/groups-directory.php:73 templates/pool-list.php:39
+msgid "Ordenar por"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:310
+msgid "Organizadora de bolões semanais e rifas solidárias."
+msgstr ""
+
+#: templates/my-groups.php:27
+msgid "Organize os grupos que você administra ou participa."
+msgstr ""
+
+#: includes/Notifications/Groups.php:179
+#, php-format
+msgid "Os membros irão pagar: R$ %s"
+msgstr ""
+
+#: templates/auth/modal.php:210 templates/auth/login.php:218
+msgid "ou acesse com seu e-mail"
+msgstr ""
+
+#: templates/auth/modal.php:262 templates/auth/login.php:270
+msgid "ou complete seus dados para finalizar"
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:45
+msgid "Outro motivo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:81 includes/Data/Pools.php:41
+#: includes/Data/Groups.php:56
+msgid "Outros serviços"
+msgstr ""
+
+#: templates/my-quotas.php:23 templates/statement.php:42
+msgid "Paga"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:683
+msgid "Pagamento antecipado. Resultado divulgado em live exclusiva."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1130
+msgid "Pagamento aprovado e assinatura liberada."
+msgstr ""
+
+#: templates/email/order-paid.php:27
+msgid "Pagamento confirmado!"
+msgstr ""
+
+#: templates/checkout/deposit.php:48
+#, php-format
+msgid "Pagamento vinculado a %s"
+msgstr ""
+
+#: templates/profile.php:715
+msgid "Pagamentos"
+msgstr ""
+
+#: templates/dashboard.php:568
+msgid "Pagamentos e extratos em dia."
+msgstr ""
+
+#: templates/dashboard.php:710 templates/pool-single.php:55
+#: templates/quota-grid.php:67 templates/quota-grid.php:98
+msgid "Pagas"
+msgstr ""
+
+#: templates/groups-directory.php:102
+msgid "Paginação de grupos"
+msgstr ""
+
+#: templates/group-search-results.php:74
+msgid "Paginação dos resultados de grupos"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:823
+msgid "Painel"
+msgstr ""
+
+#: templates/pool-single.php:45
+msgid "Painel da campanha"
+msgstr ""
+
+#: templates/dashboard.php:416
+msgid "Painel do assinante"
+msgstr ""
+
+#: templates/admin-panel.php:5
+msgid "Painel Operacional"
+msgstr ""
+
+#: templates/group-relationship.php:39
+msgid ""
+"Para colegas que colaboram no dia a dia e precisam das mesmas ferramentas."
+msgstr ""
+
+#: includes/Notifications/Groups.php:623
+#, php-format
+msgid ""
+"Parabéns! O grupo “%s” foi aprovado e já está disponível para convidar "
+"participantes."
+msgstr ""
+
+#: templates/checkout/thankyou.php:82
+msgid "Parabéns! Sua assinatura foi ativada."
+msgstr ""
+
+#: templates/checkout/thankyou.php:82
+msgid "Parabéns, você adicionou um novo saldo!"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:420
+msgid "Parceiros de negócio"
+msgstr ""
+
+#: templates/profile-complaints.php:126 templates/dashboard.php:379
+#: templates/profile-complaint-detail.php:143
+#: includes/Notifications/Groups.php:565
+msgid "Participante"
+msgstr ""
+
+#: templates/profile.php:736
+msgid "Participantes dos seus grupos"
+msgstr ""
+
+#: templates/dashboard.php:558
+msgid "Participações confirmadas"
+msgstr ""
+
+#: templates/group-relationship.php:60
+msgid "Passo 1 de 2"
+msgstr ""
+
+#: templates/my-quotas.php:36 templates/my-quotas.php:51
+msgid "Pedido"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:87
+#, php-format
+msgid "Pedido %s"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:265
+msgid "Pedido não encontrado."
+msgstr ""
+
+#: includes/Notifications/Groups.php:313 includes/Notifications/Groups.php:369
+msgid "Pedido relacionado: #%d"
+msgstr ""
+
+#: templates/dashboard.php:224
+msgid "Pedidos"
+msgstr ""
+
+#: templates/dashboard.php:566
+msgid "Pedidos realizados"
+msgstr ""
+
+#: includes/Front/Ajax.php:681
+msgid "Pendente"
+msgstr ""
+
+#: includes/Front/Auth.php:1269
+msgid "Perdeu sua senha?"
+msgstr ""
+
+#: includes/Front/Auth.php:1267
+msgid ""
+"Perdeu sua senha? Digite seu nome de usuário ou e-mail. Você receberá um "
+"link por e-mail para criar uma nova senha."
+msgstr ""
+
+#: templates/group-relationship.php:38
+msgid ""
+"Perfeito para grupos de amigos que confiam uns nos outros e compartilham "
+"experiências."
+msgstr ""
+
+#: templates/profile.php:627 includes/Front/Shortcodes.php:828
+msgid "Perfil"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:412
+msgid "Perfis compartilhados e login único."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:463
+msgid "Perfis compartilhados no app."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:387
+msgid "Perfis individuais no aplicativo oficial."
+msgstr ""
+
+#: includes/Admin/Settings.php:188
+msgid "Permitir login com Facebook"
+msgstr ""
+
+#: includes/Admin/Settings.php:174
+msgid "Permitir login com Google"
+msgstr ""
+
+#: templates/credits.php:245
+msgid "Período"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:580
+msgid "Pesquisa avançada com IA generativa e histórico compartilhado."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:300
+msgid "Pesquisador de inteligência artificial e automações."
+msgstr ""
+
+#: templates/profile.php:654
+msgid "Pesquisar"
+msgstr ""
+
+#: templates/credits.php:255
+msgid "Pesquisar movimentações por referência ou status"
+msgstr ""
+
+#: templates/credits.php:256
+msgid "Pesquisar movimentações…"
+msgstr ""
+
+#: templates/credits.php:189 templates/profile-credit-history.php:146
+msgid "Pix cadastrado"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:428
+msgid "Plano família com mix semanal exclusivo e podcasts originais."
+msgstr ""
+
+#: includes/Admin/Importer.php:132
+msgid "Popular dados de demonstração"
+msgstr ""
+
+#: includes/Admin/Settings.php:126
+msgid "Porta"
+msgstr ""
+
+#: includes/Support/SupportChannel.php:37
+msgid "Portugal"
+msgstr ""
+
+#: templates/group-modal-detail.php:176
+msgid "Prazo de entrega"
+msgstr ""
+
+#: includes/Notifications/Groups.php:848
+#, php-format
+msgid "prazo de entrega agora é %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:119
+msgid "Prazo para liberar acesso"
+msgstr ""
+
+#. %s: help center link
+#: templates/checkout/thankyou-groups.php:128
+#, php-format
+msgid "Precisa de ajuda? Acesse a %s."
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:196
+#, php-format
+msgid "Precisa de ajuda? Fale com a gente em %s"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:505
+#, php-format
+msgid "Precisa de ajuda? Responda este e-mail ou visite %s."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:396
+msgid "Preencha todos os campos obrigatórios."
+msgstr ""
+
+#: templates/profile.php:444
+msgid "Preferências de pagamento"
+msgstr ""
+
+#: templates/profile.php:716
+msgid "Preferências e chaves Pix"
+msgstr ""
+
+#: templates/pool-list.php:58
+msgid "Preço máximo"
+msgstr ""
+
+#: templates/pool-list.php:54
+msgid "Preço mínimo"
+msgstr ""
+
+#: templates/groups-directory.php:59
+msgid "Procure por nome, serviço ou organizador"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:419
+msgid "Produto"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:250
+msgid "Professor que compartilha planos de estudo e ferramentas acadêmicas."
+msgstr ""
+
+#. %s: percentage of paid quotas
+#: templates/pool-single.php:72
+#, php-format
+msgid "Progresso das cotas pagas: %s%% concluído"
+msgstr ""
+
+#: templates/admin-groups.php:167
+#, php-format
+msgid "Promo: R$ %s"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:148
+msgid "Proposta"
+msgstr ""
+
+#: includes/Notifications/Groups.php:570
+#, php-format
+msgid "Proposta aceita por %s. Ticket finalizado."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:205
+#, php-format
+msgid "Proposta enviada: %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:106
+#: includes/Notifications/Credits.php:171
+#: includes/Notifications/Credits.php:232
+#, php-format
+msgid "Protocolo: %s"
+msgstr ""
+
+#: includes/Front/Auth.php:980
+msgid "Provedor de login inválido."
+msgstr ""
+
+#: templates/group-modal-edit.php:184
+msgid "Pré-visualização da capa do grupo"
+msgstr ""
+
+#: templates/group-rotator.php:86
+msgid "Próximas categorias"
+msgstr ""
+
+#: templates/group-relationship.php:194
+msgid "Próximo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:166
+msgid "Público"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:243
+msgid "Qual a relação com o administrador?"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1115
+msgid ""
+"Quando o administrador liberar o acesso você receberá outro e-mail "
+"automático."
+msgstr ""
+
+#: includes/Admin/Settings.php:83
+msgid ""
+"Quantidade padrão de grupos exibidos no carrossel rotativo (entre 4 e 40)."
+msgstr ""
+
+#. %s: quantity
+#: templates/checkout/thankyou-groups.php:199
+#: templates/checkout/thankyou.php:415
+#, php-format
+msgid "Quantidade: %s"
+msgstr ""
+
+#: templates/credits.php:391 templates/profile-credit-history.php:177
+msgid "Quanto você deseja adicionar?"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:418
+msgid "Quem mora junto"
+msgstr ""
+
+#: templates/admin-groups.php:142
+msgid "Reativar"
+msgstr ""
+
+#: includes/Front/Ajax.php:563
+msgid "Recarga adicionada ao carrinho."
+msgstr ""
+
+#: includes/Notifications/Credits.php:222
+msgid "Recarga cancelada"
+msgstr ""
+
+#: includes/Notifications/Credits.php:257
+#, php-format
+msgid "Recarga cancelada — %s"
+msgstr ""
+
+#: includes/Front/CheckoutDeposit.php:268 includes/Woo/ProductType.php:19
+#: includes/Woo/Credits.php:73
+msgid "Recarga de Créditos"
+msgstr ""
+
+#: templates/dashboard.php:848
+msgid "Receba avisos de novas cotas e renovações."
+msgstr ""
+
+#: includes/Notifications/Groups.php:431
+#, php-format
+msgid ""
+"Recebemos a reclamação #%1$d sobre o grupo “%2$s”. Acompanhe as próximas "
+"atualizações pelo painel."
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:344
+msgid "Recebemos a sua recarga e estamos atualizando o saldo da sua carteira."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:470
+#, php-format
+msgid "Recebemos o grupo %1$s — %2$s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1071
+msgid "Recebemos o pagamento da sua assinatura no JuntaPlay."
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:112
+msgid ""
+"Recebemos o pagamento da sua assinatura. Em instantes o administrador vai "
+"compartilhar os dados de acesso."
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:345
+msgid ""
+"Recebemos o seu pagamento e preparamos os próximos passos da sua assinatura."
+msgstr ""
+
+#: templates/auth/two-factor.php:92
+msgid ""
+"Recebemos os dados do seu grupo e nossa equipe está analisando o conteúdo "
+"compartilhado. Esse código garante que só você conclua a solicitação."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:485
+msgid ""
+"Recebemos os dados do seu novo grupo e já iniciamos a análise para liberar a "
+"comunidade."
+msgstr ""
+
+#: includes/Notifications/Groups.php:268
+#, php-format
+msgid "Recebemos seu grupo “%s”. Avisaremos quando for aprovado."
+msgstr ""
+
+#: includes/Notifications/Credits.php:162
+#, php-format
+msgid "Recebemos seu pagamento de R$ %s e seu saldo foi atualizado."
+msgstr ""
+
+#: includes/Notifications/Credits.php:196
+#, php-format
+msgid "Recebemos seu pagamento de R$ %s."
+msgstr ""
+
+#: includes/Notifications/Credits.php:54
+#, php-format
+msgid ""
+"Recebemos seu pedido de saque no valor de R$ %s. Assim que analisarmos você "
+"será notificado."
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:88
+msgid "Recebemos sua reclamação e o administrador do grupo já foi notificado."
+msgstr ""
+
+#: includes/Notifications/Groups.php:402
+#, php-format
+msgid "Recebemos sua reclamação — %s"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:186
+msgid ""
+"Recebemos sua solicitação! A equipe JuntaPlay vai avaliar se o grupo cumpre "
+"todos os requisitos e você será notificado por e-mail."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:373
+msgid ""
+"Recebemos sua solicitação! Nossa equipe vai analisar os dados enviados e "
+"você receberá um e-mail com a atualização."
+msgstr ""
+
+#: includes/Notifications/Mailer.php:69
+msgid "Recebemos sua submissão Juntaplay"
+msgstr ""
+
+#: includes/Notifications/Groups.php:353
+#, php-format
+msgid "Reclamação #%1$d registrada — %2$s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:430
+msgid "Reclamação registrada"
+msgstr ""
+
+#: templates/profile-complaints.php:71 templates/profile.php:472
+#: templates/profile.php:641 templates/profile.php:722
+msgid "Reclamações"
+msgstr ""
+
+#: templates/dashboard.php:372 includes/Data/Groups.php:958
+msgid "Recusado"
+msgstr ""
+
+#: templates/admin-groups.php:29
+msgid "Recusados (%d)"
+msgstr ""
+
+#: templates/admin-groups.php:124 templates/admin-groups.php:130
+msgid "Recusar"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:657
+msgid "Rede privada virtual com servidores em 94 países."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:475
+msgid "Redirecionando para o checkout..."
+msgstr ""
+
+#: includes/Front/Ajax.php:673
+msgid "Reembolso"
+msgstr ""
+
+#: templates/credits.php:230
+msgid "Reembolsos"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1196
+msgid "Reenvio solicitado pela área do assinante."
+msgstr ""
+
+#: templates/checkout/deposit.php:79
+msgid "Referência"
+msgstr ""
+
+#: templates/credits.php:303 includes/Notifications/Credits.php:79
+#, php-format
+msgid "Referência: %s"
+msgstr ""
+
+#: templates/pool-list.php:18
+msgid ""
+"Refine por categoria, preço ou popularidade e encontre a campanha ideal para "
+"participar."
+msgstr ""
+
+#: includes/Notifications/Groups.php:877
+msgid "regras do grupo foram revisadas"
+msgstr ""
+
+#: templates/group-modal-edit.php:83
+msgid "Regras e orientações"
+msgstr ""
+
+#: templates/group-modal-detail.php:215
+msgid "Regras para participantes"
+msgstr ""
+
+#: includes/Notifications/Groups.php:198
+#, php-format
+msgid "Regras: %s"
+msgstr ""
+
+#: includes/Support/SupportChannel.php:55
+msgid "Reino Unido"
+msgstr ""
+
+#: templates/group-modal-detail.php:170
+msgid "Relação com administrador"
+msgstr ""
+
+#: includes/Shortcodes/GroupRelationship.php:54
+msgid "Relação com o administrador"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:473
+#, php-format
+msgid "Relação com o administrador: %s"
+msgstr ""
+
+#: includes/Admin/Settings.php:151
+msgid "Remetente (e-mail)"
+msgstr ""
+
+#: includes/Admin/Settings.php:147
+msgid "Remetente (nome)"
+msgstr ""
+
+#: templates/group-modal-edit.php:189
+msgid "Remover"
+msgstr ""
+
+#: templates/profile-avatar.php:79
+msgid "Remover foto atual"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:267
+msgid "Requisição inválida."
+msgstr ""
+
+#: templates/my-quotas.php:22 templates/statement.php:41
+msgid "Reservada"
+msgstr ""
+
+#: templates/dashboard.php:706 templates/pool-single.php:51
+#: templates/quota-grid.php:63 templates/quota-grid.php:97
+msgid "Reservadas"
+msgstr ""
+
+#: templates/group-modal-edit.php:108
+msgid "Reservadas para você"
+msgstr ""
+
+#: includes/Notifications/Groups.php:178
+msgid "Reservadas para você: %d"
+msgstr ""
+
+#: templates/dashboard.php:442 templates/dashboard.php:744
+msgid "Reservado"
+msgstr ""
+
+#: templates/profile-credit-history.php:71
+msgid "Reservado em pedidos"
+msgstr ""
+
+#: templates/quota-grid.php:160
+msgid "Reservar cotas"
+msgstr ""
+
+#: includes/Admin/Settings.php:96
+msgid "Reservas"
+msgstr ""
+
+#: templates/dashboard.php:561
+msgid "Reservas ativas"
+msgstr ""
+
+#: includes/Data/GroupComplaints.php:67
+msgid "Resolvida"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:479
+msgid "Respostas verificadas e monitorias em tempo real para vestibulares."
+msgstr ""
+
+#. %s: search term
+#: templates/group-search-results.php:26
+#, php-format
+msgid "Resultados para \"%s\""
+msgstr ""
+
+#: includes/Notifications/Groups.php:221
+msgid "Resumo cadastrado"
+msgstr ""
+
+#: templates/checkout/thankyou.php:83
+msgid "Resumo da assinatura"
+msgstr ""
+
+#: templates/checkout/deposit.php:66
+msgid "Resumo da compra e suporte"
+msgstr ""
+
+#: templates/dashboard.php:551
+msgid "Resumo da conta"
+msgstr ""
+
+#: templates/checkout/deposit.php:68 templates/checkout/thankyou.php:83
+msgid "Resumo da recarga"
+msgstr ""
+
+#: templates/dashboard.php:549
+msgid "Resumo da sua conta"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:177
+#, php-format
+msgid "Resumo da sua recarga de %s"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:178
+msgid "Resumo da sua recarga recente"
+msgstr ""
+
+#: templates/quota-grid.php:57
+msgid "Resumo de disponibilidade das cotas"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:159
+msgid "Resumo do pedido"
+msgstr ""
+
+#: includes/Notifications/Groups.php:231
+#, php-format
+msgid "Resumo do seu novo grupo — %s"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:188
+#, php-format
+msgid "Resumo do seu pedido de %s"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:189
+msgid "Resumo do seu pedido recente"
+msgstr ""
+
+#: templates/dashboard.php:834
+msgid "Resumo dos grupos"
+msgstr ""
+
+#: templates/dashboard.php:735 includes/Notifications/Groups.php:1105
+msgid "Resumo financeiro"
+msgstr ""
+
+#: templates/group-modal-detail.php:222
+msgid "Resumo para divulgação"
+msgstr ""
+
+#: templates/dashboard.php:436
+msgid "Resumo rápido"
+msgstr ""
+
+#: includes/Front/Ajax.php:670
+msgid "Retirada"
+msgstr ""
+
+#. %s: edit link
+#: includes/Notifications/Mailer.php:140
+#, php-format
+msgid "Revisar grupo: %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:147
+msgid "Revisar no painel"
+msgstr ""
+
+#: templates/checkout/deposit.php:42
+msgid ""
+"Revise as informações da recarga e conclua o pagamento em um ambiente seguro."
+msgstr ""
+
+#: templates/group-relationship.php:152
+msgid "Revise os termos e confirme a participação antes de prosseguir."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:530
+msgid "Revista mensal com acervo completo e reportagens especiais."
+msgstr ""
+
+#: templates/profile.php:666 includes/Front/Shortcodes.php:853
+msgid "Sair"
+msgstr ""
+
+#: templates/checkout/deposit.php:128
+msgid "Saldo atual"
+msgstr ""
+
+#: templates/dashboard.php:438 templates/dashboard.php:737
+#: templates/statement.php:86 templates/profile-credit-history.php:67
+#: includes/Woo/Checkout.php:250
+msgid "Saldo disponível"
+msgstr ""
+
+#: templates/checkout/deposit.php:130
+msgid "Saldo disponível na carteira"
+msgstr ""
+
+#: templates/profile.php:709
+msgid "Saldo, recargas e retiradas"
+msgstr ""
+
+#: templates/profile.php:61
+msgid "Salvar"
+msgstr ""
+
+#: templates/group-modal-edit.php:196
+msgid "Salvar alterações"
+msgstr ""
+
+#: templates/profile-avatar.php:75
+msgid "Salvar foto de perfil"
+msgstr ""
+
+#: templates/credits.php:228
+msgid "Saques"
+msgstr ""
+
+#: templates/profile-credit-history.php:79
+msgid "Saques em análise"
+msgstr ""
+
+#: templates/dashboard.php:754
+msgid "Saques pendentes"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:123
+msgid ""
+"Se não encontrar o e-mail em alguns minutos, verifique também a caixa de "
+"spam."
+msgstr ""
+
+#: includes/Front/Auth.php:787
+msgid "Se não foi você, ignore esta mensagem."
+msgstr ""
+
+#: includes/Woo/Checkout.php:266
+msgid ""
+"Se o saldo não cobrir o total, você poderá complementar com outra forma de "
+"pagamento."
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:394 templates/email/order-paid.php:23
+#: templates/email/reservation-expired.php:27
+msgid ""
+"Se precisar de ajuda, basta responder este e-mail ou falar com o suporte "
+"JuntaPlay."
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:371 templates/auth/two-factor.php:44
+msgid ""
+"Se precisar de suporte, fale com nossa equipe pelo e-mail suporte@juntaplay."
+"com.br"
+msgstr ""
+
+#: templates/dashboard.php:205 templates/profile.php:423
+#: templates/profile.php:701
+msgid "Segurança"
+msgstr ""
+
+#: includes/Data/Pools.php:38 includes/Data/Groups.php:53
+msgid "Segurança e VPN"
+msgstr ""
+
+#: templates/dashboard.php:630
+msgid "Selecionados para você"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:149 includes/Forms/CreateGroupForm.php:395
+#: includes/Hooks/SaveGroupMeta.php:50
+msgid "Selecione a relação com o administrador."
+msgstr ""
+
+#: templates/quota-grid.php:131
+msgid "Selecione ao menos uma cota."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:397 includes/Hooks/SaveGroupMeta.php:108
+msgid "Selecione o canal de suporte aos membros."
+msgstr ""
+
+#: includes/Support/SupportChannel.php:95
+msgid "Selecione o canal de suporte para os membros."
+msgstr ""
+
+#: includes/Woo/Hooks.php:140
+msgid "Selecione pelo menos uma cota."
+msgstr ""
+
+#: includes/Support/SupportChannel.php:118
+msgid "Selecione um canal de suporte válido."
+msgstr ""
+
+#: includes/Admin/Groups.php:110
+msgid "Selecione um grupo e uma ação válida."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:259
+msgid "Selecione um pedido para visualizar o extrato."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:223
+msgid "Selecione um ticket para ver detalhes, mensagens e anexos."
+msgstr ""
+
+#: templates/credits.php:439 templates/profile-credit-history.php:307
+msgid "Selecione uma movimentação para visualizar os detalhes."
+msgstr ""
+
+#: templates/profile-complaint-detail.php:41
+msgid "Selecione uma reclamação"
+msgstr ""
+
+#: templates/admin-groups.php:215 includes/Shortcodes/GroupRelationship.php:59
+#: includes/Forms/CreateGroupForm.php:181
+msgid "Selecione…"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:201
+msgid ""
+"Seleção dinâmica de campanhas criadas pela comunidade com moderação do super "
+"admin."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:353
+msgid "Seleção rotativa de filmes independentes para cinéfilos exigentes."
+msgstr ""
+
+#: includes/Woo/Checkout.php:256
+msgid "Sem créditos"
+msgstr ""
+
+#: templates/pool-list.php:59
+msgid "Sem limite"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:455
+msgid "Sem mudanças de senha. Perfis identificados com iniciais."
+msgstr ""
+
+#: includes/Front/Ajax.php:271 includes/Admin/Settings.php:143
+#: templates/auth/modal.php:232 templates/auth/modal.php:294
+#: templates/auth/login.php:240 templates/auth/login.php:303
+msgid "Senha"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:143
+msgid "Senha compartilhada"
+msgstr ""
+
+#. %s: demo password
+#: includes/Admin/Importer.php:87
+#, php-format
+msgid "Senha de demonstração para todos os perfis: %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:158
+msgid "Senha ou código"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:263
+msgid "Senha ou código compartilhado"
+msgstr ""
+
+#: templates/dashboard.php:206
+msgid "Senha, 2FA e login social."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1178
+#, php-format
+msgid "Senha: %s"
+msgstr ""
+
+#: templates/group-modal-detail.php:110
+msgid "Serviço"
+msgstr ""
+
+#: includes/Notifications/Groups.php:858
+#, php-format
+msgid "serviço atualizado para %s"
+msgstr ""
+
+#: templates/group-modal-edit.php:68 includes/Front/GroupCreation.php:248
+msgid "Serviço compartilhado"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:474
+#, php-format
+msgid "Serviço compartilhado: %s"
+msgstr ""
+
+#: templates/admin-groups.php:155
+msgid "Serviço:"
+msgstr ""
+
+#: includes/Notifications/Groups.php:90 includes/Notifications/Groups.php:165
+#, php-format
+msgid "Serviço: %s"
+msgstr ""
+
+#: includes/Front/Ajax.php:604
+msgid "Sessão expirada."
+msgstr ""
+
+#: includes/Front/Ajax.php:220
+msgid "Sessão expirada. Entre novamente para continuar."
+msgstr ""
+
+#: includes/Front/Ajax.php:494 includes/Front/Ajax.php:516
+msgid "Sessão expirada. Faça login novamente."
+msgstr ""
+
+#: includes/Front/Auth.php:764 templates/auth/two-factor.php:27
+msgid "seu contato cadastrado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:259
+msgid "Seu código de validação expira em alguns minutos."
+msgstr ""
+
+#: includes/Front/Auth.php:799
+msgid "Seu código expira em %d minutos."
+msgstr ""
+
+#. %s: verification code
+#: includes/Notifications/Mailer.php:35
+#, php-format
+msgid "Seu código é: %s"
+msgstr ""
+
+#: templates/checkout/thankyou.php:54
+msgid "seu grupo"
+msgstr ""
+
+#: includes/Notifications/Groups.php:234 includes/Front/GroupCreation.php:513
+msgid "Seu grupo está em análise"
+msgstr ""
+
+#: includes/Notifications/Groups.php:618
+#, php-format
+msgid "Seu grupo “%s” foi aprovado!"
+msgstr ""
+
+#: includes/Notifications/Groups.php:657
+#, php-format
+msgid "Seu grupo “%s” foi arquivado"
+msgstr ""
+
+#: includes/Notifications/Groups.php:640
+#, php-format
+msgid "Seu grupo “%s” foi recusado"
+msgstr ""
+
+#: includes/Notifications/Credits.php:131
+#, php-format
+msgid "Seu pedido de retirada foi registrado — %s"
+msgstr ""
+
+#: templates/email/order-paid.php:28
+msgid "Seu pedido foi aprovado e as cotas já estão reservadas."
+msgstr ""
+
+#: templates/profile.php:889
+msgid "Seções do perfil"
+msgstr ""
+
+#: includes/Notifications/Groups.php:83
+msgid "Sim"
+msgstr ""
+
+#: includes/Notifications/Groups.php:93 includes/Notifications/Groups.php:182
+#, php-format
+msgid "Site oficial: %s"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:77
+msgid "Situação"
+msgstr ""
+
+#: includes/Admin/Settings.php:109
+msgid "SMTP"
+msgstr ""
+
+#: includes/Data/Pools.php:35 includes/Data/Groups.php:50
+msgid "Software e ferramentas"
+msgstr ""
+
+#: templates/auth/modal.php:197 templates/auth/modal.php:334
+#: templates/auth/login.php:205 templates/auth/login.php:345
+msgid "Solicitar acesso"
+msgstr ""
+
+#: templates/modal-2fa.php:37 includes/Forms/CreateGroupForm.php:71
+msgid "Solicitar novo código"
+msgstr ""
+
+#: templates/credits.php:160 templates/profile-credit-history.php:117
+msgid "Solicitar retirada"
+msgstr ""
+
+#: includes/Notifications/Credits.php:91
+#, php-format
+msgid "Solicitação de retirada no JuntaPlay — %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:53
+msgid "Solicitação de retirada recebida"
+msgstr ""
+
+#: includes/Front/Auth.php:1102
+msgid "Solicitação inválida. Tente novamente."
+msgstr ""
+
+#: includes/Front/Ajax.php:535
+msgid "Solicitação registrada com sucesso."
+msgstr ""
+
+#: includes/Notifications/Credits.php:135
+#, php-format
+msgid "Solicitação registrada no valor de R$ %s."
+msgstr ""
+
+#: templates/credits.php:341
+msgid "Solicitações de saque"
+msgstr ""
+
+#: templates/profile-credit-history.php:265
+msgid "Solicitações recentes"
+msgstr ""
+
+#: templates/auth/login.php:355
+msgid "Solicite acesso"
+msgstr ""
+
+#: templates/credits.php:201 templates/profile-credit-history.php:158
+msgid "Solicite um novo código antes de confirmar a retirada."
+msgstr ""
+
+#: templates/group-modal-edit.php:170
+msgid "Somente administradores do grupo podem ver este campo."
+msgstr ""
+
+#: templates/dashboard.php:573
+msgid "Somente cotas pagas contam aqui."
+msgstr ""
+
+#: templates/my-quotas.php:35 templates/my-quotas.php:48
+#: templates/admin-groups.php:73 templates/quota-grid.php:93
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/Groups.php:161
+msgid "Status do grupo atualizado com sucesso."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:280
+msgid "Streamer esportivo que coordena ligas e campeonatos."
+msgstr ""
+
+#. %s: site name
+#: includes/Front/CheckoutThankYou.php:182
+#, php-format
+msgid "Sua assinatura em %s está confirmada!"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:186
+msgid "Sua assinatura está confirmada!"
+msgstr ""
+
+#. Author of the plugin
+msgid "Sua Empresa"
+msgstr ""
+
+#. %s: site name
+#: includes/Front/CheckoutThankYou.php:171
+#, php-format
+msgid "Sua recarga em %s está confirmada!"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:175
+msgid "Sua recarga está confirmada!"
+msgstr ""
+
+#: includes/Notifications/Credits.php:260
+msgid "Sua recarga foi estornada"
+msgstr ""
+
+#: templates/email/reservation-expired.php:31
+msgid "Sua reserva expirou"
+msgstr ""
+
+#: templates/auth/two-factor.php:110
+msgid ""
+"Sua sessão de verificação expirou. Faça login novamente para receber um novo "
+"código."
+msgstr ""
+
+#: includes/Front/Auth.php:660 includes/Front/Auth.php:686
+msgid "Sua sessão de verificação expirou. Faça login novamente."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:121 includes/Front/Ajax.php:350
+#: includes/Front/Auth.php:167 includes/Front/Auth.php:391
+#: includes/Admin/Groups.php:101
+msgid "Sua sessão expirou. Atualize a página e tente novamente."
+msgstr ""
+
+#: includes/Front/Ajax.php:471 includes/Front/Auth.php:263
+msgid "Sua sessão expirou. Faça login novamente."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:432
+msgid "Sua sessão expirou. Recarregue a página e tente novamente."
+msgstr ""
+
+#: includes/Front/Auth.php:1095
+msgid "Sua sessão expirou. Tente novamente."
+msgstr ""
+
+#: includes/Front/GroupCreation.php:322 includes/Front/GroupCreation.php:330
+msgid ""
+"Sua solicitação foi recebida e está em análise. Em breve você será "
+"notificado por e-mail."
+msgstr ""
+
+#: templates/dashboard.php:677
+msgid "Suas campanhas"
+msgstr ""
+
+#: templates/statement.php:78
+msgid "Subtotal"
+msgstr ""
+
+#: templates/credits.php:407 templates/profile-credit-history.php:193
+msgid "Sugestões rápidas"
+msgstr ""
+
+#: templates/profile.php:467
+msgid "Suporte"
+msgstr ""
+
+#: templates/group-modal-detail.php:48
+msgid "Suporte a Membros"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:171
+msgid "Suporte a membros"
+msgstr ""
+
+#: includes/Notifications/Groups.php:111 includes/Notifications/Groups.php:186
+#, php-format
+msgid "Suporte a membros: %s"
+msgstr ""
+
+#: templates/admin-groups.php:183
+#, php-format
+msgid "Suporte: %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:403
+msgid "Séries nacionais, jornalismo e esportes ao vivo da Record TV."
+msgstr ""
+
+#: includes/Front/Ajax.php:305
+msgid ""
+"Também enviamos uma cópia das credenciais para o seu e-mail. Guarde essas "
+"informações com segurança."
+msgstr ""
+
+#: includes/Admin/Settings.php:90
+msgid "Taxa fixa aplicada no checkout, em e-mails e resumos de pedidos."
+msgstr ""
+
+#: includes/Notifications/Groups.php:1026
+#, php-format
+msgid "taxas %s"
+msgstr ""
+
+#: includes/Notifications/Groups.php:641
+msgid "Temos orientações para ajustar seu cadastro."
+msgstr ""
+
+#: includes/Admin/Groups.php:78
+msgid "Template de administração de grupos não encontrado."
+msgstr ""
+
+#: includes/Admin/Settings.php:100
+msgid "Tempo de bloqueio (minutos)"
+msgstr ""
+
+#: templates/auth/two-factor.php:137
+msgid "Tentativas restantes: %d"
+msgstr ""
+
+#: templates/terms.php:5
+msgid "Termos e Condições"
+msgstr ""
+
+#: includes/Notifications/Groups.php:575
+#, php-format
+msgid "Ticket %s concluído"
+msgstr ""
+
+#: includes/Notifications/Groups.php:166
+#, php-format
+msgid "Tipo: %s"
+msgstr ""
+
+#: templates/profile-complaints.php:82
+msgid "Todas"
+msgstr ""
+
+#: templates/groups-directory.php:65 templates/pool-list.php:32
+msgid "Todas as categorias"
+msgstr ""
+
+#: templates/credits.php:247
+msgid "Todas as datas"
+msgstr ""
+
+#: templates/credits.php:225 templates/group-rotator.php:72
+msgid "Todos"
+msgstr ""
+
+#: templates/group-search-results.php:39
+msgid "Todos os grupos encontrados"
+msgstr ""
+
+#: templates/quota-grid.php:99
+msgid "Todos os números"
+msgstr ""
+
+#: templates/admin-groups.php:26
+msgid "Todos os status"
+msgstr ""
+
+#: templates/dashboard.php:714 templates/quota-grid.php:71
+#: includes/Front/CheckoutThankYou.php:422
+msgid "Total"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1033
+#, php-format
+msgid "total %s"
+msgstr ""
+
+#: templates/checkout/deposit.php:98
+msgid "Total a pagar"
+msgstr ""
+
+#: templates/pool-single.php:59
+msgid "Total de cotas"
+msgstr ""
+
+#: templates/dashboard.php:836
+msgid "Total de grupos"
+msgstr ""
+
+#: templates/my-groups.php:38
+#, php-format
+msgid "Total de grupos listados: %s"
+msgstr ""
+
+#: templates/quota-grid.php:154
+msgid "Total estimado"
+msgstr ""
+
+#: templates/dashboard.php:571 templates/dashboard.php:759
+msgid "Total investido"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:217
+#, php-format
+msgid "Total neste grupo: %s"
+msgstr ""
+
+#: templates/statement.php:82 includes/Woo/Hooks.php:867
+msgid "Total pago"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1067
+#, php-format
+msgid "Total pago: %s"
+msgstr ""
+
+#: includes/Front/Ajax.php:476 includes/Front/Ajax.php:482
+msgid "Transação não encontrada."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:404
+msgid "Troca de senha apenas pela administração. Sem downloads simultâneos."
+msgstr ""
+
+#. %s: customer first name
+#: templates/checkout/thankyou-groups.php:109
+#, php-format
+msgid "Tudo certo, %s! Recebemos o pagamento da sua assinatura."
+msgstr ""
+
+#: templates/checkout/thankyou.php:65
+msgid ""
+"Tudo pronto! Assim que o pagamento for confirmado o valor aparecerá na sua "
+"carteira."
+msgstr ""
+
+#: templates/checkout/thankyou.php:64
+#, php-format
+msgid ""
+"Tudo pronto, %s! Assim que o pagamento for confirmado o valor aparecerá na "
+"sua carteira."
+msgstr ""
+
+#. %s: group title
+#: includes/Notifications/Mailer.php:123
+#, php-format
+msgid "Título: %s"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:120
+msgid "Um novo grupo foi enviado para revisão."
+msgstr ""
+
+#: includes/Notifications/Groups.php:129
+#, php-format
+msgid "Um novo grupo público chamado “%s” precisa ser analisado."
+msgstr ""
+
+#. %s: site name
+#: includes/Notifications/EmailHelper.php:142
+#, php-format
+msgid "Um recado do time %s"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:207
+msgid "Uma proposta aguarda sua confirmação."
+msgstr ""
+
+#: includes/Notifications/Groups.php:524
+#, php-format
+msgid "Uma proposta foi registrada no ticket %s."
+msgstr ""
+
+#: templates/group-modal-edit.php:150
+msgid "URL de acesso"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:113
+msgid "URL de acesso compartilhado"
+msgstr ""
+
+#: includes/Admin/Settings.php:180 includes/Admin/Settings.php:194
+#, php-format
+msgid "URL de retorno: %s"
+msgstr ""
+
+#: includes/Woo/Checkout.php:264
+msgid "Usar meus créditos nesta assinatura"
+msgstr ""
+
+#: templates/group-modal-detail.php:292
+msgid "Use o botão “Editar grupo” no cartão para atualizar as informações."
+msgstr ""
+
+#: includes/Front/Auth.php:771
+#, php-format
+msgid "Use o código %1$s para confirmar seu acesso ao %2$s."
+msgstr ""
+
+#: includes/Notifications/Groups.php:246
+#, php-format
+msgid "Use o código abaixo para validar o e-mail associado ao grupo “%s”."
+msgstr ""
+
+#: templates/group-search-results.php:62
+msgid ""
+"Use os filtros acima para encontrar grupos de acordo com seus interesses."
+msgstr ""
+
+#: includes/Admin/Menu.php:56
+msgid ""
+"Use os menus ao lado para gerenciar campanhas, importar cotas e ajustar "
+"configurações."
+msgstr ""
+
+#: includes/Woo/Checkout.php:398
+msgid "Uso de créditos"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:531
+msgid "Uso individual. Não compartilhar PDFs fora do grupo."
+msgstr ""
+
+#: templates/admin-groups.php:199 includes/Admin/Settings.php:139
+msgid "Usuário"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:128
+msgid "Usuário compartilhado"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:475
+#, php-format
+msgid "Usuário de acesso: %s"
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:514
+msgid "Usuário individual com senha única."
+msgstr ""
+
+#: includes/Front/Auth.php:1273
+msgid "Usuário ou e-mail"
+msgstr ""
+
+#: includes/Front/GroupCreation.php:258
+msgid "Usuário ou e-mail de acesso"
+msgstr ""
+
+#: includes/Notifications/Credits.php:68
+#, php-format
+msgid "Usuário: %s (%s)"
+msgstr ""
+
+#. 1: count of users created, 2: count of groups created
+#: includes/Admin/Importer.php:81
+#, php-format
+msgid "Usuários criados: %1$d · Grupos criados: %2$d."
+msgstr ""
+
+#. %d: count of existing users
+#: includes/Admin/Importer.php:93
+msgid "Usuários já existentes preservados: %d."
+msgstr ""
+
+#: templates/group-modal-detail.php:146
+msgid "Vagas"
+msgstr ""
+
+#: templates/group-modal-edit.php:104
+msgid "Vagas totais"
+msgstr ""
+
+#: includes/Notifications/Groups.php:108
+#, php-format
+msgid "Vagas totais/reservadas: %1$d / %2$d"
+msgstr ""
+
+#: includes/Notifications/Groups.php:177
+msgid "Vagas totais: %d"
+msgstr ""
+
+#: templates/admin-groups.php:173
+#, php-format
+msgid "Vagas: %1$d (reservadas: %2$d)"
+msgstr ""
+
+#: includes/Notifications/Credits.php:167
+#, php-format
+msgid "Valor creditado: R$ %s"
+msgstr ""
+
+#: templates/credits.php:183 templates/profile-credit-history.php:140
+msgid "Valor do saque"
+msgstr ""
+
+#: templates/group-modal-detail.php:128
+msgid "Valor do serviço"
+msgstr ""
+
+#: templates/group-modal-edit.php:89
+msgid "Valor do serviço (R$)"
+msgstr ""
+
+#: templates/admin-groups.php:164 includes/Notifications/Groups.php:99
+#: includes/Notifications/Groups.php:169
+#, php-format
+msgid "Valor do serviço: R$ %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:228
+#, php-format
+msgid "Valor estornado: R$ %s"
+msgstr ""
+
+#: templates/credits.php:401 templates/profile-credit-history.php:187
+#, php-format
+msgid "Valor mínimo de recarga: %s"
+msgstr ""
+
+#: templates/credits.php:150 templates/profile-credit-history.php:106
+#, php-format
+msgid "Valor mínimo: %s"
+msgstr ""
+
+#: templates/group-relationship.php:79 templates/group-modal-detail.php:140
+msgid "Valor por participante"
+msgstr ""
+
+#: templates/group-modal-edit.php:97
+msgid "Valor por participante (R$)"
+msgstr ""
+
+#: templates/group-modal-edit.php:93
+msgid "Valor promocional (R$)"
+msgstr ""
+
+#: includes/Notifications/Groups.php:102 includes/Notifications/Groups.php:174
+#, php-format
+msgid "Valor promocional: R$ %s"
+msgstr ""
+
+#: includes/Notifications/Credits.php:95 includes/Notifications/Credits.php:101
+#, php-format
+msgid "Valor solicitado: R$ %s"
+msgstr ""
+
+#: includes/Woo/Hooks.php:904
+msgid "Valor total"
+msgstr ""
+
+#: templates/credits.php:148 templates/profile-credit-history.php:104
+#, php-format
+msgid "Valores entre %1$s e %2$s"
+msgstr ""
+
+#: templates/credits.php:399 templates/profile-credit-history.php:185
+#, php-format
+msgid ""
+"Valores entre %1$s e %2$s serão direcionados ao checkout seguro do "
+"WooCommerce."
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:171
+msgid "Valores pagos"
+msgstr ""
+
+#: templates/profile.php:723
+msgid "Veja mensagens, propostas e históricos"
+msgstr ""
+
+#: templates/dashboard.php:660
+msgid "Vendidas"
+msgstr ""
+
+#: templates/dashboard.php:665 templates/dashboard.php:694
+#: templates/profile-network.php:108
+msgid "Ver campanha"
+msgstr ""
+
+#: templates/dashboard.php:961 templates/profile-network.php:86
+#: templates/profile-network.php:89 includes/Front/Ajax.php:798
+msgid "Ver detalhes"
+msgstr ""
+
+#: templates/my-quotas.php:60 includes/Notifications/Credits.php:185
+msgid "Ver extrato"
+msgstr ""
+
+#: templates/quota-grid.php:123
+msgid "Ver mais números"
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:382 templates/checkout/thankyou.php:85
+msgid "Ver meus créditos"
+msgstr ""
+
+#: includes/Notifications/Groups.php:1250
+msgid "Ver meus grupos"
+msgstr ""
+
+#: templates/dashboard.php:543
+msgid "Ver minhas cotas"
+msgstr ""
+
+#: templates/dashboard.php:632
+msgid "Ver todas"
+msgstr ""
+
+#: templates/dashboard.php:679
+msgid "Ver todas as cotas"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:202
+msgid "Ver todos os grupos"
+msgstr ""
+
+#: templates/credits.php:140 templates/profile-credit-history.php:96
+msgid "verifique seu e-mail cadastrado"
+msgstr ""
+
+#: templates/dashboard.php:552
+msgid "Visualize rapidamente suas participações e valores."
+msgstr ""
+
+#: templates/credits.php:220
+msgid "Visualize recargas, compras e ajustes realizados em sua carteira."
+msgstr ""
+
+#: templates/dashboard.php:322 templates/dashboard.php:347
+msgid "Visão geral"
+msgstr ""
+
+#: templates/dashboard.php:967
+msgid ""
+"Você ainda não participa de nenhum grupo. Explore as campanhas e encontre a "
+"melhor oportunidade."
+msgstr ""
+
+#: templates/profile-network.php:122
+msgid ""
+"Você ainda não possui conexões. Participe de um grupo para conhecer novos "
+"membros."
+msgstr ""
+
+#: templates/dashboard.php:723
+msgid "Você ainda não possui cotas. Que tal começar agora mesmo?"
+msgstr ""
+
+#: includes/Notifications/Groups.php:801
+#, php-format
+msgid "Você entrou no grupo “%s”"
+msgstr ""
+
+#: templates/checkout/thankyou-groups.php:154
+msgid "Você fez a assinatura!"
+msgstr ""
+
+#: includes/Front/Ajax.php:232
+msgid "Você não participa deste grupo."
+msgstr ""
+
+#: includes/Front/Ajax.php:161
+msgid "Você não pode editar este grupo."
+msgstr ""
+
+#: includes/Woo/Checkout.php:268
+msgid "Você não possui créditos disponíveis no momento."
+msgstr ""
+
+#: includes/Front/Shortcodes.php:269
+msgid "Você não tem permissão para acessar este extrato."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:273
+msgid "Você não tem permissão para criar grupos."
+msgstr ""
+
+#: includes/Ajax/TwoFactor.php:39 includes/Ajax/TwoFactor.php:89
+msgid "Você não tem permissão para enviar este grupo para análise."
+msgstr ""
+
+#: includes/Admin/Importer.php:151 includes/Admin/Importer.php:208
+#: includes/Admin/Importer.php:222
+msgid "Você não tem permissão para executar esta ação."
+msgstr ""
+
+#: includes/Admin/Menu.php:51 includes/Admin/Menu.php:63
+#: includes/Admin/Menu.php:72 includes/Admin/Groups.php:58
+msgid "Você não tem permissão suficiente para acessar esta página."
+msgstr ""
+
+#: includes/Admin/Groups.php:95
+msgid "Você não tem permissão suficiente para executar esta ação."
+msgstr ""
+
+#: includes/Notifications/Groups.php:397
+msgid ""
+"Você pode acompanhar o andamento acessando o seu painel em Minha Conta > "
+"Meus Grupos."
+msgstr ""
+
+#. %s: group permalink
+#: includes/Notifications/Mailer.php:81
+#, php-format
+msgid "Você pode acompanhar o grupo aqui: %s"
+msgstr ""
+
+#: templates/checkout/thankyou.php:70
+msgid ""
+"Você pode acompanhar o histórico e solicitar novas recargas na página de "
+"créditos."
+msgstr ""
+
+#: templates/my-groups.php:146
+msgid "Você possui %d reclamação aberta."
+msgid_plural "Você possui %d reclamações abertas."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Ajax/TwoFactor.php:45 includes/Ajax/TwoFactor.php:95
+msgid "Você precisa estar autenticado para continuar."
+msgstr ""
+
+#: includes/Notifications/Credits.php:120
+msgid "Você receberá um novo aviso quando o pagamento for processado."
+msgstr ""
+
+#: includes/Notifications/Mailer.php:86
+msgid "Você será notificado por e-mail após a revisão."
+msgstr ""
+
+#. %s: number of seconds
+#: templates/checkout/thankyou-groups.php:118
+#, php-format
+msgid "Você será redirecionado para “Meus grupos” em %s segundos."
+msgstr ""
+
+#: templates/group-relationship.php:186 templates/group-relationship.php:190
+#: templates/profile-complaint-detail.php:213
+msgid "Voltar"
+msgstr ""
+
+#: templates/profile-complaint-detail.php:38
+msgid "Voltar para a lista"
+msgstr ""
+
+#: templates/admin-groups.php:137 templates/admin-groups.php:143
+msgid "Voltar para análise"
+msgstr ""
+
+#: templates/checkout/deposit.php:140
+msgid "Voltar para meus créditos"
+msgstr ""
+
+#: templates/auth/two-factor.php:111 templates/auth/two-factor.php:148
+msgid "Voltar para o login"
+msgstr ""
+
+#: templates/statement.php:96
+msgid "Voltar para pedidos"
+msgstr ""
+
+#: includes/Data/Pools.php:30 includes/Data/Groups.php:45
+msgid "Vídeo e streaming"
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:182
+msgid "WhatsApp"
+msgstr ""
+
+#: templates/auth/two-factor.php:24
+msgid "WhatsApp cadastrado"
+msgstr ""
+
+#: includes/Front/Shortcodes.php:248
+msgid "WooCommerce é necessário para exibir o extrato."
+msgstr ""
+
+#: includes/Front/CheckoutThankYou.php:198
+#, php-format
+msgid "© %1$s %2$s. Todos os direitos reservados."
+msgstr ""
+
+#: includes/Notifications/EmailHelper.php:372 templates/auth/two-factor.php:46
+#, php-format
+msgid "© %s JuntaPlay. Todos os Direitos Reservados."
+msgstr ""
+
+#: includes/Setup/DemoSeeder.php:454
+msgid "Áudio HiFi sem perdas e catálogo Dolby Atmos compartilhado."
+msgstr ""
+
+#: includes/Front/Ajax.php:436
+msgid "É necessário estar logado para visualizar as movimentações."
+msgstr ""
+
+#: includes/Notifications/Groups.php:119 includes/Notifications/Groups.php:170
+#, php-format
+msgid "É valor promocional?: %s"
+msgstr ""
+
+#: templates/credits.php:104
+#, php-format
+msgid "Última recarga em %s"
+msgstr ""
+
+#: templates/dashboard.php:762
+#, php-format
+msgid "Última recarga há %s"
+msgstr ""
+
+#: templates/credits.php:217
+msgid "Últimas movimentações"
+msgstr ""
+
+#: templates/credits.php:251
+msgid "Últimos 12 meses"
+msgstr ""
+
+#: templates/credits.php:250
+msgid "Últimos 180 dias"
+msgstr ""
+
+#: templates/credits.php:248
+msgid "Últimos 30 dias"
+msgstr ""
+
+#: templates/credits.php:249
+msgid "Últimos 90 dias"
+msgstr ""
+
+#: templates/quota-grid.php:155
+msgid "—"
+msgstr ""
+
+#: includes/Notifications/Mailer.php:72
+msgid "✅ Recebemos sua submissão."
+msgstr ""
+
+#: includes/Forms/CreateGroupForm.php:69 includes/Ajax/TwoFactor.php:133
+msgid ""
+"✅ Recebemos sua submissão. A equipe Juntaplay vai avaliar se o grupo cumpre "
+"todos os requisitos e você será notificado por e-mail."
+msgstr ""
