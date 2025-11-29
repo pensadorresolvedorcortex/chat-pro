@@ -2828,10 +2828,7 @@ class Profile
 
         if ($is_owner) {
             $cta_can_edit = true;
-
-            if ($cta_label === '' || $cta_label === __('Você é assinante', 'juntaplay')) {
-                $cta_label = __('Você Administra esse Grupo', 'juntaplay');
-            }
+            $cta_label    = __('Você Administra esse Grupo', 'juntaplay');
 
             if ($cta_url === '') {
                 $cta_url = $settings_url !== '' ? $settings_url : $pool_link;
