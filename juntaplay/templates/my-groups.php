@@ -155,7 +155,7 @@ if ($profile_description === '') {
     <?php endif; ?>
 </section>
 
-<div class="juntaplay-profile__panels juntaplay-profile__panels--groups">
+<div class="juntaplay-profile__panels juntaplay-profile__panels--groups juntaplay-my-groups-grid">
     <?php
     $group_context = $group_context ?: [];
     include JP_DIR . 'templates/profile-groups.php';

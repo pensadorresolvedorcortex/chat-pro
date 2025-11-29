@@ -3372,6 +3372,34 @@ body .juntaplay-create-hero__cta .juntaplay-button {
     box-shadow: 0 14px 30px -18px rgba(0, 204, 192, 0.4);
 }
 
+body .juntaplay-my-groups-grid .juntaplay-groups__create-card {
+    margin-top: 28px;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-create-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: radial-gradient(circle at 12% 18%, rgba(0, 204, 192, 0.14), transparent 32%),
+        radial-gradient(circle at 86% 28%, rgba(14, 165, 233, 0.14), transparent 34%),
+        linear-gradient(135deg, #f8feff 0%, #f1fbff 42%, #f9fbff 100%);
+    border-color: rgba(0, 204, 192, 0.25);
+}
+
+body .juntaplay-my-groups-grid .juntaplay-create-hero__glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(236, 252, 255, 0.95));
+    border-color: rgba(0, 204, 192, 0.32);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.74), 0 16px 32px rgba(15, 23, 42, 0.12),
+        0 12px 28px rgba(0, 204, 192, 0.14);
+}
+
+body .juntaplay-my-groups-grid .juntaplay-create-hero__lead {
+    color: rgba(15, 23, 42, 0.72);
+}
+
+body .juntaplay-my-groups-grid .juntaplay-create-hero__cta .juntaplay-button {
+    box-shadow: 0 18px 40px -22px rgba(0, 204, 192, 0.6), 0 10px 24px -16px rgba(15, 23, 42, 0.25);
+}
+
 body .juntaplay-create-hero__hint {
     margin: 0;
     color: rgba(226, 232, 240, 0.8);
@@ -7494,6 +7522,31 @@ body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid
     height: 100%;
 }
 
+body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+body .juntaplay-my-groups-grid [data-group-list] {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    gap: 16px;
+    align-items: stretch;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-group-card,
+body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card {
+    height: 100%;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-service-card,
+body .juntaplay-my-groups-grid .juntaplay-service-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+body .juntaplay-my-groups-grid .juntaplay-service-card__meta {
+    margin-top: auto;
+}
+
 .juntaplay-group-rotator__grid {
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -7600,21 +7653,27 @@ body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid
 
 @media (max-width: 1023px) {
     body .juntaplay-profile__panels--groups .juntaplay-groups__cards.juntaplay-service-grid,
-    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
+    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid,
+    body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+    body .juntaplay-my-groups-grid [data-group-list] {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 767px) {
     body .juntaplay-profile__panels--groups .juntaplay-groups__cards.juntaplay-service-grid,
-    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
+    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid,
+    body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+    body .juntaplay-my-groups-grid [data-group-list] {
         grid-template-columns: 1fr;
     }
 }
 
 @media (min-width: 1024px) {
     body .juntaplay-profile__panels--groups .juntaplay-groups__cards.juntaplay-service-grid,
-    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
+    body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid,
+    body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+    body .juntaplay-my-groups-grid [data-group-list] {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
