@@ -3391,10 +3391,13 @@ body .juntaplay-my-groups-grid .juntaplay-create-hero__lead {
 }
 
 body .juntaplay-my-groups-grid .juntaplay-create-hero__cta .juntaplay-button {
-    background: linear-gradient(135deg, rgba(0, 204, 192, 0.96), rgba(94, 234, 212, 0.9));
-    color: #0b1224;
+    width: auto;
+    min-width: clamp(150px, 20vw, 210px);
+    max-width: 100%;
+    background: linear-gradient(135deg, var(--jp-primary, #00ccc0), #5eead4);
+    color: var(--jp-primary-contrast, #0b1224);
     border: 1px solid rgba(0, 204, 192, 0.45);
-    box-shadow: 0 18px 40px -22px rgba(0, 204, 192, 0.6), 0 10px 24px -16px rgba(15, 23, 42, 0.2);
+    box-shadow: 0 18px 40px -18px rgba(0, 204, 192, 0.6), 0 10px 24px -16px rgba(15, 23, 42, 0.2);
     backdrop-filter: blur(10px);
 }
 
@@ -7744,6 +7747,11 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button:focus-visible
     body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+    body .juntaplay-my-groups-grid [data-group-list] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
@@ -7761,6 +7769,11 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button:focus-visible
     body .juntaplay-groups__list .juntaplay-groups__cards,
     body .juntaplay-groups__list [data-group-list],
     body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    body .juntaplay-my-groups-grid .juntaplay-groups__cards,
+    body .juntaplay-my-groups-grid [data-group-list] {
         grid-template-columns: 1fr;
     }
 }
@@ -7790,6 +7803,15 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button:focus-visible
     body .juntaplay-groups__list [data-group-list],
     body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
         grid-template-columns: 1fr;
+    }
+
+    body .juntaplay-my-groups-grid .juntaplay-create-hero__cta {
+        justify-items: stretch;
+    }
+
+    body .juntaplay-my-groups-grid .juntaplay-create-hero__cta .juntaplay-button {
+        width: 100%;
+        max-width: none;
     }
 }
 
