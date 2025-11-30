@@ -366,19 +366,19 @@ if ($group_suggestions) {
         </select>
     </div>
 
-    <div class="juntaplay-groups__list">
-        <?php if ($cancel_general_errors) : ?>
-            <div class="juntaplay-alert juntaplay-alert--danger">
-                <ul>
-                    <?php foreach ($cancel_general_errors as $cancel_general_error) : ?>
-                        <li><?php echo esc_html((string) $cancel_general_error); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
+    <?php if ($cancel_general_errors) : ?>
+        <div class="juntaplay-alert juntaplay-alert--danger">
+            <ul>
+                <?php foreach ($cancel_general_errors as $cancel_general_error) : ?>
+                    <li><?php echo esc_html((string) $cancel_general_error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <div class="juntaplay-groups__list" data-group-list>
         <?php if ($all_groups) : ?>
-            <div class="juntaplay-groups__cards juntaplay-service-grid" data-group-list>
-                <?php foreach ($all_groups as $group) :
+            <?php foreach ($all_groups as $group) :
                     if (!is_array($group)) {
                         continue;
                     }
@@ -507,10 +507,8 @@ if ($group_suggestions) {
                     }
 
                     $service_classes = [
-                        'juntaplay-group-card',
-                        'juntaplay-group-card--profile',
                         'juntaplay-service-card',
-                        'juntaplay-group-card--service',
+                        'juntaplay-service-card--group',
                     ];
 
                     $card_link_attrs = $cta_url !== ''
@@ -518,20 +516,20 @@ if ($group_suggestions) {
                         : ' href="#"';
                     ?>
                     <article class="<?php echo esc_attr(implode(' ', $service_classes)); ?>" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
-                                    <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>">
-                                        <span
-                                            class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
-                                            <?php echo $icon_source !== '' ? ' style="background-image: url(' . esc_url($icon_source) . ')"' : ''; ?>
-                                            aria-hidden="true"
-                                        ><?php echo $icon_source === '' ? esc_html($icon_initial) : ''; ?></span>
-                                        <span class="juntaplay-service-card__title" title="<?php echo esc_attr($group_title_full); ?>"><?php echo esc_html($group_title_full); ?></span>
-                                        <?php if ($service_name !== '' && $service_name !== $group_title_full) : ?>
-                                            <span class="juntaplay-service-card__description"><?php echo esc_html($service_name); ?></span>
-                                        <?php endif; ?>
-                                        <?php if (!empty($meta_items)) : ?>
-                                            <span class="juntaplay-service-card__meta"><?php echo implode('', $meta_items); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-                                        <?php endif; ?>
-                                    </a>
+                        <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>">
+                            <span
+                                class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
+                                <?php echo $icon_source !== '' ? ' style="background-image: url(' . esc_url($icon_source) . ')"' : ''; ?>
+                                aria-hidden="true"
+                            ><?php echo $icon_source === '' ? esc_html($icon_initial) : ''; ?></span>
+                            <span class="juntaplay-service-card__title" title="<?php echo esc_attr($group_title_full); ?>"><?php echo esc_html($group_title_full); ?></span>
+                            <?php if ($service_name !== '' && $service_name !== $group_title_full) : ?>
+                                <span class="juntaplay-service-card__description"><?php echo esc_html($service_name); ?></span>
+                            <?php endif; ?>
+                            <?php if (!empty($meta_items)) : ?>
+                                <span class="juntaplay-service-card__meta"><?php echo implode('', $meta_items); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+                            <?php endif; ?>
+                        </a>
                                     <div class="juntaplay-group-card__footer">
                                         <div class="juntaplay-group-card__cta-inline">
                                             <button

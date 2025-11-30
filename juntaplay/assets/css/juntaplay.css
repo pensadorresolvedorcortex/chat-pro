@@ -7526,9 +7526,7 @@ body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid
     height: 100%;
 }
 
-body .juntaplay-groups__list .juntaplay-groups__cards,
 body .juntaplay-groups__list [data-group-list],
-body .juntaplay-my-groups-grid .juntaplay-groups__cards,
 body .juntaplay-my-groups-grid [data-group-list] {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -7541,7 +7539,9 @@ body .juntaplay-my-groups-grid [data-group-list] {
 body .juntaplay-groups__list .juntaplay-group-card,
 body .juntaplay-groups__list [data-group-item].juntaplay-group-card,
 body .juntaplay-my-groups-grid .juntaplay-group-card,
-body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card {
+body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card,
+body .juntaplay-groups__list .juntaplay-service-card--group,
+body .juntaplay-my-groups-grid .juntaplay-service-card--group {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -7560,7 +7560,9 @@ body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card {
 body .juntaplay-groups__list .juntaplay-group-card:hover,
 body .juntaplay-groups__list [data-group-item].juntaplay-group-card:hover,
 body .juntaplay-my-groups-grid .juntaplay-group-card:hover,
-body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card:hover {
+body .juntaplay-my-groups-grid [data-group-item].juntaplay-group-card:hover,
+body .juntaplay-groups__list .juntaplay-service-card--group:hover,
+body .juntaplay-my-groups-grid .juntaplay-service-card--group:hover {
     transform: translateY(-2px);
     border-color: rgba(0, 204, 192, 0.25);
     box-shadow: 0 18px 36px rgba(15, 23, 42, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
