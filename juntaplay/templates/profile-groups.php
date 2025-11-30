@@ -936,7 +936,6 @@ if ($group_suggestions) {
                                         </div>
                                 </article>
                 <?php endforeach; ?>
-            <?php endif; ?>
         </div>
         <p class="juntaplay-groups__empty is-hidden" data-group-empty><?php echo esc_html__('Nenhum grupo corresponde aos filtros selecionados.', 'juntaplay'); ?></p>
     </div>
