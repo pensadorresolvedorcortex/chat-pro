@@ -7727,7 +7727,7 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button:focus-visible
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1200px) {
     .juntaplay-group-rotator__grid,
     .juntaplay-service-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -7746,22 +7746,22 @@ body .juntaplay-my-groups-grid .juntaplay-service-card__cta-button:focus-visible
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .juntaplay-group-rotator__grid,
     .juntaplay-service-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 
     body .juntaplay-groups__list .juntaplay-groups__cards,
     body .juntaplay-groups__list [data-group-list],
     body .juntaplay-profile__panels--groups .juntaplay-groups__cards.juntaplay-service-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 
     body .juntaplay-groups__list .juntaplay-groups__cards,
     body .juntaplay-groups__list [data-group-list],
     body .juntaplay-profile__panels--groups [data-group-list].juntaplay-service-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: 1fr;
     }
 }
 
