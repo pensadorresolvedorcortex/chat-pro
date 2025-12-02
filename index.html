@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baterias 24H | Entrega e instalação em até 50 minutos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Pular para o conteúdo principal</a>
+  <header class="top-bar">
+      <div class="container top-content">
+        <div class="brand">
+          <img src="assets/logo-baterias24h.svg" alt="Logo Baterias 24H" class="logo">
+        </div>
+        <button class="btn primary" data-primary-trigger>Peça agora</button>
+      </div>
+    </header>
+
+  <main id="mainContent">
+    <section class="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <p class="tag">Atendimento 24 horas</p>
+          <h1>A bateria do seu carro entregue e instalada em até 50 minutos</h1>
+          <p class="subtitle">Baterias 24H – Atendimento rápido e especializado</p>
+          <div class="hero-actions">
+            <button class="btn primary" data-primary-trigger>Peça agora</button>
+            <button class="btn ghost" data-open-popup>Selecione o local da entrega e o modelo do veículo</button>
+            <button class="btn ghost secondary" data-scroll-summary>Ver modelo recomendado</button>
+          </div>
+          <div class="inline-readiness" aria-live="polite">
+            <span class="pill" id="inlineReadinessValue">0%</span>
+            <small id="inlineReadinessText">Complete endereço e veículo para liberar o pedido.</small>
+          </div>
+          <ul class="hero-highlights">
+            <li>Entrega rápida e especializada</li>
+            <li>Instalação gratuita</li>
+            <li>Pagamento só na entrega</li>
+          </ul>
+        </div>
+        <div class="hero-visual">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Mecânico instalando bateria automotiva" class="hero-photo" loading="lazy">
+          <div class="logo-overlay">
+            <img src="assets/logo-baterias24h.svg" alt="Baterias 24H">
+          </div>
+          <div class="hero-illustration">
+            <div class="mechanic-card">
+              <p>Entrega e instalação <strong>sem custo</strong></p>
+              <span class="time-pill">Até 50 minutos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics">
+      <div class="container metrics-grid">
+        <div class="metric-card">
+          <div class="metric-number">24H</div>
+          <p>Plantão contínuo e acompanhamento pelo WhatsApp.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">≤ 50min</div>
+          <p>Entrega e instalação expressas, com rota otimizada.</p>
+        </div>
+        <div class="metric-card">
+          <div class="metric-number">+ Garantia</div>
+          <p>24 meses de garantia e pagamento só na entrega.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="steps">
+      <div class="container steps-grid">
+        <div class="step-card">
+          <div class="step-number">Passo 1</div>
+          <h3>Selecione o local da entrega e o modelo do veículo</h3>
+          <p>Buscamos seu endereço pelo CEP e listamos os carros mais vendidos de 2000 a 2025.</p>
+          <button class="btn ghost" data-open-popup>Selecionar agora</button>
+        </div>
+        <div class="step-card">
+          <div class="step-number">Passo 2</div>
+          <h3>Teste, entrega e instalação grátis</h3>
+          <p>Tudo feito por especialistas em segurança e sem custo adicional.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">Passo 3</div>
+          <h3>Pagamento somente na entrega</h3>
+          <p>Cartão, PIX ou dinheiro, como preferir.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust">
+      <div class="container trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon">⚡</div>
+          <h3>Pronto em até 50 minutos</h3>
+          <p>Equipe 24 horas, rota otimizada e confirmação imediata do pedido.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🛠️</div>
+          <h3>Instalação e teste gratuitos</h3>
+          <p>Profissionais certificados, multimarcas e diagnóstico do sistema elétrico.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">🔒</div>
+          <h3>Pagamento seguro na entrega</h3>
+          <p>Cartão, PIX ou dinheiro direto no local, sem antecipar valores.</p>
+        </div>
+        <div class="trust-card">
+          <div class="trust-icon">💬</div>
+          <h3>Acompanhamento pelo WhatsApp</h3>
+          <p>Receba a rota, confirme endereço e altere o veículo a qualquer momento.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="brands">
+      <div class="container">
+        <h2>Atendemos as principais montadoras</h2>
+        <p class="subtitle">Modelos mais vendidos de 2000 a 2025</p>
+        <div class="brand-list" id="brandList"></div>
+      </div>
+    </section>
+
+    <section class="final-step" id="summary">
+      <div class="container final-grid">
+        <div class="battery-visual">
+          <img src="assets/tudor-tfs.svg" alt="Bateria Tudor TFS recomendada" class="battery-img" loading="lazy">
+          <div class="badge">Modelo recomendado para seu veículo</div>
+        </div>
+        <div class="summary-card">
+          <p class="tag">Modelo recomendado para o seu veículo</p>
+          <h2>Bateria Tudor TFS</h2>
+          <ul class="benefits">
+            <li>Entrega gratuita</li>
+            <li>Teste gratuito</li>
+            <li>Instalação gratuita</li>
+            <li>24 meses de garantia</li>
+            <li>Pagamento na entrega (cartão, PIX ou dinheiro)</li>
+          </ul>
+          <div class="reassurance-grid">
+            <div class="reassurance-card">
+              <span class="pill">24H</span>
+              <div>
+                <strong>Pronto o dia todo</strong>
+                <p>Equipe em plantão, rota otimizada e contato imediato pelo WhatsApp.</p>
+              </div>
+            </div>
+            <div class="reassurance-card">
+              <span class="pill alt">Seguro</span>
+              <div>
+                <strong>Pagamento só depois</strong>
+                <p>Sem boletos ou adiantamento. Você revisa tudo antes de confirmar.</p>
+              </div>
+            </div>
+          </div>
+          <div class="summary-details">
+            <div>
+              <span class="label">Endereço escolhido</span>
+              <p id="addressPreview">Selecione o endereço para ver aqui.</p>
+            </div>
+            <div>
+              <span class="label">Veículo</span>
+              <p id="vehiclePreview">Escolha o veículo para recomendarmos.</p>
+            </div>
+            <div>
+              <span class="label">Nome no WhatsApp (opcional)</span>
+              <input type="text" id="waName" placeholder="Como está salvo no seu WhatsApp" autocomplete="name">
+            </div>
+            <div>
+              <span class="label">Observações para a entrega (opcional)</span>
+              <textarea id="notes" rows="2" placeholder="Portaria fechada, prefere PIX, referência de localização..."></textarea>
+              <small class="hint">Inclua detalhes úteis para agilizar a instalação.</small>
+            </div>
+          </div>
+          <div class="checklist" aria-live="polite">
+            <div class="check-item" id="addressChecklist">Endereço pendente</div>
+            <div class="check-item" id="vehicleChecklist">Veículo pendente</div>
+          </div>
+          <div class="readiness" aria-live="polite">
+            <div class="readiness-meter">
+              <div class="readiness-value" id="readinessValue">0%</div>
+              <small>Pronto para WhatsApp</small>
+            </div>
+            <div class="readiness-detail">
+              <p class="hint" id="readinessStatus">Complete endereço e veículo para chegar a 100%.</p>
+              <div class="readiness-bar">
+                <span id="readinessBar" style="width: 0%"></span>
+              </div>
+            </div>
+          </div>
+          <div class="summary-actions">
+            <button class="btn ghost" data-open-popup data-target-step="1">Editar endereço</button>
+            <button class="btn ghost" data-open-popup data-target-step="2">Trocar veículo</button>
+            <button class="btn ghost secondary" id="copySummary">Copiar resumo</button>
+            <button class="btn ghost danger" id="resetData">Limpar dados</button>
+          </div>
+          <div class="message-preview" aria-live="polite">
+            <div class="preview-header">
+              <span class="pill">Pré-visualização</span>
+              <small>O que será enviado ao WhatsApp</small>
+            </div>
+            <pre id="messagePreview">Preencha endereço e veículo para gerar o resumo.</pre>
+            <div class="helper-row">
+              <span class="hint">Revise antes de enviar. Você pode colar em outro chat se preferir.</span>
+              <button class="btn ghost" id="scrollToTop">Voltar ao topo</button>
+            </div>
+          </div>
+          <button class="btn primary large" id="ctaWhatsApp">Peça agora sua bateria!</button>
+          <small class="trust-text" id="ctaStateHint">O pedido abre seu WhatsApp com os dados preenchidos automaticamente.</small>
+          <div class="sr-only" role="status" aria-live="polite" id="liveStatus"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-area">
+      <div class="container service-grid">
+        <div class="service-card">
+          <p class="tag">Cobertura ativa</p>
+          <h3>Atendimento imediato em Juiz de Fora e região</h3>
+          <p class="subtitle">Chegamos em até 50 minutos em bairros centrais e rotas expandidas.</p>
+          <ul class="area-list">
+            <li>Rotas prioritárias: Mariano Procópio, Centro, Bom Pastor, Cascatinha.</li>
+            <li>Expresso 24H: Santo Antônio, São Mateus, Benfica, Granbery.</li>
+            <li>Telefones validados: (32) 3225-9068 | WhatsApp 24H: (32) 9126-0925.</li>
+          </ul>
+          <div class="service-actions">
+            <button class="btn primary" data-open-popup>Confirmar meu endereço</button>
+            <button class="btn ghost secondary" data-scroll-summary>Ver recomendação</button>
+          </div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-header">
+            <p class="tag">Dúvidas rápidas</p>
+            <h3>Antes de pedir, veja como funciona</h3>
+          </div>
+          <div class="faq-list" id="faqList" aria-label="Perguntas frequentes"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo-baterias24h.svg" alt="Baterias 24H" class="footer-logo">
+        <div class="social">
+          <a href="https://www.instagram.com/explore/locations/363675200360549/baterias-independencia/" aria-label="Instagram" target="_blank" rel="noopener" class="social-link">Instagram</a>
+          <a href="https://br.linkedin.com/company/baterias-independ%C3%AAncia" aria-label="LinkedIn" target="_blank" rel="noopener" class="social-link">LinkedIn</a>
+          <a href="https://www.facebook.com/bateriasindependencia" aria-label="Facebook" target="_blank" rel="noopener" class="social-link">Facebook</a>
+          <a href="https://youtube.com/@baterias24h" aria-label="YouTube" target="_blank" rel="noopener" class="social-link">YouTube</a>
+        </div>
+      </div>
+      <div class="footer-payments">
+        <h4>Formas de pagamento</h4>
+        <div class="payments">
+          <span class="chip">Cartão</span>
+          <span class="chip">PIX</span>
+          <span class="chip">Dinheiro</span>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <h4>Endereço</h4>
+        <p>Loja I: Av. Brasil 5510 - L01 Mariano Procópio – Juiz de Fora – MG</p>
+        <p>Telefone: (32) 3225-9068</p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/553291260925" class="floating-whatsapp" aria-label="WhatsApp">
+    <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/whatsapp.svg" alt="WhatsApp" class="wa-icon">
+    <span class="sr-only">Whatsapp</span>
+  </a>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="popup-overlay" id="popupOverlay">
+    <div class="popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <button class="close" id="closePopup" aria-label="Fechar">×</button>
+      <div class="popup-header">
+        <h3 id="popupTitle">Peça agora</h3>
+        <p>Preencha os dados para montarmos o pedido via WhatsApp.</p>
+        <div class="progress" aria-hidden="true">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="status-chips" aria-live="polite">
+          <span class="chip-soft" id="addressStatusChip">Endereço pendente</span>
+          <span class="chip-soft" id="vehicleStatusChip">Veículo pendente</span>
+          <span class="chip-soft strong" id="popupReadiness"><span id="popupReadinessValue">0%</span> pronto</span>
+        </div>
+      </div>
+      <div class="popup-steps">
+        <button class="step-tab active" data-step="1">Etapa 1: Endereço</button>
+        <button class="step-tab" data-step="2" id="vehicleTab" disabled>Etapa 2: Veículo</button>
+      </div>
+      <div class="popup-body">
+        <div class="step-content active" data-step-content="1">
+          <form id="addressForm" novalidate>
+            <label class="required">CEP <span class="required-dot" aria-hidden="true">•</span>
+              <div class="input-group">
+                <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required inputmode="numeric" pattern="\d{5}-?\d{3}">
+                <span class="status" id="cepStatus">Consultar</span>
+              </div>
+            </label>
+            <small class="field-error" data-error-for="cep" aria-live="polite"></small>
+            <p class="field-hint">Consulta automática ViaCEP. Ajuste manualmente se necessário.</p>
+            <div class="inline-actions">
+              <button type="button" class="btn ghost secondary" id="manualAddress">Preencher manualmente</button>
+              <button type="button" class="btn ghost" id="retryCep">Reconsultar CEP</button>
+            </div>
+            <label class="required">Rua <span class="required-dot" aria-hidden="true">•</span>
+              <input type="text" id="street" name="street" required>
+            </label>
+            <small class="field-error" data-error-for="street" aria-live="polite"></small>
+            <label class="required">Bairro <span class="required-dot" aria-hidden="true">•</span>
+              <input type="text" id="district" name="district" required>
+            </label>
+            <small class="field-error" data-error-for="district" aria-live="polite"></small>
+            <label class="required">Cidade <span class="required-dot" aria-hidden="true">•</span>
+              <input type="text" id="city" name="city" required>
+            </label>
+            <small class="field-error" data-error-for="city" aria-live="polite"></small>
+            <label class="required">Estado <span class="required-dot" aria-hidden="true">•</span>
+              <input type="text" id="state" name="state" required>
+            </label>
+            <small class="field-error" data-error-for="state" aria-live="polite"></small>
+            <label class="required">Número <span class="required-dot" aria-hidden="true">•</span>
+              <input type="text" id="number" name="number" required inputmode="numeric">
+            </label>
+            <small class="field-error" data-error-for="number" aria-live="polite"></small>
+            <label>Complemento (opcional)
+              <input type="text" id="complement" name="complement" placeholder="Apartamento, bloco, ponto de referência">
+            </label>
+            <div class="inline-alert" id="formAlert" role="status" aria-live="polite"></div>
+            <button type="submit" class="btn primary full">Continuar para veículo</button>
+          </form>
+        </div>
+        <div class="step-content" data-step-content="2">
+          <div class="vehicle-search">
+            <input type="search" id="vehicleFilter" placeholder="Buscar veículos">
+            <div class="vehicle-meta">
+              <span id="vehicleCount">Exibindo todos</span>
+              <button type="button" class="btn ghost secondary" id="clearFilter">Limpar</button>
+            </div>
+          </div>
+          <div class="popular-vehicles" aria-label="Atalhos de veículos populares">
+            <p class="hint">Atalhos rápidos:</p>
+            <div class="popular-list" id="popularList"></div>
+          </div>
+          <div class="brand-chips" id="brandChips" aria-label="Filtrar por montadora"></div>
+          <div id="vehicleList" class="vehicle-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-bar" id="stickyBar" aria-live="polite">
+    <div class="sticky-text">
+      <strong id="stickyStatus">Complete endereço e veículo para agilizar o pedido.</strong>
+      <small id="stickySub">Revisamos tudo e abrimos seu WhatsApp automaticamente.</small>
+    </div>
+    <div class="sticky-meter" aria-hidden="true">
+      <span class="pill" id="stickyPercent">0%</span>
+    </div>
+    <button class="btn primary" id="stickyAction">Preencher dados</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
