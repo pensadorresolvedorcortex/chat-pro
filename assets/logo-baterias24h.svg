@@ -1,0 +1,20 @@
+<svg width="320" height="120" viewBox="0 0 320 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-brand" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0D3B8A"/>
+      <stop offset="50%" stop-color="#0DA0FF"/>
+      <stop offset="100%" stop-color="#00E676"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0DA0FF" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect x="8" y="18" width="104" height="84" rx="12" fill="#0E1B33" stroke="url(#grad-brand)" stroke-width="6" filter="url(#shadow)"/>
+  <rect x="26" y="10" width="68" height="12" rx="6" fill="#14254D" stroke="#0DA0FF" stroke-width="2"/>
+  <rect x="18" y="54" width="84" height="34" rx="8" fill="#0F2344" stroke="#1de9b6" stroke-width="2"/>
+  <path d="M54 36 L70 36 L52 74 L78 74" stroke="#00E676" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="96" cy="32" r="6" fill="#00E676"/>
+  <circle cx="32" cy="32" r="6" fill="#0DA0FF"/>
+  <text x="126" y="62" fill="url(#grad-brand)" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="800" font-size="42">BATERIAS</text>
+  <text x="126" y="95" fill="url(#grad-brand)" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="800" font-size="38">24H</text>
+</svg>
