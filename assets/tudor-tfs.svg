@@ -1,0 +1,23 @@
+<svg width="480" height="380" viewBox="0 0 480 380" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1b1b1b"/>
+      <stop offset="50%" stop-color="#0f0f0f"/>
+      <stop offset="100%" stop-color="#1b1b1b"/>
+    </linearGradient>
+  </defs>
+  <rect x="30" y="50" width="420" height="260" rx="18" fill="url(#metal)" stroke="#101010" stroke-width="10"/>
+  <rect x="44" y="86" width="392" height="188" rx="10" fill="#161616" stroke="#1f1f1f" stroke-width="4"/>
+  <rect x="60" y="108" width="360" height="144" rx="10" fill="#E21C23"/>
+  <rect x="72" y="122" width="336" height="116" rx="8" fill="#f2f2f2"/>
+  <rect x="60" y="108" width="360" height="72" rx="10" fill="#d0161d" opacity="0.8"/>
+  <text x="88" y="180" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="900" font-size="68" fill="#E21C23" letter-spacing="1">TUDOR</text>
+  <text x="88" y="228" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="800" font-size="44" fill="#2f2f2f">TFS</text>
+  <rect x="30" y="36" width="420" height="38" rx="10" fill="#111" stroke="#1b1b1b" stroke-width="6"/>
+  <rect x="78" y="22" width="68" height="24" rx="6" fill="#0E1B33" stroke="#0DA0FF" stroke-width="3"/>
+  <rect x="334" y="22" width="68" height="24" rx="6" fill="#0E1B33" stroke="#00E676" stroke-width="3"/>
+  <circle cx="112" cy="70" r="16" fill="#1C1C1C" stroke="#d0161d" stroke-width="10"/>
+  <circle cx="368" cy="70" r="16" fill="#1C1C1C" stroke="#c5c5c5" stroke-width="10"/>
+  <rect x="180" y="272" width="120" height="20" rx="6" fill="#0DA0FF" opacity="0.8"/>
+  <text x="196" y="288" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="700" font-size="14" fill="#0E1B33">Montadora Original</text>
+</svg>
