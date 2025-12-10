@@ -2971,6 +2971,33 @@ body .juntaplay-group-card__message-row .juntaplay-button {
     margin: 0;
 }
 
+body .juntaplay-group-card__message-row .juntaplay-button--chat {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.16));
+    box-shadow: 0 10px 30px -12px rgba(8, 15, 52, 0.28), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    backdrop-filter: blur(10px);
+    color: var(--jp-text);
+    font-weight: 600;
+    padding-inline: 1.25rem;
+    min-height: 44px;
+    transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+body .juntaplay-group-card__message-row .juntaplay-button--chat:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 40px -18px rgba(8, 15, 52, 0.38), 0 1px 0 rgba(255, 255, 255, 0.55) inset;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+}
+
+body .juntaplay-group-card__message-row .juntaplay-button--chat span:first-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.4rem;
+    font-size: 1rem;
+}
+
 body .juntaplay-group-card__rules {
     border-left: 3px solid rgba(0, 204, 192, 0.45);
     background: rgba(0, 204, 192, 0.1);

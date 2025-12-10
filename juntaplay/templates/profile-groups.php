@@ -755,12 +755,12 @@ if ($group_suggestions) {
                                                     <p class="juntaplay-group-card__message"><?php echo esc_html($status_message); ?></p>
                                                     <?php if ($group_id > 0 && $is_member_role) : ?>
                                                         <?php if ($is_owner) : ?>
-                                                            <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($chat_url); ?>">
+                                                            <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
                                                                 <span aria-hidden="true">💬</span>
                                                                 <span><?php esc_html_e('Falar com Assinantes', 'juntaplay'); ?></span>
                                                             </a>
                                                         <?php else : ?>
-                                                            <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($chat_url); ?>">
+                                                            <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
                                                                 <span aria-hidden="true">💬</span>
                                                                 <span><?php esc_html_e('Falar com o Administrador', 'juntaplay'); ?></span>
                                                             </a>
