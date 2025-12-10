@@ -286,6 +286,15 @@ class ChatShortcode
             ))
             : $conversations;
 
+        if ($is_group_entry) {
+            $scoped_conversations = self::enrich_conversations_with_members(
+                $scoped_conversations,
+                $group_id,
+                $admin_id,
+                $owned_groups
+            );
+        }
+
         $search_space = $participant_id > 0 ? $conversations : $scoped_conversations;
 
         if (count($search_space) === 0) {
@@ -420,6 +429,72 @@ class ChatShortcode
         }
 
         return $conversations;
+    }
+
+    /**
+     * @param array<int,array<string,mixed>> $conversations
+     * @param array<int,array<string,mixed>> $owned_groups
+     * @return array<int,array<string,mixed>>
+     */
+    private static function enrich_conversations_with_members(
+        array $conversations,
+        int $group_id,
+        int $admin_id,
+        array $owned_groups
+    ): array {
+        if ($group_id <= 0) {
+            return $conversations;
+        }
+
+        $members = self::get_group_members($group_id);
+        if (empty($members)) {
+            return $conversations;
+        }
+
+        $existing_user_ids = [];
+        foreach ($conversations as $conversation) {
+            if (isset($conversation['user_id'])) {
+                $existing_user_ids[(int) $conversation['user_id']] = true;
+            }
+        }
+
+        $group_meta = self::map_owned_group($owned_groups, $group_id, $admin_id, '', '');
+
+        foreach ($members as $member) {
+            $user_id = isset($member['id']) ? (int) $member['id'] : (isset($member['user_id']) ? (int) $member['user_id'] : 0);
+            if ($user_id <= 0 || isset($existing_user_ids[$user_id])) {
+                continue;
+            }
+
+            $user = get_user_by('id', $user_id);
+
+            $conversations[] = [
+                'group_id'        => $group_id,
+                'group_title'     => (string) ($group_meta['title'] ?? ''),
+                'group_cover'     => (string) ($group_meta['cover_url'] ?? ''),
+                'user_id'         => $user_id,
+                'user_name'       => $user && $user->exists() ? ($user->display_name ?: $user->user_login) : __('Participante', 'juntaplay'),
+                'user_avatar'     => self::resolve_avatar($user_id),
+                'last_message'    => '',
+                'last_created_at' => '',
+            ];
+        }
+
+        return $conversations;
+    }
+
+    /**
+     * @return array<int,array<string,mixed>>
+     */
+    private static function get_group_members(int $group_id): array
+    {
+        if ($group_id <= 0 || !class_exists(Groups::class) || !method_exists(Groups::class, 'get_group_members')) {
+            return [];
+        }
+
+        $members = Groups::get_group_members($group_id);
+
+        return is_array($members) ? array_values(array_filter($members, 'is_array')) : [];
     }
 
     /**
