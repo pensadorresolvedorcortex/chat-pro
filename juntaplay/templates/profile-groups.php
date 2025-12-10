@@ -526,18 +526,6 @@ if ($group_suggestions) {
                 ? ' href="' . esc_url($cta_url) . '"'
                 : ' href="#"';
 
-            $chat_params = [
-                'section'  => 'juntaplay-chat',
-                'group_id' => $group_id,
-            ];
-
-            if ($is_owner && $chat_participant_id > 0 && $chat_participant_total === 1) {
-                $chat_params['participant_id'] = $chat_participant_id;
-            }
-
-            $chat_url        = add_query_arg($chat_params, home_url('/perfil/'));
-            $can_render_chat = $group_id > 0 && $membership_status !== 'guest';
-
             ob_start();
             ?>
             <article class="<?php echo esc_attr(implode(' ', $service_classes)); ?>" data-group-item data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-group-role="<?php echo esc_attr($group_role); ?>" data-group-status="<?php echo esc_attr($status); ?>">
@@ -555,26 +543,6 @@ if ($group_suggestions) {
                                 <span class="juntaplay-service-card__meta"><?php echo implode('', $meta_items); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
                             <?php endif; ?>
                         </a>
-                                    <?php if ($membership_status !== 'guest') : ?>
-                                        <div class="juntaplay-group-card__message-row juntaplay-group-card__message-row--role">
-                                            <span class="juntaplay-badge juntaplay-badge--<?php echo esc_attr($is_owner ? 'info' : 'positive'); ?>">
-                                                <?php echo esc_html($is_owner ? __('Você administra este grupo', 'juntaplay') : __('Você é um assinante deste grupo', 'juntaplay')); ?>
-                                            </span>
-                                            <?php if ($can_render_chat) : ?>
-                                                <?php if ($is_owner) : ?>
-                                                    <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
-                                                        <span aria-hidden="true">💬</span>
-                                                        <span><?php esc_html_e('Falar com Assinantes', 'juntaplay'); ?></span>
-                                                    </a>
-                                                <?php else : ?>
-                                                    <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
-                                                        <span aria-hidden="true">💬</span>
-                                                        <span><?php esc_html_e('Falar com o Administrador', 'juntaplay'); ?></span>
-                                                    </a>
-                                                <?php endif; ?>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endif; ?>
                                     <div class="juntaplay-group-card__footer">
                                         <div class="juntaplay-group-card__cta-inline">
                                             <button
@@ -770,18 +738,24 @@ if ($group_suggestions) {
                                                     <p class="juntaplay-group-card__members-empty"><?php echo esc_html__('Seja o primeiro a entrar neste grupo!', 'juntaplay'); ?></p>
                                                 <?php endif; ?>
                                             </div>
-                                            <?php if ($status_message !== '' || $can_render_chat) : ?>
+                                            <?php if ($status_message !== '') : ?>
+                                                <?php
+                                                $chat_params = [
+                                                    'section'  => 'juntaplay-chat',
+                                                    'group_id' => $group_id,
+                                                ];
+
+                                                $chat_url = add_query_arg($chat_params, home_url('/perfil/'));
+                                                ?>
                                                 <div class="juntaplay-group-card__message-row">
-                                                    <?php if ($status_message !== '') : ?>
-                                                        <p class="juntaplay-group-card__message"><?php echo esc_html($status_message); ?></p>
-                                                    <?php endif; ?>
-                                                    <?php if ($can_render_chat) : ?>
+                                                    <p class="juntaplay-group-card__message"><?php echo esc_html($status_message); ?></p>
+                                                    <?php if ($group_id > 0 && $is_member_role) : ?>
                                                         <?php if ($is_owner) : ?>
                                                             <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
                                                                 <span aria-hidden="true">💬</span>
                                                                 <span><?php esc_html_e('Falar com Assinantes', 'juntaplay'); ?></span>
                                                             </a>
-                                                        <?php elseif ($membership_status !== 'guest') : ?>
+                                                        <?php else : ?>
                                                             <a class="juntaplay-button juntaplay-button--ghost juntaplay-button--chat" href="<?php echo esc_url($chat_url); ?>">
                                                                 <span aria-hidden="true">💬</span>
                                                                 <span><?php esc_html_e('Falar com o Administrador', 'juntaplay'); ?></span>
