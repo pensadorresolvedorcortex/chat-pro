@@ -394,6 +394,7 @@ if ($group_suggestions) {
                     $group_id        = isset($group['id']) ? (int) $group['id'] : 0;
                     $group_title     = isset($group['title']) ? (string) $group['title'] : '';
                     $group_role      = isset($group['membership_role']) ? (string) $group['membership_role'] : 'member';
+                    $is_member_role  = in_array($group_role, ['owner', 'member'], true);
                     $owner_id        = isset($group['owner_id']) ? (int) $group['owner_id'] : 0;
                     $is_owner        = $owner_id > 0 ? $owner_id === $current_user_id : ($group_role === 'owner');
                     $chat_participant_id = isset($group['chat_participant_id']) ? (int) $group['chat_participant_id'] : 0;
@@ -752,7 +753,7 @@ if ($group_suggestions) {
                                                 ?>
                                                 <div class="juntaplay-group-card__message-row">
                                                     <p class="juntaplay-group-card__message"><?php echo esc_html($status_message); ?></p>
-                                                    <?php if ($group_id > 0) : ?>
+                                                    <?php if ($group_id > 0 && $is_member_role) : ?>
                                                         <?php if ($is_owner) : ?>
                                                             <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($chat_url); ?>">
                                                                 <span aria-hidden="true">💬</span>
