@@ -16,6 +16,7 @@ $current_user_id = get_current_user_id();
 $owner_id          = isset($group['owner_id']) ? (int) $group['owner_id'] : 0;
 $membership_role   = isset($group['membership_role']) ? (string) $group['membership_role'] : '';
 $is_owner          = $owner_id > 0 ? $owner_id === $current_user_id : !empty($is_owner);
+$is_member         = $membership_role === 'member';
 if (!$is_owner && $membership_role !== '') {
     $is_owner = $membership_role === 'owner';
 }
@@ -124,7 +125,7 @@ switch ($support_type) {
             <p class="juntaplay-group-modal__notice"><?php echo esc_html($blocked_notice); ?></p>
         <?php endif; ?>
 
-        <?php if ($complaint_url !== '' && !$is_owner) : ?>
+        <?php if ($complaint_url !== '' && $is_member) : ?>
             <div class="juntaplay-group-modal__notice juntaplay-group-modal__notice--highlight">
                 <strong><?php esc_html_e('Problemas com o grupo?', 'juntaplay'); ?></strong>
                 <p><?php echo esc_html($complaint_hint); ?></p>
