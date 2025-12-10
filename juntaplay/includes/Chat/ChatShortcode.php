@@ -46,6 +46,7 @@ class ChatShortcode
         $user_name      = $current_user->display_name ?: $current_user->user_login;
         $user_avatar    = self::resolve_avatar((int) $current_user->ID);
         $group_name   = isset($selected_group['title']) ? (string) $selected_group['title'] : '';
+        $group_cover  = isset($selected_group['cover_url']) ? (string) $selected_group['cover_url'] : '';
         $admin_id     = isset($selected_group['owner_id']) ? (int) $selected_group['owner_id'] : 0;
         $admin        = $admin_id > 0 ? get_user_by('id', $admin_id) : null;
         $admin_name   = $admin && $admin->exists() ? ($admin->display_name ?: $admin->user_login) : '';
@@ -61,6 +62,19 @@ class ChatShortcode
         ?>
         <div id="jp-chat-wrapper">
             <div id="jp-chat-header">
+                <div class="jp-chat-group-chip">
+                    <div class="jp-chat-group-chip-avatar">
+                        <?php if ($group_cover !== '') : ?>
+                            <img src="<?php echo esc_url($group_cover); ?>" alt="<?php echo esc_attr($group_label); ?>">
+                        <?php else : ?>
+                            <span aria-hidden="true">💬</span>
+                        <?php endif; ?>
+                    </div>
+                    <div class="jp-chat-group-chip-body">
+                        <span class="jp-chat-group-chip-label"><?php esc_html_e('Conversando em', 'juntaplay'); ?></span>
+                        <span class="jp-chat-group-chip-title" title="<?php echo esc_attr($group_label); ?>"><?php echo esc_html($group_label); ?></span>
+                    </div>
+                </div>
                 <div class="jp-chat-heading">
                     <h3>Central de Mensagens</h3>
                     <p class="jp-chat-subtitle">Canal direto para sanar dúvidas e enviar mensagens sobre o grupo.</p>
