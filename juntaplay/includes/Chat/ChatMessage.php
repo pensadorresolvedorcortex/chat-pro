@@ -54,13 +54,7 @@ class ChatMessage
         );
     }
 
-    /**
-     * @param int|string $group_id
-     * @param int|string $user_id
-     * @param int|string $admin_id
-     * @param int|string $limit
-     */
-    public function get_messages($group_id, $user_id, $admin_id, $limit = 50)
+    public function get_messages(int $group_id, int $user_id, int $admin_id, int $limit = 50)
     {
         if (!$this->ensure_table()) {
             return [];
@@ -82,11 +76,7 @@ class ChatMessage
         );
     }
 
-    /**
-     * @param int|string $group_id
-     * @param int|string $user_id
-     */
-    public function mark_as_read_by_admin($group_id, $user_id)
+    public function mark_as_read_by_admin(int $group_id, int $user_id)
     {
         if (!$this->ensure_table()) {
             return 0;
@@ -104,11 +94,7 @@ class ChatMessage
         );
     }
 
-    /**
-     * @param int|string $group_id
-     * @param int|string $user_id
-     */
-    public function mark_as_read_by_user($group_id, $user_id)
+    public function mark_as_read_by_user(int $group_id, int $user_id)
     {
         if (!$this->ensure_table()) {
             return 0;
@@ -126,10 +112,7 @@ class ChatMessage
         );
     }
 
-    /**
-     * @param int|string $admin_id
-     */
-    public function count_unread_for_admin($admin_id): int
+    public function count_unread_for_admin(int $admin_id): int
     {
         if (!$this->ensure_table()) {
             return 0;
@@ -145,10 +128,7 @@ class ChatMessage
         );
     }
 
-    /**
-     * @param int|string $user_id
-     */
-    public function count_unread_for_user($user_id): int
+    public function count_unread_for_user(int $user_id): int
     {
         if (!$this->ensure_table()) {
             return 0;

@@ -15,6 +15,8 @@
     const previewThumb = document.getElementById('jp-chat-preview-thumb');
 
     const groupId = parseInt(window.jpChatData.group_id, 10) || 0;
+    const participantId = parseInt(window.jpChatData.participant_id || '0', 10) || 0;
+    const mode = window.jpChatData.mode || 'member';
     const ajaxUrl = window.jpChatData.ajax_url;
     const nonce = window.jpChatData.nonce;
 
@@ -85,16 +87,21 @@
     }
 
     async function loadMessages() {
-      if (isLoading || !groupId) return;
+      if (isLoading || !groupId || (mode === 'admin' && !participantId)) return;
       isLoading = true;
       try {
         const res = await fetch(
-          ajaxUrl + '?action=juntaplay_chat_list&group_id=' + encodeURIComponent(groupId) + '&nonce=' + encodeURIComponent(nonce),
+          ajaxUrl +
+            '?action=juntaplay_chat_list&group_id=' +
+            encodeURIComponent(groupId) +
+            '&nonce=' +
+            encodeURIComponent(nonce) +
+            (participantId ? '&user_id=' + encodeURIComponent(participantId) : ''),
           { credentials: 'same-origin' }
         );
         const data = await res.json();
         if (data && data.success) {
-          const messages = data?.data?.messages ?? [];
+          const messages = data?.data?.messages ?? data.messages ?? [];
           renderMessages(messages);
         }
       } catch (e) {
@@ -104,11 +111,14 @@
     }
 
     async function sendMessage(payload) {
-      if (!groupId) return;
+      if (!groupId || (mode === 'admin' && !participantId)) return;
       const form = new FormData();
       form.append('action', 'juntaplay_chat_send');
       form.append('nonce', nonce);
       form.append('group_id', groupId);
+      if (participantId) {
+        form.append('user_id', participantId);
+      }
 
       if (payload.message) {
         form.append('message', payload.message);

@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace JuntaPlay\Chat;
 
+use JuntaPlay\Data\Notifications as NotificationsData;
 use WP_Error;
+use function __;
+use function add_query_arg;
+use function get_user_by;
+use function home_url;
 
 defined('ABSPATH') || exit;
 
@@ -58,7 +63,7 @@ class ChatAjax
         global $wpdb;
         $msg = [
             'id'            => (int) $wpdb->insert_id,
-            'group_id'      => $group->id,
+            'group_id'      => $group_id,
             'user_id'       => $member_id,
             'admin_id'      => $admin_id,
             'sender'        => $sender,
@@ -68,6 +73,34 @@ class ChatAjax
             'is_read_user'  => 0,
             'created_at'    => current_time('mysql'),
         ];
+
+        if ($sender === 'user') {
+            $group_name = isset($group->title) ? (string) $group->title : __('Grupo', 'juntaplay');
+            $member     = get_user_by('id', $member_id);
+            $member_name = $member && $member->exists()
+                ? ($member->display_name ?: $member->user_login)
+                : __('Participante', 'juntaplay');
+
+            $action_url = add_query_arg(
+                [
+                    'section'        => 'juntaplay-chat',
+                    'participant_id' => $member_id,
+                    'group_id'       => $group_id,
+                ],
+                home_url('/perfil/')
+            );
+
+            NotificationsData::add($admin_id, [
+                'type'       => 'chat',
+                'title'      => sprintf(__('Nova mensagem de %s', 'juntaplay'), $member_name),
+                'message'    => sprintf(
+                    __('O %1$s do grupo %2$s enviou uma mensagem no chat.', 'juntaplay'),
+                    $member_name,
+                    $group_name
+                ),
+                'action_url' => $action_url,
+            ]);
+        }
 
         wp_send_json_success([
             'message' => 'Mensagem enviada',
@@ -92,11 +125,11 @@ class ChatAjax
 
         [$group, $member_id, $admin_id, $sender] = $context;
 
-        $chat     = new ChatMessage();
-        $group_id = (int) $group->id;
+        $group_id  = (int) $group->id;
         $member_id = (int) $member_id;
-        $admin_id = (int) $admin_id;
+        $admin_id  = (int) $admin_id;
 
+        $chat     = new ChatMessage();
         $messages = $chat->get_messages($group_id, $member_id, $admin_id, 100);
 
         if ($sender === 'admin') {
@@ -173,12 +206,12 @@ class ChatAjax
             )
         );
 
-        $admin_id  = (int) $group->owner_id;
-        $is_admin  = ($admin_id === $current_user);
+        $is_admin = ((int) $group->owner_id === $current_user);
         $member_id = $current_user;
+        $admin_id  = (int) $group->owner_id;
 
         if ($is_admin) {
-            $member_id = absint($_REQUEST['user_id'] ?? 0);
+            $member_id = absint($_REQUEST['user_id'] ?? $_REQUEST['participant_id'] ?? 0);
             if ($member_id <= 0) {
                 return new WP_Error('invalid_member', 'Membro inválido');
             }
@@ -196,16 +229,12 @@ class ChatAjax
                 return new WP_Error('invalid_member', 'Membro não pertence ao grupo');
             }
 
-            $member_id = (int) $member_row->user_id;
-
             return [$group, $member_id, $admin_id, 'admin'];
         }
 
         if (!$member_row) {
             return new WP_Error('forbidden', 'Usuário não pertence ao grupo');
         }
-
-        $member_id = (int) $member_row->user_id;
 
         return [$group, $member_id, $admin_id, 'user'];
     }
