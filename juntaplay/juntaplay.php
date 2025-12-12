@@ -81,6 +81,18 @@ add_action('init', static function (): void {
             ? \JuntaPlay\Data\Groups::get_groups_for_user($current_id)
             : ['owned' => [], 'member' => []];
 
+        $header_avatar = '';
+
+        if (class_exists('\\JuntaPlay\\Front\\Profile')) {
+            $profile_instance = new \JuntaPlay\Front\Profile();
+            $header_context   = $profile_instance->get_header_context();
+            $header_avatar    = isset($header_context['avatar_url']) ? (string) $header_context['avatar_url'] : '';
+        }
+
+        if ($header_avatar === '') {
+            $header_avatar = get_avatar_url($current_id, ['size' => 128]);
+        }
+
         $owned_groups   = is_array($raw_groups['owned'] ?? null) ? $raw_groups['owned'] : [];
         $member_groups  = is_array($raw_groups['member'] ?? null) ? $raw_groups['member'] : [];
         $is_admin       = !empty($owned_groups);
@@ -130,7 +142,7 @@ add_action('init', static function (): void {
                 $members[] = [
                     'id'     => $member_id,
                     'name'   => $user ? (string) $user->display_name : '',
-                    'avatar' => get_avatar_url($member_id, ['size' => 96]),
+                    'avatar' => get_avatar_url($member_id, ['size' => 128]) ?: $avatar_fallback,
                     'group'  => (string) ($group['title'] ?? ''),
                 ];
             }
@@ -161,6 +173,7 @@ add_action('init', static function (): void {
 
         $default_member_group = $normalized_member[0] ?? null;
         $subscriber_admin     = null;
+        $avatar_fallback      = 'https://www.gravatar.com/avatar/?d=mp&s=128';
 
         if ($default_member_group && ($default_member_group['owner_id'] ?? 0)) {
             $admin_id   = (int) $default_member_group['owner_id'];
@@ -169,7 +182,7 @@ add_action('init', static function (): void {
             $subscriber_admin = [
                 'id'     => $admin_id,
                 'name'   => $admin_user ? (string) $admin_user->display_name : '',
-                'avatar' => get_avatar_url($admin_id, ['size' => 96]),
+                'avatar' => get_avatar_url($admin_id, ['size' => 128]) ?: $avatar_fallback,
             ];
         }
 
@@ -180,7 +193,7 @@ add_action('init', static function (): void {
             'currentUser'    => [
                 'id'     => $current_id,
                 'name'   => (string) $current_user->display_name,
-                'avatar' => get_avatar_url($current_id, ['size' => 96]),
+                'avatar' => $header_avatar ?: $avatar_fallback,
             ],
             'groups'         => $normalized_owned,
             'groupMembers'   => $group_members,
@@ -190,6 +203,7 @@ add_action('init', static function (): void {
                 'adminId'  => $default_member_group ? (int) ($default_member_group['owner_id'] ?? 0) : 0,
                 'admin'    => $subscriber_admin,
             ],
+            'fallbackAvatar' => $avatar_fallback,
             'i18n'           => [
                 'emptyMembers'   => __('Nenhum assinante ativo neste grupo.', 'juntaplay'),
                 'selectMember'   => __('Selecione um assinante para iniciar o chat.', 'juntaplay'),
@@ -279,13 +293,48 @@ add_action('init', static function (): void {
                 border: 1px solid rgba(56, 189, 248, 0.35);
             }
 
-            .jp-chat-avatar {
-                width: 46px;
-                height: 46px;
+            .jp-chat-avatar-glass {
+                width: 64px;
+                height: 64px;
                 border-radius: 50%;
-                background: rgba(255, 255, 255, 0.6);
-                object-fit: cover;
+                padding: 4px;
+                background: rgba(255, 255, 255, 0.28);
+                border: 1px solid rgba(255, 255, 255, 0.55);
+                box-shadow:
+                    0 12px 30px rgba(15, 23, 42, 0.18),
+                    0 0 0 1px rgba(255, 255, 255, 0.2),
+                    0 0 25px rgba(56, 189, 248, 0.25);
+                backdrop-filter: blur(18px) saturate(140%);
+                -webkit-backdrop-filter: blur(18px) saturate(140%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 flex-shrink: 0;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            }
+
+            .jp-chat-avatar-glass.small {
+                width: 52px;
+                height: 52px;
+                padding: 3px;
+            }
+
+            .jp-chat-avatar-glass:hover {
+                transform: translateY(-1px);
+                box-shadow:
+                    0 16px 40px rgba(15, 23, 42, 0.22),
+                    0 0 0 1px rgba(255, 255, 255, 0.25),
+                    0 0 30px rgba(14, 165, 233, 0.35);
+                background: rgba(255, 255, 255, 0.35);
+            }
+
+            .jp-chat-avatar-img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+                box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+                background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.15));
             }
 
             .jp-chat-meta {
@@ -466,7 +515,9 @@ add_action('init', static function (): void {
 
             <section class="jp-chat-panel" data-jp-chat-panel>
                 <header class="jp-chat-header" data-jp-chat-header>
-                    <img class="jp-chat-avatar" data-jp-chat-partner-avatar src="" alt="" />
+                    <div class="jp-chat-avatar-glass" data-jp-chat-avatar-shell>
+                        <img class="jp-chat-avatar-img" data-jp-chat-partner-avatar src="" alt="" />
+                    </div>
                     <div class="titles">
                         <p class="primary" data-jp-chat-partner-name><?php echo esc_html($context['i18n']['startChat']); ?></p>
                         <p class="secondary" data-jp-chat-partner-subtitle></p>
@@ -511,6 +562,7 @@ add_action('init', static function (): void {
                 let isSending = false;
 
                 const restBase = (data.restBase || '').replace(/\/$/, '');
+                const fallbackAvatar = data.fallbackAvatar || 'https://www.gravatar.com/avatar/?d=mp&s=128';
 
                 const formatTime = (dateStr) => {
                     const date = new Date(dateStr.replace(' ', 'T'));
@@ -518,10 +570,18 @@ add_action('init', static function (): void {
                 };
 
                 const setPartner = (user) => {
-                    headerName.textContent = user?.name || data.i18n.startChat;
-                    headerSubtitle.textContent = user?.subtitle || '';
-                    headerAvatar.src = user?.avatar || 'https://www.gravatar.com/avatar/?d=mp&s=96';
-                    headerAvatar.alt = user?.name || '';
+                    if (headerName) {
+                        headerName.textContent = user?.name || data.i18n.startChat;
+                    }
+
+                    if (headerSubtitle) {
+                        headerSubtitle.textContent = user?.subtitle || '';
+                    }
+
+                    if (headerAvatar) {
+                        headerAvatar.src = (user && user.avatar) || fallbackAvatar;
+                        headerAvatar.alt = user?.name || '';
+                    }
                 };
 
                 const renderMessages = (messages) => {
@@ -634,8 +694,12 @@ add_action('init', static function (): void {
                         li.dataset.memberGroup = member.group;
                         li.dataset.memberAvatar = member.avatar;
 
+                        const avatar = member.avatar || fallbackAvatar;
+
                         li.innerHTML = `
-                            <img class="jp-chat-avatar" src="${member.avatar}" alt="${member.name}" />
+                            <div class="jp-chat-avatar-glass small">
+                                <img class="jp-chat-avatar-img" src="${avatar}" alt="${member.name}" />
+                            </div>
                             <div class="jp-chat-meta">
                                 <span class="name">${member.name}</span>
                                 <span class="subtitle">${member.group}</span>
@@ -645,7 +709,7 @@ add_action('init', static function (): void {
                         li.addEventListener('click', () => {
                             membersList.querySelectorAll('li').forEach((node) => node.classList.remove('active'));
                             li.classList.add('active');
-                            selectedMember = { id: member.id, name: member.name, avatar: member.avatar, subtitle: member.group };
+                            selectedMember = { id: member.id, name: member.name, avatar, subtitle: member.group };
                             setPartner(selectedMember);
                             fetchMessages();
                         });
@@ -670,8 +734,12 @@ add_action('init', static function (): void {
                         const li = document.createElement('li');
                         li.dataset.groupId = group.id;
                         li.dataset.ownerId = group.owner_id;
+                        const avatar = group.avatar || fallbackAvatar;
+
                         li.innerHTML = `
-                            <img class="jp-chat-avatar" src="${group.avatar || 'https://www.gravatar.com/avatar/?d=mp&s=96'}" alt="${group.title}" />
+                            <div class="jp-chat-avatar-glass small">
+                                <img class="jp-chat-avatar-img" src="${avatar}" alt="${group.title}" />
+                            </div>
                             <div class="jp-chat-meta">
                                 <span class="name">${group.title}</span>
                                 <span class="subtitle">${group.subtitle || ''}</span>
@@ -714,7 +782,7 @@ add_action('init', static function (): void {
 
                     setPartner({
                         name: adminPartner.name || data.subscriberView.group.title,
-                        avatar: adminPartner.avatar || data.subscriberView.group.avatar || 'https://www.gravatar.com/avatar/?d=mp&s=96',
+                        avatar: adminPartner.avatar || data.subscriberView.group.avatar || fallbackAvatar,
                         subtitle: data.i18n.subscriberHeader,
                     });
 
