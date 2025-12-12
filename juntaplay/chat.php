@@ -16,7 +16,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-register_activation_hook(JUNTAPLAY_CHAT_FILE, 'juntaplay_chat_install');
+// Ensure activation runs when the main plugin file is enabled.
+$juntaplay_chat_activation_file = defined('JP_FILE') ? JP_FILE : JUNTAPLAY_CHAT_FILE;
+register_activation_hook($juntaplay_chat_activation_file, 'juntaplay_chat_install');
 add_action('init', 'juntaplay_chat_register_endpoint');
 add_action('rest_api_init', 'juntaplay_chat_register_routes');
 add_action('wp_ajax_juntaplay_chat_send', 'juntaplay_chat_ajax_send');

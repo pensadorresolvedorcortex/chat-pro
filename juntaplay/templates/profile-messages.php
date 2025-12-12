@@ -1,6 +1,6 @@
 <?php
 /**
- * Central de Mensagens via shortcode.
+ * Central de Mensagens renderizada via shortcode.
  */
 
 declare(strict_types=1);

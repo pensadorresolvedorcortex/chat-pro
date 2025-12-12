@@ -382,15 +382,6 @@ $profile_sections = $profile_sections ?? [];
 $profile_errors   = $profile_errors ?? [];
 $profile_notices  = $profile_notices ?? [];
 $active_section   = $profile_active_section ?? null;
-$requested_section = isset($_GET['section']) ? sanitize_key(wp_unslash($_GET['section'])) : '';
-
-if ($requested_section === '' && get_query_var('juntaplay-chat', '') !== '') {
-    $requested_section = 'juntaplay-chat';
-}
-
-if ($active_section === null && $requested_section !== '') {
-    $active_section = $requested_section;
-}
 $display_name     = '';
 $user_email       = '';
 $member_since     = '';
@@ -602,12 +593,6 @@ if ($active_section && isset($section_to_tab[$active_section])) {
 } elseif ($active_section && strpos($active_section, 'group_complaint_') === 0 && isset($section_to_tab['group_create'])) {
     $active_category_id = $section_to_tab['group_create']['category'];
     $active_tab_id      = $section_to_tab['group_create']['tab'];
-}
-
-if ($requested_section === 'juntaplay-chat') {
-    $active_category_id = 'messages';
-    $active_tab_id      = 'messages_center';
-    $active_section     = 'juntaplay-chat';
 }
 
 if ($requested_category && isset($profile_categories[$requested_category])) {
@@ -1019,29 +1004,6 @@ if (function_exists('mb_strtoupper')) {
                             <?php foreach ($tab['groups'] as $group_meta) :
                                 $group_key   = $group_meta['key'];
                                 $visible_set = $group_meta['items'] ?? null;
-                                if ($group_key === 'messages' && !isset($profile_sections[$group_key])) {
-                                    ?>
-                                    <section class="juntaplay-profile__group" data-group="messages">
-                                        <header class="juntaplay-profile__group-header">
-                                            <h2 class="juntaplay-profile__group-title"><?php echo esc_html($category['label'] ?? __('Central de Mensagens', 'juntaplay')); ?></h2>
-                                            <p class="juntaplay-profile__group-description"><?php echo esc_html((string) ($category['description'] ?? __('Área destinada à comunicação entre Administrador e Assinantes.', 'juntaplay'))); ?></p>
-                                        </header>
-
-                                        <ul class="juntaplay-profile__list" role="list">
-                                            <li class="juntaplay-profile__row juntaplay-profile__row--custom" data-section="juntaplay-chat">
-                                                <div class="juntaplay-profile__content">
-                                                    <div class="juntaplay-profile__label"><?php esc_html_e('Central de Mensagens', 'juntaplay'); ?></div>
-                                                    <p class="juntaplay-profile__description"><?php esc_html_e('Área destinada à comunicação entre Administrador e Assinantes.', 'juntaplay'); ?></p>
-                                                </div>
-                                                <div class="juntaplay-profile__custom">
-                                                    <?php echo do_shortcode('[juntaplay_chatonline]'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </section>
-                                    <?php
-                                    continue;
-                                }
                                 if (!isset($profile_sections[$group_key])) {
                                     continue;
                                 }

@@ -45,99 +45,22 @@ $header_register_url = isset($header_register_url) ? (string) $header_register_u
 $header_auth_modal   = isset($header_auth_modal) ? (bool) $header_auth_modal : false;
 $header_auth_context = is_array($header_auth_context ?? null) ? $header_auth_context : [];
 $header_auth_auto_open = isset($header_auth_auto_open) ? (string) $header_auth_auto_open : '';
-$profile_page_id   = (int) get_option('juntaplay_page_perfil');
-$messages_base_url = $profile_page_id ? get_permalink($profile_page_id) : home_url('/perfil/');
-$messages_endpoint = user_trailingslashit(trailingslashit($messages_base_url) . 'juntaplay-chat');
-$messages_base_url = add_query_arg('section', 'juntaplay-chat', $messages_base_url);
 
 if (!in_array($header_auth_auto_open, ['login', 'register'], true)) {
     $header_auth_auto_open = '';
 }
-
-$messages_label        = __('Mensagens', 'juntaplay');
-$has_messages_menu     = false;
-$normalized_menu_items = [];
-
-foreach ($header_menu_items as $menu_item) {
-    $label = isset($menu_item['label']) ? (string) $menu_item['label'] : '';
-
-    if (!$has_messages_menu && $label !== '' && strcasecmp($label, $messages_label) === 0) {
-        $has_messages_menu = true;
-    }
-
-    $normalized_menu_items[] = $menu_item;
-}
-
-if (!$has_messages_menu) {
-    array_unshift(
-        $normalized_menu_items,
-        [
-            'label' => $messages_label,
-            'icon'  => 'message',
-            'url'   => $messages_endpoint ?: $messages_base_url,
-        ]
-    );
-}
-
-$header_menu_items = $normalized_menu_items;
 
 $name       = isset($header_context['name']) ? (string) $header_context['name'] : '';
 $first_name = isset($header_context['first_name']) ? (string) $header_context['first_name'] : '';
 $email      = isset($header_context['email']) ? (string) $header_context['email'] : '';
 $avatar_url = isset($header_context['avatar_url']) ? (string) $header_context['avatar_url'] : '';
 $initial    = isset($header_context['initial']) ? (string) $header_context['initial'] : 'J';
-$current_user_id = isset($header_context['user_id']) ? (int) $header_context['user_id'] : get_current_user_id();
-
-$unread_meta = $current_user_id ? get_user_meta($current_user_id, 'juntaplay_mensagens_nao_lidas', true) : [];
-$read_meta   = $current_user_id ? get_user_meta($current_user_id, 'juntaplay_mensagens_lidas', true) : [];
-
-if ($current_user_id) {
-    if (!is_array($unread_meta)) {
-        $unread_meta = [];
-        update_user_meta($current_user_id, 'juntaplay_mensagens_nao_lidas', $unread_meta);
-    }
-
-    if (!is_array($read_meta)) {
-        $read_meta = [];
-        update_user_meta($current_user_id, 'juntaplay_mensagens_lidas', $read_meta);
-    }
-}
-
-$unread_messages = is_array($unread_meta) ? $unread_meta : [];
-$read_messages   = is_array($read_meta) ? $read_meta : [];
-
-$chat_section = isset($_GET['section']) ? (string) wp_unslash($_GET['section']) : '';
-
-if ($current_user_id && $chat_section === 'juntaplay-chat' && $unread_messages) {
-    $read_messages   = array_values(array_merge($read_messages, $unread_messages));
-    $unread_messages = [];
-
-    update_user_meta($current_user_id, 'juntaplay_mensagens_lidas', $read_messages);
-    update_user_meta($current_user_id, 'juntaplay_mensagens_nao_lidas', $unread_messages);
-}
 
 if ($first_name === '') {
     $first_name = $name !== '' ? $name : '';
 }
 
 $avatar_label = $name !== '' ? $name : ($first_name !== '' ? $first_name : __('assinante', 'juntaplay'));
-$recipient_name = $first_name !== '' ? $first_name : ($name !== '' ? $name : __('assinante', 'juntaplay'));
-
-if ($header_notifications_unread === 0 && $unread_messages) {
-    $header_notifications_unread = count($unread_messages);
-}
-
-$notification_messages = [];
-
-foreach ($unread_messages as $message_data) {
-    $sender_name = isset($message_data['sender']) ? (string) $message_data['sender'] : __('Administrador', 'juntaplay');
-
-    $notification_messages[] = sprintf(
-        __('%1$s, você recebeu uma mensagem de %2$s.', 'juntaplay'),
-        $recipient_name,
-        $sender_name
-    );
-}
 ?>
 <div class="juntaplay-header<?php echo $header_guest ? ' juntaplay-header--guest' : ''; ?>" data-jp-header>
     <div class="juntaplay-header__inner">
@@ -208,13 +131,7 @@ foreach ($unread_messages as $message_data) {
                             <h4><?php esc_html_e('Notificações', 'juntaplay'); ?></h4>
                         </div>
                         <ul class="juntaplay-notifications__list" data-jp-notifications-list>
-                            <?php if ($notification_messages) : ?>
-                                <?php foreach ($notification_messages as $notification_message) : ?>
-                                    <li class="juntaplay-notifications__item"><?php echo esc_html($notification_message); ?></li>
-                                <?php endforeach; ?>
-                            <?php else : ?>
-                                <li class="juntaplay-notifications__empty"><?php esc_html_e('Nenhuma nova mensagem.', 'juntaplay'); ?></li>
-                            <?php endif; ?>
+                            <li class="juntaplay-notifications__empty"><?php esc_html_e('Carregando notificações...', 'juntaplay'); ?></li>
                         </ul>
                         <div class="juntaplay-notifications__footer">
                             <button type="button" class="juntaplay-notifications__clear" data-jp-notifications-clear><?php esc_html_e('Apagar notificações', 'juntaplay'); ?></button>
