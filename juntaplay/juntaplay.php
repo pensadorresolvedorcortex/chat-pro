@@ -124,8 +124,11 @@ add_action('init', static function (): void {
                 continue;
             }
 
-            $group_cover = (string) ($group['icon_url'] ?? ($group['cover_url'] ?? ''));
-            $group_avatar = $group_cover !== '' ? $group_cover : $group_placeholder;
+            $group_cover_url  = (string) ($group['cover_url'] ?? '');
+            $group_cover_is_placeholder = (bool) ($group['cover_placeholder'] ?? false);
+            $group_avatar     = ($group_cover_url !== '' && !$group_cover_is_placeholder)
+                ? $group_cover_url
+                : $group_placeholder;
 
             $normalized_owned[] = [
                 'id'        => $group_id,
@@ -181,8 +184,11 @@ add_action('init', static function (): void {
                 continue;
             }
 
-            $group_cover = (string) ($group['icon_url'] ?? ($group['cover_url'] ?? ''));
-            $group_avatar = $group_cover !== '' ? $group_cover : $group_placeholder;
+            $group_cover_url  = (string) ($group['cover_url'] ?? '');
+            $group_cover_is_placeholder = (bool) ($group['cover_placeholder'] ?? false);
+            $group_avatar     = ($group_cover_url !== '' && !$group_cover_is_placeholder)
+                ? $group_cover_url
+                : $group_placeholder;
 
             $normalized_member[] = [
                 'id'        => $group_id,
