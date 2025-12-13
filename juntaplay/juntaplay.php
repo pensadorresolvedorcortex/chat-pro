@@ -112,6 +112,8 @@ add_action('init', static function (): void {
         $group_members  = [];
         $normalized_owned = [];
 
+        $group_placeholder = defined('JP_GROUP_COVER_PLACEHOLDER') ? (string) JP_GROUP_COVER_PLACEHOLDER : '';
+
         foreach ($owned_groups as $group) {
             if (!is_array($group)) {
                 continue;
@@ -122,11 +124,14 @@ add_action('init', static function (): void {
                 continue;
             }
 
+            $group_cover = (string) ($group['icon_url'] ?? ($group['cover_url'] ?? ''));
+            $group_avatar = $group_cover !== '' ? $group_cover : $group_placeholder;
+
             $normalized_owned[] = [
                 'id'        => $group_id,
                 'title'     => (string) ($group['title'] ?? ''),
                 'subtitle'  => (string) ($group['pool_title'] ?? ''),
-                'avatar'    => (string) ($group['icon_url'] ?? ''),
+                'avatar'    => $group_avatar,
                 'owner_id'  => (int) ($group['owner_id'] ?? 0),
             ];
 
@@ -176,11 +181,14 @@ add_action('init', static function (): void {
                 continue;
             }
 
+            $group_cover = (string) ($group['icon_url'] ?? ($group['cover_url'] ?? ''));
+            $group_avatar = $group_cover !== '' ? $group_cover : $group_placeholder;
+
             $normalized_member[] = [
                 'id'        => $group_id,
                 'title'     => (string) ($group['title'] ?? ''),
                 'subtitle'  => (string) ($group['pool_title'] ?? ''),
-                'avatar'    => (string) ($group['icon_url'] ?? ''),
+                'avatar'    => $group_avatar,
                 'owner_id'  => (int) ($group['owner_id'] ?? 0),
             ];
         }
@@ -217,6 +225,7 @@ add_action('init', static function (): void {
                 'admin'    => $subscriber_admin,
             ],
             'fallbackAvatar' => $fallback_avatar,
+            'groupPlaceholder' => $group_placeholder,
             'i18n'           => [
                 'emptyMembers'   => __('Nenhum assinante ativo neste grupo.', 'juntaplay'),
                 'selectMember'   => __('Selecione um assinante para iniciar o chat.', 'juntaplay'),
@@ -594,6 +603,7 @@ add_action('init', static function (): void {
 
                 const restBase = (data.restBase || '').replace(/\/$/, '');
                 const fallbackAvatar = data.fallbackAvatar || (data.currentUser && data.currentUser.avatar) || '';
+                const groupPlaceholder = data.groupPlaceholder || '';
 
                 const formatTime = (dateStr) => {
                     const date = new Date(dateStr.replace(' ', 'T'));
@@ -765,7 +775,7 @@ add_action('init', static function (): void {
                         const li = document.createElement('li');
                         li.dataset.groupId = group.id;
                         li.dataset.ownerId = group.owner_id;
-                        const avatar = group.avatar || fallbackAvatar;
+                        const avatar = group.avatar || groupPlaceholder;
 
                         li.innerHTML = `
                             <div class="jp-chat-avatar-glass small">
@@ -813,7 +823,7 @@ add_action('init', static function (): void {
 
                     setPartner({
                         name: adminPartner.name || data.subscriberView.group.title,
-                        avatar: adminPartner.avatar || data.subscriberView.group.avatar || fallbackAvatar,
+                        avatar: adminPartner.avatar || data.subscriberView.group.avatar || groupPlaceholder,
                         subtitle: data.i18n.subscriberHeader,
                     });
 
