@@ -114,6 +114,45 @@ add_action('init', static function (): void {
 
         $group_placeholder = defined('JP_GROUP_COVER_PLACEHOLDER') ? (string) JP_GROUP_COVER_PLACEHOLDER : '';
 
+        if (class_exists('\\JuntaPlay\\Assets\\ServiceIcons')) {
+            $service_fallback = \JuntaPlay\Assets\ServiceIcons::fallback();
+            if (is_string($service_fallback) && $service_fallback !== '') {
+                $group_placeholder = $service_fallback;
+            }
+        }
+
+        $resolve_group_icon = static function (array $group) use ($group_placeholder): string {
+            $cover_url         = (string) ($group['cover_url'] ?? '');
+            $cover_placeholder = (bool) ($group['cover_placeholder'] ?? false);
+
+            if ($cover_url !== '' && !$cover_placeholder) {
+                return $cover_url;
+            }
+
+            if (class_exists('\\JuntaPlay\\Assets\\ServiceIcons')) {
+                $pool_slug    = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
+                $service_name = (string) ($group['service_name'] ?? '');
+                $service_url  = (string) ($group['service_url'] ?? '');
+                $title        = (string) ($group['title'] ?? '');
+
+                $icon_url = $pool_slug !== '' ? \JuntaPlay\Assets\ServiceIcons::get($pool_slug) : '';
+
+                if ($icon_url === '') {
+                    $icon_url = \JuntaPlay\Assets\ServiceIcons::resolve(
+                        $pool_slug,
+                        $service_name !== '' ? $service_name : $title,
+                        $service_url
+                    );
+                }
+
+                if ($icon_url !== '') {
+                    return $icon_url;
+                }
+            }
+
+            return $group_placeholder;
+        };
+
         foreach ($owned_groups as $group) {
             if (!is_array($group)) {
                 continue;
@@ -124,11 +163,7 @@ add_action('init', static function (): void {
                 continue;
             }
 
-            $group_cover_url  = (string) ($group['cover_url'] ?? '');
-            $group_cover_is_placeholder = (bool) ($group['cover_placeholder'] ?? false);
-            $group_avatar     = ($group_cover_url !== '' && !$group_cover_is_placeholder)
-                ? $group_cover_url
-                : $group_placeholder;
+            $group_avatar = $resolve_group_icon($group);
 
             $normalized_owned[] = [
                 'id'        => $group_id,
@@ -184,11 +219,7 @@ add_action('init', static function (): void {
                 continue;
             }
 
-            $group_cover_url  = (string) ($group['cover_url'] ?? '');
-            $group_cover_is_placeholder = (bool) ($group['cover_placeholder'] ?? false);
-            $group_avatar     = ($group_cover_url !== '' && !$group_cover_is_placeholder)
-                ? $group_cover_url
-                : $group_placeholder;
+            $group_avatar = $resolve_group_icon($group);
 
             $normalized_member[] = [
                 'id'        => $group_id,
