@@ -77,17 +77,21 @@ class GroupChats
             "SELECT c.*, g.title AS group_title, g.owner_id, g.slug, g.cover_id,
                     admin_user.display_name AS admin_name,
                     member_user.display_name AS member_name,
-                    gm.role AS membership_role,
+                    gm_member.role AS membership_role,
+                    gm_user.role AS user_membership_role,
+                    gm_user.status AS user_membership_status,
                     (SELECT message FROM {$wpdb->prefix}jp_group_chat_messages WHERE chat_id = c.id ORDER BY created_at DESC, id DESC LIMIT 1) AS last_message,
                     (SELECT type FROM {$wpdb->prefix}jp_group_chat_messages WHERE chat_id = c.id ORDER BY created_at DESC, id DESC LIMIT 1) AS last_type,
                     (SELECT created_at FROM {$wpdb->prefix}jp_group_chat_messages WHERE chat_id = c.id ORDER BY created_at DESC, id DESC LIMIT 1) AS last_created_at
              FROM $chats_table c
              INNER JOIN $groups_table g ON g.id = c.group_id
-             INNER JOIN $members_table gm ON gm.group_id = c.group_id AND gm.user_id = c.member_id
+             LEFT JOIN $members_table gm_member ON gm_member.group_id = c.group_id AND gm_member.user_id = c.member_id
+             LEFT JOIN $members_table gm_user ON gm_user.group_id = c.group_id AND gm_user.user_id = %d
              LEFT JOIN $users_table admin_user ON admin_user.ID = c.admin_id
              LEFT JOIN $users_table member_user ON member_user.ID = c.member_id
              WHERE c.member_id = %d OR c.admin_id = %d
              ORDER BY c.updated_at DESC, c.id DESC",
+            $user_id,
             $user_id,
             $user_id
         );
@@ -105,6 +109,8 @@ class GroupChats
                 'admin_name'    => (string) ($row['admin_name'] ?? ''),
                 'member_name'   => (string) ($row['member_name'] ?? ''),
                 'membership_role' => (string) ($row['membership_role'] ?? ''),
+                'user_membership_role' => (string) ($row['user_membership_role'] ?? ''),
+                'user_membership_status' => (string) ($row['user_membership_status'] ?? ''),
                 'last_message'  => (string) ($row['last_message'] ?? ''),
                 'last_type'     => (string) ($row['last_type'] ?? ''),
                 'last_created_at' => (string) ($row['last_created_at'] ?? ''),
