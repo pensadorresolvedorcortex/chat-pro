@@ -252,7 +252,7 @@ foreach ($unread_messages as $message_data) {
                                     </li>
                                 <?php endforeach; ?>
                             <?php else : ?>
-                                <li class="juntaplay-notifications__empty"><?php esc_html_e('Nenhuma nova mensagem.', 'juntaplay'); ?></li>
+                                <li class="juntaplay-notifications__empty"><?php esc_html_e('Nenhuma notificação por enquanto.', 'juntaplay'); ?></li>
                             <?php endif; ?>
                         </ul>
                         <div class="juntaplay-notifications__footer">
