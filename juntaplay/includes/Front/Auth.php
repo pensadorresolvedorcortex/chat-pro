@@ -33,7 +33,6 @@ use function get_permalink;
 use function get_transient;
 use function get_user_by;
 use function get_user_meta;
-use function get_users;
 use function home_url;
 use function implode;
 use function in_array;
@@ -165,34 +164,6 @@ class Auth
         add_filter('login_redirect', [$this, 'force_profile_redirect'], 999, 3);
         add_filter('gettext', [$this, 'filter_login_text'], 10, 3);
         add_filter('login_errors', [$this, 'filter_login_errors']);
-        add_filter('registration_errors', [$this, 'validate_registration_cpf'], 10, 3);
-    }
-
-    public function validate_registration_cpf(WP_Error $errors, string $sanitized_user_login, string $user_email): WP_Error
-    {
-        if (!array_key_exists('cpf', $_POST)) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            return $errors;
-        }
-
-        $cpf_raw = (string) wp_unslash($_POST['cpf']); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        $cpf     = preg_replace('/\D+/', '', trim($cpf_raw));
-
-        if ($cpf === '') {
-            return $errors;
-        }
-
-        $existing = get_users([
-            'meta_key'   => 'cpf',
-            'meta_value' => $cpf,
-            'number'     => 1,
-            'fields'     => 'ids',
-        ]);
-
-        if (!empty($existing)) {
-            $errors->add('cpf_exists', __('Já existe uma conta cadastrada com este CPF.', 'juntaplay'));
-        }
-
-        return $errors;
     }
 
     /**

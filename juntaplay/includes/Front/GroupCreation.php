@@ -18,26 +18,17 @@ use function esc_attr;
 use function esc_attr_e;
 use function esc_html;
 use function esc_html_e;
-use function esc_url;
 use function esc_url_raw;
 use function get_bloginfo;
-use function get_avatar_url;
 use function get_current_user_id;
-use function get_permalink;
-use function get_post_meta;
-use function get_posts;
 use function get_transient;
-use function get_the_title;
 use function home_url;
-use function has_shortcode;
 use function in_array;
 use function is_array;
-use function is_singular;
 use function is_user_logged_in;
 use function is_wp_error;
 use function ob_get_clean;
 use function ob_start;
-use function plugins_url;
 use function register_post_type;
 use function rtrim;
 use function sanitize_key;
@@ -47,15 +38,12 @@ use function set_transient;
 use function sprintf;
 use function strpos;
 use function trim;
-use function wp_enqueue_script;
-use function wp_enqueue_style;
 use function wp_get_current_user;
 use function wp_insert_post;
 use function wp_kses_post;
 use function wp_nonce_field;
 use function wp_safe_redirect;
 use function wp_specialchars_decode;
-use function wp_unique_id;
 use function wp_unslash;
 use function wp_validate_redirect;
 use function wp_verify_nonce;
@@ -91,138 +79,9 @@ class GroupCreation
         add_action('init', [$this, 'handle_form_submission']);
         add_action('wp', [$this, 'maybe_prepare_success_notice']);
         add_action('juntaplay/two_factor/success', [$this, 'handle_two_factor_success'], 10, 2);
-        add_action('wp_enqueue_scripts', [$this, 'enqueue_groups_slider_assets']);
 
         add_shortcode('juntaplay_group_create', [$this, 'render_create_form']);
         add_shortcode('juntaplay_group_relationship', [$this, 'render_relationship_shortcode']);
-        add_shortcode('juntaplay_groups_slider', [$this, 'render_groups_slider']);
-    }
-
-    public function enqueue_groups_slider_assets(): void
-    {
-        if (!is_singular()) {
-            return;
-        }
-
-        global $post;
-        if (!$post || !has_shortcode((string) $post->post_content, 'juntaplay_groups_slider')) {
-            return;
-        }
-
-        $css_path = dirname(__DIR__, 2) . '/assets/css/jp-groups-slider.css';
-        $js_path  = dirname(__DIR__, 2) . '/assets/js/jp-groups-slider.js';
-
-        $css_url = plugins_url('../../assets/css/jp-groups-slider.css', __FILE__);
-        wp_enqueue_style(
-            'juntaplay-groups-slider',
-            $css_url,
-            [],
-            file_exists($css_path) ? (string) filemtime($css_path) : null
-        );
-
-        if (file_exists($js_path)) {
-            $js_url = plugins_url('../../assets/js/jp-groups-slider.js', __FILE__);
-            wp_enqueue_script(
-                'juntaplay-groups-slider',
-                $js_url,
-                [],
-                (string) filemtime($js_path),
-                true
-            );
-        }
-    }
-
-    public function render_groups_slider(): string
-    {
-        $query_args = [
-            'post_type'      => self::POST_TYPE,
-            'post_status'    => 'publish',
-            'posts_per_page' => 20,
-            'orderby'        => 'rand',
-            'fields'         => 'ids',
-            'no_found_rows'  => true,
-        ];
-
-        $group_ids = get_posts($query_args);
-        if (!$group_ids) {
-            $query_args['post_status'] = 'any';
-            $group_ids = get_posts($query_args);
-        }
-
-        if (!$group_ids) {
-            return '';
-        }
-
-        $slider_id = wp_unique_id('jp-groups-slider-');
-
-        ob_start();
-        ?>
-        <div class="jp-groups-slider" id="<?php echo esc_attr($slider_id); ?>">
-            <div class="jp-groups-slider__header">
-                <div>
-                    <p class="jp-groups-slider__eyebrow"><?php esc_html_e('Mais de 100 assinaturas partilháveis', 'juntaplay'); ?></p>
-                    <h3 class="jp-groups-slider__title"><?php esc_html_e('Explore grupos e serviços', 'juntaplay'); ?></h3>
-                </div>
-                <div class="jp-groups-slider__nav">
-                    <button class="jp-groups-slider__nav-btn" type="button" data-action="prev" aria-label="<?php esc_attr_e('Anterior', 'juntaplay'); ?>">
-                        ‹
-                    </button>
-                    <button class="jp-groups-slider__nav-btn" type="button" data-action="next" aria-label="<?php esc_attr_e('Próximo', 'juntaplay'); ?>">
-                        ›
-                    </button>
-                </div>
-            </div>
-            <div class="jp-groups-slider__chips">
-                <?php
-                $chips = [];
-                foreach ($group_ids as $group_id) {
-                    $service = trim((string) get_post_meta($group_id, '_jp_group_service', true));
-                    if ($service !== '') {
-                        $chips[$service] = true;
-                    }
-                    if (count($chips) >= 6) {
-                        break;
-                    }
-                }
-                foreach (array_keys($chips) as $chip) :
-                    ?>
-                    <span class="jp-groups-slider__chip"><?php echo esc_html($chip); ?></span>
-                <?php endforeach; ?>
-            </div>
-            <div class="jp-groups-slider__track" role="list">
-                <?php foreach ($group_ids as $group_id) : ?>
-                    <?php
-                    $title = get_the_title($group_id);
-                    $link  = get_permalink($group_id);
-                    $service = trim((string) get_post_meta($group_id, '_jp_group_service', true));
-                    $owner_id = (int) get_post_meta($group_id, '_jp_group_submitted_by', true);
-                    $owner_avatar = $owner_id > 0 ? get_avatar_url($owner_id, ['size' => 56]) : '';
-                    $initial = $title !== '' ? strtoupper(substr($title, 0, 1)) : '';
-                    ?>
-                    <article class="jp-groups-slider__card" role="listitem">
-                        <div class="jp-groups-slider__logo">
-                            <?php if ($owner_avatar !== '') : ?>
-                                <img src="<?php echo esc_url($owner_avatar); ?>" alt="" />
-                            <?php else : ?>
-                                <span><?php echo esc_html($initial); ?></span>
-                            <?php endif; ?>
-                        </div>
-                        <?php if ($service !== '') : ?>
-                            <p class="jp-groups-slider__category"><?php echo esc_html($service); ?></p>
-                        <?php endif; ?>
-                        <h4 class="jp-groups-slider__card-title"><?php echo esc_html($title); ?></h4>
-                        <?php if ($link) : ?>
-                            <a class="jp-groups-slider__cta" href="<?php echo esc_url($link); ?>">
-                                <?php esc_html_e('Confira', 'juntaplay'); ?>
-                            </a>
-                        <?php endif; ?>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-        </div>
-        <?php
-
-        return (string) ob_get_clean();
     }
 
     public function register_post_type(): void
@@ -300,31 +159,6 @@ class GroupCreation
 
         if ($service_pass === '') {
             $this->errors[] = __('Informe a senha ou código de acesso compartilhado.', 'juntaplay');
-        }
-
-        if ($group_name !== '') {
-            $normalized_name = strtolower(trim($group_name));
-            if ($normalized_name !== '') {
-                $existing_groups = get_posts([
-                    'post_type'      => self::POST_TYPE,
-                    'post_status'    => 'any',
-                    'posts_per_page' => -1,
-                    'meta_key'       => '_jp_group_submitted_by',
-                    'meta_value'     => get_current_user_id(),
-                ]);
-
-                foreach ($existing_groups as $group_post) {
-                    $existing_name = strtolower(trim((string) $group_post->post_title));
-                    if ($existing_name === '') {
-                        continue;
-                    }
-
-                    if (stripos($existing_name, $normalized_name) !== false || stripos($normalized_name, $existing_name) !== false) {
-                        $this->errors[] = __('Você já possui um grupo ou serviço com nome igual ou similar.', 'juntaplay');
-                        break;
-                    }
-                }
-            }
         }
 
         if ($this->errors) {
