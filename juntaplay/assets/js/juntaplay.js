@@ -1932,7 +1932,7 @@
             }
         }
 
-        if (poolCover || poolIconId) {
+        if (poolCover) {
             var $coverInput = $form.find('[data-group-cover-input]');
             var $coverPreview = $form.find('[data-group-cover-preview]');
             var $coverRemove = $form.find('[data-group-cover-remove]');
@@ -1940,7 +1940,7 @@
             var isManualCover = $coverWrapper.data('manualCover') === true || $form.data('groupCoverAuto') === false;
 
             if (!isManualCover) {
-                var coverSource = poolCover || ($coverWrapper.data('placeholder') || '');
+                var coverSource = poolCover;
 
                 if ($coverInput.length) {
                     $coverInput.val(coverSource);
