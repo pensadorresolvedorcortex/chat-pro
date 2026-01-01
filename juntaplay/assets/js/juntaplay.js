@@ -1936,18 +1936,15 @@
             var $coverInput = $form.find('[data-group-cover-input]');
             var $coverPreview = $form.find('[data-group-cover-preview]');
             var $coverRemove = $form.find('[data-group-cover-remove]');
-            var hasCustomCover = false;
+            var $coverWrapper = $coverPreview.closest('[data-group-cover]');
+            var isManualCover = $coverWrapper.data('manualCover') === true || $form.data('groupCoverAuto') === false;
 
-            if ($coverInput.length) {
-                var currentCover = ($coverInput.val() || '').toString().trim();
-                hasCustomCover = currentCover !== '';
-            }
-
-            if (!hasCustomCover) {
-                var coverSource = poolCover || ($coverPreview.closest('[data-group-cover]').data('placeholder') || '');
+            if (!isManualCover) {
+                var coverSource = poolCover || ($coverWrapper.data('placeholder') || '');
 
                 if ($coverInput.length) {
-                    $coverInput.val(poolIconId ? poolIconId.toString() : '').data('externalCover', poolCover);
+                    $coverInput.val(coverSource);
+                    $coverInput.data('externalCover', coverSource);
                 }
                 if ($coverPreview.length) {
                     $coverPreview
@@ -1958,6 +1955,8 @@
                 if ($coverRemove.length) {
                     $coverRemove.prop('disabled', false);
                 }
+                $form.data('groupCoverAuto', true);
+                $coverWrapper.data('manualCover', false);
             }
         }
     }
@@ -4143,6 +4142,11 @@
 
                 attachment = attachment.toJSON();
                 setCover(attachment.id || '', attachment.url || placeholder || coverPlaceholder || '');
+                var $form = $wrapper.closest('form');
+                if ($form.length) {
+                    $form.data('groupCoverAuto', false);
+                }
+                $wrapper.data('manualCover', true);
             });
 
             if (frame.uploader && frame.uploader.uploader && typeof frame.uploader.uploader.on === 'function') {
@@ -4195,6 +4199,11 @@
         $wrapper.on('click', '[data-group-cover-remove]', function (event) {
             event.preventDefault();
             setCover('', '');
+            var $form = $wrapper.closest('form');
+            if ($form.length) {
+                $form.data('groupCoverAuto', true);
+            }
+            $wrapper.data('manualCover', false);
         });
     }
 
