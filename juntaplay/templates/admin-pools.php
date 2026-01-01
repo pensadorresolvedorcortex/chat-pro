@@ -287,7 +287,7 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                     <div class="juntaplay-admin-modal__body">
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-name"><?php esc_html_e('Nome do plano', 'juntaplay'); ?></label>
-                            <input type="text" id="jp-plan-name" class="regular-text" required />
+                            <input type="text" id="jp-plan-name" class="regular-text" data-required="true" required />
                         </div>
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-description"><?php esc_html_e('Descrição curta', 'juntaplay'); ?></label>
@@ -295,11 +295,11 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                         </div>
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-price"><?php esc_html_e('Preço base', 'juntaplay'); ?></label>
-                            <input type="number" step="0.01" min="0" id="jp-plan-price" required />
+                            <input type="number" step="0.01" min="0" id="jp-plan-price" data-required="true" required />
                         </div>
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-max"><?php esc_html_e('Máx. de usuários', 'juntaplay'); ?></label>
-                            <input type="number" min="1" id="jp-plan-max" required />
+                            <input type="number" min="1" id="jp-plan-max" data-required="true" required />
                         </div>
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-status"><?php esc_html_e('Status', 'juntaplay'); ?></label>
@@ -310,7 +310,7 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                         </div>
                         <div class="juntaplay-admin-field">
                             <label for="jp-plan-order"><?php esc_html_e('Ordem', 'juntaplay'); ?></label>
-                            <input type="number" min="0" id="jp-plan-order" />
+                            <input type="number" min="0" id="jp-plan-order" data-required="true" />
                         </div>
                         <p class="juntaplay-admin-modal__error" data-plan-error></p>
                     </div>
@@ -354,6 +354,23 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                         return Math.max.apply(null, indexes) + 1;
                     }
 
+                    function toggleRequired(section, enable) {
+                        if (!section) {
+                            return;
+                        }
+                        section.querySelectorAll('input, select, textarea').forEach(function (field) {
+                            if (enable) {
+                                field.disabled = false;
+                                if (field.dataset.required === 'true') {
+                                    field.setAttribute('required', 'required');
+                                }
+                            } else {
+                                field.disabled = true;
+                                field.removeAttribute('required');
+                            }
+                        });
+                    }
+
                     function toggleSection() {
                         var isVariable = document.querySelector('input[name="pool_type"]:checked');
                         var show = isVariable && isVariable.value === 'variable';
@@ -362,27 +379,21 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                         var simpleRows = document.querySelectorAll('[data-simple-field]');
                         simpleRows.forEach(function (row) {
                             row.classList.toggle('is-hidden', show);
-                            row.querySelectorAll('input, select, textarea').forEach(function (field) {
-                                if (show) {
-                                    field.removeAttribute('required');
-                                } else {
-                                    field.setAttribute('required', 'required');
-                                }
-                            });
+                            toggleRequired(row, !show);
                         });
 
                         document.querySelectorAll('[data-simple-card]').forEach(function (card) {
                             card.classList.toggle('is-hidden', show);
+                            toggleRequired(card, !show);
                         });
 
-                        list.querySelectorAll('input, select, textarea').forEach(function (field) {
-                            field.disabled = !show;
-                        });
+                        toggleRequired(section, show);
                     }
 
                     function openModal(mode, row) {
                         currentRow = row || null;
                         errorField.textContent = '';
+                        toggleRequired(modal, true);
                         if (mode === 'edit' && currentRow) {
                             modalTitle.textContent = '<?php echo esc_js(__('Editar variação', 'juntaplay')); ?>';
                             nameField.value = currentRow.querySelector('input[name*="[name]"]').value || '';
@@ -407,6 +418,7 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
 
                     function closeModal() {
                         modal.classList.add('is-hidden');
+                        toggleRequired(modal, false);
                         currentRow = null;
                     }
 
@@ -556,6 +568,7 @@ if (!in_array($pool_type, ['simple', 'variable'], true)) {
                     });
 
                     toggleSection();
+                    toggleRequired(modal, false);
                 })();
             </script>
         </form>
