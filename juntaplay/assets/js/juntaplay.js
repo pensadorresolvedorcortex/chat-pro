@@ -1868,7 +1868,9 @@
         var poolUrl = (poolData.url || '').toString();
         var poolReserved = Number.isFinite(poolStart) && poolStart > 0 ? Math.max(0, poolStart - 1) : 0;
 
-        var planId = planData ? (planData.id || '').toString() : '';
+        var planId = planData && planData.id !== undefined && planData.id !== null
+            ? planData.id.toString()
+            : '';
         var planPrice = planData ? parseFloat((planData.price || '').toString().replace(',', '.')) : poolPrice;
         var planMax = planData ? parseInt((planData.max_users || '').toString(), 10) : poolTotal;
 
@@ -2005,14 +2007,15 @@
                 ? 'O valor do grupo será R$ ' + toLocaleDecimal(price) + '/mês'
                 : '';
 
+            var planId = plan.id !== undefined && plan.id !== null ? plan.id.toString() : '';
             var $button = $('<button />', {
                 type: 'button',
-                class: 'juntaplay-service-list__item' + (selectedPlanId && selectedPlanId === (plan.id || '').toString() ? ' is-selected' : ''),
+                class: 'juntaplay-service-list__item' + (selectedPlanId && selectedPlanId === planId ? ' is-selected' : ''),
                 'data-group-plan-apply': true
             });
 
             $button.data('planData', plan);
-            $button.attr('aria-pressed', selectedPlanId && selectedPlanId === (plan.id || '').toString() ? 'true' : 'false');
+            $button.attr('aria-pressed', selectedPlanId && selectedPlanId === planId ? 'true' : 'false');
 
             var $content = $('<span />', { class: 'juntaplay-service-list__content' });
             $content.append($('<span />', { class: 'juntaplay-service-list__title', text: name }));
