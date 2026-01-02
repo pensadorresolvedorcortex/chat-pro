@@ -378,11 +378,6 @@ class Hooks
         }
 
         $effective_status = in_array($status, ['processing', 'completed'], true) ? $status : 'processing';
-        $paid_flow = $this->should_handle_paid_flow($order, $effective_status);
-
-        if (!$paid_flow) {
-            return;
-        }
 
         $this->maybe_dispatch_group_order_email($order);
 
