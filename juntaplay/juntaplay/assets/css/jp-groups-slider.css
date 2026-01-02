@@ -1,0 +1,485 @@
+.jp-groups-slider {
+    position: relative;
+    border-radius: 50px;
+    padding: 64px 60px;
+    color: #fff;
+    background:
+        radial-gradient(140% 140% at 0% 0%, rgba(255, 255, 255, 0.08) 0%, rgba(10, 10, 12, 0) 55%),
+        linear-gradient(145deg, rgba(16, 16, 20, 0.98), rgba(8, 8, 10, 0.85));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 45px 90px rgba(0, 0, 0, 0.48);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    overflow: hidden;
+}
+
+.jp-groups-slider::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    pointer-events: none;
+}
+
+.jp-groups-slider__inner {
+    display: flex;
+    gap: 54px;
+    align-items: stretch;
+}
+
+.jp-groups-slider__hero {
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    z-index: 2;
+    justify-content: center;
+}
+
+.jp-groups-slider__hero-title {
+    margin: 0;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 800;
+    line-height: 0.96;
+    letter-spacing: -0.025em;
+    text-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.jp-groups-slider__hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 22px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.98);
+    color: #0b0b0f;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.25);
+}
+
+.jp-groups-slider__hero-cta:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.9);
+    outline-offset: 3px;
+}
+
+.jp-groups-slider__carousel {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+}
+
+.jp-groups-slider__carousel::before,
+.jp-groups-slider__carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 110px;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.jp-groups-slider__carousel::before {
+    left: 0;
+    background: linear-gradient(90deg, rgba(8, 8, 10, 0.98) 0%, rgba(8, 8, 10, 0) 100%);
+}
+
+.jp-groups-slider__carousel::after {
+    right: 0;
+    background: linear-gradient(270deg, rgba(8, 8, 10, 0.98) 0%, rgba(8, 8, 10, 0) 100%);
+}
+
+.jp-groups-slider__nav {
+    display: none;
+}
+
+.jp-groups-slider__track {
+    display: flex;
+    gap: 26px;
+    align-items: stretch;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 24px 36px 24px 12px;
+    -webkit-overflow-scrolling: touch;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    touch-action: pan-y;
+}
+
+.jp-groups-slider__track::-webkit-scrollbar {
+    display: none;
+}
+
+.jp-groups-slider__track {
+    scrollbar-width: none;
+}
+
+.jp-groups-slider__card {
+    width: 250px;
+    min-width: 250px;
+    height: 400px;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 32px 70px rgba(0, 0, 0, 0.36);
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+}
+
+.jp-groups-slider__card-top {
+    height: 57%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 26px;
+    color: #fff;
+    font-size: 1.65rem;
+    font-weight: 800;
+    text-decoration: none;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+}
+
+.jp-groups-slider__card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jp-groups-slider__card--green .jp-groups-slider__card-top {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.28), transparent 52%),
+        linear-gradient(160deg, #00f0e0 0%, #00ccc0 42%, #00a89f 100%);
+}
+
+.jp-groups-slider__card--red .jp-groups-slider__card-top {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.26), transparent 54%),
+        linear-gradient(160deg, #ff7c87 0%, #ff4858 42%, #e73846 100%);
+}
+
+.jp-groups-slider__card-bottom {
+    position: relative;
+    margin-top: -24px;
+    padding: 42px 22px 22px;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    color: #0b0b0f;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.jp-groups-slider__avatars {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.jp-groups-slider__avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 4px solid rgba(255, 255, 255, 0.98);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: rgba(12, 12, 16, 0.65);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+
+.jp-groups-slider__avatar + .jp-groups-slider__avatar {
+    margin-left: -14px;
+}
+
+.jp-groups-slider__avatar.has-image {
+    background-size: cover;
+    background-position: center;
+    color: transparent;
+}
+
+.jp-groups-slider__tag {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(11, 11, 15, 0.65);
+    margin-top: 6px;
+}
+
+.jp-groups-slider__price {
+    font-size: 2.05rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    margin: 16px 0 16px;
+    min-height: 2.3rem;
+    color: #101014;
+}
+
+.jp-groups-slider__price.is-empty {
+    opacity: 0.45;
+}
+
+.jp-groups-slider__price-label {
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.75;
+    margin-left: 4px;
+}
+
+.jp-groups-slider__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 78%;
+    padding: 14px 16px;
+    border-radius: 999px;
+    background: rgba(8, 8, 10, 0.92);
+    color: #fff;
+    font-weight: 800;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    margin: 0 auto;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+/* Legacy markup fallback (when shortcode outputs juntaplay-service-card) */
+.jp-groups-slider .juntaplay-service-card {
+    width: 250px;
+    min-width: 250px;
+    height: 400px;
+    border-radius: 28px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 32px 70px rgba(0, 0, 0, 0.36);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    position: relative;
+}
+
+.jp-groups-slider .jp-groups-slider__track .juntaplay-service-card {
+    padding: 0 !important;
+    border-radius: 28px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+}
+
+.jp-groups-slider .juntaplay-service-card__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 57%;
+    padding: 26px;
+    text-align: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.6rem;
+    text-decoration: none;
+    position: relative;
+    z-index: 2;
+    border-bottom-left-radius: 22px;
+    border-bottom-right-radius: 22px;
+    text-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.28), transparent 52%),
+        linear-gradient(160deg, #00f0e0 0%, #00ccc0 42%, #00a89f 100%);
+}
+
+.jp-groups-slider .juntaplay-service-card:nth-child(2n) .juntaplay-service-card__link {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.26), transparent 54%),
+        linear-gradient(160deg, #ff7c87 0%, #ff4858 42%, #e73846 100%);
+}
+
+.jp-groups-slider .juntaplay-service-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 45%;
+    background: rgba(255, 255, 255, 0.92);
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.12);
+    z-index: 1;
+}
+
+.jp-groups-slider .juntaplay-group-card__avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 4px solid rgba(255, 255, 255, 0.98);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    color: rgba(12, 12, 16, 0.65);
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.jp-groups-slider .juntaplay-group-card__avatar::before,
+.jp-groups-slider .juntaplay-group-card__avatar::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: 4px solid rgba(255, 255, 255, 0.98);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+    top: 0;
+}
+
+.jp-groups-slider .juntaplay-group-card__avatar::before {
+    left: -16px;
+}
+
+.jp-groups-slider .juntaplay-group-card__avatar::after {
+    right: -16px;
+}
+
+.jp-groups-slider .juntaplay-service-card__title {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.jp-groups-slider .juntaplay-service-card__description,
+.jp-groups-slider .juntaplay-service-card__pill {
+    display: none;
+}
+
+.jp-groups-slider .juntaplay-service-card__meta {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+}
+
+.jp-groups-slider .juntaplay-service-card__price {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #101014;
+}
+
+.jp-groups-slider .juntaplay-service-card__price::after {
+    content: ' /mês';
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.75;
+}
+
+.jp-groups-slider .juntaplay-service-card__cta-button {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    width: 78%;
+    padding: 14px 16px;
+    border-radius: 999px;
+    background: rgba(8, 8, 10, 0.92);
+    color: transparent;
+    font-weight: 800;
+    border: none;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+    z-index: 2;
+    font-size: 0.95rem;
+}
+
+.jp-groups-slider .juntaplay-service-card__cta-button::before {
+    content: 'Juntar-se';
+    color: #fff;
+}
+
+.jp-groups-slider__cta:focus-visible {
+    outline: 2px solid rgba(0, 0, 0, 0.6);
+    outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+    .jp-groups-slider {
+        padding: 34px 24px;
+        border-radius: 36px;
+    }
+
+    .jp-groups-slider__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 28px;
+    }
+
+    .jp-groups-slider__hero {
+        max-width: 100%;
+    }
+
+    .jp-groups-slider__carousel::before,
+    .jp-groups-slider__carousel::after {
+        width: 64px;
+    }
+
+    .jp-groups-slider__card {
+        width: min(78vw, 320px);
+        min-width: min(78vw, 320px);
+    }
+
+    .jp-groups-slider .juntaplay-service-card {
+        width: min(78vw, 320px);
+        min-width: min(78vw, 320px);
+    }
+}
