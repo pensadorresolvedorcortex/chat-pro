@@ -340,10 +340,23 @@ foreach ([$groups_owned, $groups_member] as $group_collection) {
 }
 
 $all_groups = array_values($all_groups_indexed);
+$merged_groups = isset($group_context['groups_merged']) && is_array($group_context['groups_merged'])
+    ? $group_context['groups_merged']
+    : [];
+if ($merged_groups) {
+    $all_groups = $merged_groups;
+}
 $current_page = isset($pagination['page']) ? max(1, (int) $pagination['page']) : 1;
 $total_pages  = isset($pagination['pages']) ? max(1, (int) $pagination['pages']) : 1;
 $per_page     = isset($pagination['per_page']) ? max(1, (int) $pagination['per_page']) : 12;
 $total_groups = isset($pagination['total']) ? max(0, (int) $pagination['total']) : count($all_groups);
+if ($merged_groups) {
+    $total_groups = count($all_groups);
+    $total_pages  = 1;
+    $current_page = 1;
+    $per_page     = max(1, $total_groups);
+    $pagination   = [];
+}
 $pagination_base_raw = remove_query_arg('jp_groups_page');
 $pagination_base     = is_string($pagination_base_raw) ? trim((string) $pagination_base_raw) : '';
 $visible_count       = count($all_groups);
@@ -887,9 +900,14 @@ if ($group_suggestions) {
                 continue;
             }
 
+                    $is_service_only = isset($group['type']) && $group['type'] === 'service';
                     $group_id        = isset($group['id']) ? (int) $group['id'] : 0;
                     $group_title     = isset($group['title']) ? (string) $group['title'] : '';
                     $group_role      = isset($group['membership_role']) ? (string) $group['membership_role'] : 'member';
+                    if ($is_service_only) {
+                        $group_title = isset($group['pool_title']) ? (string) $group['pool_title'] : $group_title;
+                        $group_role  = 'service';
+                    }
                     $owner_id        = isset($group['owner_id']) ? (int) $group['owner_id'] : 0;
                     if ($owner_id === 0 && isset($group['admin_id'])) {
                         $owner_id = (int) $group['admin_id'];
@@ -932,6 +950,15 @@ if ($group_suggestions) {
                     $role_tone          = isset($group['role_tone']) && is_string($group['role_tone']) ? (string) $group['role_tone'] : '';
                     $role_ribbon_label  = '';
                     $role_ribbon_tone   = '';
+                    if ($is_service_only) {
+                        $status = 'service';
+                        $status_label = __('Serviço contratado', 'juntaplay');
+                        $status_tone  = 'positive';
+                        $membership_status = 'guest';
+                        $is_owner = false;
+                        $role_label = '';
+                        $role_tone = '';
+                    }
                     if ($is_owner) {
                         $role_label = __('Você administra este grupo', 'juntaplay');
                         $role_tone  = 'positive';
@@ -962,6 +989,9 @@ if ($group_suggestions) {
                         }
                     }
                     $status_tone     = isset($group['status_tone']) ? (string) $group['status_tone'] : '';
+                    if ($is_service_only) {
+                        $status_tone = 'positive';
+                    }
                     $status_message  = isset($group['status_message']) ? (string) $group['status_message'] : '';
                     $members_count   = isset($group['members_count']) ? (int) $group['members_count'] : 0;
                     $created_human   = isset($group['created_human']) ? (string) $group['created_human'] : '';
@@ -987,6 +1017,32 @@ if ($group_suggestions) {
                     $member_names    = isset($members_preview['names']) && is_array($members_preview['names']) ? array_filter($members_preview['names'], 'is_string') : [];
                     $members_remaining = isset($members_preview['remaining']) ? (int) $members_preview['remaining'] : 0;
                     $can_edit        = !empty($group['can_edit']);
+                    if ($is_service_only) {
+                        $service_name = $group_title !== '' ? $group_title : $service_name;
+                        $pool_title = $pool_title !== '' ? $pool_title : $service_name;
+                        if ($category_label === '' && isset($group['category']) && (string) $group['category'] !== '') {
+                            $category_label = isset($group_categories[$group['category']])
+                                ? (string) $group_categories[$group['category']]
+                                : (string) $group['category'];
+                        }
+                        $price_highlight = isset($group['price']) && (float) $group['price'] > 0
+                            ? sprintf(__('R$ %s', 'juntaplay'), number_format_i18n((float) $group['price'], 2))
+                            : $price_highlight;
+                        $cta_label   = __('Criar grupo', 'juntaplay');
+                        $cta_variant = 'primary';
+                        $cta_disabled = false;
+                        $cta_url = '';
+                        $support_channel = '';
+                        $delivery_time = '';
+                        $access_method = '';
+                        $members_count = 0;
+                        $members_preview = [];
+                        $member_names = [];
+                        $members_remaining = 0;
+                        $enrollment_total = '';
+                        $blocked_notice = '';
+                        $can_edit = false;
+                    }
                     $faq_items       = isset($group['faq_items']) && is_array($group['faq_items']) ? array_filter($group['faq_items'], 'is_array') : [];
                     $complaints_meta = isset($group['complaints']) && is_array($group['complaints']) ? $group['complaints'] : [];
                     $complaints_open = isset($complaints_meta['open']) ? (int) $complaints_meta['open'] : 0;
@@ -1061,6 +1117,14 @@ if ($group_suggestions) {
                     $service_slug    = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
                     $icon_source     = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
                     if ($icon_source === '') {
+                        $icon_source = isset($group['cover_id']) && (int) $group['cover_id'] > 0
+                            ? (string) wp_get_attachment_image_url((int) $group['cover_id'], 'large')
+                            : $icon_source;
+                    }
+                    if ($icon_source === '' && isset($group['thumbnail_id']) && (int) $group['thumbnail_id'] > 0) {
+                        $icon_source = (string) wp_get_attachment_image_url((int) $group['thumbnail_id'], 'large');
+                    }
+                    if ($icon_source === '') {
                         $icon_source = $service_slug !== '' ? ServiceIcons::get($service_slug) : '';
                     }
                     if ($icon_source === '') {
@@ -1106,6 +1170,10 @@ if ($group_suggestions) {
                         $meta_items[] = '<span class="juntaplay-group-card__role-pill juntaplay-badge juntaplay-badge--' . esc_attr($role_tone ?: 'info') . '">' . esc_html($role_label_display) . '</span>';
                     }
 
+                    if ($is_service_only && $status_label !== '') {
+                        $meta_items[] = '<span class="juntaplay-badge juntaplay-badge--' . esc_attr($status_tone ?: 'positive') . '">' . esc_html($status_label) . '</span>';
+                    }
+
                     if ($price_highlight !== '') {
                         $meta_items[] = '<span class="juntaplay-service-card__price">' . wp_kses_post($price_highlight) . '</span>';
                     }
@@ -1116,8 +1184,9 @@ if ($group_suggestions) {
                         'juntaplay-service-card--highlight',
                     ];
 
-            $card_link_attrs = $cta_url !== ''
-                ? ' href="' . esc_url($cta_url) . '"'
+            $card_link_url = $cta_url !== '' ? $cta_url : ($service_url !== '' ? $service_url : '');
+            $card_link_attrs = $card_link_url !== ''
+                ? ' href="' . esc_url($card_link_url) . '"'
                 : ' href="#"';
 
             ob_start();
@@ -1128,11 +1197,11 @@ if ($group_suggestions) {
                 data-group-id="<?php echo esc_attr((string) $group_id); ?>"
                 data-group-role="<?php echo esc_attr($group_role); ?>"
                 data-group-status="<?php echo esc_attr($status); ?>"
-                data-jp-group-open
+                <?php echo $is_service_only ? '' : 'data-jp-group-open'; ?>
                 data-chat-link="<?php echo esc_url($chat_link_prefill); ?>"
                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
             >
-                        <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
+                        <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?><?php echo $is_service_only ? '' : ' data-jp-group-open'; ?> data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
                             <span
                                 class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
                                 <?php echo $icon_source !== '' ? ' style="background-image: url(' . esc_url($icon_source) . ')"' : ''; ?>
@@ -1148,7 +1217,7 @@ if ($group_suggestions) {
                         </a>
                                     <div class="juntaplay-group-card__footer">
                                         <div class="juntaplay-group-card__cta-inline">
-                                            <?php if ($can_edit) : ?>
+                                            <?php if ($can_edit && !$is_service_only) : ?>
                                                 <button type="button" class="juntaplay-group-card__edit juntaplay-group-card__edit--inline" data-group-id="<?php echo esc_attr((string) $group_id); ?>">
                                                     <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                                                         <path d="M11.013 2.338c.33-.33.866-.33 1.196 0l1.453 1.453c.33.33.33.866 0 1.196l-6.6 6.6a.85.85 0 0 1-.42.228l-2.32.53a.5.5 0 0 1-.6-.6l.53-2.32a.85.85 0 0 1 .228-.42zM9.5 4L3.75 9.75l-.4 1.74l1.74-.4L11 5.5z" fill="currentColor" />
@@ -1163,7 +1232,7 @@ if ($group_suggestions) {
                                                 class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__toggle"
                                                 style="background:linear-gradient(135deg, rgba(94,234,212,0.2), rgba(59,130,246,0.18));border:1px solid rgba(59,130,246,0.32);box-shadow:0 14px 32px rgba(59,130,246,0.22);color:#0b1220;"
                                                 aria-expanded="false"
-                                                data-jp-group-open
+                                                <?php echo $is_service_only ? '' : 'data-jp-group-open'; ?>
                                                 data-group-id="<?php echo esc_attr((string) $group_id); ?>"
                                                 data-chat-link="<?php echo esc_url($chat_link_prefill); ?>"
                                                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
@@ -1194,19 +1263,21 @@ if ($group_suggestions) {
                                                     <span class="juntaplay-badge juntaplay-badge--<?php echo esc_attr($status_tone ?: 'info'); ?>"><?php echo esc_html($status_label); ?></span>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="juntaplay-group-card__quick">
-                                                <div class="juntaplay-group-card__quick-item">
-                                                    <span class="juntaplay-group-card__quick-label"><?php esc_html_e('Quantidade de vagas', 'juntaplay'); ?></span>
-                                                    <?php if ($slots_total_label !== '') : ?>
-                                                        <strong class="juntaplay-group-card__quick-value"><?php echo esc_html($slots_total_label); ?></strong>
-                                                    <?php endif; ?>
-                                                    <?php if ($slots_available_label !== '') : ?>
-                                                        <span class="juntaplay-group-card__quick-hint"><?php echo esc_html($slots_available_label); ?></span>
-                                                    <?php elseif ($slots_total_hint !== '') : ?>
-                                                        <span class="juntaplay-group-card__quick-hint"><?php echo esc_html($slots_total_hint); ?></span>
-                                                    <?php endif; ?>
+                                            <?php if (!$is_service_only) : ?>
+                                                <div class="juntaplay-group-card__quick">
+                                                    <div class="juntaplay-group-card__quick-item">
+                                                        <span class="juntaplay-group-card__quick-label"><?php esc_html_e('Quantidade de vagas', 'juntaplay'); ?></span>
+                                                        <?php if ($slots_total_label !== '') : ?>
+                                                            <strong class="juntaplay-group-card__quick-value"><?php echo esc_html($slots_total_label); ?></strong>
+                                                        <?php endif; ?>
+                                                        <?php if ($slots_available_label !== '') : ?>
+                                                            <span class="juntaplay-group-card__quick-hint"><?php echo esc_html($slots_available_label); ?></span>
+                                                        <?php elseif ($slots_total_hint !== '') : ?>
+                                                            <span class="juntaplay-group-card__quick-hint"><?php echo esc_html($slots_total_hint); ?></span>
+                                                        <?php endif; ?>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            <?php endif; ?>
                                             <?php if ($cta_label !== '' || $price_highlight !== '') : ?>
                                                 <div class="juntaplay-group-card__cta">
                                                     <?php if ($price_highlight !== '') : ?>
@@ -1221,7 +1292,9 @@ if ($group_suggestions) {
                                                         }
                                                         $cta_class_attr = implode(' ', array_map('sanitize_html_class', $cta_classes));
                                                         ?>
-                                                        <?php if (!$cta_disabled && $cta_url !== '') : ?>
+                                                        <?php if ($is_service_only) : ?>
+                                                            <button type="button" class="<?php echo esc_attr($cta_class_attr); ?>" data-group-create-trigger><?php echo esc_html($cta_label); ?></button>
+                                                        <?php elseif (!$cta_disabled && $cta_url !== '') : ?>
                                                             <a class="<?php echo esc_attr($cta_class_attr); ?>" href="<?php echo esc_url($cta_url); ?>"><?php echo esc_html($cta_label); ?></a>
                                                         <?php else : ?>
                                                             <button type="button" class="<?php echo esc_attr($cta_class_attr); ?>" disabled><?php echo esc_html($cta_label); ?></button>
@@ -1230,7 +1303,7 @@ if ($group_suggestions) {
                                                 </div>
                                             <?php endif; ?>
                                             <div class="juntaplay-group-card__details-actions">
-                                                <?php if ($is_owner) : ?>
+                                                <?php if ($is_owner && !$is_service_only) : ?>
                                                     <button type="button" class="juntaplay-group-card__edit" data-group-id="<?php echo esc_attr((string) $group_id); ?>">
                                                         <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
                                                             <path d="M11.013 2.338c.33-.33.866-.33 1.196 0l1.453 1.453c.33.33.33.866 0 1.196l-6.6 6.6a.85.85 0 0 1-.42.228l-2.32.53a.5.5 0 0 1-.6-.6l.53-2.32a.85.85 0 0 1 .228-.42zM9.5 4L3.75 9.75l-.4 1.74l1.74-.4L11 5.5z" fill="currentColor" />
@@ -1238,7 +1311,7 @@ if ($group_suggestions) {
                                                         <span><?php esc_html_e('Editar grupo', 'juntaplay'); ?></span>
                                                     </button>
                                                 <?php endif; ?>
-                                                <?php if ($membership_status !== 'guest') : ?>
+                                                <?php if ($membership_status !== 'guest' && !$is_service_only) : ?>
                                                     <button type="button" class="juntaplay-group-card__access-btn" data-group-access="<?php echo esc_attr((string) $group_id); ?>">
                                                         <?php esc_html_e('Ver dados de acesso', 'juntaplay'); ?>
                                                     </button>
@@ -1251,16 +1324,18 @@ if ($group_suggestions) {
                                                     <a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" href="<?php echo esc_url($chat_link); ?>"><?php echo esc_html($chat_label); ?></a>
                                                 <?php endif; ?>
                                             </div>
-                                            <div class="juntaplay-group-card__access-panel" data-group-access-panel hidden>
-                                                <h4 class="juntaplay-group-card__access-title"><?php esc_html_e('Dados de acesso do grupo', 'juntaplay'); ?></h4>
-                                                <dl class="juntaplay-group-card__access-list" data-group-access-details></dl>
-                                                <p class="juntaplay-group-card__access-hint" data-group-access-hint hidden></p>
-                                            </div>
+                                            <?php if (!$is_service_only) : ?>
+                                                <div class="juntaplay-group-card__access-panel" data-group-access-panel hidden>
+                                                    <h4 class="juntaplay-group-card__access-title"><?php esc_html_e('Dados de acesso do grupo', 'juntaplay'); ?></h4>
+                                                    <dl class="juntaplay-group-card__access-list" data-group-access-details></dl>
+                                                    <p class="juntaplay-group-card__access-hint" data-group-access-hint hidden></p>
+                                                </div>
+                                            <?php endif; ?>
                                             <div class="juntaplay-group-card__meta">
-                                                <?php if ($created_human !== '') : ?>
+                                                <?php if ($created_human !== '' && !$is_service_only) : ?>
                                                     <span class="juntaplay-group-card__created"><?php echo esc_html($created_human); ?></span>
                                                 <?php endif; ?>
-                                                <?php if ($reviewed_human !== '' && $status !== 'pending') : ?>
+                                                <?php if ($reviewed_human !== '' && $status !== 'pending' && !$is_service_only) : ?>
                                                     <span class="juntaplay-group-card__reviewed"><?php echo esc_html($reviewed_human); ?></span>
                                                 <?php endif; ?>
                                             </div>
@@ -1303,10 +1378,12 @@ if ($group_suggestions) {
                                                         <?php echo esc_html($category_label); ?>
                                                     </li>
                                                 <?php endif; ?>
-                                                <li>
-                                                    <strong><?php echo esc_html__('Participantes', 'juntaplay'); ?>:</strong>
-                                                    <?php echo esc_html(number_format_i18n($members_count)); ?>
-                                                </li>
+                                                <?php if (!$is_service_only) : ?>
+                                                    <li>
+                                                        <strong><?php echo esc_html__('Participantes', 'juntaplay'); ?>:</strong>
+                                                        <?php echo esc_html(number_format_i18n($members_count)); ?>
+                                                    </li>
+                                                <?php endif; ?>
                                                 <li>
                                                     <strong><?php echo esc_html__('Grupo', 'juntaplay'); ?>:</strong>
                                                     <?php echo $pool_title !== '' ? esc_html($pool_title) : '<span class="juntaplay-profile__empty">' . esc_html__('Ainda não vinculada', 'juntaplay') . '</span>'; ?>
@@ -1336,28 +1413,32 @@ if ($group_suggestions) {
                                                     </li>
                                                 <?php endif; ?>
                                             </ul>
-                                            <div class="juntaplay-group-card__enrollment">
-                                                <span class="juntaplay-group-card__enrollment-label"><?php echo esc_html__('Total da inscrição', 'juntaplay'); ?></span>
-                                                <strong class="juntaplay-group-card__enrollment-value"><?php echo esc_html($enrollment_total); ?></strong>
-                                                <?php if ($blocked_notice !== '') : ?>
-                                                    <p class="juntaplay-group-card__enrollment-note"><?php echo esc_html($blocked_notice); ?></p>
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="juntaplay-group-card__members">
-                                                <span class="juntaplay-group-card__members-label"><?php echo esc_html__('Participantes recentes', 'juntaplay'); ?></span>
-                                                <?php if ($member_names) : ?>
-                                                    <ul class="juntaplay-group-card__members-list">
-                                                        <?php foreach ($member_names as $member_name) : ?>
-                                                            <li><?php echo esc_html((string) $member_name); ?></li>
-                                                        <?php endforeach; ?>
-                                                        <?php if ($members_remaining > 0) : ?>
-                                                            <li class="juntaplay-group-card__members-more"><?php echo esc_html(sprintf(_n('e mais %d participante', 'e mais %d participantes', $members_remaining, 'juntaplay'), $members_remaining)); ?></li>
-                                                        <?php endif; ?>
-                                                    </ul>
-                                                <?php else : ?>
-                                                    <p class="juntaplay-group-card__members-empty"><?php echo esc_html__('Seja o primeiro a entrar neste grupo!', 'juntaplay'); ?></p>
-                                                <?php endif; ?>
-                                            </div>
+                                            <?php if (!$is_service_only && $enrollment_total !== '') : ?>
+                                                <div class="juntaplay-group-card__enrollment">
+                                                    <span class="juntaplay-group-card__enrollment-label"><?php echo esc_html__('Total da inscrição', 'juntaplay'); ?></span>
+                                                    <strong class="juntaplay-group-card__enrollment-value"><?php echo esc_html($enrollment_total); ?></strong>
+                                                    <?php if ($blocked_notice !== '') : ?>
+                                                        <p class="juntaplay-group-card__enrollment-note"><?php echo esc_html($blocked_notice); ?></p>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if (!$is_service_only) : ?>
+                                                <div class="juntaplay-group-card__members">
+                                                    <span class="juntaplay-group-card__members-label"><?php echo esc_html__('Participantes recentes', 'juntaplay'); ?></span>
+                                                    <?php if ($member_names) : ?>
+                                                        <ul class="juntaplay-group-card__members-list">
+                                                            <?php foreach ($member_names as $member_name) : ?>
+                                                                <li><?php echo esc_html((string) $member_name); ?></li>
+                                                            <?php endforeach; ?>
+                                                            <?php if ($members_remaining > 0) : ?>
+                                                                <li class="juntaplay-group-card__members-more"><?php echo esc_html(sprintf(_n('e mais %d participante', 'e mais %d participantes', $members_remaining, 'juntaplay'), $members_remaining)); ?></li>
+                                                            <?php endif; ?>
+                                                        </ul>
+                                                    <?php else : ?>
+                                                        <p class="juntaplay-group-card__members-empty"><?php echo esc_html__('Seja o primeiro a entrar neste grupo!', 'juntaplay'); ?></p>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endif; ?>
                                             <?php if ($status_message !== '') : ?>
                                                 <p class="juntaplay-group-card__message"><?php echo esc_html($status_message); ?></p>
                                             <?php endif; ?>
@@ -1373,7 +1454,7 @@ if ($group_suggestions) {
                                                     <p><?php echo esc_html($review_note); ?></p>
                                                 </div>
                                             <?php endif; ?>
-                                            <?php if (!$is_owner) : ?>
+                                            <?php if (!$is_owner && !$is_service_only) : ?>
                                                 <div class="juntaplay-group-card__complaint juntaplay-group-card__cancel">
                                                     <header class="juntaplay-group-card__complaint-header">
                                                         <div>
