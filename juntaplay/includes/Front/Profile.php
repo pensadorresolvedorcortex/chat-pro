@@ -1004,6 +1004,75 @@ class Profile
         $context['groups_data'] = $groups_data;
         $context['paid_pools']  = $paid_pools;
 
+        $group_context = isset($context['group_context']) && is_array($context['group_context'])
+            ? $context['group_context']
+            : [];
+        $groups_owned  = isset($group_context['groups_owned']) && is_array($group_context['groups_owned'])
+            ? $group_context['groups_owned']
+            : [];
+        $groups_member = isset($group_context['groups_member']) && is_array($group_context['groups_member'])
+            ? $group_context['groups_member']
+            : [];
+
+        $merged_groups_indexed = [];
+        $group_pool_ids = [];
+
+        foreach ([$groups_owned, $groups_member] as $group_collection) {
+            foreach ($group_collection as $group_entry) {
+                if (!is_array($group_entry)) {
+                    continue;
+                }
+
+                $candidate_id = isset($group_entry['id']) ? (int) $group_entry['id'] : 0;
+                if ($candidate_id === 0 && isset($group_entry['group_id'])) {
+                    $candidate_id = (int) $group_entry['group_id'];
+                }
+
+                if ($candidate_id > 0 && !isset($merged_groups_indexed[$candidate_id])) {
+                    $merged_groups_indexed[$candidate_id] = $group_entry;
+                } elseif ($candidate_id === 0) {
+                    $merged_groups_indexed[] = $group_entry;
+                }
+
+                $group_pool_id = isset($group_entry['pool_id']) ? (int) $group_entry['pool_id'] : 0;
+                if ($group_pool_id > 0) {
+                    $group_pool_ids[$group_pool_id] = true;
+                }
+            }
+        }
+
+        $merged_items = array_values($merged_groups_indexed);
+
+        foreach ($paid_pools as $pool_entry) {
+            $pool_id = isset($pool_entry['pool_id']) ? (int) $pool_entry['pool_id'] : 0;
+            if ($pool_id === 0 || isset($group_pool_ids[$pool_id])) {
+                continue;
+            }
+
+            $cover_url = '';
+            if (!empty($pool_entry['cover_id'])) {
+                $cover_url = (string) wp_get_attachment_image_url((int) $pool_entry['cover_id'], 'large');
+            }
+            if ($cover_url === '' && !empty($pool_entry['thumbnail_id'])) {
+                $cover_url = (string) wp_get_attachment_image_url((int) $pool_entry['thumbnail_id'], 'large');
+            }
+
+            $merged_items[] = [
+                'type'        => 'service',
+                'pool_id'     => $pool_id,
+                'pool_title'  => (string) ($pool_entry['title'] ?? ''),
+                'pool_slug'   => (string) ($pool_entry['slug'] ?? ''),
+                'service_url' => (string) ($pool_entry['service_url'] ?? ''),
+                'product_id'  => isset($pool_entry['product_id']) ? (int) $pool_entry['product_id'] : 0,
+                'category'    => (string) ($pool_entry['category'] ?? ''),
+                'price'       => isset($pool_entry['price']) ? (float) $pool_entry['price'] : 0.0,
+                'cover_id'    => isset($pool_entry['cover_id']) ? (int) $pool_entry['cover_id'] : 0,
+                'cover_url'   => $cover_url,
+            ];
+        }
+
+        $context['group_context']['groups_merged'] = $merged_items;
+
         return $context;
     }
 
