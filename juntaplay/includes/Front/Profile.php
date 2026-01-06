@@ -960,6 +960,53 @@ class Profile
         ];
     }
 
+    public function get_meus_grupos_context(): array
+    {
+        $user_id = get_current_user_id();
+        $groups_data = $user_id ? Groups::get_groups_for_user($user_id) : [];
+
+        global $wpdb;
+
+        $paid_pools = [];
+        if ($user_id) {
+            $quotas_table = "{$wpdb->prefix}jp_quotas";
+            $pools_table  = "{$wpdb->prefix}jp_pools";
+
+            $query = $wpdb->prepare(
+                "SELECT DISTINCT q.pool_id, p.title, p.slug, p.thumbnail_id, p.icon_id, p.cover_id,
+                        p.service_url, p.product_id, p.price, p.category, p.status
+                 FROM $quotas_table q
+                 LEFT JOIN $pools_table p ON p.id = q.pool_id
+                 WHERE q.user_id = %d AND q.status = 'paid'
+                 ORDER BY q.pool_id DESC",
+                $user_id
+            );
+
+            $rows = $query ? $wpdb->get_results($query, ARRAY_A) : [];
+            foreach ($rows as $row) {
+                $paid_pools[] = [
+                    'pool_id'      => isset($row['pool_id']) ? (int) $row['pool_id'] : 0,
+                    'title'        => (string) ($row['title'] ?? ''),
+                    'slug'         => (string) ($row['slug'] ?? ''),
+                    'thumbnail_id' => isset($row['thumbnail_id']) ? (int) $row['thumbnail_id'] : 0,
+                    'icon_id'      => isset($row['icon_id']) ? (int) $row['icon_id'] : 0,
+                    'cover_id'     => isset($row['cover_id']) ? (int) $row['cover_id'] : 0,
+                    'service_url'  => (string) ($row['service_url'] ?? ''),
+                    'product_id'   => isset($row['product_id']) ? (int) $row['product_id'] : 0,
+                    'price'        => isset($row['price']) ? (float) $row['price'] : 0.0,
+                    'category'     => (string) ($row['category'] ?? ''),
+                    'status'       => (string) ($row['status'] ?? ''),
+                ];
+            }
+        }
+
+        $context = $this->get_groups_page_context();
+        $context['groups_data'] = $groups_data;
+        $context['paid_pools']  = $paid_pools;
+
+        return $context;
+    }
+
     /**
      * @return array<string, mixed>
      */

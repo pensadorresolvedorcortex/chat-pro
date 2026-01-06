@@ -996,7 +996,7 @@ class Shortcodes
         }
 
         ob_start();
-        $context = $this->profile->get_groups_page_context();
+        $context = $this->profile->get_meus_grupos_context();
         include JP_DIR . 'templates/my-groups.php';
 
         return (string) ob_get_clean();
