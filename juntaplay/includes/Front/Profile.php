@@ -1187,6 +1187,25 @@ class Profile
 
         if (isset($data['groups']) && is_array($data['groups'])) {
             $raw_owned = isset($data['groups']['owned']) && is_array($data['groups']['owned']) ? $data['groups']['owned'] : [];
+            $raw_member = isset($data['groups']['member']) && is_array($data['groups']['member']) ? $data['groups']['member'] : [];
+        }
+
+        $group_ids = $this->collect_group_ids($raw_owned, $raw_member);
+        $user_id   = get_current_user_id();
+        $caucao_cycles = [];
+
+        if ($user_id) {
+            $summary = GroupComplaints::get_summary_for_user($user_id, $group_ids);
+            $this->group_complaint_summary = $this->decorate_group_complaint_summary($summary);
+            $this->group_exit_events = GroupMembershipEvents::get_latest_for_user($user_id, $group_ids, GroupMembershipEvents::TYPE_EXIT_SCHEDULED);
+            $caucao_cycles = CaucaoCycles::get_latest_for_user_groups($user_id, $group_ids);
+        } else {
+            $this->group_complaint_summary = [];
+            $this->group_exit_events = [];
+            $caucao_cycles = [];
+        }
+
+        if (isset($data['groups']) && is_array($data['groups'])) {
             foreach ($raw_owned as $group) {
                 if (!is_array($group)) {
                     continue;
@@ -1199,7 +1218,6 @@ class Profile
                 $this->tally_group_counts($group_counts, $normalized);
             }
 
-            $raw_member = isset($data['groups']['member']) && is_array($data['groups']['member']) ? $data['groups']['member'] : [];
             foreach ($raw_member as $group) {
                 if (!is_array($group)) {
                     continue;
@@ -1216,21 +1234,6 @@ class Profile
         $group_counts['owned']  = count($groups_owned);
         $group_counts['member'] = count($groups_member);
         $group_counts['total']  = $group_counts['owned'] + $group_counts['member'];
-
-        $group_ids = $this->collect_group_ids($raw_owned, $raw_member);
-        $user_id   = get_current_user_id();
-        $caucao_cycles = [];
-
-        if ($user_id) {
-            $summary = GroupComplaints::get_summary_for_user($user_id, $group_ids);
-            $this->group_complaint_summary = $this->decorate_group_complaint_summary($summary);
-            $this->group_exit_events = GroupMembershipEvents::get_latest_for_user($user_id, $group_ids, GroupMembershipEvents::TYPE_EXIT_SCHEDULED);
-            $caucao_cycles = CaucaoCycles::get_latest_for_user_groups($user_id, $group_ids);
-        } else {
-            $this->group_complaint_summary = [];
-            $this->group_exit_events = [];
-            $caucao_cycles = [];
-        }
 
         (new PoolSeeder())->maybe_seed_defaults();
 
