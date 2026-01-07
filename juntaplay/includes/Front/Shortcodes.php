@@ -1072,6 +1072,8 @@ class Shortcodes
         $context['counts']['owned']  = $owned_count;
         $context['counts']['member'] = $member_count;
         $context['counts']['total']  = $total_count;
+        $context['group_context']['groups_owned']  = $groups_for_merge['owned'];
+        $context['group_context']['groups_member'] = $groups_for_merge['member'];
         $context['group_context']['items'] = $items;
         include JP_DIR . 'templates/my-groups.php';
 
