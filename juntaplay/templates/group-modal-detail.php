@@ -180,7 +180,7 @@ switch ($support_type) {
                             </span>
                             <p><?php echo esc_html__('Você pagou os créditos de assinatura (caução) quando se inscreveu no grupo. Para recebê-lo de volta você precisa solicitar o cancelamento com até 15 dias de antecedência da sua data de vencimento e não devem haver faturas em aberto.', 'juntaplay'); ?></p>
                         </div>
-                        <form class="juntaplay-group-cancel__form" method="post">
+                        <form class="juntaplay-group-cancel__form" method="post" action="">
                             <input type="hidden" name="jp_profile_action" value="1" />
                             <input type="hidden" name="jp_profile_section" value="group_cancel" />
                             <input type="hidden" name="jp_profile_group_cancel" value="<?php echo esc_attr((string) $group_id); ?>" />
@@ -381,6 +381,15 @@ switch ($support_type) {
             modal.setAttribute('aria-hidden', 'false');
             modal.classList.add('is-open');
             document.body.classList.add('juntaplay-modal-open');
+        });
+
+        document.addEventListener('submit', (event) => {
+            const form = event.target.closest('.juntaplay-group-cancel__form');
+            if (!form) {
+                return;
+            }
+
+            event.stopPropagation();
         });
     })();
 </script>
