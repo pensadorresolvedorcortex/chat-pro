@@ -216,7 +216,7 @@ switch ($support_type) {
                                 <textarea id="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" minlength="10" required placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
                             </div>
                             <div class="juntaplay-group-complaint__actions">
-                                <button type="submit" class="juntaplay-button juntaplay-button--primary"><?php echo esc_html__('Prosseguir', 'juntaplay'); ?></button>
+                                <button type="button" class="juntaplay-button juntaplay-button--primary" data-group-cancel-submit><?php echo esc_html__('Prosseguir', 'juntaplay'); ?></button>
                                 <button type="button" class="juntaplay-button juntaplay-button--ghost" data-modal-close><?php echo esc_html__('Voltar', 'juntaplay'); ?></button>
                             </div>
                         </form>
@@ -390,6 +390,27 @@ switch ($support_type) {
             }
 
             event.stopPropagation();
+        });
+
+        document.addEventListener('click', (event) => {
+            const submitButton = event.target.closest('[data-group-cancel-submit]');
+            if (!submitButton) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            const form = submitButton.closest('form');
+            if (!form) {
+                return;
+            }
+
+            if (typeof form.reportValidity === 'function' && !form.reportValidity()) {
+                return;
+            }
+
+            form.submit();
         });
     })();
 </script>
