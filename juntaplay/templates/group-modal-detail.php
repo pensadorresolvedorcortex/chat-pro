@@ -168,7 +168,7 @@ switch ($support_type) {
                             echo esc_html(sprintf(
                                 __('%1$s, você está solicitando o cancelamento com menos de 15 dias da data do vencimento. Sua saída será agendada para o dia %2$s e crédito caução será utilizado para quitar a última fatura do grupo.', 'juntaplay'),
                                 $current_user_name,
-                                $exit_effective_copy !== '' ? $exit_effective_copy : __('A confirmar', 'juntaplay')
+                                $exit_effective_copy
                             ));
                             ?>
                         </p>
