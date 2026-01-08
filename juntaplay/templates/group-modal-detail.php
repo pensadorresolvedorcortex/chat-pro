@@ -162,19 +162,19 @@ switch ($support_type) {
                     <div class="juntaplay-modal__content">
                         <h3 class="juntaplay-modal__title"><?php echo esc_html__('Aviso Importante!', 'juntaplay'); ?></h3>
                         <p class="juntaplay-modal__text"><?php echo esc_html__('Antes de prosseguir com seu cancelamento precisamos que você saiba sobre algumas informações importantes:', 'juntaplay'); ?></p>
+                        <div class="juntaplay-group-cancel__illustration" aria-hidden="true"></div>
                         <p class="juntaplay-modal__text">
                             <?php
                             echo esc_html(sprintf(
-                                __('%1$s, você está solicitando o cancelamento com menos de 15 dias da data do vencimento: %2$s. Sua saída será agendada para %3$s e crédito caução será utilizado para quitar a última fatura do grupo.', 'juntaplay'),
+                                __('%1$s, você está solicitando o cancelamento com menos de 15 dias da data do vencimento. Sua saída será agendada para o dia %2$s e crédito caução será utilizado para quitar a última fatura do grupo.', 'juntaplay'),
                                 $current_user_name,
-                                $exit_notice_label,
                                 $exit_effective_copy !== '' ? $exit_effective_copy : __('A confirmar', 'juntaplay')
                             ));
                             ?>
                         </p>
                         <div class="juntaplay-alert juntaplay-alert--danger">
                             <strong><?php echo esc_html__('Atenção!', 'juntaplay'); ?></strong>
-                            <p><?php echo esc_html__('Você pagou os créditos de assinatura (caução) quando se inscreveu no grupo. Para recebê-lo de volta você precisa solicitar o cancelamento com 15 dias de antecedência da sua data de vencimento e não devem haver faturas em aberto.', 'juntaplay'); ?></p>
+                            <p><?php echo esc_html__('Você pagou os créditos de assinatura (caução) quando se inscreveu no grupo. Para recebê-lo de volta você precisa solicitar o cancelamento com até 15 dias de antecedência da sua data de vencimento e não devem haver faturas em aberto.', 'juntaplay'); ?></p>
                         </div>
                         <form class="juntaplay-group-cancel__form" method="post">
                             <input type="hidden" name="jp_profile_action" value="1" />
