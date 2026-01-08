@@ -173,7 +173,11 @@ switch ($support_type) {
                             ?>
                         </p>
                         <div class="juntaplay-alert juntaplay-alert--danger">
-                            <strong><?php echo esc_html__('Atenção!', 'juntaplay'); ?></strong>
+                            <span class="juntaplay-alert__icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                    <path fill="currentColor" d="M11 7h2v6h-2V7Zm1 10a1.25 1.25 0 1 1 0-2.5A1.25 1.25 0 0 1 12 17Zm-.18-14.73a2 2 0 0 1 3.36 0l7.37 12.62A2 2 0 0 1 20.37 18H3.63a2 2 0 0 1-1.99-3.11l7.37-12.62Z"/>
+                                </svg>
+                            </span>
                             <p><?php echo esc_html__('Você pagou os créditos de assinatura (caução) quando se inscreveu no grupo. Para recebê-lo de volta você precisa solicitar o cancelamento com até 15 dias de antecedência da sua data de vencimento e não devem haver faturas em aberto.', 'juntaplay'); ?></p>
                         </div>
                         <form class="juntaplay-group-cancel__form" method="post">
@@ -209,7 +213,7 @@ switch ($support_type) {
                             ?>
                             <div class="juntaplay-form__group">
                                 <label for="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>"><?php echo esc_html__('Descreva o motivo da saída', 'juntaplay'); ?></label>
-                                <textarea id="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
+                                <textarea id="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" minlength="10" required placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
                             </div>
                             <div class="juntaplay-group-complaint__actions">
                                 <button type="submit" class="juntaplay-button juntaplay-button--primary"><?php echo esc_html__('Prosseguir', 'juntaplay'); ?></button>
