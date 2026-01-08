@@ -49,9 +49,6 @@ $complaint_label  = isset($group['complaint_label']) ? (string) $group['complain
 $complaint_hint   = isset($group['complaint_hint']) ? (string) $group['complaint_hint'] : __('Problemas com o grupo? Abra uma reclamação ou disputa.', 'juntaplay');
 $membership_status = isset($group['membership_status']) ? (string) $group['membership_status'] : 'active';
 $group_id = isset($group['id']) ? (int) $group['id'] : 0;
-$exit_effective_display = isset($group['exit_effective_display']) ? (string) $group['exit_effective_display'] : '';
-$exit_effective_preview = isset($group['exit_effective_preview']) ? (string) $group['exit_effective_preview'] : '';
-$caucao_cycle_end = isset($group['caucao_cycle_end']) ? (string) $group['caucao_cycle_end'] : '';
 $pool_slug        = isset($group['pool_slug']) ? (string) $group['pool_slug'] : '';
 $group_icon       = isset($group['cover_url']) ? (string) $group['cover_url'] : '';
 if ($group_icon === '') {
@@ -67,22 +64,6 @@ $group_initial_raw = $title !== '' ? $title : ($service_name !== '' ? $service_n
 $group_initial = $group_initial_raw !== ''
     ? (function_exists('mb_substr') ? mb_substr($group_initial_raw, 0, 1) : substr($group_initial_raw, 0, 1))
     : '';
-
-$exit_effective_copy = $exit_effective_display !== '' ? $exit_effective_display : $exit_effective_preview;
-$exit_notice_within_15 = false;
-if ($caucao_cycle_end !== '') {
-    $cycle_end_ts = strtotime($caucao_cycle_end);
-    if ($cycle_end_ts) {
-        $exit_notice_within_15 = ($cycle_end_ts - current_time('timestamp')) < (15 * DAY_IN_SECONDS);
-    }
-}
-$exit_notice_label = $caucao_cycle_end !== ''
-    ? ($exit_notice_within_15 ? __('Sim', 'juntaplay') : __('Não', 'juntaplay'))
-    : __('Não identificado', 'juntaplay');
-$current_user = wp_get_current_user();
-$current_user_name = ($current_user && $current_user->exists())
-    ? ($current_user->display_name !== '' ? $current_user->display_name : $current_user->user_login)
-    : __('Assinante', 'juntaplay');
 
 
 $support_icon_svg = '';
@@ -150,68 +131,6 @@ switch ($support_type) {
                             <?php echo esc_html__('Cancelar minha participação', 'juntaplay'); ?>
                         </button>
                     <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
-
-        <?php if (!$is_owner && $membership_status !== 'exit_scheduled') : ?>
-            <div class="juntaplay-modal juntaplay-modal--compact" id="jp-group-exit-modal-<?php echo esc_attr((string) $group_id); ?>" data-group-exit-modal hidden aria-hidden="true">
-                <div class="juntaplay-modal__overlay" data-modal-close></div>
-                <div class="juntaplay-modal__dialog" role="dialog" aria-modal="true">
-                    <button type="button" class="juntaplay-modal__close" data-modal-close aria-label="<?php echo esc_attr__('Fechar', 'juntaplay'); ?>">&times;</button>
-                    <div class="juntaplay-modal__content">
-                        <h3 class="juntaplay-modal__title"><?php echo esc_html__('Aviso Importante!', 'juntaplay'); ?></h3>
-                        <p class="juntaplay-modal__text"><?php echo esc_html__('Antes de prosseguir com seu cancelamento precisamos que você saiba sobre algumas informações importantes:', 'juntaplay'); ?></p>
-                        <ul class="juntaplay-group-cancel__info">
-                            <li><?php echo esc_html(sprintf(__('Assinante: %s', 'juntaplay'), $current_user_name)); ?></li>
-                            <li><?php echo esc_html(sprintf(__('Cancelamento solicitado com menos de 15 dias do vencimento: %s', 'juntaplay'), $exit_notice_label)); ?></li>
-                            <li><?php echo esc_html(sprintf(__('Data efetiva de saída do grupo: %s', 'juntaplay'), $exit_effective_copy !== '' ? $exit_effective_copy : __('A confirmar', 'juntaplay'))); ?></li>
-                            <li><?php echo esc_html__('A caução será usada para quitar a última fatura, se aplicável.', 'juntaplay'); ?></li>
-                        </ul>
-                        <div class="juntaplay-alert juntaplay-alert--danger">
-                            <?php echo esc_html__('Você pagou os créditos de assinatura (caução) quando se inscreveu no grupo. Para recebê-lo de volta você precisa solicitar o cancelamento com 15 dias de antecedência da sua data de vencimento e não devem haver faturas em aberto.', 'juntaplay'); ?>
-                        </div>
-                        <form class="juntaplay-group-cancel__form" method="post">
-                            <input type="hidden" name="jp_profile_action" value="1" />
-                            <input type="hidden" name="jp_profile_section" value="group_cancel" />
-                            <input type="hidden" name="jp_profile_group_cancel" value="<?php echo esc_attr((string) $group_id); ?>" />
-                            <?php
-                            $cancel_profile_nonce = wp_nonce_field(
-                                'juntaplay_profile_update',
-                                'jp_profile_nonce',
-                                true,
-                                false
-                            );
-                            $cancel_profile_nonce = preg_replace(
-                                '/id="jp_profile_nonce"/',
-                                'id="' . esc_attr(wp_unique_id('jp_profile_nonce_')) . '"',
-                                $cancel_profile_nonce
-                            );
-                            echo $cancel_profile_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
-                            $cancel_action_nonce = wp_nonce_field(
-                                'jp_profile_group_cancel',
-                                'jp_profile_group_cancel_nonce',
-                                true,
-                                false
-                            );
-                            $cancel_action_nonce = preg_replace(
-                                '/id="jp_profile_group_cancel_nonce"/',
-                                'id="' . esc_attr(wp_unique_id('jp_profile_group_cancel_nonce_')) . '"',
-                                $cancel_action_nonce
-                            );
-                            echo $cancel_action_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            ?>
-                            <div class="juntaplay-form__group">
-                                <label for="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>"><?php echo esc_html__('Descreva o motivo da saída', 'juntaplay'); ?></label>
-                                <textarea id="jp-group-cancel-reason-modal-<?php echo esc_attr((string) $group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
-                            </div>
-                            <div class="juntaplay-group-complaint__actions">
-                                <button type="submit" class="juntaplay-button juntaplay-button--primary"><?php echo esc_html__('Prosseguir', 'juntaplay'); ?></button>
-                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-modal-close><?php echo esc_html__('Voltar', 'juntaplay'); ?></button>
-                            </div>
-                        </form>
-                    </div>
                 </div>
             </div>
         <?php endif; ?>
