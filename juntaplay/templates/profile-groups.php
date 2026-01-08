@@ -1745,6 +1745,21 @@ $group_cards[] = trim((string) ob_get_clean());
                 return;
             }
 
+            const closeModal = (modal) => {
+                if (!modal) {
+                    return;
+                }
+
+                modal.setAttribute('aria-hidden', 'true');
+                modal.setAttribute('hidden', 'hidden');
+                modal.classList.remove('is-open');
+
+                const openModals = document.querySelectorAll('.juntaplay-modal.is-open');
+                if (!openModals.length) {
+                    document.body.classList.remove('juntaplay-modal-open');
+                }
+            };
+
             const openExitModal = (modalId) => {
                 if (!modalId) {
                     return;
@@ -1864,6 +1879,10 @@ $group_cards[] = trim((string) ob_get_clean());
                     const exitTrigger = event.target.closest('[data-group-exit-trigger]');
                     if (exitTrigger) {
                         event.preventDefault();
+                        const parentModal = exitTrigger.closest('.juntaplay-modal');
+                        if (parentModal) {
+                            closeModal(parentModal);
+                        }
                         openExitModal(exitTrigger.getAttribute('data-exit-modal-id'));
                         return;
                     }
