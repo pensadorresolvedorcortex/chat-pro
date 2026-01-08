@@ -1222,6 +1222,10 @@ class Profile
                 if (!is_array($group)) {
                     continue;
                 }
+                $member_status = isset($group['membership_status']) ? (string) $group['membership_status'] : '';
+                if ($member_status === GroupMembers::STATUS_EXIT_SCHEDULED) {
+                    continue;
+                }
 
                 $normalized      = $this->prepare_group_entry($group, false);
                 $normalized      = $this->attach_caucao_cycle($normalized, $caucao_cycles);
