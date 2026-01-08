@@ -336,3 +336,28 @@ switch ($support_type) {
 
     </div>
 </div>
+<script>
+    (() => {
+        document.addEventListener('click', (event) => {
+            const trigger = event.target.closest('[data-group-exit-trigger]');
+            if (!trigger) {
+                return;
+            }
+
+            const modalId = trigger.getAttribute('data-exit-modal-id');
+            if (!modalId) {
+                return;
+            }
+
+            const modal = document.getElementById(modalId);
+            if (!modal) {
+                return;
+            }
+
+            modal.removeAttribute('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
+            document.body.classList.add('juntaplay-modal-open');
+        });
+    })();
+</script>
