@@ -936,6 +936,9 @@ if ($group_suggestions) {
                     $role_tone          = isset($group['role_tone']) && is_string($group['role_tone']) ? (string) $group['role_tone'] : '';
                     $role_ribbon_label  = '';
                     $role_ribbon_tone   = '';
+                    if (!$is_owner && $membership_status === 'exit_scheduled') {
+                        continue;
+                    }
                     if ($is_owner) {
                         $role_label = __('Você administra este grupo', 'juntaplay');
                         $role_tone  = 'positive';
