@@ -338,11 +338,30 @@ switch ($support_type) {
 </div>
 <script>
     (() => {
+        const detailRoot = document.querySelector('.juntaplay-group-modal__detail');
+        if (detailRoot) {
+            const parentModal = detailRoot.closest('.juntaplay-modal');
+            if (parentModal) {
+                const overlay = parentModal.querySelector('.juntaplay-modal__overlay');
+                const dialog = parentModal.querySelector('.juntaplay-modal__dialog');
+                if (overlay) {
+                    overlay.style.zIndex = '1';
+                }
+                if (dialog) {
+                    dialog.style.zIndex = '2';
+                    dialog.style.position = 'relative';
+                }
+            }
+        }
+
         document.addEventListener('click', (event) => {
             const trigger = event.target.closest('[data-group-exit-trigger]');
             if (!trigger) {
                 return;
             }
+
+            event.preventDefault();
+            event.stopPropagation();
 
             const modalId = trigger.getAttribute('data-exit-modal-id');
             if (!modalId) {
