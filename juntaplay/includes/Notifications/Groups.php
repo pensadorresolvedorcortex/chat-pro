@@ -1068,11 +1068,11 @@ class Groups
 
             EmailHelper::send(
                 $member->user_email,
-                sprintf(__('Cancelamento registrado — %s', 'juntaplay'), $site_name),
+                sprintf(__('Saída confirmada do grupo — %s', 'juntaplay'), $site_name),
                 $member_blocks,
                 [
-                    'headline'  => __('Cancelamento confirmado', 'juntaplay'),
-                    'preheader' => __('Você poderá acompanhar a data de saída no seu painel.', 'juntaplay'),
+                    'headline'  => __('Saída confirmada', 'juntaplay'),
+                    'preheader' => __('Sua saída do grupo foi registrada com sucesso.', 'juntaplay'),
                 ]
             );
         }
@@ -1100,11 +1100,11 @@ class Groups
 
             EmailHelper::send(
                 (string) $owner_contact['email'],
-                sprintf(__('Participante solicitou saída — %s', 'juntaplay'), $site_name),
+                sprintf(__('Participante saiu do grupo — %s', 'juntaplay'), $site_name),
                 $admin_blocks,
                 [
-                    'headline'  => __('Saída solicitada no seu grupo', 'juntaplay'),
-                    'preheader' => sprintf(__('Acompanhe a saída de %s no painel.', 'juntaplay'), $member_name),
+                    'headline'  => __('Saída confirmada no seu grupo', 'juntaplay'),
+                    'preheader' => sprintf(__('A saída de %s foi registrada.', 'juntaplay'), $member_name),
                 ]
             );
         }
