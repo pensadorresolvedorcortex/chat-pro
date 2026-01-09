@@ -605,6 +605,10 @@
   box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
+.zxtec-saas-panel h2 {
+  font-size: 20px;
+}
+
 .zxtec-saas-highlight {
   font-size: 28px;
   font-weight: 700;
