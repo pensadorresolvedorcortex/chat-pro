@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace JuntaPlay\Data;
 
+use JuntaPlay\Data\GroupMembers;
+
 use wpdb;
 
 use function absint;
