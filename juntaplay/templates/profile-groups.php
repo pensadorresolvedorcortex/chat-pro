@@ -1879,7 +1879,12 @@ $group_cards[] = trim((string) ob_get_clean());
                         <button type="button" class="juntaplay-modal__close" data-exit-info-close aria-label="<?php echo esc_attr__('Fechar', 'juntaplay'); ?>">&times;</button>
                         <div class="juntaplay-modal__content">
                             <h3 class="juntaplay-modal__title"><?php echo esc_html__('Saída agendada', 'juntaplay'); ?></h3>
-                            <p class="juntaplay-modal__text" data-exit-info-message></p>
+                            <p class="juntaplay-modal__text"><?php echo esc_html__('Sua solicitação foi registrada e sua saída já está programada.', 'juntaplay'); ?></p>
+                            <ul class="juntaplay-group-cancel__info">
+                                <li data-exit-info-date></li>
+                                <li data-exit-info-access><?php echo esc_html__('Seu acesso será mantido até a data de saída.', 'juntaplay'); ?></li>
+                                <li data-exit-info-lock><?php echo esc_html__('Após a confirmação não é possível reverter esta solicitação.', 'juntaplay'); ?></li>
+                            </ul>
                             <div class="juntaplay-group-complaint__actions">
                                 <button type="button" class="juntaplay-button juntaplay-button--primary" data-exit-info-close><?php echo esc_html__('Entendi', 'juntaplay'); ?></button>
                             </div>
@@ -1893,17 +1898,11 @@ $group_cards[] = trim((string) ob_get_clean());
 
             const showExitInfoModal = (exitDisplay) => {
                 const modal = ensureExitInfoModal();
-                const message = modal.querySelector('[data-exit-info-message]');
-                if (message) {
-                    if (exitDisplay) {
-                        message.textContent =
-                            '<?php echo esc_js(__('Sua saída foi agendada para', 'juntaplay')); ?> ' +
-                            exitDisplay +
-                            '. <?php echo esc_js(__('Seu acesso será mantido até essa data.', 'juntaplay')); ?>';
-                    } else {
-                        message.textContent =
-                            '<?php echo esc_js(__('Sua saída foi agendada. Seu acesso será mantido até a data efetiva.', 'juntaplay')); ?>';
-                    }
+                const dateLine = modal.querySelector('[data-exit-info-date]');
+                if (dateLine) {
+                    dateLine.textContent = exitDisplay
+                        ? '<?php echo esc_js(__('Saída agendada para', 'juntaplay')); ?> ' + exitDisplay
+                        : '<?php echo esc_js(__('Saída agendada para data a confirmar.', 'juntaplay')); ?>';
                 }
 
                 modal.removeAttribute('hidden');
@@ -1949,7 +1948,7 @@ $group_cards[] = trim((string) ob_get_clean());
                         const result = payload.data || {};
                         const resolvedId = parseInt(result.group_id || groupId || 0, 10) || 0;
                         const status = (result.status || '').toString();
-                        const exitDisplay = (result.exit_effective_display || '').toString();
+                        const exitDisplay = (result.exit_effective_display || result.exit_effective_at || '').toString();
                         closeModal(form.closest('.juntaplay-modal'));
 
                         if (status === 'exited') {
