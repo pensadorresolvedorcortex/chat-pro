@@ -1223,7 +1223,7 @@ class Profile
                     continue;
                 }
                 $member_status = isset($group['membership_status']) ? (string) $group['membership_status'] : '';
-                if ($member_status === GroupMembers::STATUS_EXIT_SCHEDULED) {
+                if ($member_status === $this->get_exit_scheduled_status()) {
                     continue;
                 }
 
@@ -2583,7 +2583,8 @@ class Profile
     private function prepare_group_entry(array $group, bool $is_owner): array
     {
         $status            = isset($group['status']) ? (string) $group['status'] : Groups::STATUS_PENDING;
-        $membership_status = isset($group['membership_status']) ? (string) $group['membership_status'] : GroupMembers::STATUS_ACTIVE;
+        $default_membership_status = $this->get_default_membership_status();
+        $membership_status = isset($group['membership_status']) ? (string) $group['membership_status'] : $default_membership_status;
         $membership_joined_at = isset($group['membership_joined_at']) ? (string) $group['membership_joined_at'] : '';
         $membership_exit_requested_at = isset($group['membership_exit_requested_at']) ? (string) $group['membership_exit_requested_at'] : '';
         $membership_exit_effective_at = isset($group['membership_exit_effective_at']) ? (string) $group['membership_exit_effective_at'] : '';
@@ -3809,7 +3810,7 @@ class Profile
         }
 
         $status            = isset($group['status']) ? (string) $group['status'] : Groups::STATUS_PENDING;
-        $membership_status = isset($group['membership_status']) ? (string) $group['membership_status'] : GroupMembers::STATUS_ACTIVE;
+        $membership_status = isset($group['membership_status']) ? (string) $group['membership_status'] : $this->get_default_membership_status();
 
         if ($status === Groups::STATUS_PENDING) {
             ++$counts['pending'];
@@ -3830,7 +3831,41 @@ class Profile
 
     private function is_active_membership_status(string $status): bool
     {
-        return in_array($status, [GroupMembers::STATUS_ACTIVE, GroupMembers::STATUS_EXIT_SCHEDULED], true);
+        $active_statuses = $this->get_active_membership_statuses();
+
+        return in_array($status, $active_statuses, true);
+    }
+
+    /**
+     * @return string[]
+     */
+    private function get_active_membership_statuses(): array
+    {
+        $active_status = $this->get_default_membership_status();
+        $exit_status = $this->get_exit_scheduled_status();
+
+        return [$active_status, $exit_status];
+    }
+
+    private function get_default_membership_status(): string
+    {
+        return defined(__NAMESPACE__ . '\\GroupMembers::STATUS_ACTIVE')
+            ? GroupMembers::STATUS_ACTIVE
+            : 'active';
+    }
+
+    private function get_exit_scheduled_status(): string
+    {
+        return defined(__NAMESPACE__ . '\\GroupMembers::STATUS_EXIT_SCHEDULED')
+            ? GroupMembers::STATUS_EXIT_SCHEDULED
+            : 'exit_scheduled';
+    }
+
+    private function get_exited_status(): string
+    {
+        return defined(__NAMESPACE__ . '\\GroupMembers::STATUS_EXITED')
+            ? GroupMembers::STATUS_EXITED
+            : 'exited';
     }
 
     /**
@@ -6295,8 +6330,10 @@ class Profile
             return;
         }
 
-        $status = isset($membership['status']) ? (string) $membership['status'] : GroupMembers::STATUS_ACTIVE;
-        if ($status === GroupMembers::STATUS_EXIT_SCHEDULED) {
+        $exit_scheduled_status = $this->get_exit_scheduled_status();
+        $exited_status = $this->get_exited_status();
+        $status = isset($membership['status']) ? (string) $membership['status'] : $this->get_default_membership_status();
+        if ($status === $exit_scheduled_status) {
             $exit_date = isset($membership['exit_effective_at']) ? (string) $membership['exit_effective_at'] : '';
             $display_date = $exit_date !== '' ? date_i18n(get_option('date_format'), strtotime($exit_date)) : '';
             $notice = $display_date !== ''
@@ -6305,7 +6342,7 @@ class Profile
             $this->add_notice($notice);
             $respond_success([
                 'group_id'          => $group_id,
-                'status'            => GroupMembers::STATUS_EXIT_SCHEDULED,
+                'status'            => $exit_scheduled_status,
                 'exit_effective_at' => $exit_date,
                 'exit_effective_display' => $display_date,
                 'message'           => $notice,
@@ -6314,12 +6351,12 @@ class Profile
             return;
         }
 
-        if ($status === GroupMembers::STATUS_EXITED) {
+        if ($status === $exited_status) {
             $notice = __('Sua participação neste grupo já foi encerrada.', 'juntaplay');
             $this->add_notice($notice);
             $respond_success([
                 'group_id' => $group_id,
-                'status'   => GroupMembers::STATUS_EXITED,
+                'status'   => $exited_status,
                 'message'  => $notice,
             ]);
 
@@ -6379,7 +6416,7 @@ class Profile
 
         $respond_success([
             'group_id'          => $group_id,
-            'status'            => GroupMembers::STATUS_EXIT_SCHEDULED,
+            'status'            => $exit_scheduled_status,
             'exit_effective_at' => $exit_effective_at,
             'exit_effective_display' => $exit_display,
             'message'           => $notice,
