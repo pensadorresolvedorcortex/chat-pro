@@ -144,6 +144,7 @@
   color: var(--zxtec-text);
   border-collapse: separate;
   border-spacing: 0 10px;
+  width: 100%;
 }
 
 .zxtec-glass-table thead th {
@@ -256,6 +257,440 @@
 
 .zxtec-glass-muted {
   color: var(--zxtec-muted);
+}
+
+.zxtec-saas {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  min-height: 100vh;
+  padding: 24px;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.2), transparent 55%),
+    linear-gradient(140deg, #0b1020 10%, #1c1144 60%, #0f172a 100%);
+  color: var(--zxtec-text);
+}
+
+.zxtec-saas-sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 20px;
+  backdrop-filter: blur(18px);
+  min-height: calc(100vh - 48px);
+}
+
+.zxtec-saas-sidebar.is-collapsed {
+  width: 82px;
+  padding: 20px 14px;
+}
+
+.zxtec-saas-sidebar.is-collapsed .zxtec-saas-nav-button span,
+.zxtec-saas-sidebar.is-collapsed .zxtec-saas-sidebar-footer span {
+  display: none;
+}
+
+.zxtec-saas-sidebar.is-collapsed .zxtec-saas-nav-button {
+  justify-content: center;
+}
+
+.zxtec-saas-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.zxtec-saas-logo {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #68c841;
+}
+
+.zxtec-saas-collapse {
+  background: transparent;
+  border: none;
+  color: var(--zxtec-text);
+  cursor: pointer;
+}
+
+.zxtec-saas-collapse svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.zxtec-saas-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zxtec-saas-nav-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--zxtec-muted);
+  padding: 10px 12px;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.zxtec-saas-nav-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.zxtec-saas-nav-button.is-active {
+  color: #fff;
+  background: rgba(59, 130, 246, 0.16);
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+.zxtec-saas-sidebar-footer {
+  margin-top: auto;
+  font-size: 12px;
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-main {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.zxtec-saas-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 18px 24px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+}
+
+.zxtec-saas-eyebrow {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-subtitle {
+  color: var(--zxtec-muted);
+  margin-top: 8px;
+}
+
+.zxtec-saas-status {
+  text-align: right;
+  font-size: 12px;
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-status strong {
+  display: block;
+  font-size: 16px;
+  color: #68c841;
+  margin-top: 4px;
+}
+
+.zxtec-saas-section {
+  display: none;
+  animation: zxtecFadeIn 0.4s ease;
+}
+
+.zxtec-saas-section.is-active {
+  display: block;
+}
+
+.zxtec-saas-section-header h2 {
+  margin-bottom: 4px;
+}
+
+.zxtec-saas-section-header p {
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-insight {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  margin-bottom: 24px;
+}
+
+.zxtec-saas-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.zxtec-saas-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.zxtec-saas-card-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: #68c841;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.zxtec-saas-card-label {
+  display: block;
+  margin-top: 10px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-card-value {
+  display: block;
+  font-size: 22px;
+  margin-top: 6px;
+}
+
+.zxtec-saas-card-meta {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.zxtec-saas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.zxtec-saas-panel {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.zxtec-saas-highlight {
+  font-size: 36px;
+  font-weight: 700;
+  color: #68c841;
+}
+
+.zxtec-saas-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  color: rgba(226, 232, 240, 0.7);
+}
+
+.zxtec-saas-list li {
+  margin-bottom: 6px;
+}
+
+.zxtec-saas-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin: 16px 0 24px;
+}
+
+.zxtec-saas-filters label {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: var(--zxtec-muted);
+  gap: 6px;
+}
+
+.zxtec-saas-filters input,
+.zxtec-saas-filters select {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 12px;
+  color: var(--zxtec-text);
+}
+
+.zxtec-saas-button {
+  background: linear-gradient(135deg, #68c841, #4fb426);
+  border: none;
+  color: #0f172a;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.zxtec-saas-button.is-ghost {
+  background: transparent;
+  border: 1px solid rgba(104, 200, 65, 0.4);
+  color: #68c841;
+}
+
+.zxtec-saas-table thead th {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--zxtec-muted);
+  padding: 12px 14px;
+}
+
+.zxtec-saas-table tbody tr {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.zxtec-saas-empty {
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--zxtec-muted);
+}
+
+.zxtec-saas-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.zxtec-saas-summary div {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px;
+}
+
+.zxtec-saas-summary strong {
+  display: block;
+  font-size: 18px;
+}
+
+.zxtec-saas-summary span {
+  color: var(--zxtec-muted);
+  font-size: 12px;
+}
+
+.zxtec-saas-highlight-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(104, 200, 65, 0.12);
+  border: 1px solid rgba(104, 200, 65, 0.35);
+}
+
+.zxtec-saas-highlight-card strong {
+  font-size: 24px;
+}
+
+.zxtec-saas-notes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.zxtec-saas-notes li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 16px;
+}
+
+.zxtec-saas-link {
+  color: #68c841;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.zxtec-saas-skeleton {
+  display: grid;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.zxtec-saas-skeleton.is-hidden {
+  display: none;
+}
+
+.zxtec-saas-skeleton-item {
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06));
+  background-size: 200% 100%;
+  animation: zxtecSkeleton 1.4s ease infinite;
+}
+
+@keyframes zxtecSkeleton {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: -200% 0%;
+  }
+}
+
+@media (max-width: 1100px) {
+  .zxtec-saas {
+    grid-template-columns: 1fr;
+  }
+
+  .zxtec-saas-sidebar {
+    position: relative;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .zxtec-saas-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .zxtec-saas-notes li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .zxtec-auth {

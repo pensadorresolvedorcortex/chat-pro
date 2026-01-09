@@ -618,12 +618,12 @@ class ZXTEC_Intranet {
         if ( is_singular() ) {
             global $post;
             if ( has_shortcode( $post->post_content, 'zxtec_colaborador_dashboard' ) || has_shortcode( $post->post_content, 'zxtec_colaborador_contas' ) ) {
-                wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/flatly/bootstrap.min.css' );
                 wp_enqueue_style( 'zxtec-dashboard', $this->url . 'css/zxtec-dashboard.css' );
                 wp_enqueue_style( 'zxtec-toolbar', $this->url . 'css/zxtec-toolbar.css' );
                 wp_enqueue_style( 'zxtec-glass', $this->url . 'css/zxtec-glass.css' );
                 wp_enqueue_script( 'zxtec-glass', $this->url . 'js/zxtec-glass.js', array(), null, true );
                 wp_enqueue_script( 'zxtec-auth', $this->url . 'js/zxtec-auth.js', array(), null, true );
+                wp_enqueue_script( 'zxtec-saas', $this->url . 'js/zxtec-saas.js', array(), null, true );
             }
         }
     }
@@ -819,77 +819,7 @@ JS;
         if ( ! is_user_logged_in() ) {
             return $this->get_login_prompt_html();
         }
-
-        $user_id = get_current_user_id();
-        $orders = get_posts( array(
-            'post_type'  => 'zxtec_order',
-            'meta_key'   => '_zxtec_technician',
-            'meta_value' => $user_id,
-            'numberposts' => -1,
-        ) );
-        $tech_lat = get_user_meta( $user_id, 'zxtec_lat', true );
-        $tech_lng = get_user_meta( $user_id, 'zxtec_lng', true );
-
-        ob_start();
-        ?>
-        <h1><?php _e( 'Dashboard do Colaborador', 'zxtec' ); ?></h1>
-        <?php
-        $notes = $this->get_notifications( $user_id );
-        if ( ! empty( $notes ) ) : ?>
-            <h2><?php _e( 'Notificacoes', 'zxtec' ); ?></h2>
-            <ul>
-                <?php foreach ( $notes as $i => $n ) : ?>
-                    <li><?php echo esc_html( $n['message'] ); ?>
-                    <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=zxtec_clear_notification&n=' . $i ), 'zxtec_clear_note_' . $user_id ) ); ?>">x</a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-        <?php if ( ! empty( $orders ) ) : ?>
-            <table class="table table-striped zxtec-table">
-                <thead><tr><th><?php _e( 'Ordem', 'zxtec' ); ?></th><th><?php _e( 'Data', 'zxtec' ); ?></th><th><?php _e( 'Status', 'zxtec' ); ?></th><th><?php _e( 'Acao', 'zxtec' ); ?></th></tr></thead>
-                <tbody>
-                <?php foreach ( $orders as $order ) : ?>
-                    <?php
-                        $status = get_post_meta( $order->ID, '_zxtec_status', true );
-                        $lat = get_post_meta( $order->ID, '_zxtec_lat', true );
-                        $lng = get_post_meta( $order->ID, '_zxtec_lng', true );
-                        if ( $tech_lat && $tech_lng && $lat && $lng ) {
-                            $map_url = sprintf( 'https://www.google.com/maps/dir/?api=1&origin=%s,%s&destination=%s,%s', $tech_lat, $tech_lng, $lat, $lng );
-                        } elseif ( $lat && $lng ) {
-                            $map_url = 'https://www.google.com/maps/?q=' . $lat . ',' . $lng;
-                        } else {
-                            $map_url = '';
-                        }
-                        $nonce = wp_create_nonce( 'zxtec_order_action_' . $order->ID );
-                    ?>
-                    <tr>
-                        <td><?php echo esc_html( $order->post_title ); ?></td>
-                        <td><?php echo esc_html( get_post_meta( $order->ID, '_zxtec_date', true ) ); ?></td>
-                        <td><?php echo esc_html( $this->human_status( $status ) ); ?></td>
-                        <td>
-                            <?php if ( $map_url ) : ?>
-                                <a href="<?php echo esc_url( $map_url ); ?>" target="_blank">GPS</a>
-                                |
-                            <?php endif; ?>
-                            <?php if ( 'confirmado' !== $status && 'concluido' !== $status ) : ?>
-                                <a href="<?php echo admin_url( 'admin-post.php?action=zxtec_confirm_order&order=' . $order->ID . '&_wpnonce=' . $nonce ); ?>">Confirmar</a>
-                                |
-                                <a href="#" onclick="var r=prompt('Justificativa:');if(r===null){return false;}window.location.href='<?php echo admin_url( 'admin-post.php?action=zxtec_decline_order&order=' . $order->ID . '&_wpnonce=' . $nonce . '&reason=' ); ?>'+encodeURIComponent(r);return false;">Recusar</a>
-                            <?php elseif ( 'confirmado' === $status ) : ?>
-                                <a href="<?php echo admin_url( 'admin-post.php?action=zxtec_finalize_order&order=' . $order->ID . '&_wpnonce=' . $nonce ); ?>">Finalizar</a>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else : ?>
-            <p><?php _e( 'Nenhuma ordem designada.', 'zxtec' ); ?></p>
-        <?php endif; ?>
-        <?php echo $this->get_user_financial_html(); ?>
-        <?php
-        return ob_get_clean();
+        return $this->get_colaborador_contas_html();
     }
 
     /**
@@ -908,92 +838,175 @@ JS;
         $accountability_filters = $this->get_accountability_filters();
         $accountability_entries = $this->get_accountability_entries( $user_id, $accountability_filters );
         $accountability_totals = $this->calculate_accountability_totals( $accountability_entries );
+        $user = wp_get_current_user();
+        $pending_orders_count = 0;
+        $next_payment_ts = null;
+        $current_ts = current_time( 'timestamp' );
+
+        foreach ( $orders as $order ) {
+            $status = get_post_meta( $order->ID, '_zxtec_status', true );
+            if ( ! in_array( $status, array( 'concluido', 'recusado' ), true ) ) {
+                $pending_orders_count++;
+            }
+            $payment_date = get_post_meta( $order->ID, '_zxtec_order_payment_date', true );
+            if ( $payment_date ) {
+                $payment_ts = strtotime( $payment_date );
+                if ( $payment_ts && $payment_ts >= $current_ts && ( ! $next_payment_ts || $payment_ts < $next_payment_ts ) ) {
+                    $next_payment_ts = $payment_ts;
+                }
+            }
+        }
+
+        $next_payment_label = $next_payment_ts
+            ? date_i18n( get_option( 'date_format' ), $next_payment_ts )
+            : __( 'Em validacao', 'zxtec' );
 
         ob_start();
         ?>
-        <div class="zxtec-container zxtec-glass-dashboard">
-            <div class="zxtec-card zxtec-glass-card">
-                <div class="zxtec-glass-header">
-                    <h1><?php esc_html_e( 'Contas do Colaborador', 'zxtec' ); ?></h1>
-                    <p><?php esc_html_e( 'Visao financeira e operacional do colaborador logado.', 'zxtec' ); ?></p>
+        <div class="zxtec-saas">
+            <aside class="zxtec-saas-sidebar" aria-label="<?php esc_attr_e( 'Menu do colaborador', 'zxtec' ); ?>">
+                <div class="zxtec-saas-sidebar-header">
+                    <span class="zxtec-saas-logo">ZX Tec</span>
+                    <button class="zxtec-saas-collapse" type="button" aria-label="<?php esc_attr_e( 'Recolher menu', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 6h16M4 12h10M4 18h16" />
+                        </svg>
+                    </button>
                 </div>
-
-                <div class="zxtec-glass-summary">
-                    <div class="zxtec-glass-card zxtec-glass-summary-card">
-                        <span class="zxtec-glass-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" role="presentation">
-                                <path d="M4 12h16M12 4v16" />
-                            </svg>
-                        </span>
-                        <span class="zxtec-glass-label"><?php esc_html_e( 'Total faturado', 'zxtec' ); ?></span>
-                        <strong class="zxtec-glass-value"><?php echo esc_html( number_format_i18n( $totals['billed'], 2 ) ); ?></strong>
-                    </div>
-                    <div class="zxtec-glass-card zxtec-glass-summary-card">
-                        <span class="zxtec-glass-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" role="presentation">
-                                <path d="M4 12h16M4 12l6-6M4 12l6 6" />
-                            </svg>
-                        </span>
-                        <span class="zxtec-glass-label"><?php esc_html_e( 'Total recebido', 'zxtec' ); ?></span>
-                        <strong class="zxtec-glass-value"><?php echo esc_html( number_format_i18n( $totals['received'], 2 ) ); ?></strong>
-                    </div>
-                    <div class="zxtec-glass-card zxtec-glass-summary-card">
-                        <span class="zxtec-glass-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" role="presentation">
-                                <path d="M4 12h10M14 8l4 4-4 4" />
-                            </svg>
-                        </span>
-                        <span class="zxtec-glass-label"><?php esc_html_e( 'Total pendente', 'zxtec' ); ?></span>
-                        <strong class="zxtec-glass-value"><?php echo esc_html( number_format_i18n( $totals['pending'], 2 ) ); ?></strong>
-                    </div>
-                    <div class="zxtec-glass-card zxtec-glass-summary-card">
-                        <span class="zxtec-glass-icon" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" role="presentation">
-                                <path d="M5 12l4 4L19 6" />
-                            </svg>
-                        </span>
-                        <span class="zxtec-glass-label"><?php esc_html_e( 'Saldo aprovado', 'zxtec' ); ?></span>
-                        <strong class="zxtec-glass-value"><?php echo esc_html( number_format_i18n( $accountability_totals['saldo_aprovado'], 2 ) ); ?></strong>
-                    </div>
+                <nav class="zxtec-saas-nav">
+                    <button class="zxtec-saas-nav-button is-active" type="button" data-section="overview" title="<?php esc_attr_e( 'Dashboard', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l8-8 8 8v8H4z" /></svg>
+                        <span><?php esc_html_e( 'Dashboard', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="orders" title="<?php esc_attr_e( 'Minhas Ordens', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5" /></svg>
+                        <span><?php esc_html_e( 'Minhas Ordens', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="finance-receber" title="<?php esc_attr_e( 'Valores a Receber', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M12 4v16" /></svg>
+                        <span><?php esc_html_e( 'Valores a Receber', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="finance-recebido" title="<?php esc_attr_e( 'Valores Recebidos', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M4 12l6-6M4 12l6 6" /></svg>
+                        <span><?php esc_html_e( 'Valores Recebidos', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="finance-extrato" title="<?php esc_attr_e( 'Extrato', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v4H5zM5 10h14M5 16h10" /></svg>
+                        <span><?php esc_html_e( 'Extrato', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="accountability" title="<?php esc_attr_e( 'Prestacao de Contas', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v16H6zM9 8h6M9 12h6M9 16h4" /></svg>
+                        <span><?php esc_html_e( 'Prestacao de Contas', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="goals" title="<?php esc_attr_e( 'Metas & Expectativas', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l3 6 6 .9-4.5 4.3 1 6.3-5.5-3-5.5 3 1-6.3L3 9.9 9 9z" /></svg>
+                        <span><?php esc_html_e( 'Metas & Expectativas', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="notifications" title="<?php esc_attr_e( 'Notificacoes', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 0 5 2 5 5v4l2 3H5l2-3V8c0-3 2-5 5-5zm-2 16h4" /></svg>
+                        <span><?php esc_html_e( 'Notificacoes', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="history" title="<?php esc_attr_e( 'Historico', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v6l4 2M4 12a8 8 0 1 0 2.3-5.7" /></svg>
+                        <span><?php esc_html_e( 'Historico', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="profile" title="<?php esc_attr_e( 'Perfil', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm-7 8a7 7 0 0 1 14 0" /></svg>
+                        <span><?php esc_html_e( 'Perfil', 'zxtec' ); ?></span>
+                    </button>
+                    <button class="zxtec-saas-nav-button" type="button" data-section="support" title="<?php esc_attr_e( 'Ajuda / Suporte', 'zxtec' ); ?>">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8v4a2 2 0 0 0 2 2h2v-6H6v-1a6 6 0 1 1 12 0v1h-2v6h2a2 2 0 0 0 2-2v-4a8 8 0 0 0-8-8zm-1 12h2v2h-2z" /></svg>
+                        <span><?php esc_html_e( 'Ajuda / Suporte', 'zxtec' ); ?></span>
+                    </button>
+                </nav>
+                <div class="zxtec-saas-sidebar-footer">
+                    <span><?php echo esc_html( $profile['role'] ); ?></span>
                 </div>
+            </aside>
 
-                <div class="zxtec-glass-tabs" role="tablist" aria-label="<?php esc_attr_e( 'Secoes do dashboard', 'zxtec' ); ?>">
-                    <button class="zxtec-glass-tab is-active" data-tab="perfil" type="button" role="tab" aria-selected="true" aria-controls="zxtec-tab-perfil"><?php esc_html_e( 'Perfil', 'zxtec' ); ?></button>
-                    <button class="zxtec-glass-tab" data-tab="ordens" type="button" role="tab" aria-selected="false" aria-controls="zxtec-tab-ordens"><?php esc_html_e( 'Ordens', 'zxtec' ); ?></button>
-                    <button class="zxtec-glass-tab" data-tab="prestacao" type="button" role="tab" aria-selected="false" aria-controls="zxtec-tab-prestacao"><?php esc_html_e( 'Prestacao de contas', 'zxtec' ); ?></button>
-                    <button class="zxtec-glass-tab" data-tab="extrato" type="button" role="tab" aria-selected="false" aria-controls="zxtec-tab-extrato"><?php esc_html_e( 'Extrato', 'zxtec' ); ?></button>
-                    <button class="zxtec-glass-tab" data-tab="metas" type="button" role="tab" aria-selected="false" aria-controls="zxtec-tab-metas"><?php esc_html_e( 'Metas', 'zxtec' ); ?></button>
-                </div>
+            <main class="zxtec-saas-main">
+                <header class="zxtec-saas-topbar">
+                    <div>
+                        <span class="zxtec-saas-eyebrow"><?php esc_html_e( 'Painel do colaborador', 'zxtec' ); ?></span>
+                        <h1><?php echo esc_html( sprintf( __( 'Ola, %s', 'zxtec' ), $user->display_name ) ); ?></h1>
+                        <p class="zxtec-saas-subtitle"><?php esc_html_e( 'Acompanhe suas ordens, recebimentos e prestacoes de contas em tempo real.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-status">
+                        <span><?php esc_html_e( 'Status', 'zxtec' ); ?></span>
+                        <strong><?php echo esc_html( $profile['status'] ?: __( 'Ativo', 'zxtec' ) ); ?></strong>
+                    </div>
+                </header>
 
-                <div class="zxtec-glass-section is-active" data-tab-panel="perfil" id="zxtec-tab-perfil" role="tabpanel">
-                    <h2><?php esc_html_e( 'Perfil', 'zxtec' ); ?></h2>
-                    <table class="table table-striped zxtec-table zxtec-glass-table">
-                        <tbody>
-                            <tr><th><?php esc_html_e( 'Nome completo', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['name'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'CPF/Documento', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['document'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'E-mail', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['email'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Telefone', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['phone'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Endereco', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['address'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Cargo/Especialidade', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['role'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Valor por km (R$)', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['cost_km'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Tipo de contrato', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['contract_type'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Regra de remuneracao', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['remuneration'] ); ?></td></tr>
-                            <tr><th><?php esc_html_e( 'Status', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['status'] ); ?></td></tr>
-                        </tbody>
-                    </table>
-                </div>
+                <section class="zxtec-saas-section is-active" data-section="overview">
+                    <div class="zxtec-saas-insight">
+                        <p><?php echo esc_html( sprintf( __( 'Voce possui %d ordens aguardando acao.', 'zxtec' ), $pending_orders_count ) ); ?></p>
+                        <p><?php echo esc_html( sprintf( __( 'Proximo pagamento previsto: %s', 'zxtec' ), $next_payment_label ) ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-cards">
+                        <div class="zxtec-saas-card">
+                            <span class="zxtec-saas-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M12 4v16" /></svg></span>
+                            <span class="zxtec-saas-card-label"><?php esc_html_e( 'Total a receber', 'zxtec' ); ?></span>
+                            <strong class="zxtec-saas-card-value"><?php echo esc_html( number_format_i18n( $totals['pending'], 2 ) ); ?></strong>
+                            <span class="zxtec-saas-card-meta"><?php esc_html_e( 'Aguardando aprovacao do admin.', 'zxtec' ); ?></span>
+                        </div>
+                        <div class="zxtec-saas-card">
+                            <span class="zxtec-saas-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h16M4 12l6-6M4 12l6 6" /></svg></span>
+                            <span class="zxtec-saas-card-label"><?php esc_html_e( 'Total recebido', 'zxtec' ); ?></span>
+                            <strong class="zxtec-saas-card-value"><?php echo esc_html( number_format_i18n( $totals['received'], 2 ) ); ?></strong>
+                            <span class="zxtec-saas-card-meta"><?php esc_html_e( 'Pagamentos confirmados.', 'zxtec' ); ?></span>
+                        </div>
+                        <div class="zxtec-saas-card">
+                            <span class="zxtec-saas-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h10M14 8l4 4-4 4" /></svg></span>
+                            <span class="zxtec-saas-card-label"><?php esc_html_e( 'Total faturado', 'zxtec' ); ?></span>
+                            <strong class="zxtec-saas-card-value"><?php echo esc_html( number_format_i18n( $totals['billed'], 2 ) ); ?></strong>
+                            <span class="zxtec-saas-card-meta"><?php esc_html_e( 'Valor gerado pelas ordens.', 'zxtec' ); ?></span>
+                        </div>
+                        <div class="zxtec-saas-card">
+                            <span class="zxtec-saas-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6" /></svg></span>
+                            <span class="zxtec-saas-card-label"><?php esc_html_e( 'Saldo aprovado', 'zxtec' ); ?></span>
+                            <strong class="zxtec-saas-card-value"><?php echo esc_html( number_format_i18n( $accountability_totals['saldo_aprovado'], 2 ) ); ?></strong>
+                            <span class="zxtec-saas-card-meta"><?php esc_html_e( 'Prestacoes já validadas.', 'zxtec' ); ?></span>
+                        </div>
+                        <div class="zxtec-saas-card">
+                            <span class="zxtec-saas-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v4H5zM5 10h14M5 16h10" /></svg></span>
+                            <span class="zxtec-saas-card-label"><?php esc_html_e( 'Proximo pagamento', 'zxtec' ); ?></span>
+                            <strong class="zxtec-saas-card-value"><?php echo esc_html( $next_payment_label ); ?></strong>
+                            <span class="zxtec-saas-card-meta"><?php esc_html_e( 'Sujeito a validacao do admin.', 'zxtec' ); ?></span>
+                        </div>
+                    </div>
 
-                <div class="zxtec-glass-section" data-tab-panel="ordens" id="zxtec-tab-ordens" role="tabpanel">
-                    <h2><?php esc_html_e( 'Ordens de Servico', 'zxtec' ); ?></h2>
-                    <form method="get" class="mb-3 zxtec-glass-filters">
+                    <div class="zxtec-saas-grid">
+                        <div class="zxtec-saas-panel">
+                            <h2><?php esc_html_e( 'Ordens pendentes', 'zxtec' ); ?></h2>
+                            <p class="zxtec-saas-muted"><?php esc_html_e( 'Confirme suas ordens para destravar pagamentos.', 'zxtec' ); ?></p>
+                            <p class="zxtec-saas-highlight"><?php echo esc_html( $pending_orders_count ); ?></p>
+                        </div>
+                        <div class="zxtec-saas-panel">
+                            <h2><?php esc_html_e( 'Resumo financeiro', 'zxtec' ); ?></h2>
+                            <p><?php esc_html_e( 'Mantenha seus comprovantes em dia para acelerar validacoes.', 'zxtec' ); ?></p>
+                            <ul class="zxtec-saas-list">
+                                <li><?php esc_html_e( 'Saldo pendente', 'zxtec' ); ?>: <?php echo esc_html( number_format_i18n( $accountability_totals['saldo_pendente'], 2 ) ); ?></li>
+                                <li><?php esc_html_e( 'Receitas pendentes', 'zxtec' ); ?>: <?php echo esc_html( number_format_i18n( $accountability_totals['pendente_receita'], 2 ) ); ?></li>
+                                <li><?php esc_html_e( 'Despesas pendentes', 'zxtec' ); ?>: <?php echo esc_html( number_format_i18n( $accountability_totals['pendente_despesa'], 2 ) ); ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="orders">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Minhas ordens de servico', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Acompanhe os status e valores associados a cada ordem.', 'zxtec' ); ?></p>
+                    </div>
+                    <form method="get" class="zxtec-saas-filters">
                         <label><?php esc_html_e( 'De', 'zxtec' ); ?>
-                            <input type="date" name="start" value="<?php echo esc_attr( $filters['start'] ); ?>" class="zxtec-glass-input" />
+                            <input type="date" name="start" value="<?php echo esc_attr( $filters['start'] ); ?>" />
                         </label>
                         <label><?php esc_html_e( 'Ate', 'zxtec' ); ?>
-                            <input type="date" name="end" value="<?php echo esc_attr( $filters['end'] ); ?>" class="zxtec-glass-input" />
+                            <input type="date" name="end" value="<?php echo esc_attr( $filters['end'] ); ?>" />
                         </label>
                         <label><?php esc_html_e( 'Status', 'zxtec' ); ?>
-                            <select name="status" class="zxtec-glass-input">
+                            <select name="status">
                                 <option value=""><?php esc_html_e( 'Todos', 'zxtec' ); ?></option>
                                 <option value="pendente" <?php selected( $filters['status'], 'pendente' ); ?>><?php esc_html_e( 'A Iniciar', 'zxtec' ); ?></option>
                                 <option value="confirmado" <?php selected( $filters['status'], 'confirmado' ); ?>><?php esc_html_e( 'Em execucao', 'zxtec' ); ?></option>
@@ -1002,7 +1015,7 @@ JS;
                             </select>
                         </label>
                         <label><?php esc_html_e( 'Cliente', 'zxtec' ); ?>
-                            <select name="client" class="zxtec-glass-input">
+                            <select name="client">
                                 <option value=""><?php esc_html_e( 'Todos', 'zxtec' ); ?></option>
                                 <?php foreach ( $this->get_clients_options() as $client_id => $client_name ) : ?>
                                     <option value="<?php echo esc_attr( $client_id ); ?>" <?php selected( $filters['client'], $client_id ); ?>>
@@ -1011,13 +1024,19 @@ JS;
                                 <?php endforeach; ?>
                             </select>
                         </label>
-                        <button class="button zxtec-glass-button" type="submit"><?php esc_html_e( 'Filtrar', 'zxtec' ); ?></button>
+                        <button class="zxtec-saas-button" type="submit"><?php esc_html_e( 'Filtrar', 'zxtec' ); ?></button>
                     </form>
+                    <div class="zxtec-saas-skeleton is-hidden" aria-hidden="true">
+                        <div class="zxtec-saas-skeleton-item"></div>
+                        <div class="zxtec-saas-skeleton-item"></div>
+                        <div class="zxtec-saas-skeleton-item"></div>
+                        <div class="zxtec-saas-skeleton-item"></div>
+                    </div>
 
                     <?php if ( empty( $orders ) ) : ?>
-                        <p><?php esc_html_e( 'Nenhuma ordem encontrada.', 'zxtec' ); ?></p>
+                        <div class="zxtec-saas-empty"><?php esc_html_e( 'Nenhuma ordem encontrada. Assim que o admin liberar novas ordens, elas aparecerao aqui.', 'zxtec' ); ?></div>
                     <?php else : ?>
-                        <table class="table table-striped zxtec-table zxtec-glass-table">
+                        <table class="zxtec-glass-table zxtec-saas-table">
                             <thead>
                                 <tr>
                                     <th><?php esc_html_e( 'ID', 'zxtec' ); ?></th>
@@ -1025,13 +1044,10 @@ JS;
                                     <th><?php esc_html_e( 'Servico', 'zxtec' ); ?></th>
                                     <th><?php esc_html_e( 'Data', 'zxtec' ); ?></th>
                                     <th><?php esc_html_e( 'Status', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Valor total', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Valor do colaborador', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Valor recebido', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Valor pendente', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Data de pagamento', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Forma de pagamento', 'zxtec' ); ?></th>
-                                    <th><?php esc_html_e( 'Observacoes', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Valor colaborador', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Pago', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Pendente', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Pagamento', 'zxtec' ); ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1043,31 +1059,61 @@ JS;
                                         <td><?php echo esc_html( $order_meta['service'] ); ?></td>
                                         <td><?php echo esc_html( $order_meta['date'] ); ?></td>
                                         <td><span class="zxtec-glass-badge status-<?php echo esc_attr( $order_meta['status'] ); ?>"><?php echo esc_html( $this->human_status( $order_meta['status'] ) ); ?></span></td>
-                                        <td><?php echo esc_html( number_format_i18n( $order_meta['total'], 2 ) ); ?></td>
                                         <td><?php echo esc_html( number_format_i18n( $order_meta['collab_value'], 2 ) ); ?></td>
                                         <td><?php echo esc_html( number_format_i18n( $order_meta['paid'], 2 ) ); ?></td>
                                         <td><?php echo esc_html( number_format_i18n( $order_meta['pending'], 2 ) ); ?></td>
                                         <td><?php echo esc_html( $order_meta['payment_date'] ); ?></td>
-                                        <td><?php echo esc_html( $order_meta['payment_method'] ); ?></td>
-                                        <td><?php echo esc_html( $order_meta['admin_notes'] ); ?></td>
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                     <?php endif; ?>
-                </div>
+                </section>
 
-                <div class="zxtec-glass-section" data-tab-panel="prestacao" id="zxtec-tab-prestacao" role="tabpanel">
-                    <h2><?php esc_html_e( 'Prestacao de Contas', 'zxtec' ); ?></h2>
-                    <form method="get" class="mb-3 zxtec-glass-filters">
+                <section class="zxtec-saas-section" data-section="finance-receber">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Valores a receber', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Valores pendentes aguardando validacao do administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-highlight-card">
+                        <strong><?php echo esc_html( number_format_i18n( $totals['pending'], 2 ) ); ?></strong>
+                        <span><?php esc_html_e( 'Total pendente', 'zxtec' ); ?></span>
+                    </div>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="finance-recebido">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Valores recebidos', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Pagamentos já confirmados pelo administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-highlight-card">
+                        <strong><?php echo esc_html( number_format_i18n( $totals['received'], 2 ) ); ?></strong>
+                        <span><?php esc_html_e( 'Total recebido', 'zxtec' ); ?></span>
+                    </div>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="finance-extrato">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Extrato financeiro', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Resumo consolidado dos seus recebimentos.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-empty"><?php esc_html_e( 'Em breve: consolidado financeiro por periodo.', 'zxtec' ); ?></div>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="accountability">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Prestacao de contas', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Envie comprovantes e acompanhe aprovacoes do administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <form method="get" class="zxtec-saas-filters">
                         <label><?php esc_html_e( 'De', 'zxtec' ); ?>
-                            <input type="date" name="account_start" value="<?php echo esc_attr( $accountability_filters['start'] ); ?>" class="zxtec-glass-input" />
+                            <input type="date" name="account_start" value="<?php echo esc_attr( $accountability_filters['start'] ); ?>" />
                         </label>
                         <label><?php esc_html_e( 'Ate', 'zxtec' ); ?>
-                            <input type="date" name="account_end" value="<?php echo esc_attr( $accountability_filters['end'] ); ?>" class="zxtec-glass-input" />
+                            <input type="date" name="account_end" value="<?php echo esc_attr( $accountability_filters['end'] ); ?>" />
                         </label>
                         <label><?php esc_html_e( 'Tipo', 'zxtec' ); ?>
-                            <select name="account_type" class="zxtec-glass-input">
+                            <select name="account_type">
                                 <option value=""><?php esc_html_e( 'Todos', 'zxtec' ); ?></option>
                                 <option value="receita" <?php selected( $accountability_filters['type'], 'receita' ); ?>><?php esc_html_e( 'Receita', 'zxtec' ); ?></option>
                                 <option value="despesa" <?php selected( $accountability_filters['type'], 'despesa' ); ?>><?php esc_html_e( 'Despesa', 'zxtec' ); ?></option>
@@ -1075,14 +1121,14 @@ JS;
                             </select>
                         </label>
                         <label><?php esc_html_e( 'Status', 'zxtec' ); ?>
-                            <select name="account_status" class="zxtec-glass-input">
+                            <select name="account_status">
                                 <option value=""><?php esc_html_e( 'Todos', 'zxtec' ); ?></option>
                                 <option value="pendente" <?php selected( $accountability_filters['status'], 'pendente' ); ?>><?php esc_html_e( 'Pendente', 'zxtec' ); ?></option>
                                 <option value="aprovado" <?php selected( $accountability_filters['status'], 'aprovado' ); ?>><?php esc_html_e( 'Aprovado', 'zxtec' ); ?></option>
                                 <option value="recusado" <?php selected( $accountability_filters['status'], 'recusado' ); ?>><?php esc_html_e( 'Recusado', 'zxtec' ); ?></option>
                             </select>
                         </label>
-                        <button class="button zxtec-glass-button" type="submit"><?php esc_html_e( 'Filtrar', 'zxtec' ); ?></button>
+                        <button class="zxtec-saas-button" type="submit"><?php esc_html_e( 'Filtrar', 'zxtec' ); ?></button>
                         <?php
                         $export_url = add_query_arg(
                             array(
@@ -1096,23 +1142,28 @@ JS;
                         );
                         $export_url = wp_nonce_url( $export_url, 'zxtec_accountability_export_' . $user_id );
                         ?>
-                        <a class="button zxtec-glass-button" href="<?php echo esc_url( $export_url ); ?>"><?php esc_html_e( 'Exportar CSV', 'zxtec' ); ?></a>
+                        <a class="zxtec-saas-button is-ghost" href="<?php echo esc_url( $export_url ); ?>"><?php esc_html_e( 'Exportar CSV', 'zxtec' ); ?></a>
                     </form>
 
-                    <div class="zxtec-card zxtec-glass-card">
-                        <p><strong><?php esc_html_e( 'Total de receitas', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['receita'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Total de despesas', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['despesa'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Saldo', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['saldo'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Saldo aprovado', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['saldo_aprovado'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Receitas pendentes', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['pendente_receita'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Despesas pendentes', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['pendente_despesa'], 2 ) ); ?></p>
-                        <p><strong><?php esc_html_e( 'Saldo pendente', 'zxtec' ); ?>:</strong> <?php echo esc_html( number_format_i18n( $accountability_totals['saldo_pendente'], 2 ) ); ?></p>
+                    <div class="zxtec-saas-summary">
+                        <div>
+                            <strong><?php echo esc_html( number_format_i18n( $accountability_totals['receita'], 2 ) ); ?></strong>
+                            <span><?php esc_html_e( 'Total de receitas', 'zxtec' ); ?></span>
+                        </div>
+                        <div>
+                            <strong><?php echo esc_html( number_format_i18n( $accountability_totals['despesa'], 2 ) ); ?></strong>
+                            <span><?php esc_html_e( 'Total de despesas', 'zxtec' ); ?></span>
+                        </div>
+                        <div>
+                            <strong><?php echo esc_html( number_format_i18n( $accountability_totals['saldo'], 2 ) ); ?></strong>
+                            <span><?php esc_html_e( 'Saldo', 'zxtec' ); ?></span>
+                        </div>
                     </div>
 
                     <?php if ( empty( $accountability_entries ) ) : ?>
-                        <p><?php esc_html_e( 'Nenhum registro de prestacao de contas.', 'zxtec' ); ?></p>
+                        <div class="zxtec-saas-empty"><?php esc_html_e( 'Nenhum registro de prestacao de contas.', 'zxtec' ); ?></div>
                     <?php else : ?>
-                        <table class="table table-striped zxtec-table zxtec-glass-table">
+                        <table class="zxtec-glass-table zxtec-saas-table">
                             <thead>
                                 <tr>
                                     <th><?php esc_html_e( 'Data', 'zxtec' ); ?></th>
@@ -1146,18 +1197,111 @@ JS;
                             </tbody>
                         </table>
                     <?php endif; ?>
-                </div>
+                </section>
 
-                <div class="zxtec-glass-section" data-tab-panel="extrato" id="zxtec-tab-extrato" role="tabpanel">
-                    <h2><?php esc_html_e( 'Extrato', 'zxtec' ); ?></h2>
-                    <p class="zxtec-glass-muted"><?php esc_html_e( 'Em breve: consolidado financeiro por periodo.', 'zxtec' ); ?></p>
-                </div>
+                <section class="zxtec-saas-section" data-section="goals">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Metas & Expectativas', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Acompanhe suas metas definidas pelo administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-empty"><?php esc_html_e( 'Em breve: metas e indicadores do colaborador.', 'zxtec' ); ?></div>
+                </section>
 
-                <div class="zxtec-glass-section" data-tab-panel="metas" id="zxtec-tab-metas" role="tabpanel">
-                    <h2><?php esc_html_e( 'Metas', 'zxtec' ); ?></h2>
-                    <p class="zxtec-glass-muted"><?php esc_html_e( 'Em breve: metas e indicadores do colaborador.', 'zxtec' ); ?></p>
-                </div>
-            </div>
+                <section class="zxtec-saas-section" data-section="notifications">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Notificacoes', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Atualizacoes enviadas pelo administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <?php $notes = $this->get_notifications( $user_id ); ?>
+                    <?php if ( empty( $notes ) ) : ?>
+                        <div class="zxtec-saas-empty"><?php esc_html_e( 'Sem notificacoes pendentes.', 'zxtec' ); ?></div>
+                    <?php else : ?>
+                        <ul class="zxtec-saas-notes">
+                            <?php foreach ( $notes as $i => $n ) : ?>
+                                <?php $url = wp_nonce_url( admin_url( 'admin-post.php?action=zxtec_clear_notification&n=' . $i ), 'zxtec_clear_note_' . $user_id ); ?>
+                                <li>
+                                    <span><?php echo esc_html( $n['message'] ); ?></span>
+                                    <a class="zxtec-saas-link" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'Marcar como lida', 'zxtec' ); ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="history">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Historico de ordens', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Todas as ordens concluidas ficam registradas aqui.', 'zxtec' ); ?></p>
+                    </div>
+                    <?php
+                    $history_orders = array_filter(
+                        $orders,
+                        function ( $order ) {
+                            return get_post_meta( $order->ID, '_zxtec_status', true ) === 'concluido';
+                        }
+                    );
+                    ?>
+                    <?php if ( empty( $history_orders ) ) : ?>
+                        <div class="zxtec-saas-empty"><?php esc_html_e( 'Nenhuma ordem concluida ainda.', 'zxtec' ); ?></div>
+                    <?php else : ?>
+                        <table class="zxtec-glass-table zxtec-saas-table">
+                            <thead>
+                                <tr>
+                                    <th><?php esc_html_e( 'ID', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Cliente', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Servico', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Data', 'zxtec' ); ?></th>
+                                    <th><?php esc_html_e( 'Total', 'zxtec' ); ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ( $history_orders as $order ) : ?>
+                                    <?php $order_meta = $this->get_order_financial_data( $order->ID, $user_id ); ?>
+                                    <tr>
+                                        <td><?php echo esc_html( $order->ID ); ?></td>
+                                        <td><?php echo esc_html( $order_meta['client'] ); ?></td>
+                                        <td><?php echo esc_html( $order_meta['service'] ); ?></td>
+                                        <td><?php echo esc_html( $order_meta['date'] ); ?></td>
+                                        <td><?php echo esc_html( number_format_i18n( $order_meta['total'], 2 ) ); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="profile">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Perfil do colaborador', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Dados cadastrais definidos pelo administrador.', 'zxtec' ); ?></p>
+                    </div>
+                    <table class="zxtec-glass-table zxtec-saas-table">
+                        <tbody>
+                            <tr><th><?php esc_html_e( 'Nome completo', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['name'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'CPF/Documento', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['document'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'E-mail', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['email'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Telefone', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['phone'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Endereco', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['address'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Cargo/Especialidade', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['role'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Valor por km (R$)', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['cost_km'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Tipo de contrato', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['contract_type'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Regra de remuneracao', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['remuneration'] ); ?></td></tr>
+                            <tr><th><?php esc_html_e( 'Status', 'zxtec' ); ?></th><td><?php echo esc_html( $profile['status'] ); ?></td></tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="zxtec-saas-section" data-section="support">
+                    <div class="zxtec-saas-section-header">
+                        <h2><?php esc_html_e( 'Ajuda e suporte', 'zxtec' ); ?></h2>
+                        <p><?php esc_html_e( 'Precisa de ajuda? Contate o administrador para ajustes de cadastro, pagamentos ou metas.', 'zxtec' ); ?></p>
+                    </div>
+                    <div class="zxtec-saas-panel">
+                        <p><?php esc_html_e( 'Envie suas duvidas diretamente para o administrador ou equipe interna.', 'zxtec' ); ?></p>
+                        <p class="zxtec-saas-muted"><?php esc_html_e( 'Horario de atendimento: segunda a sexta, 8h-18h.', 'zxtec' ); ?></p>
+                    </div>
+                </section>
+            </main>
         </div>
         <?php
         return ob_get_clean();
