@@ -258,94 +258,185 @@
   color: var(--zxtec-muted);
 }
 
-.zxtec-login-panel {
-  display: flex;
-  justify-content: center;
-  padding: 40px 20px;
+.zxtec-auth {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  min-height: 520px;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #0b0f1b;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
 }
 
-.zxtec-login-card {
-  width: min(420px, 100%);
+.zxtec-auth-brand {
   background: #024445;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.zxtec-auth-logo {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #e2fbe6;
+}
+
+.zxtec-auth-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: linear-gradient(135deg, #0b0f1b, #121b2b);
+}
+
+.zxtec-auth-card {
+  width: min(380px, 100%);
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(104, 200, 65, 0.2);
   border-radius: 20px;
   padding: 28px;
-  color: #f8fafc;
-  box-shadow: 0 18px 40px rgba(2, 68, 69, 0.35);
+  backdrop-filter: blur(18px);
+  color: #e2e8f0;
+  box-shadow: 0 20px 45px rgba(2, 68, 69, 0.35);
 }
 
-.zxtec-login-card h2 {
-  margin-bottom: 6px;
+.zxtec-auth-form {
+  display: none;
+}
+
+.zxtec-auth-form.is-active {
+  display: block;
+}
+
+.zxtec-auth-kicker {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: rgba(104, 200, 65, 0.9);
+  margin-bottom: 10px;
+}
+
+.zxtec-auth-card h2 {
   font-size: 22px;
+  margin-bottom: 8px;
 }
 
-.zxtec-login-subtitle {
+.zxtec-auth-note {
+  font-size: 13px;
+  color: rgba(226, 232, 240, 0.7);
   margin-bottom: 20px;
-  color: rgba(248, 250, 252, 0.8);
 }
 
-.zxtec-login-form label {
+.zxtec-auth-form-element label {
   display: block;
   font-size: 12px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.7);
   margin-bottom: 6px;
-  color: rgba(248, 250, 252, 0.85);
 }
 
-.zxtec-login-form input[type="text"],
-.zxtec-login-form input[type="password"] {
+.zxtec-auth-form-element input[type="text"],
+.zxtec-auth-form-element input[type="email"],
+.zxtec-auth-form-element input[type="password"] {
   width: 100%;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 14px;
-  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.35);
+  padding: 10px 4px;
   color: #f8fafc;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
 }
 
-.zxtec-login-form input[type="text"]::placeholder,
-.zxtec-login-form input[type="password"]::placeholder {
-  color: rgba(248, 250, 252, 0.6);
+.zxtec-auth-form-element input[type="text"]:focus,
+.zxtec-auth-form-element input[type="email"]:focus,
+.zxtec-auth-form-element input[type="password"]:focus {
+  outline: none;
+  border-bottom-color: #68c841;
+  box-shadow: 0 10px 20px rgba(104, 200, 65, 0.15);
 }
 
-.zxtec-login-form input[type="checkbox"] {
+.zxtec-auth-remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: rgba(226, 232, 240, 0.7);
+  font-size: 13px;
+}
+
+.zxtec-auth-remember input[type="checkbox"] {
   accent-color: #68c841;
 }
 
-.zxtec-login-form .login-remember {
+.zxtec-auth-message {
+  min-height: 18px;
   margin-bottom: 16px;
+  font-size: 13px;
 }
 
-.zxtec-login-form input[type="submit"] {
+.zxtec-auth-message.is-error {
+  color: #f87171;
+}
+
+.zxtec-auth-message.is-success {
+  color: #68c841;
+}
+
+.zxtec-auth-button {
   width: 100%;
   border: none;
   border-radius: 14px;
   padding: 12px 16px;
   background: linear-gradient(135deg, #68c841, #4fb426);
   color: #0f172a;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.zxtec-login-form input[type="submit"]:hover {
+.zxtec-auth-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(104, 200, 65, 0.35);
+  box-shadow: 0 10px 24px rgba(104, 200, 65, 0.35);
 }
 
-.zxtec-login-actions {
+.zxtec-auth-links {
   margin-top: 18px;
-  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.zxtec-login-link {
-  color: #68c841;
+.zxtec-auth-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: rgba(226, 232, 240, 0.7);
+  font-size: 12px;
   text-decoration: none;
-  font-weight: 600;
+  cursor: pointer;
 }
 
-.zxtec-login-link:hover {
-  text-decoration: underline;
+.zxtec-auth-link:hover {
+  color: #68c841;
+}
+
+@media (max-width: 900px) {
+  .zxtec-auth {
+    grid-template-columns: 1fr;
+  }
+
+  .zxtec-auth-brand {
+    min-height: 180px;
+  }
+
+  .zxtec-auth-panel {
+    padding: 28px 20px 36px;
+  }
 }
 
 @keyframes zxtecFadeIn {

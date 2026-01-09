@@ -70,6 +70,10 @@ class ZXTEC_Intranet {
         add_action( 'admin_post_zxtec_expense_csv', array( $this, 'download_expense_csv' ) );
         add_action( 'admin_post_zxtec_accountability_csv', array( $this, 'download_accountability_csv' ) );
         add_action( 'admin_post_zxtec_clear_notification', array( $this, 'handle_clear_notification' ) );
+        add_action( 'wp_ajax_nopriv_zxtec_auth_login', array( $this, 'handle_auth_login' ) );
+        add_action( 'wp_ajax_nopriv_zxtec_auth_register', array( $this, 'handle_auth_register' ) );
+        add_action( 'wp_ajax_zxtec_auth_login', array( $this, 'handle_auth_login' ) );
+        add_action( 'wp_ajax_zxtec_auth_register', array( $this, 'handle_auth_register' ) );
         add_action( 'show_user_profile', array( $this, 'user_location_fields' ) );
         add_action( 'edit_user_profile', array( $this, 'user_location_fields' ) );
         add_action( 'personal_options_update', array( $this, 'save_user_location_fields' ) );
@@ -615,6 +619,7 @@ class ZXTEC_Intranet {
                 wp_enqueue_style( 'zxtec-toolbar', $this->url . 'css/zxtec-toolbar.css' );
                 wp_enqueue_style( 'zxtec-glass', $this->url . 'css/zxtec-glass.css' );
                 wp_enqueue_script( 'zxtec-glass', $this->url . 'js/zxtec-glass.js', array(), null, true );
+                wp_enqueue_script( 'zxtec-auth', $this->url . 'js/zxtec-auth.js', array(), null, true );
             }
         }
     }
@@ -1655,39 +1660,157 @@ JS;
     private function get_login_prompt_html() {
         $message = esc_html__( 'Necessario fazer login.', 'zxtec' );
         $redirect = add_query_arg( array() );
-        $register_url = add_query_arg( 'redirect_to', $redirect, wp_registration_url() );
-
-        $form = wp_login_form(
-            array(
-                'echo'           => false,
-                'redirect'       => $redirect,
-                'form_id'        => 'zxtec-loginform',
-                'label_username' => esc_html__( 'Email ou usuario', 'zxtec' ),
-                'label_password' => esc_html__( 'Senha', 'zxtec' ),
-                'label_remember' => esc_html__( 'Lembrar', 'zxtec' ),
-                'label_log_in'   => esc_html__( 'Entrar', 'zxtec' ),
-                'remember'       => true,
-            )
-        );
+        $nonce = wp_create_nonce( 'zxtec_auth_action' );
+        $ajax_url = admin_url( 'admin-ajax.php' );
+        $lost_password_url = wp_lostpassword_url( $redirect );
+        $home_url = home_url( '/' );
 
         ob_start();
         ?>
-        <div class="zxtec-login-panel">
-            <div class="zxtec-login-card">
-                <h2><?php echo esc_html( $message ); ?></h2>
-                <p class="zxtec-login-subtitle"><?php esc_html_e( 'Acesse sua conta para continuar.', 'zxtec' ); ?></p>
-                <div class="zxtec-login-form">
-                    <?php echo $form; ?>
-                </div>
-                <div class="zxtec-login-actions">
-                    <a class="zxtec-login-link" href="<?php echo esc_url( $register_url ); ?>">
-                        <?php esc_html_e( 'Criar conta', 'zxtec' ); ?>
-                    </a>
+        <div class="zxtec-auth" data-ajax-url="<?php echo esc_url( $ajax_url ); ?>">
+            <div class="zxtec-auth-brand">
+                <div class="zxtec-auth-logo" aria-hidden="true">ZX Tec</div>
+            </div>
+            <div class="zxtec-auth-panel">
+                <div class="zxtec-auth-card">
+                    <div class="zxtec-auth-form is-active" data-auth-form="register">
+                        <span class="zxtec-auth-kicker"><?php echo esc_html( $message ); ?></span>
+                        <h2><?php esc_html_e( 'Cadastre-se nesse site', 'zxtec' ); ?></h2>
+                        <p class="zxtec-auth-note"><?php esc_html_e( 'Uma confirmacao de registro sera enviada para voce por e-mail.', 'zxtec' ); ?></p>
+                        <form class="zxtec-auth-form-element" data-auth-action="register">
+                            <input type="hidden" name="action" value="zxtec_auth_register" />
+                            <input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+                            <input type="hidden" name="redirect_to" value="<?php echo esc_url( $redirect ); ?>" />
+                            <label for="zxtec-register-username"><?php esc_html_e( 'Nome de usuario', 'zxtec' ); ?></label>
+                            <input id="zxtec-register-username" name="username" type="text" autocomplete="username" required />
+                            <label for="zxtec-register-email"><?php esc_html_e( 'E-mail', 'zxtec' ); ?></label>
+                            <input id="zxtec-register-email" name="email" type="email" autocomplete="email" required />
+                            <div class="zxtec-auth-message" aria-live="polite"></div>
+                            <button type="submit" class="zxtec-auth-button"><?php esc_html_e( 'Cadastre-se', 'zxtec' ); ?></button>
+                        </form>
+                        <div class="zxtec-auth-links">
+                            <button type="button" class="zxtec-auth-link" data-auth-toggle="login"><?php esc_html_e( 'Acessar', 'zxtec' ); ?></button>
+                            <a class="zxtec-auth-link" href="<?php echo esc_url( $lost_password_url ); ?>"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></a>
+                            <a class="zxtec-auth-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Ir para ZX Tec', 'zxtec' ); ?></a>
+                        </div>
+                    </div>
+                    <div class="zxtec-auth-form" data-auth-form="login">
+                        <span class="zxtec-auth-kicker"><?php echo esc_html( $message ); ?></span>
+                        <h2><?php esc_html_e( 'Acessar', 'zxtec' ); ?></h2>
+                        <p class="zxtec-auth-note"><?php esc_html_e( 'Entre para continuar.', 'zxtec' ); ?></p>
+                        <form class="zxtec-auth-form-element" data-auth-action="login">
+                            <input type="hidden" name="action" value="zxtec_auth_login" />
+                            <input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+                            <input type="hidden" name="redirect_to" value="<?php echo esc_url( $redirect ); ?>" />
+                            <label for="zxtec-login-username"><?php esc_html_e( 'Email ou usuario', 'zxtec' ); ?></label>
+                            <input id="zxtec-login-username" name="username" type="text" autocomplete="username" required />
+                            <label for="zxtec-login-password"><?php esc_html_e( 'Senha', 'zxtec' ); ?></label>
+                            <input id="zxtec-login-password" name="password" type="password" autocomplete="current-password" required />
+                            <div class="zxtec-auth-remember">
+                                <input id="zxtec-login-remember" name="remember" type="checkbox" value="1" />
+                                <label for="zxtec-login-remember"><?php esc_html_e( 'Lembrar', 'zxtec' ); ?></label>
+                            </div>
+                            <div class="zxtec-auth-message" aria-live="polite"></div>
+                            <button type="submit" class="zxtec-auth-button"><?php esc_html_e( 'Entrar', 'zxtec' ); ?></button>
+                        </form>
+                        <div class="zxtec-auth-links">
+                            <button type="button" class="zxtec-auth-link" data-auth-toggle="register"><?php esc_html_e( 'Cadastre-se', 'zxtec' ); ?></button>
+                            <a class="zxtec-auth-link" href="<?php echo esc_url( $lost_password_url ); ?>"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></a>
+                            <a class="zxtec-auth-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Ir para ZX Tec', 'zxtec' ); ?></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <?php
         return ob_get_clean();
+    }
+
+    /**
+     * Handle frontend login via AJAX
+     */
+    public function handle_auth_login() {
+        if ( is_user_logged_in() ) {
+            wp_send_json_success(
+                array(
+                    'message' => esc_html__( 'Voce ja esta logado.', 'zxtec' ),
+                    'redirect' => home_url( '/' ),
+                )
+            );
+        }
+
+        check_ajax_referer( 'zxtec_auth_action', 'nonce' );
+
+        $username = sanitize_user( wp_unslash( $_POST['username'] ?? '' ) );
+        $password = wp_unslash( $_POST['password'] ?? '' );
+        $remember = ! empty( $_POST['remember'] );
+        $redirect = esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) );
+
+        if ( empty( $username ) || empty( $password ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Informe usuario e senha.', 'zxtec' ) ) );
+        }
+
+        $user = wp_signon(
+            array(
+                'user_login'    => $username,
+                'user_password' => $password,
+                'remember'      => $remember,
+            )
+        );
+
+        if ( is_wp_error( $user ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Nao foi possivel acessar. Verifique suas credenciais.', 'zxtec' ) ) );
+        }
+
+        wp_send_json_success(
+            array(
+                'message'  => esc_html__( 'Login realizado com sucesso.', 'zxtec' ),
+                'redirect' => $redirect ? $redirect : home_url( '/' ),
+            )
+        );
+    }
+
+    /**
+     * Handle frontend registration via AJAX
+     */
+    public function handle_auth_register() {
+        if ( is_user_logged_in() ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Voce ja esta logado.', 'zxtec' ) ) );
+        }
+
+        check_ajax_referer( 'zxtec_auth_action', 'nonce' );
+
+        $username = sanitize_user( wp_unslash( $_POST['username'] ?? '' ) );
+        $email = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
+
+        if ( empty( $username ) || empty( $email ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Preencha todos os campos.', 'zxtec' ) ) );
+        }
+
+        if ( username_exists( $username ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Usuario ja existente.', 'zxtec' ) ) );
+        }
+
+        if ( email_exists( $email ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'E-mail ja cadastrado.', 'zxtec' ) ) );
+        }
+
+        $password = wp_generate_password( 20, true );
+        $user_id = wp_create_user( $username, $password, $email );
+
+        if ( is_wp_error( $user_id ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Nao foi possivel criar a conta.', 'zxtec' ) ) );
+        }
+
+        $user = new WP_User( $user_id );
+        $user->set_role( 'zxtec_colaborador' );
+        wp_new_user_notification( $user_id, null, 'user' );
+
+        wp_send_json_success(
+            array(
+                'message' => esc_html__( 'Conta criada! Verifique seu e-mail para definir a senha.', 'zxtec' ),
+            )
+        );
     }
 
     /**
