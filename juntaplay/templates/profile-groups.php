@@ -1869,10 +1869,11 @@ $group_cards[] = trim((string) ob_get_clean());
                 }
 
                 modal = document.createElement('div');
-                modal.className = 'juntaplay-modal juntaplay-modal--compact';
+                modal.className = 'juntaplay-modal juntaplay-modal--compact juntaplay-exit-info-modal';
                 modal.dataset.exitInfoModal = '1';
                 modal.setAttribute('hidden', 'hidden');
                 modal.setAttribute('aria-hidden', 'true');
+                modal.style.zIndex = '200000';
                 modal.innerHTML = `
                     <div class="juntaplay-modal__overlay" data-exit-info-close></div>
                     <div class="juntaplay-modal__dialog" role="dialog" aria-modal="true">
@@ -1898,8 +1899,8 @@ $group_cards[] = trim((string) ob_get_clean());
                 const messageLine = modal.querySelector('[data-exit-info-message]');
                 if (messageLine) {
                     messageLine.textContent = exitDisplay
-                        ? '<?php echo esc_js(__('Sua participação neste grupo será encerrada em', 'juntaplay')); ?> ' + exitDisplay + '.'
-                        : '<?php echo esc_js(__('Sua participação neste grupo será encerrada em data a confirmar.', 'juntaplay')); ?>';
+                        ? '<?php echo esc_js(__('Sua solicitação de cancelamento foi acatada. Sua participação neste grupo será encerrada em', 'juntaplay')); ?> ' + exitDisplay + '.'
+                        : '<?php echo esc_js(__('Sua solicitação de cancelamento foi acatada. Sua participação neste grupo será encerrada em data a confirmar.', 'juntaplay')); ?>';
                 }
 
                 modal.removeAttribute('hidden');
@@ -1954,6 +1955,18 @@ $group_cards[] = trim((string) ob_get_clean());
 
                         markExitScheduled(resolvedId, exitDisplay);
                         showExitInfoModal(exitDisplay);
+                        window.dispatchEvent(
+                            new CustomEvent('juntaplay:notifications:refresh', {
+                                detail: {
+                                    type: 'group_cancel',
+                                    groupId: resolvedId,
+                                    exitDate: exitDisplay,
+                                },
+                            })
+                        );
+                        if (typeof window.juntaplayHeaderRefreshNotifications === 'function') {
+                            window.juntaplayHeaderRefreshNotifications();
+                        }
                     })
                     .catch(() => {
                         showCancelError(form);
