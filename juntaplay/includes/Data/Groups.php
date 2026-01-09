@@ -423,16 +423,23 @@ class Groups
             ARRAY_A
         ) ?: [];
 
+        $active_status = defined(__NAMESPACE__ . '\\GroupMembers::STATUS_ACTIVE')
+            ? GroupMembers::STATUS_ACTIVE
+            : 'active';
+        $exit_status = defined(__NAMESPACE__ . '\\GroupMembers::STATUS_EXIT_SCHEDULED')
+            ? GroupMembers::STATUS_EXIT_SCHEDULED
+            : 'exit_scheduled';
+
         $member_statuses = apply_filters(
             'juntaplay/groups/user_member_statuses',
-            [GroupMembers::STATUS_ACTIVE, GroupMembers::STATUS_EXIT_SCHEDULED],
+            [$active_status, $exit_status],
             $user_id
         );
         $member_statuses = is_array($member_statuses)
             ? array_values(array_filter(array_map('sanitize_key', $member_statuses)))
             : [];
         if (!$member_statuses) {
-            $member_statuses = [GroupMembers::STATUS_ACTIVE];
+            $member_statuses = [$active_status];
         }
 
         $status_placeholders = implode(',', array_fill(0, count($member_statuses), '%s'));
