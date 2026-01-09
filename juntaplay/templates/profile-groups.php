@@ -1946,15 +1946,24 @@ $group_cards[] = trim((string) ob_get_clean());
                         const result = payload.data || {};
                         const resolvedId = parseInt(result.group_id || groupId || 0, 10) || 0;
                         const status = (result.status || '').toString();
-                        const exitDisplay = (result.exit_effective_display || result.exit_effective_at || '').toString();
+                        const exitDisplay = (result.exit_effective_display || result.exit_effective_at || result.exit_at || '').toString();
+                        const exitAtRaw = (result.exit_effective_at || result.exit_at || '').toString();
+                        const exitAtDate = exitAtRaw ? new Date(exitAtRaw) : null;
+                        const hasExitScheduled = !!exitAtRaw && exitAtDate instanceof Date && !Number.isNaN(exitAtDate.getTime())
+                            ? exitAtDate > new Date()
+                            : exitDisplay !== '';
                         closeModal(form.closest('.juntaplay-modal'));
 
                         if (status === 'exited') {
                             removeGroupCard(resolvedId);
                         }
 
-                        markExitScheduled(resolvedId, exitDisplay);
-                        showExitInfoModal(exitDisplay);
+                        if (hasExitScheduled || status === 'exit_scheduled') {
+                            markExitScheduled(resolvedId, exitDisplay);
+                            setTimeout(() => {
+                                showExitInfoModal(exitDisplay);
+                            }, 50);
+                        }
                         window.dispatchEvent(
                             new CustomEvent('juntaplay:notifications:refresh', {
                                 detail: {
