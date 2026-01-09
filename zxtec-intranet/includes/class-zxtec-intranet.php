@@ -1351,9 +1351,16 @@ JS;
                     <?php else : ?>
                         <ul class="zxtec-saas-notes">
                             <?php foreach ( $notes as $i => $n ) : ?>
-                                <?php $url = wp_nonce_url( admin_url( 'admin-post.php?action=zxtec_clear_notification&n=' . $i ), 'zxtec_clear_note_' . $user_id ); ?>
+                                <?php
+                                $note_message = is_array( $n ) ? ( $n['message'] ?? '' ) : $n;
+                                $note_time = is_array( $n ) ? ( $n['time'] ?? '' ) : '';
+                                $url = wp_nonce_url( admin_url( 'admin-post.php?action=zxtec_clear_notification&n=' . $i ), 'zxtec_clear_note_' . $user_id );
+                                ?>
                                 <li>
-                                    <span><?php echo esc_html( $n['message'] ); ?></span>
+                                    <span><?php echo esc_html( $note_message ); ?></span>
+                                    <?php if ( $note_time ) : ?>
+                                        <small><?php echo esc_html( $note_time ); ?></small>
+                                    <?php endif; ?>
                                     <a class="zxtec-saas-link" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'Marcar como lida', 'zxtec' ); ?></a>
                                 </li>
                             <?php endforeach; ?>
