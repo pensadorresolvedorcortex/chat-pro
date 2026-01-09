@@ -72,8 +72,12 @@ class ZXTEC_Intranet {
         add_action( 'admin_post_zxtec_clear_notification', array( $this, 'handle_clear_notification' ) );
         add_action( 'wp_ajax_nopriv_zxtec_auth_login', array( $this, 'handle_auth_login' ) );
         add_action( 'wp_ajax_nopriv_zxtec_auth_register', array( $this, 'handle_auth_register' ) );
+        add_action( 'wp_ajax_nopriv_zxtec_auth_reset_request', array( $this, 'handle_auth_reset_request' ) );
+        add_action( 'wp_ajax_nopriv_zxtec_auth_reset_confirm', array( $this, 'handle_auth_reset_confirm' ) );
         add_action( 'wp_ajax_zxtec_auth_login', array( $this, 'handle_auth_login' ) );
         add_action( 'wp_ajax_zxtec_auth_register', array( $this, 'handle_auth_register' ) );
+        add_action( 'wp_ajax_zxtec_auth_reset_request', array( $this, 'handle_auth_reset_request' ) );
+        add_action( 'wp_ajax_zxtec_auth_reset_confirm', array( $this, 'handle_auth_reset_confirm' ) );
         add_action( 'show_user_profile', array( $this, 'user_location_fields' ) );
         add_action( 'edit_user_profile', array( $this, 'user_location_fields' ) );
         add_action( 'personal_options_update', array( $this, 'save_user_location_fields' ) );
@@ -1662,8 +1666,10 @@ JS;
         $redirect = add_query_arg( array() );
         $nonce = wp_create_nonce( 'zxtec_auth_action' );
         $ajax_url = admin_url( 'admin-ajax.php' );
-        $lost_password_url = wp_lostpassword_url( $redirect );
         $home_url = home_url( '/' );
+        $reset_key = isset( $_GET['zxtec_reset_key'] ) ? sanitize_text_field( wp_unslash( $_GET['zxtec_reset_key'] ) ) : '';
+        $reset_login = isset( $_GET['zxtec_login'] ) ? sanitize_text_field( wp_unslash( $_GET['zxtec_login'] ) ) : '';
+        $active_form = ( $reset_key && $reset_login ) ? 'reset' : 'register';
 
         ob_start();
         ?>
@@ -1673,7 +1679,7 @@ JS;
             </div>
             <div class="zxtec-auth-panel">
                 <div class="zxtec-auth-card">
-                    <div class="zxtec-auth-form is-active" data-auth-form="register">
+                    <div class="zxtec-auth-form <?php echo $active_form === 'register' ? 'is-active' : ''; ?>" data-auth-form="register">
                         <span class="zxtec-auth-kicker"><?php echo esc_html( $message ); ?></span>
                         <h2><?php esc_html_e( 'Cadastre-se nesse site', 'zxtec' ); ?></h2>
                         <p class="zxtec-auth-note"><?php esc_html_e( 'Uma confirmacao de registro sera enviada para voce por e-mail.', 'zxtec' ); ?></p>
@@ -1690,11 +1696,11 @@ JS;
                         </form>
                         <div class="zxtec-auth-links">
                             <button type="button" class="zxtec-auth-link" data-auth-toggle="login"><?php esc_html_e( 'Acessar', 'zxtec' ); ?></button>
-                            <a class="zxtec-auth-link" href="<?php echo esc_url( $lost_password_url ); ?>"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></a>
+                            <button type="button" class="zxtec-auth-link" data-auth-toggle="reset"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></button>
                             <a class="zxtec-auth-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Ir para ZX Tec', 'zxtec' ); ?></a>
                         </div>
                     </div>
-                    <div class="zxtec-auth-form" data-auth-form="login">
+                    <div class="zxtec-auth-form <?php echo $active_form === 'login' ? 'is-active' : ''; ?>" data-auth-form="login">
                         <span class="zxtec-auth-kicker"><?php echo esc_html( $message ); ?></span>
                         <h2><?php esc_html_e( 'Acessar', 'zxtec' ); ?></h2>
                         <p class="zxtec-auth-note"><?php esc_html_e( 'Entre para continuar.', 'zxtec' ); ?></p>
@@ -1715,7 +1721,39 @@ JS;
                         </form>
                         <div class="zxtec-auth-links">
                             <button type="button" class="zxtec-auth-link" data-auth-toggle="register"><?php esc_html_e( 'Cadastre-se', 'zxtec' ); ?></button>
-                            <a class="zxtec-auth-link" href="<?php echo esc_url( $lost_password_url ); ?>"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></a>
+                            <button type="button" class="zxtec-auth-link" data-auth-toggle="reset"><?php esc_html_e( 'Perdeu a senha?', 'zxtec' ); ?></button>
+                            <a class="zxtec-auth-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Ir para ZX Tec', 'zxtec' ); ?></a>
+                        </div>
+                    </div>
+                    <div class="zxtec-auth-form <?php echo $active_form === 'reset' ? 'is-active' : ''; ?>" data-auth-form="reset">
+                        <span class="zxtec-auth-kicker"><?php echo esc_html( $message ); ?></span>
+                        <h2><?php esc_html_e( 'Recuperar acesso', 'zxtec' ); ?></h2>
+                        <p class="zxtec-auth-note"><?php esc_html_e( 'Enviaremos um link para redefinir sua senha.', 'zxtec' ); ?></p>
+                        <form class="zxtec-auth-form-element" data-auth-action="reset-request">
+                            <input type="hidden" name="action" value="zxtec_auth_reset_request" />
+                            <input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+                            <input type="hidden" name="redirect_to" value="<?php echo esc_url( $redirect ); ?>" />
+                            <label for="zxtec-reset-identity"><?php esc_html_e( 'Email ou usuario', 'zxtec' ); ?></label>
+                            <input id="zxtec-reset-identity" name="identity" type="text" autocomplete="username" required />
+                            <div class="zxtec-auth-message" aria-live="polite"></div>
+                            <button type="submit" class="zxtec-auth-button"><?php esc_html_e( 'Enviar link', 'zxtec' ); ?></button>
+                        </form>
+                        <?php if ( $reset_key && $reset_login ) : ?>
+                            <div class="zxtec-auth-reset-divider"><?php esc_html_e( 'Ou redefina abaixo', 'zxtec' ); ?></div>
+                            <form class="zxtec-auth-form-element" data-auth-action="reset-confirm">
+                                <input type="hidden" name="action" value="zxtec_auth_reset_confirm" />
+                                <input type="hidden" name="nonce" value="<?php echo esc_attr( $nonce ); ?>" />
+                                <input type="hidden" name="login" value="<?php echo esc_attr( $reset_login ); ?>" />
+                                <input type="hidden" name="key" value="<?php echo esc_attr( $reset_key ); ?>" />
+                                <input type="hidden" name="redirect_to" value="<?php echo esc_url( $redirect ); ?>" />
+                                <label for="zxtec-reset-password"><?php esc_html_e( 'Nova senha', 'zxtec' ); ?></label>
+                                <input id="zxtec-reset-password" name="password" type="password" autocomplete="new-password" required />
+                                <div class="zxtec-auth-message" aria-live="polite"></div>
+                                <button type="submit" class="zxtec-auth-button"><?php esc_html_e( 'Atualizar senha', 'zxtec' ); ?></button>
+                            </form>
+                        <?php endif; ?>
+                        <div class="zxtec-auth-links">
+                            <button type="button" class="zxtec-auth-link" data-auth-toggle="login"><?php esc_html_e( 'Voltar ao login', 'zxtec' ); ?></button>
                             <a class="zxtec-auth-link" href="<?php echo esc_url( $home_url ); ?>"><?php esc_html_e( 'Ir para ZX Tec', 'zxtec' ); ?></a>
                         </div>
                     </div>
@@ -1724,6 +1762,22 @@ JS;
         </div>
         <?php
         return ob_get_clean();
+    }
+
+    /**
+     * Ensure redirect stays on frontend
+     */
+    private function get_safe_redirect_url( $redirect ) {
+        $fallback = home_url( '/' );
+        $redirect = $redirect ? $redirect : $fallback;
+        $validated = wp_validate_redirect( $redirect, $fallback );
+        $admin_url = admin_url();
+
+        if ( $validated && strpos( $validated, $admin_url ) === 0 ) {
+            return $fallback;
+        }
+
+        return $validated;
     }
 
     /**
@@ -1744,7 +1798,7 @@ JS;
         $username = sanitize_user( wp_unslash( $_POST['username'] ?? '' ) );
         $password = wp_unslash( $_POST['password'] ?? '' );
         $remember = ! empty( $_POST['remember'] );
-        $redirect = esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) );
+        $redirect = $this->get_safe_redirect_url( esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) ) );
 
         if ( empty( $username ) || empty( $password ) ) {
             wp_send_json_error( array( 'message' => esc_html__( 'Informe usuario e senha.', 'zxtec' ) ) );
@@ -1765,7 +1819,7 @@ JS;
         wp_send_json_success(
             array(
                 'message'  => esc_html__( 'Login realizado com sucesso.', 'zxtec' ),
-                'redirect' => $redirect ? $redirect : home_url( '/' ),
+                'redirect' => $redirect,
             )
         );
     }
@@ -1785,6 +1839,10 @@ JS;
 
         if ( empty( $username ) || empty( $email ) ) {
             wp_send_json_error( array( 'message' => esc_html__( 'Preencha todos os campos.', 'zxtec' ) ) );
+        }
+
+        if ( ! is_email( $email ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Informe um e-mail valido.', 'zxtec' ) ) );
         }
 
         if ( username_exists( $username ) ) {
@@ -1809,6 +1867,99 @@ JS;
         wp_send_json_success(
             array(
                 'message' => esc_html__( 'Conta criada! Verifique seu e-mail para definir a senha.', 'zxtec' ),
+            )
+        );
+    }
+
+    /**
+     * Handle frontend reset request via AJAX
+     */
+    public function handle_auth_reset_request() {
+        check_ajax_referer( 'zxtec_auth_action', 'nonce' );
+
+        $identity = sanitize_text_field( wp_unslash( $_POST['identity'] ?? '' ) );
+        $redirect = $this->get_safe_redirect_url( esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) ) );
+
+        if ( empty( $identity ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Informe seu email ou usuario.', 'zxtec' ) ) );
+        }
+
+        $user = get_user_by( 'login', $identity );
+        if ( ! $user ) {
+            $user = get_user_by( 'email', $identity );
+        }
+
+        if ( ! $user ) {
+            wp_send_json_success( array( 'message' => esc_html__( 'Se os dados estiverem corretos, enviaremos um link.', 'zxtec' ) ) );
+        }
+
+        $key = wp_generate_password( 20, false );
+        update_user_meta( $user->ID, 'zxtec_reset_hash', wp_hash_password( $key ) );
+        update_user_meta( $user->ID, 'zxtec_reset_time', time() );
+
+        $reset_link = add_query_arg(
+            array(
+                'zxtec_login' => rawurlencode( $user->user_login ),
+                'zxtec_reset_key' => rawurlencode( $key ),
+            ),
+            $redirect
+        );
+
+        $blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
+        $subject = sprintf( '[%s] %s', $blogname, esc_html__( 'Redefinicao de senha', 'zxtec' ) );
+        $message = sprintf(
+            "%s\n\n%s\n",
+            esc_html__( 'Clique no link abaixo para redefinir sua senha:', 'zxtec' ),
+            $reset_link
+        );
+
+        wp_mail( $user->user_email, $subject, $message );
+
+        wp_send_json_success(
+            array(
+                'message' => esc_html__( 'Se o usuario existir, enviaremos o link de redefinicao.', 'zxtec' ),
+            )
+        );
+    }
+
+    /**
+     * Handle frontend reset confirm via AJAX
+     */
+    public function handle_auth_reset_confirm() {
+        check_ajax_referer( 'zxtec_auth_action', 'nonce' );
+
+        $login = sanitize_text_field( wp_unslash( $_POST['login'] ?? '' ) );
+        $key = sanitize_text_field( wp_unslash( $_POST['key'] ?? '' ) );
+        $password = wp_unslash( $_POST['password'] ?? '' );
+        $redirect = $this->get_safe_redirect_url( esc_url_raw( wp_unslash( $_POST['redirect_to'] ?? '' ) ) );
+
+        if ( empty( $login ) || empty( $key ) || empty( $password ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Preencha todos os campos.', 'zxtec' ) ) );
+        }
+
+        $user = get_user_by( 'login', $login );
+        if ( ! $user ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Nao foi possivel validar o pedido.', 'zxtec' ) ) );
+        }
+
+        $hash = get_user_meta( $user->ID, 'zxtec_reset_hash', true );
+        $time = (int) get_user_meta( $user->ID, 'zxtec_reset_time', true );
+        if ( empty( $hash ) || empty( $time ) || ( time() - $time ) > HOUR_IN_SECONDS ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Link expirado. Solicite novamente.', 'zxtec' ) ) );
+        }
+
+        if ( ! wp_check_password( $key, $hash ) ) {
+            wp_send_json_error( array( 'message' => esc_html__( 'Link invalido. Solicite novamente.', 'zxtec' ) ) );
+        }
+
+        wp_set_password( $password, $user->ID );
+        delete_user_meta( $user->ID, 'zxtec_reset_hash' );
+        delete_user_meta( $user->ID, 'zxtec_reset_time' );
+
+        wp_send_json_success(
+            array(
+                'message'  => esc_html__( 'Senha atualizada. Voce pode entrar agora.', 'zxtec' ),
+                'redirect' => $redirect,
             )
         );
     }

@@ -266,6 +266,8 @@
   overflow: hidden;
   background: #0b0f1b;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  max-width: 980px;
+  margin: 0 auto;
 }
 
 .zxtec-auth-brand {
@@ -423,6 +425,25 @@
 
 .zxtec-auth-link:hover {
   color: #68c841;
+}
+
+.zxtec-auth-reset-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: rgba(226, 232, 240, 0.5);
+}
+
+.zxtec-auth-reset-divider::before,
+.zxtec-auth-reset-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(226, 232, 240, 0.15);
 }
 
 @media (max-width: 900px) {
