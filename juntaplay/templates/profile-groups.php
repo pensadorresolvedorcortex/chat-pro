@@ -2145,6 +2145,38 @@ $group_cards[] = trim((string) ob_get_clean());
                 submitCancelForm(form);
             });
 
+            document.addEventListener(
+                'click',
+                (event) => {
+                    const submitButton = event.target.closest('[data-group-cancel-submit]');
+                    if (!submitButton) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    const form = submitButton.closest('form');
+                    if (!form) {
+                        return;
+                    }
+
+                    if (typeof form.reportValidity === 'function' && !form.reportValidity()) {
+                        return;
+                    }
+
+                    if (typeof form.requestSubmit === 'function') {
+                        form.requestSubmit();
+                        return;
+                    }
+
+                    const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                    if (form.dispatchEvent(submitEvent)) {
+                        form.submit();
+                    }
+                },
+                true
+            );
+
             document.addEventListener('click', (event) => {
                 const closeTrigger = event.target.closest('[data-exit-info-close]');
                 if (!closeTrigger) {
