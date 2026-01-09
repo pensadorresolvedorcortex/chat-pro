@@ -808,7 +808,7 @@ JS;
      */
     private function get_dashboard_html() {
         if ( ! is_user_logged_in() ) {
-            return __( 'Necessario fazer login.', 'zxtec' );
+            return $this->get_login_prompt_html();
         }
 
         $user_id = get_current_user_id();
@@ -888,7 +888,7 @@ JS;
      */
     private function get_colaborador_contas_html() {
         if ( ! is_user_logged_in() ) {
-            return __( 'Necessario fazer login.', 'zxtec' );
+            return $this->get_login_prompt_html();
         }
 
         $user_id = get_current_user_id();
@@ -1552,7 +1552,7 @@ JS;
      */
     private function get_schedule_html() {
         if ( ! is_user_logged_in() ) {
-            return '<p>' . esc_html__( 'Necessario fazer login.', 'zxtec' ) . '</p>';
+            return $this->get_login_prompt_html();
         }
 
         $user_id = get_current_user_id();
@@ -1646,6 +1646,47 @@ JS;
         }
         $net = $total - $expense_total;
         echo '<p><strong>' . sprintf( esc_html__( 'Saldo liquido: %s', 'zxtec' ), number_format_i18n( $net, 2 ) ) . '</strong></p>';
+        return ob_get_clean();
+    }
+
+    /**
+     * Login prompt HTML
+     */
+    private function get_login_prompt_html() {
+        $message = esc_html__( 'Necessario fazer login.', 'zxtec' );
+        $redirect = add_query_arg( array() );
+        $register_url = add_query_arg( 'redirect_to', $redirect, wp_registration_url() );
+
+        $form = wp_login_form(
+            array(
+                'echo'           => false,
+                'redirect'       => $redirect,
+                'form_id'        => 'zxtec-loginform',
+                'label_username' => esc_html__( 'Email ou usuario', 'zxtec' ),
+                'label_password' => esc_html__( 'Senha', 'zxtec' ),
+                'label_remember' => esc_html__( 'Lembrar', 'zxtec' ),
+                'label_log_in'   => esc_html__( 'Entrar', 'zxtec' ),
+                'remember'       => true,
+            )
+        );
+
+        ob_start();
+        ?>
+        <div class="zxtec-login-panel">
+            <div class="zxtec-login-card">
+                <h2><?php echo esc_html( $message ); ?></h2>
+                <p class="zxtec-login-subtitle"><?php esc_html_e( 'Acesse sua conta para continuar.', 'zxtec' ); ?></p>
+                <div class="zxtec-login-form">
+                    <?php echo $form; ?>
+                </div>
+                <div class="zxtec-login-actions">
+                    <a class="zxtec-login-link" href="<?php echo esc_url( $register_url ); ?>">
+                        <?php esc_html_e( 'Criar conta', 'zxtec' ); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php
         return ob_get_clean();
     }
 

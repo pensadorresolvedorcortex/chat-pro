@@ -258,6 +258,96 @@
   color: var(--zxtec-muted);
 }
 
+.zxtec-login-panel {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.zxtec-login-card {
+  width: min(420px, 100%);
+  background: #024445;
+  border-radius: 20px;
+  padding: 28px;
+  color: #f8fafc;
+  box-shadow: 0 18px 40px rgba(2, 68, 69, 0.35);
+}
+
+.zxtec-login-card h2 {
+  margin-bottom: 6px;
+  font-size: 22px;
+}
+
+.zxtec-login-subtitle {
+  margin-bottom: 20px;
+  color: rgba(248, 250, 252, 0.8);
+}
+
+.zxtec-login-form label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: rgba(248, 250, 252, 0.85);
+}
+
+.zxtec-login-form input[type="text"],
+.zxtec-login-form input[type="password"] {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+  padding: 10px 14px;
+  color: #f8fafc;
+  margin-bottom: 14px;
+}
+
+.zxtec-login-form input[type="text"]::placeholder,
+.zxtec-login-form input[type="password"]::placeholder {
+  color: rgba(248, 250, 252, 0.6);
+}
+
+.zxtec-login-form input[type="checkbox"] {
+  accent-color: #68c841;
+}
+
+.zxtec-login-form .login-remember {
+  margin-bottom: 16px;
+}
+
+.zxtec-login-form input[type="submit"] {
+  width: 100%;
+  border: none;
+  border-radius: 14px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #68c841, #4fb426);
+  color: #0f172a;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.zxtec-login-form input[type="submit"]:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(104, 200, 65, 0.35);
+}
+
+.zxtec-login-actions {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.zxtec-login-link {
+  color: #68c841;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.zxtec-login-link:hover {
+  text-decoration: underline;
+}
+
 @keyframes zxtecFadeIn {
   from {
     opacity: 0;
