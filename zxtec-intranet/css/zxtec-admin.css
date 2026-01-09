@@ -1,0 +1,33 @@
+/* Custom ZX Tec admin styles for robust design */
+.zxtec-container {
+    padding: 20px;
+}
+.zxtec-card {
+    background: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.zxtec-card h2 {
+    margin-top: 0;
+}
+.zxtec-table {
+    width: 100%;
+}
+
+.zxtec-container input[type="text"],
+.zxtec-container input[type="email"],
+.zxtec-container input[type="number"],
+.zxtec-container input[type="date"],
+.zxtec-container select,
+.zxtec-container textarea,
+.zxtec-container .widefat {
+    border-radius: 0.375rem;
+    padding: 8px 10px;
+}
+
+button.button-primary {
+    border-radius: 0.375rem;
+}

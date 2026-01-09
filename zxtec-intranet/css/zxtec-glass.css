@@ -1,0 +1,285 @@
+:root {
+  --zxtec-bg-start: #0b1020;
+  --zxtec-bg-end: #111a2e;
+  --zxtec-glass: rgba(255, 255, 255, 0.12);
+  --zxtec-border: rgba(255, 255, 255, 0.18);
+  --zxtec-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  --zxtec-glow: 0 0 30px rgba(59, 130, 246, 0.25);
+  --zxtec-primary: #3b82f6;
+  --zxtec-cyan: #06b6d4;
+  --zxtec-success: #22c55e;
+  --zxtec-danger: #ef4444;
+  --zxtec-text: #e5e7eb;
+  --zxtec-muted: #94a3b8;
+}
+
+.zxtec-glass-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px 80px;
+  background: radial-gradient(circle at top, rgba(59, 130, 246, 0.15), transparent 60%),
+    linear-gradient(135deg, var(--zxtec-bg-start), var(--zxtec-bg-end));
+  border-radius: 24px;
+  color: var(--zxtec-text);
+  box-shadow: var(--zxtec-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.zxtec-glass-dashboard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 0);
+  background-size: 3px 3px;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.zxtec-glass-card {
+  background: var(--zxtec-glass);
+  border: 1px solid var(--zxtec-border);
+  border-radius: 16px;
+  backdrop-filter: blur(18px);
+  box-shadow: var(--zxtec-shadow);
+  padding: 24px;
+  transition: all 0.25s ease;
+}
+
+.zxtec-glass-header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.zxtec-glass-header p {
+  color: var(--zxtec-muted);
+  margin-bottom: 24px;
+}
+
+.zxtec-glass-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.zxtec-glass-summary-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.zxtec-glass-summary-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), transparent);
+  opacity: 0.8;
+}
+
+.zxtec-glass-label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--zxtec-muted);
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.zxtec-glass-value {
+  font-size: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.zxtec-glass-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 20px;
+}
+
+.zxtec-glass-tab {
+  background: transparent;
+  border: none;
+  color: var(--zxtec-muted);
+  padding: 10px 14px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.zxtec-glass-tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--zxtec-primary), var(--zxtec-cyan));
+  transition: width 0.25s ease;
+}
+
+.zxtec-glass-tab.is-active {
+  color: var(--zxtec-text);
+}
+
+.zxtec-glass-tab.is-active::after {
+  width: 100%;
+}
+
+.zxtec-glass-section {
+  display: none;
+  animation: zxtecFadeIn 0.4s ease;
+}
+
+.zxtec-glass-section.is-active {
+  display: block;
+}
+
+.zxtec-glass-table {
+  background: transparent;
+  color: var(--zxtec-text);
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.zxtec-glass-table thead th {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--zxtec-muted);
+  border: none;
+  padding: 12px 14px;
+}
+
+.zxtec-glass-table tbody tr {
+  background: rgba(255, 255, 255, 0.08);
+  transition: all 0.25s ease;
+}
+
+.zxtec-glass-table tbody tr:hover {
+  box-shadow: var(--zxtec-glow);
+  transform: translateY(-2px);
+}
+
+.zxtec-glass-table td {
+  border: none;
+  padding: 14px;
+}
+
+.zxtec-glass-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.zxtec-glass-badge.status-concluido,
+.zxtec-glass-badge.status-aprovado {
+  color: var(--zxtec-success);
+  border-color: rgba(34, 197, 94, 0.4);
+}
+
+.zxtec-glass-badge.status-pendente {
+  color: var(--zxtec-cyan);
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+.zxtec-glass-badge.status-recusado {
+  color: var(--zxtec-danger);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.zxtec-glass-badge.status-confirmado {
+  color: var(--zxtec-primary);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.zxtec-glass-badge.type-receita {
+  color: var(--zxtec-success);
+}
+
+.zxtec-glass-badge.type-despesa {
+  color: var(--zxtec-danger);
+}
+
+.zxtec-glass-badge.type-ajuste {
+  color: var(--zxtec-cyan);
+}
+
+.zxtec-glass-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+}
+
+.zxtec-glass-input {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--zxtec-border);
+  border-radius: 12px;
+  color: var(--zxtec-text);
+  padding: 8px 12px;
+  transition: all 0.25s ease;
+}
+
+.zxtec-glass-input:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.6);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.zxtec-glass-button {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(6, 182, 212, 0.9));
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+}
+
+.zxtec-glass-button:hover {
+  box-shadow: var(--zxtec-glow);
+  transform: translateY(-1px);
+}
+
+.zxtec-glass-link {
+  color: var(--zxtec-primary);
+  text-decoration: none;
+}
+
+.zxtec-glass-muted {
+  color: var(--zxtec-muted);
+}
+
+@keyframes zxtecFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .zxtec-glass-dashboard {
+    padding: 24px 16px 48px;
+  }
+
+  .zxtec-glass-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .zxtec-glass-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
