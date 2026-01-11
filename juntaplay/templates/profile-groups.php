@@ -71,12 +71,19 @@ if ($success_redirect === '') {
     $success_redirect = $success_redirect_default;
 }
 
-$profile_page_id = (int) get_option('juntaplay_page_perfil');
-$profile_base_url = $profile_page_id ? get_permalink($profile_page_id) : home_url('/perfil');
-if ($profile_base_url === '') {
-    $profile_base_url = home_url('/');
+$cancel_page = get_page_by_path('cancelamento');
+$cancel_page_url = $cancel_page ? get_permalink($cancel_page) : '';
+
+if ($cancel_page_url === '') {
+    $profile_page_id = (int) get_option('juntaplay_page_perfil');
+    $profile_base_url = $profile_page_id ? get_permalink($profile_page_id) : home_url('/perfil');
+    if ($profile_base_url === '') {
+        $profile_base_url = home_url('/');
+    }
+    $cancel_redirect_url = add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
+} else {
+    $cancel_redirect_url = $cancel_page_url;
 }
-$cancel_redirect_url = add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
 
 $current_user_id = get_current_user_id();
 $current_user = wp_get_current_user();
