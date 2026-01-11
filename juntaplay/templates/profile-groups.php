@@ -389,24 +389,7 @@ $profile_page_id   = (int) get_option('juntaplay_page_perfil');
 $profile_base_url  = $profile_page_id ? get_permalink($profile_page_id) : home_url('/perfil/');
 $messages_endpoint = user_trailingslashit(trailingslashit($profile_base_url) . 'juntaplay-chat');
 $messages_base_url = add_query_arg('section', 'juntaplay-chat', $profile_base_url);
-$cancel_confirm_url = '';
-$cancel_pages = get_posts([
-    'post_type'      => 'page',
-    'post_status'    => 'publish',
-    'posts_per_page' => 20,
-    's'              => '[juntaplay_cancelamento]',
-]);
-if ($cancel_pages) {
-    foreach ($cancel_pages as $cancel_page) {
-        if (has_shortcode((string) $cancel_page->post_content, 'juntaplay_cancelamento')) {
-            $cancel_confirm_url = get_permalink($cancel_page->ID);
-            break;
-        }
-    }
-}
-if ($cancel_confirm_url === '') {
-    $cancel_confirm_url = add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
-}
+$cancel_confirm_url = add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
 
 $active_section  = isset($_GET['section']) ? (string) wp_unslash($_GET['section']) : '';
 if ($active_section === '' && get_query_var('juntaplay-chat', '') !== '') {
