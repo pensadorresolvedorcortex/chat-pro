@@ -6411,6 +6411,12 @@ class Profile
             return;
         }
 
+        if (!method_exists(GroupMembers::class, 'schedule_exit')) {
+            $respond_error(__('Não foi possível agendar sua saída agora. Tente novamente em instantes.', 'juntaplay'), $group_id, 500);
+
+            return;
+        }
+
         $schedule = GroupMembers::schedule_exit($group_id, $user_id);
         if (!$schedule) {
             $respond_error(__('Não foi possível agendar sua saída agora. Tente novamente em instantes.', 'juntaplay'), $group_id, 500);
