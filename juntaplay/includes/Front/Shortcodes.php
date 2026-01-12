@@ -673,7 +673,14 @@ class Shortcodes
 
         $eligible_groups = array_values(array_filter($member_groups, static function (array $group): bool {
             $role = isset($group['membership_role']) ? (string) $group['membership_role'] : 'member';
-            return $role === 'member';
+            $status = isset($group['membership_status']) ? (string) $group['membership_status'] : 'active';
+            $blocked_roles = ['owner', 'manager', 'staff', 'system'];
+
+            if ($status === 'guest') {
+                return false;
+            }
+
+            return !in_array($role, $blocked_roles, true);
         }));
 
         $selected_group = null;
