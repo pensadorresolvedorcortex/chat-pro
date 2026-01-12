@@ -1839,9 +1839,7 @@ $group_cards[] = trim((string) ob_get_clean());
                         }
                         closeModal(form.closest('.juntaplay-modal'));
 
-                        if (cancelConfirmUrl) {
-                            window.location.href = cancelConfirmUrl;
-                        }
+                        window.location.href = cancelConfirmUrl;
                     })
                     .catch(() => {
                         showCancelError(form);
