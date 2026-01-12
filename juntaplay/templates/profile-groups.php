@@ -1778,6 +1778,12 @@ $group_cards[] = trim((string) ob_get_clean());
                 document.body.classList.add('juntaplay-modal-open');
             };
 
+            const closeOpenModals = () => {
+                document.querySelectorAll('.juntaplay-modal.is-open').forEach((modal) => {
+                    closeModal(modal);
+                });
+            };
+
             const showCancelError = (form, message) => {
                 if (!form) {
                     return;
@@ -1950,10 +1956,8 @@ $group_cards[] = trim((string) ob_get_clean());
                     const exitTrigger = event.target.closest('[data-group-exit-trigger]');
                     if (exitTrigger) {
                         event.preventDefault();
-                        const parentModal = exitTrigger.closest('.juntaplay-modal');
-                        if (parentModal) {
-                            closeModal(parentModal);
-                        }
+                        event.stopPropagation();
+                        closeOpenModals();
                         openExitModal(exitTrigger.getAttribute('data-exit-modal-id'));
                         return;
                     }
