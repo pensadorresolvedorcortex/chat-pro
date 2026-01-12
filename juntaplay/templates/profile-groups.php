@@ -394,9 +394,33 @@ if (!$cancel_page instanceof WP_Post) {
     $cancel_page = get_page_by_path('cancelamento');
 }
 
-$cancel_confirm_url = $cancel_page instanceof WP_Post
-    ? get_permalink($cancel_page->ID)
-    : add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
+$cancel_confirm_url = $cancel_page instanceof WP_Post ? get_permalink($cancel_page->ID) : '';
+
+if ($cancel_confirm_url === '') {
+    $cancel_pages = get_pages([
+        'post_status' => 'publish',
+    ]);
+
+    if (!empty($cancel_pages)) {
+        foreach ($cancel_pages as $cancel_page) {
+            if (!$cancel_page instanceof WP_Post) {
+                continue;
+            }
+
+            $content = (string) $cancel_page->post_content;
+            if (!has_shortcode($content, 'juntaplay_cancelamento') && stripos($content, '[juntaplay_cancelamento') === false) {
+                continue;
+            }
+
+            $cancel_confirm_url = get_permalink($cancel_page->ID);
+            break;
+        }
+    }
+}
+
+if ($cancel_confirm_url === '') {
+    $cancel_confirm_url = add_query_arg('section', 'juntaplay-cancelamento', $profile_base_url);
+}
 
 $active_section  = isset($_GET['section']) ? (string) wp_unslash($_GET['section']) : '';
 if ($active_section === '' && get_query_var('juntaplay-chat', '') !== '') {
@@ -1502,7 +1526,7 @@ if ($group_suggestions) {
                                                                         ?>
                                                                         <div class="juntaplay-form__group">
                                                                             <label for="jp-group-cancel-reason-<?php echo esc_attr($group_id); ?>"><?php echo esc_html__('Descreva o motivo da saída', 'juntaplay'); ?></label>
-                                                                            <textarea id="jp-group-cancel-reason-<?php echo esc_attr($group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
+                                                                            <textarea id="jp-group-cancel-reason-<?php echo esc_attr($group_id); ?>" name="jp_profile_group_cancel_reason" class="juntaplay-form__input" rows="3" minlength="10" required placeholder="<?php echo esc_attr__('Explique o que aconteceu para que possamos orientar o administrador.', 'juntaplay'); ?>"></textarea>
                                                                         </div>
                                                                         <div class="juntaplay-group-complaint__actions">
                                                                             <button type="submit" class="juntaplay-button juntaplay-button--primary"><?php echo esc_html__('Prosseguir', 'juntaplay'); ?></button>
