@@ -1747,12 +1747,6 @@ $group_cards[] = trim((string) ob_get_clean());
 
     <script>
         (() => {
-            const cancelForm = document.querySelector('.juntaplay-group-cancel__form');
-
-            if (!cancelForm) {
-                return;
-            }
-
             const closeModal = (modal) => {
                 if (!modal) {
                     return;
