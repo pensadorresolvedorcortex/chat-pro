@@ -1810,7 +1810,6 @@ $group_cards[] = trim((string) ob_get_clean());
                     return;
                 }
 
-                let shouldRedirect = false;
                 const formData = new FormData(form);
                 const submitButton = form.querySelector('[type="submit"], [data-group-cancel-submit]');
 
@@ -1840,7 +1839,7 @@ $group_cards[] = trim((string) ob_get_clean());
                         }
                         closeModal(form.closest('.juntaplay-modal'));
 
-                        shouldRedirect = true;
+                        window.location.href = '/cancelamento';
                     })
                     .catch(() => {
                         showCancelError(form);
@@ -1850,9 +1849,6 @@ $group_cards[] = trim((string) ob_get_clean());
                         form.removeAttribute('aria-busy');
                         if (submitButton) {
                             submitButton.removeAttribute('disabled');
-                        }
-                        if (shouldRedirect) {
-                            window.location.href = cancelConfirmUrl;
                         }
                     });
             };
