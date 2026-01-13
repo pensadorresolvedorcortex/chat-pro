@@ -947,7 +947,7 @@ class Shortcodes
 
             /* Bloco de destaque financeiro do calção */
             .juntaplay-cancelamento__caucao {
-                margin: 24px 0 8px;
+                margin: 20px 0;
                 padding: 20px;
                 border-radius: 16px;
                 background: rgba(255, 255, 255, 0.75);
@@ -1059,29 +1059,30 @@ class Shortcodes
                             <label for="jp-cancelamento-reason"><?php echo esc_html__('Descreva o motivo da sua saída', 'juntaplay'); ?></label>
                             <textarea id="jp-cancelamento-reason" name="jp_cancelamento_reason" class="juntaplay-form__input" rows="3" minlength="10" required><?php echo esc_textarea($reason); ?></textarea>
                         </div>
+
+                        <div class="juntaplay-cancelamento__caucao">
+                            <div class="juntaplay-cancelamento__caucao-grid">
+                                <div class="juntaplay-cancelamento__caucao-item">
+                                    <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Calção do grupo', 'juntaplay'); ?></span>
+                                    <div class="juntaplay-cancelamento__caucao-item-value">
+                                        <?php echo wp_kses_post(wc_price($caucao_amount)); ?>
+                                    </div>
+                                </div>
+                                <div class="juntaplay-cancelamento__caucao-item">
+                                    <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Status do calção', 'juntaplay'); ?></span>
+                                    <div class="juntaplay-cancelamento__caucao-item-value">
+                                        <?php echo esc_html($caucao_status); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" name="jp_cancelamento_nonce" value="<?php echo esc_attr(wp_create_nonce('jp_cancelamento')); ?>" />
                         <button type="submit" class="juntaplay-button juntaplay-button--primary" name="jp_cancelamento_submit" value="1">
                             <?php echo esc_html__('Confirmar cancelamento', 'juntaplay'); ?>
                         </button>
                     </form>
                 <?php endif; ?>
-
-                <div class="juntaplay-cancelamento__caucao">
-                    <div class="juntaplay-cancelamento__caucao-grid">
-                        <div class="juntaplay-cancelamento__caucao-item">
-                            <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Calção do grupo', 'juntaplay'); ?></span>
-                            <div class="juntaplay-cancelamento__caucao-item-value">
-                                <?php echo wp_kses_post(wc_price($caucao_amount)); ?>
-                            </div>
-                        </div>
-                        <div class="juntaplay-cancelamento__caucao-item">
-                            <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Status do calção', 'juntaplay'); ?></span>
-                            <div class="juntaplay-cancelamento__caucao-item-value">
-                                <?php echo esc_html($caucao_status); ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <ul class="juntaplay-cancelamento__meta">
                     <?php if ($group_name !== '') : ?>
