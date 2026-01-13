@@ -722,8 +722,8 @@ class Shortcodes
         $caucao_amount = 0.0;
         if ($has_caucao) {
             $caucao_amount = is_array($caucao)
-                ? (float) ($caucao['amount'] ?? 0.0)
-                : (float) ($caucao->amount ?? 0.0);
+                ? (float) ($caucao['deposit_amount'] ?? $caucao['amount'] ?? 0.0)
+                : (float) ($caucao->deposit_amount ?? $caucao->amount ?? 0.0);
         }
 
         $cycle_end = '';
@@ -736,7 +736,7 @@ class Shortcodes
         $group = Groups::get($group_id);
         $group_name = is_array($group) ? (string) ($group['title'] ?? '') : '';
 
-        // Sem caução: usar o vencimento disponível do membership ou do grupo (fallback final).
+        // Determinação da data de liberação: cycle_end do caução, ou membership/grupo + 31 dias.
         $membership_cycle_end = isset($membership['cycle_end']) ? (string) $membership['cycle_end'] : '';
         $group_cycle_end = is_array($group) ? (string) ($group['cycle_end'] ?? '') : '';
 
@@ -745,7 +745,7 @@ class Shortcodes
         }
 
         if ($cycle_end === '' && !empty($membership['joined_at'])) {
-            $cycle_end = date('Y-m-d H:i:s', strtotime((string) $membership['joined_at'] . ' +30 days'));
+            $cycle_end = date('Y-m-d H:i:s', strtotime((string) $membership['joined_at'] . ' +31 days'));
         }
 
         $cycle_end_ts = $cycle_end !== '' ? strtotime($cycle_end) : false;
@@ -762,12 +762,66 @@ class Shortcodes
         $exit_display = date_i18n(get_option('date_format'), $exit_effective_ts);
 
         // Decisão da caução: muda apenas a mensagem, a data permanece a mesma.
-        $caucao_will_return = $has_caucao ? !$is_within_15_days : false;
-        $caucao_status = $has_caucao && $exit_display !== ''
-            ? sprintf(__('Retido até %s', 'juntaplay'), $exit_display)
-            : __('Retido (aguardando confirmação do ciclo)', 'juntaplay');
+        // Cálculo do valor do calção: deposit_amount do ciclo, ou mensalidade - taxa administrativa (pedido WooCommerce).
+        if ($caucao_amount <= 0.0) {
+            $orders = function_exists('wc_get_orders')
+                ? wc_get_orders([
+                    'limit'      => 1,
+                    'orderby'    => 'date',
+                    'order'      => 'DESC',
+                    'customer_id'=> $user_id,
+                    'status'     => ['wc-completed', 'wc-processing', 'wc-on-hold'],
+                    'meta_query' => [
+                        [
+                            'key'   => '_juntaplay_group_id',
+                            'value' => $group_id,
+                        ],
+                    ],
+                ])
+                : [];
 
-        $notice_title = esc_html__('Aviso Importante!', 'juntaplay');
+            $monthly_value = 0.0;
+            if ($orders) {
+                $order = $orders[0] ?? null;
+                if ($order && method_exists($order, 'get_items')) {
+                    foreach ($order->get_items() as $item) {
+                        $item_group_id = $item->get_meta('_juntaplay_group_id', true);
+                        if ((int) $item_group_id === $group_id) {
+                            $monthly_value += (float) $item->get_subtotal();
+                        }
+                    }
+                    if ($monthly_value <= 0.0 && method_exists($order, 'get_subtotal')) {
+                        $monthly_value = (float) $order->get_subtotal();
+                    }
+                }
+            }
+
+            $fee_per_member = method_exists(Settings::class, 'get_fee_per_member')
+                ? (float) Settings::get_fee_per_member()
+                : 0.0;
+            $caucao_amount = max(0.0, $monthly_value - $fee_per_member);
+        }
+
+        // Definição do status do calção (determinístico e automático).
+        $has_open_complaint = false;
+        if (class_exists('\JuntaPlay\Data\GroupComplaints') && method_exists(\JuntaPlay\Data\GroupComplaints::class, 'has_open_for_period')) {
+            $has_open_complaint = \JuntaPlay\Data\GroupComplaints::has_open_for_period(
+                $user_id,
+                $group_id,
+                isset($caucao['cycle_start']) ? (string) $caucao['cycle_start'] : '',
+                $cycle_end
+            );
+        }
+
+        if ($has_open_complaint) {
+            $caucao_status = __('Retido definitivamente', 'juntaplay');
+        } else {
+            $caucao_status = $is_within_15_days || $now_ts < $exit_effective_ts
+                ? sprintf(__('Retido até %s', 'juntaplay'), $exit_display)
+                : __('Liberado automaticamente (crédito em saldo)', 'juntaplay');
+        }
+
+        $notice_title = esc_html__('Sua solicitação de cancelamento está pronta para ser confirmada.', 'juntaplay');
         $user = get_user_by('id', $user_id);
         $user_name = $user && $user->exists() ? (string) $user->display_name : '';
 
@@ -848,17 +902,10 @@ class Shortcodes
         <section class="juntaplay-cancelamento">
             <div class="juntaplay-cancelamento__box">
                 <h2 class="juntaplay-cancelamento__title"><?php echo esc_html($notice_title); ?></h2>
-                <p class="juntaplay-cancelamento__text"><?php echo esc_html__('Antes de prosseguir com seu cancelamento precisamos que você saiba:', 'juntaplay'); ?></p>
                 <p class="juntaplay-cancelamento__text">
                     <?php
                     if ($exit_display !== '') {
-                        if (!$has_caucao) {
-                            echo esc_html(sprintf(
-                                __('%1$s, sua solicitação de cancelamento foi registrada. A saída do grupo será efetivada em %2$s.', 'juntaplay'),
-                                $user_name !== '' ? $user_name : esc_html__('Assinante', 'juntaplay'),
-                                $exit_display
-                            ));
-                        } elseif ($is_within_15_days) {
+                        if ($is_within_15_days) {
                             echo esc_html(sprintf(
                                 __('%1$s, você está solicitando o cancelamento com menos de 15 dias de antecedência da data de vencimento. Sua saída será agendada para o dia %2$s e o crédito caução será utilizado para quitar a última fatura do grupo.', 'juntaplay'),
                                 $user_name !== '' ? $user_name : esc_html__('Assinante', 'juntaplay'),
@@ -879,7 +926,7 @@ class Shortcodes
                 <p class="juntaplay-cancelamento__text">
                     <?php
                     echo esc_html__(
-                        'Atenção: você pagou um crédito de assinatura (caução) ao entrar no grupo. Para recebê-lo de volta, o cancelamento deve ser solicitado com no mínimo 15 dias de antecedência e não pode haver pendências.',
+                        'Após essa data, caso não haja pendências, o valor será automaticamente creditado em seu saldo financeiro na plataforma.',
                         'juntaplay'
                     );
                     ?>
@@ -927,11 +974,11 @@ class Shortcodes
                     <li>
                         <strong><?php echo esc_html__('Calção do grupo:', 'juntaplay'); ?></strong>
                         <?php
-                        echo $caucao_amount > 0 ? wp_kses_post(wc_price($caucao_amount)) : esc_html__('Consulte o pedido de adesão', 'juntaplay');
+                        echo wp_kses_post(wc_price($caucao_amount));
                         ?>
                     </li>
                     <li>
-                        <strong><?php echo esc_html__('Status atual:', 'juntaplay'); ?></strong>
+                        <strong><?php echo esc_html__('Status do calção:', 'juntaplay'); ?></strong>
                         <?php echo esc_html($caucao_status); ?>
                     </li>
                 </ul>
