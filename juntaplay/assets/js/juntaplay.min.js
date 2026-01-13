@@ -2473,6 +2473,72 @@
         });
     });
 
+    function getCpfDuplicateErrorCodes() {
+        if (typeof window === 'undefined') {
+            return [];
+        }
+
+        var errors = window.JuntaPlayRegisterErrors;
+        if (!Array.isArray(errors)) {
+            return [];
+        }
+
+        return errors;
+    }
+
+    function buildCpfDuplicateModal() {
+        var modalId = 'jp-cpf-duplicate-modal';
+        var $modal = $('#' + modalId);
+
+        if (!$modal.length) {
+            $modal = $('<div class="juntaplay-modal juntaplay-modal--compact" id="' + modalId + '" role="dialog" aria-modal="true" tabindex="-1" hidden aria-hidden="true"></div>');
+            $modal.append('<div class="juntaplay-modal__overlay" data-modal-close></div>');
+
+            var $dialog = $('<div class="juntaplay-modal__dialog" role="document"></div>');
+            var $close = $('<button type="button" class="juntaplay-modal__close" data-modal-close aria-label="Fechar">&times;</button>');
+            var $content = $('<div class="juntaplay-modal__content" data-modal-content></div>');
+
+            $dialog.append($close).append($content);
+            $modal.append($dialog);
+            $('body').append($modal);
+        }
+
+        return $modal;
+    }
+
+    function openCpfDuplicateModal() {
+        var $modal = buildCpfDuplicateModal();
+        var recoveryUrl = '';
+
+        if (window.JuntaPlay && window.JuntaPlay.auth && typeof window.JuntaPlay.auth.loginUrl === 'string') {
+            recoveryUrl = window.JuntaPlay.auth.loginUrl;
+            recoveryUrl += recoveryUrl.indexOf('?') !== -1 ? '&action=lostpassword' : '?action=lostpassword';
+        }
+
+        var message = 'Identificamos que este CPF já está vinculado a outra conta na plataforma.' +
+            '<br>Cada CPF pode ser utilizado em apenas um cadastro.' +
+            '<br><br>Se você já possui uma conta, utilize a opção de recuperação de senha' +
+            '<br>ou entre em contato com o suporte.';
+
+        var $content = $('<div></div>');
+        $content.append('<h3 class="juntaplay-modal__title">CPF já utilizado</h3>');
+        $content.append('<p class="juntaplay-modal__text">' + message + '</p>');
+        $content.append('<button type="button" class="juntaplay-button juntaplay-button--primary" data-modal-close>Entendi</button>');
+
+        if (recoveryUrl) {
+            $content.append(' <a class="juntaplay-link" href="' + recoveryUrl + '">Recuperar senha</a>');
+        }
+
+        openModal($modal, $content);
+    }
+
+    $(function () {
+        var codes = getCpfDuplicateErrorCodes();
+        if (codes.indexOf('cpf_duplicado') !== -1) {
+            openCpfDuplicateModal();
+        }
+    });
+
     var socialPopup = null;
     var socialContext = null;
 
