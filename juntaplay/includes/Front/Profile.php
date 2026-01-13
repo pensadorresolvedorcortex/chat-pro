@@ -2721,7 +2721,7 @@ class Profile
         $group['instant_access_label'] = $instant_access
             ? __('Acesso instantâneo ativado', 'juntaplay')
             : __('Acesso instantâneo desativado', 'juntaplay');
-        $group['slots_summary']     = sprintf(__('Total: %1$d vagas • Reservadas: %2$d • Disponíveis: %3$d', 'juntaplay'), $slots_total, $slots_reserved, $slots_available);
+        $group['slots_summary']     = sprintf(__('Disponíveis: %d', 'juntaplay'), $slots_available);
         $group['complaint_url']     = $complaint_url;
         $group['complaint_label']   = __('Abrir reclamação ou disputa', 'juntaplay');
         $group['complaint_hint']    = __('Teve algum problema com este grupo? Abra uma reclamação ou disputa para receber ajuda rápida.', 'juntaplay');
