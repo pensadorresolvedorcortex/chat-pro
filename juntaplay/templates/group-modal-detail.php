@@ -130,7 +130,7 @@ switch ($support_type) {
     </header>
 
     <div class="juntaplay-group-modal__body">
-        <?php if ($price_highlight !== '' || $cta_label !== '') : ?>
+        <?php if ($price_highlight !== '' || $cta_label !== '' || $can_admin_cancel) : ?>
             <div class="juntaplay-group-modal__cta">
                 <?php if ($price_highlight !== '') : ?>
                     <span class="juntaplay-group-modal__cta-price"><?php echo esc_html($price_highlight); ?></span>
@@ -142,82 +142,81 @@ switch ($support_type) {
                         <button type="button" class="juntaplay-button juntaplay-button--primary" disabled><?php echo esc_html($cta_label); ?></button>
                     <?php endif; ?>
                 <?php endif; ?>
-            </div>
-        <?php endif; ?>
-
-        <?php if ($blocked_notice !== '') : ?>
-            <p class="juntaplay-group-modal__notice"><?php echo esc_html($blocked_notice); ?></p>
-        <?php endif; ?>
-
-        <?php if ($can_admin_cancel) : ?>
-            <?php $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-detail-' . $group_id; ?>
-            <div class="juntaplay-group-modal__notice juntaplay-group-modal__notice--highlight" data-group-admin-cancel>
-                <div class="juntaplay-group-complaint__actions">
+                <?php if ($can_admin_cancel) : ?>
+                    <?php
+                    // CTA block: keep admin-only cancel action alongside existing admin CTA.
+                    // Render only for owners/admins on active groups to prevent unauthorized visibility.
+                    $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-detail-' . $group_id;
+                    ?>
                     <button
                         type="button"
-                        class="juntaplay-button juntaplay-button--danger"
+                        class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
                         data-group-admin-cancel-open
                         data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
                     >
                         <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
                     </button>
-                </div>
-            </div>
-            <div
-                class="juntaplay-modal juntaplay-modal--compact"
-                id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
-                data-group-admin-cancel-modal
-                hidden
-                aria-hidden="true"
-            >
-                <div class="juntaplay-modal__overlay" data-modal-close></div>
-                <div class="juntaplay-modal__dialog" role="dialog" aria-modal="true">
-                    <button type="button" class="juntaplay-modal__close" data-modal-close aria-label="<?php echo esc_attr__('Fechar', 'juntaplay'); ?>">&times;</button>
-                    <div class="juntaplay-modal__content">
-                        <h3 class="juntaplay-modal__title"><?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?></h3>
-                        <p class="juntaplay-modal__text">
-                            <?php echo esc_html__('Cancelar este grupo encerrará definitivamente o grupo. Os participantes manterão acesso até o fim do período já pago e seus calções serão devolvidos conforme as regras da plataforma. Esta ação não pode ser desfeita.', 'juntaplay'); ?>
-                        </p>
-                        <form class="juntaplay-group-admin-cancel__form" method="post">
-                            <input type="hidden" name="jp_profile_action" value="1" />
-                            <input type="hidden" name="jp_profile_section" value="group_admin_cancel" />
-                            <input type="hidden" name="jp_profile_group_admin_cancel" value="<?php echo esc_attr((string) $group_id); ?>" />
-                            <?php
-                            // Admin-only cancellation: enforce permission checks server-side as well.
-                            $admin_cancel_profile_nonce = wp_nonce_field(
-                                'juntaplay_profile_update',
-                                'jp_profile_nonce',
-                                true,
-                                false
-                            );
-                            $admin_cancel_profile_nonce = preg_replace(
-                                '/id="jp_profile_nonce"/',
-                                'id="' . esc_attr(wp_unique_id('jp_profile_nonce_')) . '"',
-                                $admin_cancel_profile_nonce
-                            );
-                            echo $admin_cancel_profile_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                    <div
+                        class="juntaplay-modal juntaplay-modal--compact"
+                        id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
+                        data-group-admin-cancel-modal
+                        hidden
+                        aria-hidden="true"
+                    >
+                        <div class="juntaplay-modal__overlay" data-modal-close></div>
+                        <div class="juntaplay-modal__dialog" role="dialog" aria-modal="true">
+                            <button type="button" class="juntaplay-modal__close" data-modal-close aria-label="<?php echo esc_attr__('Fechar', 'juntaplay'); ?>">&times;</button>
+                            <div class="juntaplay-modal__content">
+                                <h3 class="juntaplay-modal__title"><?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?></h3>
+                                <p class="juntaplay-modal__text">
+                                    <?php echo esc_html__('Cancelar este grupo encerrará definitivamente o grupo. Os participantes manterão acesso até o fim do período já pago e seus calções serão devolvidos conforme as regras da plataforma. Esta ação não pode ser desfeita.', 'juntaplay'); ?>
+                                </p>
+                                <form class="juntaplay-group-admin-cancel__form" method="post">
+                                    <input type="hidden" name="jp_profile_action" value="1" />
+                                    <input type="hidden" name="jp_profile_section" value="group_admin_cancel" />
+                                    <input type="hidden" name="jp_profile_group_admin_cancel" value="<?php echo esc_attr((string) $group_id); ?>" />
+                                    <?php
+                                    // Admin-only cancellation: enforce permission checks server-side as well.
+                                    $admin_cancel_profile_nonce = wp_nonce_field(
+                                        'juntaplay_profile_update',
+                                        'jp_profile_nonce',
+                                        true,
+                                        false
+                                    );
+                                    $admin_cancel_profile_nonce = preg_replace(
+                                        '/id="jp_profile_nonce"/',
+                                        'id="' . esc_attr(wp_unique_id('jp_profile_nonce_')) . '"',
+                                        $admin_cancel_profile_nonce
+                                    );
+                                    echo $admin_cancel_profile_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
-                            $admin_cancel_action_nonce = wp_nonce_field(
-                                'jp_profile_group_admin_cancel',
-                                'jp_profile_group_admin_cancel_nonce',
-                                true,
-                                false
-                            );
-                            $admin_cancel_action_nonce = preg_replace(
-                                '/id="jp_profile_group_admin_cancel_nonce"/',
-                                'id="' . esc_attr(wp_unique_id('jp_profile_group_admin_cancel_nonce_')) . '"',
-                                $admin_cancel_action_nonce
-                            );
-                            echo $admin_cancel_action_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                            ?>
-                            <div class="juntaplay-group-complaint__actions">
-                                <button type="submit" class="juntaplay-button juntaplay-button--danger"><?php echo esc_html__('Confirmar cancelamento', 'juntaplay'); ?></button>
-                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-modal-close><?php echo esc_html__('Voltar', 'juntaplay'); ?></button>
+                                    $admin_cancel_action_nonce = wp_nonce_field(
+                                        'jp_profile_group_admin_cancel',
+                                        'jp_profile_group_admin_cancel_nonce',
+                                        true,
+                                        false
+                                    );
+                                    $admin_cancel_action_nonce = preg_replace(
+                                        '/id="jp_profile_group_admin_cancel_nonce"/',
+                                        'id="' . esc_attr(wp_unique_id('jp_profile_group_admin_cancel_nonce_')) . '"',
+                                        $admin_cancel_action_nonce
+                                    );
+                                    echo $admin_cancel_action_nonce; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                    ?>
+                                    <div class="juntaplay-group-complaint__actions">
+                                        <button type="submit" class="juntaplay-button juntaplay-button--danger"><?php echo esc_html__('Confirmar cancelamento', 'juntaplay'); ?></button>
+                                        <button type="button" class="juntaplay-button juntaplay-button--ghost" data-modal-close><?php echo esc_html__('Voltar', 'juntaplay'); ?></button>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
+        <?php endif; ?>
+
+        <?php if ($blocked_notice !== '') : ?>
+            <p class="juntaplay-group-modal__notice"><?php echo esc_html($blocked_notice); ?></p>
         <?php endif; ?>
 
         <?php if ($complaint_url !== '' && $membership_status !== 'guest' && $membership_role === 'member') : ?>
