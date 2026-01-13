@@ -760,17 +760,11 @@ class Shortcodes
         // Cálculo do valor do calção: mensalidade (pedido WooCommerce) - taxa administrativa (configuração do plugin).
         $orders = function_exists('wc_get_orders')
             ? wc_get_orders([
-                'limit'      => 1,
+                'limit'      => 20,
                 'orderby'    => 'date',
                 'order'      => 'DESC',
                 'customer_id'=> $user_id,
                 'status'     => ['wc-completed', 'wc-processing', 'wc-on-hold'],
-                'meta_query' => [
-                    [
-                        'key'   => '_juntaplay_group_id',
-                        'value' => $group_id,
-                    ],
-                ],
             ])
             : [];
 
@@ -778,12 +772,15 @@ class Shortcodes
         if ($orders) {
             $order = $orders[0] ?? null;
             if ($order && method_exists($order, 'get_items')) {
-                foreach ($order->get_items() as $item) {
-                    $item_group_id = $item->get_meta('_juntaplay_group_id', true);
-                    if ((int) $item_group_id === $group_id) {
-                        $monthly_value += (float) $item->get_subtotal();
+                    foreach ($order->get_items() as $item) {
+                        $item_group_id = $item->get_meta('_juntaplay_group_id', true);
+                        if (!$item_group_id) {
+                            $item_group_id = $item->get_meta('juntaplay_group_id', true);
+                        }
+                        if ((int) $item_group_id === $group_id) {
+                            $monthly_value += (float) $item->get_subtotal();
+                        }
                     }
-                }
             }
         }
 
