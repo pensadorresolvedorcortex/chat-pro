@@ -720,11 +720,6 @@ class Shortcodes
 
         $has_caucao = (bool) $caucao;
         $caucao_amount = 0.0;
-        if ($has_caucao) {
-            $caucao_amount = is_array($caucao)
-                ? (float) ($caucao['deposit_amount'] ?? $caucao['amount'] ?? 0.0)
-                : (float) ($caucao->deposit_amount ?? $caucao->amount ?? 0.0);
-        }
 
         $cycle_end = '';
         if ($has_caucao) {
@@ -762,45 +757,40 @@ class Shortcodes
         $exit_display = date_i18n(get_option('date_format'), $exit_effective_ts);
 
         // Decisão da caução: muda apenas a mensagem, a data permanece a mesma.
-        // Cálculo do valor do calção: deposit_amount do ciclo, ou mensalidade - taxa administrativa (pedido WooCommerce).
-        if ($caucao_amount <= 0.0) {
-            $orders = function_exists('wc_get_orders')
-                ? wc_get_orders([
-                    'limit'      => 1,
-                    'orderby'    => 'date',
-                    'order'      => 'DESC',
-                    'customer_id'=> $user_id,
-                    'status'     => ['wc-completed', 'wc-processing', 'wc-on-hold'],
-                    'meta_query' => [
-                        [
-                            'key'   => '_juntaplay_group_id',
-                            'value' => $group_id,
-                        ],
+        // Cálculo do valor do calção: mensalidade (pedido WooCommerce) - taxa administrativa (configuração do plugin).
+        $orders = function_exists('wc_get_orders')
+            ? wc_get_orders([
+                'limit'      => 1,
+                'orderby'    => 'date',
+                'order'      => 'DESC',
+                'customer_id'=> $user_id,
+                'status'     => ['wc-completed', 'wc-processing', 'wc-on-hold'],
+                'meta_query' => [
+                    [
+                        'key'   => '_juntaplay_group_id',
+                        'value' => $group_id,
                     ],
-                ])
-                : [];
+                ],
+            ])
+            : [];
 
-            $monthly_value = 0.0;
-            if ($orders) {
-                $order = $orders[0] ?? null;
-                if ($order && method_exists($order, 'get_items')) {
-                    foreach ($order->get_items() as $item) {
-                        $item_group_id = $item->get_meta('_juntaplay_group_id', true);
-                        if ((int) $item_group_id === $group_id) {
-                            $monthly_value += (float) $item->get_subtotal();
-                        }
-                    }
-                    if ($monthly_value <= 0.0 && method_exists($order, 'get_subtotal')) {
-                        $monthly_value = (float) $order->get_subtotal();
+        $monthly_value = 0.0;
+        if ($orders) {
+            $order = $orders[0] ?? null;
+            if ($order && method_exists($order, 'get_items')) {
+                foreach ($order->get_items() as $item) {
+                    $item_group_id = $item->get_meta('_juntaplay_group_id', true);
+                    if ((int) $item_group_id === $group_id) {
+                        $monthly_value += (float) $item->get_subtotal();
                     }
                 }
             }
-
-            $fee_per_member = method_exists(Settings::class, 'get_fee_per_member')
-                ? (float) Settings::get_fee_per_member()
-                : 0.0;
-            $caucao_amount = max(0.0, $monthly_value - $fee_per_member);
         }
+
+        $fee_per_member = method_exists(Settings::class, 'get_fee_per_member')
+            ? (float) Settings::get_fee_per_member()
+            : 0.0;
+        $caucao_amount = max(0.0, $monthly_value - $fee_per_member);
 
         // Definição do status do calção (determinístico e automático).
         $has_open_complaint = false;
