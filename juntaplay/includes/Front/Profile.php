@@ -335,6 +335,9 @@ class Profile
             case 'group_cancel':
                 $this->cancel_group_membership($user_id);
                 break;
+            case 'group_admin_cancel':
+                $this->cancel_group_by_admin($user_id);
+                break;
             case 'complaint_reply':
                 $this->submit_complaint_message($user_id, GroupComplaintMessages::TYPE_MESSAGE);
                 break;
@@ -1287,6 +1290,13 @@ class Profile
             'groups'  => [],
         ];
 
+        $admin_cancel_errors = [
+            'general' => isset($this->errors['group_admin_cancel']) && is_array($this->errors['group_admin_cancel'])
+                ? $this->errors['group_admin_cancel']
+                : [],
+            'groups'  => [],
+        ];
+
         foreach ($this->errors as $error_key => $messages) {
             if (!is_array($messages)) {
                 continue;
@@ -1307,6 +1317,28 @@ class Profile
 
         if (!isset($cancel_errors['groups'])) {
             $cancel_errors['groups'] = [];
+        }
+
+        foreach ($this->errors as $error_key => $messages) {
+            if (!is_array($messages)) {
+                continue;
+            }
+
+            if (!str_starts_with($error_key, 'group_admin_cancel_')) {
+                continue;
+            }
+
+            $group_key = (int) substr($error_key, strlen('group_admin_cancel_'));
+
+            if ($group_key > 0) {
+                $admin_cancel_errors['groups'][$group_key] = $messages;
+            } else {
+                $admin_cancel_errors['general'] = array_merge($admin_cancel_errors['general'], $messages);
+            }
+        }
+
+        if (!isset($admin_cancel_errors['groups'])) {
+            $admin_cancel_errors['groups'] = [];
         }
 
         $all_groups_combined = array_merge($groups_owned, $groups_member);
@@ -1372,6 +1404,7 @@ class Profile
             'complaint_limits'  => $this->get_complaint_limits(),
             'complaint_summary' => $this->group_complaint_summary,
             'cancel_errors'     => $cancel_errors,
+            'admin_cancel_errors' => $admin_cancel_errors,
             'pagination'        => $pagination,
         ];
 
@@ -3844,8 +3877,9 @@ class Profile
     {
         $active_status = $this->get_default_membership_status();
         $exit_status = $this->get_exit_scheduled_status();
+        $active_until_end = $this->get_active_until_end_of_cycle_status();
 
-        return [$active_status, $exit_status];
+        return [$active_status, $exit_status, $active_until_end];
     }
 
     private function get_default_membership_status(): string
@@ -3869,6 +3903,13 @@ class Profile
             : 'exited';
     }
 
+    private function get_active_until_end_of_cycle_status(): string
+    {
+        return defined(__NAMESPACE__ . '\\GroupMembers::STATUS_ACTIVE_UNTIL_END_OF_CYCLE')
+            ? GroupMembers::STATUS_ACTIVE_UNTIL_END_OF_CYCLE
+            : 'active_until_end_of_cycle';
+    }
+
     /**
      * @return array{label: string, tone: string, message: string}
      */
@@ -3883,6 +3924,11 @@ class Profile
                 $label   = __('Aprovado', 'juntaplay');
                 $tone    = 'positive';
                 $message = __('Grupo disponível para convites e compras.', 'juntaplay');
+                break;
+            case Groups::STATUS_CANCELED_BY_ADMIN:
+                $label   = __('Cancelado pelo administrador', 'juntaplay');
+                $tone    = 'muted';
+                $message = __('Grupo encerrado pelo administrador. Novas adesões e cobranças estão bloqueadas.', 'juntaplay');
                 break;
             case Groups::STATUS_REJECTED:
                 $label   = __('Recusado', 'juntaplay');
@@ -6516,6 +6562,112 @@ class Profile
             'exit_effective_display' => $exit_display,
             'message'           => $notice,
         ]);
+    }
+
+    /**
+     * Admin-only cancellation for an entire group (not a membership cancellation).
+     */
+    private function cancel_group_by_admin(int $user_id): void
+    {
+        $this->active_section = 'groups';
+
+        $group_raw = isset($_POST['jp_profile_group_admin_cancel']) ? wp_unslash($_POST['jp_profile_group_admin_cancel']) : '';
+        $nonce     = isset($_POST['jp_profile_group_admin_cancel_nonce']) ? wp_unslash($_POST['jp_profile_group_admin_cancel_nonce']) : '';
+
+        if (!wp_verify_nonce($nonce, 'jp_profile_group_admin_cancel')) {
+            $this->add_error('group_admin_cancel', __('Sua sessão expirou. Atualize a página e tente novamente.', 'juntaplay'));
+
+            return;
+        }
+
+        $group_id = absint($group_raw);
+        if ($group_id <= 0) {
+            $this->add_error('group_admin_cancel', __('Selecione um grupo válido para cancelar.', 'juntaplay'));
+
+            return;
+        }
+
+        $group = Groups::get($group_id);
+        if (!is_array($group)) {
+            $this->add_error('group_admin_cancel', __('Grupo não encontrado.', 'juntaplay'));
+
+            return;
+        }
+
+        $status = isset($group['status']) ? (string) $group['status'] : '';
+        if ($status !== 'active') {
+            $this->add_error('group_admin_cancel_' . $group_id, __('Este grupo não está ativo para cancelamento.', 'juntaplay'));
+
+            return;
+        }
+
+        $membership = GroupMembers::get_membership($group_id, $user_id);
+        if (!$membership) {
+            $this->add_error('group_admin_cancel_' . $group_id, __('Você não administra este grupo.', 'juntaplay'));
+
+            return;
+        }
+
+        $role = isset($membership['role']) ? (string) $membership['role'] : 'member';
+        if (!in_array($role, ['owner', 'manager'], true)) {
+            // Admin-only cancellation protection: block non-admins even if they try to force the request.
+            $this->add_error('group_admin_cancel_' . $group_id, __('Você não tem permissão para cancelar este grupo.', 'juntaplay'));
+
+            return;
+        }
+
+        if (!Groups::update_status($group_id, Groups::STATUS_CANCELED_BY_ADMIN)) {
+            $this->add_error('group_admin_cancel_' . $group_id, __('Não foi possível cancelar este grupo agora. Tente novamente.', 'juntaplay'));
+
+            return;
+        }
+
+        $active_status = defined(__NAMESPACE__ . '\\GroupMembers::STATUS_ACTIVE')
+            ? GroupMembers::STATUS_ACTIVE
+            : 'active';
+        $members = GroupMembers::get_user_ids($group_id, $active_status);
+
+        $cycles_by_user = CaucaoCycles::get_latest_for_group($group_id);
+        $default_cycle_end = gmdate('Y-m-d H:i:s', strtotime('+30 days', current_time('timestamp')) ?: time());
+
+        foreach ($members as $member_id) {
+            $member_id = absint($member_id);
+            if ($member_id <= 0) {
+                continue;
+            }
+
+            $cycle = isset($cycles_by_user[$member_id]) && is_array($cycles_by_user[$member_id])
+                ? $cycles_by_user[$member_id]
+                : [];
+
+            $cycle_end = isset($cycle['cycle_end']) ? (string) $cycle['cycle_end'] : '';
+            $cycle_start = isset($cycle['cycle_start']) ? (string) $cycle['cycle_start'] : '';
+            $exit_effective_at = $cycle_end !== '' ? $cycle_end : $default_cycle_end;
+
+            GroupMembers::schedule_exit_for_group_cancellation($group_id, $member_id, $exit_effective_at);
+
+            if (!empty($cycle)) {
+                $has_open_complaint = GroupComplaints::has_open_for_period(
+                    $member_id,
+                    $group_id,
+                    $cycle_start,
+                    $exit_effective_at
+                );
+
+                if (!$has_open_complaint) {
+                    // Schedule deposit release for group cancellation without prejudicing participants.
+                    CaucaoCycles::schedule_release_for_group_cancellation(
+                        (int) ($cycle['id'] ?? 0),
+                        $exit_effective_at,
+                        'Liberação programada por cancelamento do grupo'
+                    );
+                }
+            }
+        }
+
+        $this->invalidate_cache();
+        $this->invalidate_group_cache($user_id, $group_id);
+        $this->add_notice(__('Grupo cancelado com sucesso. Os participantes permanecerão ativos até o fim do ciclo vigente.', 'juntaplay'));
     }
 
     private function submit_complaint_message(int $user_id, string $type): void

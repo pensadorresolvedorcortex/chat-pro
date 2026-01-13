@@ -47,6 +47,7 @@ class Groups
     public const STATUS_APPROVED = 'approved';
     public const STATUS_REJECTED = 'rejected';
     public const STATUS_ARCHIVED = 'archived';
+    public const STATUS_CANCELED_BY_ADMIN = 'canceled_by_admin';
 
     private const MIN_ICON_SIZE = 256;
 
@@ -412,7 +413,7 @@ class Groups
                         gm.joined_at AS membership_joined_at, $exit_requested_select,
                         $exit_effective_select,
                         IFNULL(p.title, '') AS pool_title, IFNULL(p.slug, '') AS pool_slug,
-                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                  FROM $groups_table g
                  LEFT JOIN $members_table gm ON gm.group_id = g.id AND gm.user_id = %d
                  LEFT JOIN $pools_table p ON p.id = g.pool_id
@@ -430,10 +431,13 @@ class Groups
         $exit_status = defined(__NAMESPACE__ . '\\GroupMembers::STATUS_EXIT_SCHEDULED')
             ? GroupMembers::STATUS_EXIT_SCHEDULED
             : 'exit_scheduled';
+        $active_until_end = defined(__NAMESPACE__ . '\\GroupMembers::STATUS_ACTIVE_UNTIL_END_OF_CYCLE')
+            ? GroupMembers::STATUS_ACTIVE_UNTIL_END_OF_CYCLE
+            : 'active_until_end_of_cycle';
 
         $member_statuses = apply_filters(
             'juntaplay/groups/user_member_statuses',
-            [$active_status, $exit_status],
+            [$active_status, $exit_status, $active_until_end],
             $user_id
         );
         $member_statuses = is_array($member_statuses)
@@ -458,7 +462,7 @@ class Groups
                         gm.joined_at AS membership_joined_at, $exit_requested_select,
                         $exit_effective_select,
                         IFNULL(p.title, '') AS pool_title, IFNULL(p.slug, '') AS pool_slug,
-                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                  FROM $groups_table g
                  INNER JOIN $members_table gm ON gm.group_id = g.id AND gm.user_id = %d
                  LEFT JOIN $pools_table p ON p.id = g.pool_id
@@ -664,7 +668,7 @@ class Groups
                     gm.joined_at AS membership_joined_at, $exit_requested_select,
                     $exit_effective_select,
                     IFNULL(p.title, '') AS pool_title, IFNULL(p.slug, '') AS pool_slug,
-                    (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                    (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
              FROM $groups_table g
              LEFT JOIN $members_table gm ON gm.group_id = g.id AND gm.user_id = %d
              LEFT JOIN $pools_table p ON p.id = g.pool_id
@@ -858,7 +862,7 @@ class Groups
         $sql = "SELECT SQL_CALC_FOUND_ROWS g.*, u.display_name AS owner_name, u.user_email AS owner_email,
                        IFNULL(p.title, '') AS pool_title, IFNULL(p.slug, '') AS pool_slug,
                        $price_field AS effective_price,
-                       (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                       (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                 FROM $groups_table g
                 LEFT JOIN $users_table u ON u.ID = g.owner_id
                 LEFT JOIN $pools_table p ON p.id = g.pool_id
@@ -942,7 +946,7 @@ class Groups
         $row = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT g.*, IFNULL(p.title, '') AS pool_title, IFNULL(p.slug, '') AS pool_slug,
-                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                  FROM $groups_table g
                  LEFT JOIN $pools_table p ON p.id = g.pool_id
                  WHERE g.id = %d
@@ -1029,7 +1033,7 @@ class Groups
         $row = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT g.slots_total, g.slots_reserved,
-                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                        (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                  FROM $groups_table g
                  WHERE g.id = %d",
                 $group_id
@@ -1180,7 +1184,7 @@ class Groups
 
         $sql = "SELECT g.*, u.display_name AS owner_name, u.user_email AS owner_email,
                        p.title AS pool_title, p.slug AS pool_slug,
-                       (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled')) AS members_count
+                       (SELECT COUNT(*) FROM $members_table m WHERE m.group_id = g.id AND m.status IN ('active', 'exit_scheduled', 'active_until_end_of_cycle')) AS members_count
                 FROM $groups_table g
                 LEFT JOIN $users_table u ON u.ID = g.owner_id
                 LEFT JOIN $pools_table p ON p.id = g.pool_id
@@ -1260,6 +1264,7 @@ class Groups
             self::STATUS_APPROVED => 0,
             self::STATUS_REJECTED => 0,
             self::STATUS_ARCHIVED => 0,
+            self::STATUS_CANCELED_BY_ADMIN => 0,
         ];
 
         foreach ($rows as $row) {
@@ -1342,6 +1347,7 @@ class Groups
             self::STATUS_APPROVED => __('Aprovado', 'juntaplay'),
             self::STATUS_REJECTED => __('Recusado', 'juntaplay'),
             self::STATUS_ARCHIVED => __('Arquivado', 'juntaplay'),
+            self::STATUS_CANCELED_BY_ADMIN => __('Cancelado pelo administrador', 'juntaplay'),
             default               => __('Em análise', 'juntaplay'),
         };
     }
@@ -1356,6 +1362,7 @@ class Groups
             self::STATUS_APPROVED,
             self::STATUS_REJECTED,
             self::STATUS_ARCHIVED,
+            self::STATUS_CANCELED_BY_ADMIN,
         ];
     }
 
