@@ -709,18 +709,40 @@ class Shortcodes
             return '<p class="juntaplay-notice">' . esc_html__('Sua participação não está ativa para cancelamento.', 'juntaplay') . '</p>';
         }
 
-        // Validação 5: ciclo de caução ativo.
-        $cycles = CaucaoCycles::get_latest_for_user_groups($user_id, [$group_id]);
-        if (!isset($cycles[$group_id])) {
-            return '<p class="juntaplay-notice">' . esc_html__('Não foi possível localizar o ciclo de caução deste grupo. Tente novamente em instantes.', 'juntaplay') . '</p>';
+        // Validação 5: ciclo de caução (quando existir).
+        $caucao = null;
+        if (method_exists(CaucaoCycles::class, 'get_active_by_user_and_group')) {
+            $caucao = CaucaoCycles::get_active_by_user_and_group($user_id, $group_id);
+        } else {
+            $cycles = CaucaoCycles::get_latest_for_user_groups($user_id, [$group_id]);
+            $caucao = $cycles[$group_id] ?? null;
         }
 
-        $cycle_end = (string) ($cycles[$group_id]['cycle_end'] ?? '');
+        $has_caucao = (bool) $caucao;
+
+        $cycle_end = '';
+        if ($has_caucao) {
+            $cycle_end = is_array($caucao)
+                ? (string) ($caucao['cycle_end'] ?? '')
+                : (string) ($caucao->cycle_end ?? '');
+        }
+
+        $group = Groups::get($group_id);
+        $group_name = is_array($group) ? (string) ($group['title'] ?? '') : '';
+
+        // Sem caução: usar o vencimento disponível do membership ou do grupo (fallback final).
+        $membership_cycle_end = isset($membership['cycle_end']) ? (string) $membership['cycle_end'] : '';
+        $group_cycle_end = is_array($group) ? (string) ($group['cycle_end'] ?? '') : '';
+
         if ($cycle_end === '') {
-            return '<p class="juntaplay-notice">' . esc_html__('Não foi possível identificar a data de vencimento do ciclo. Tente novamente em instantes.', 'juntaplay') . '</p>';
+            $cycle_end = $membership_cycle_end !== '' ? $membership_cycle_end : $group_cycle_end;
         }
 
-        $cycle_end_ts = strtotime($cycle_end);
+        if ($cycle_end === '' && !empty($membership['joined_at'])) {
+            $cycle_end = date('Y-m-d H:i:s', strtotime((string) $membership['joined_at'] . ' +30 days'));
+        }
+
+        $cycle_end_ts = $cycle_end !== '' ? strtotime($cycle_end) : false;
         if (!$cycle_end_ts) {
             return '<p class="juntaplay-notice">' . esc_html__('Não foi possível calcular a data de vencimento do ciclo. Tente novamente em instantes.', 'juntaplay') . '</p>';
         }
@@ -734,10 +756,7 @@ class Shortcodes
         $exit_display = date_i18n(get_option('date_format'), $exit_effective_ts);
 
         // Decisão da caução: muda apenas a mensagem, a data permanece a mesma.
-        $caucao_will_return = !$is_within_15_days;
-
-        $group = Groups::get($group_id);
-        $group_name = is_array($group) ? (string) ($group['title'] ?? '') : '';
+        $caucao_will_return = $has_caucao ? !$is_within_15_days : false;
 
         $notice_title = esc_html__('Aviso Importante!', 'juntaplay');
         $user = get_user_by('id', $user_id);
@@ -824,7 +843,13 @@ class Shortcodes
                 <p class="juntaplay-cancelamento__text">
                     <?php
                     if ($exit_display !== '') {
-                        if ($is_within_15_days) {
+                        if (!$has_caucao) {
+                            echo esc_html(sprintf(
+                                __('%1$s, sua solicitação de cancelamento foi registrada. A saída do grupo será efetivada em %2$s.', 'juntaplay'),
+                                $user_name !== '' ? $user_name : esc_html__('Assinante', 'juntaplay'),
+                                $exit_display
+                            ));
+                        } elseif ($is_within_15_days) {
                             echo esc_html(sprintf(
                                 __('%1$s, você está solicitando o cancelamento com menos de 15 dias de antecedência da data de vencimento. Sua saída será agendada para o dia %2$s e o crédito caução será utilizado para quitar a última fatura do grupo.', 'juntaplay'),
                                 $user_name !== '' ? $user_name : esc_html__('Assinante', 'juntaplay'),
@@ -842,14 +867,20 @@ class Shortcodes
                     }
                     ?>
                 </p>
-                <p class="juntaplay-cancelamento__text">
-                    <?php
-                    echo esc_html__(
-                        'Atenção: você pagou um crédito de assinatura (caução) ao entrar no grupo. Para recebê-lo de volta, o cancelamento deve ser solicitado com no mínimo 15 dias de antecedência e não pode haver pendências.',
-                        'juntaplay'
-                    );
-                    ?>
-                </p>
+                <?php if ($has_caucao) : ?>
+                    <p class="juntaplay-cancelamento__text">
+                        <?php
+                        echo esc_html__(
+                            'Atenção: você pagou um crédito de assinatura (caução) ao entrar no grupo. Para recebê-lo de volta, o cancelamento deve ser solicitado com no mínimo 15 dias de antecedência e não pode haver pendências.',
+                            'juntaplay'
+                        );
+                        ?>
+                    </p>
+                <?php else : ?>
+                    <p class="juntaplay-cancelamento__text">
+                        <?php echo esc_html__('Este grupo não possui caução ativa vinculada à sua assinatura.', 'juntaplay'); ?>
+                    </p>
+                <?php endif; ?>
 
                 <?php if ($errors) : ?>
                     <div class="juntaplay-alert juntaplay-alert--danger">
@@ -892,7 +923,13 @@ class Shortcodes
                     <?php endif; ?>
                     <li>
                         <strong><?php echo esc_html__('Caução:', 'juntaplay'); ?></strong>
-                        <?php echo $caucao_will_return ? esc_html__('Devolvida', 'juntaplay') : esc_html__('Utilizada', 'juntaplay'); ?>
+                        <?php
+                        if (!$has_caucao) {
+                            echo esc_html__('Sem caução ativa', 'juntaplay');
+                        } else {
+                            echo $caucao_will_return ? esc_html__('Devolvida', 'juntaplay') : esc_html__('Utilizada', 'juntaplay');
+                        }
+                        ?>
                     </li>
                 </ul>
 
