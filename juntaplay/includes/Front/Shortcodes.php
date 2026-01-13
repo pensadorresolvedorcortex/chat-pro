@@ -945,10 +945,50 @@ class Shortcodes
                 border: 1px solid rgba(15, 23, 42, 0.15);
             }
 
+            /* Bloco de destaque financeiro do calção */
+            .juntaplay-cancelamento__caucao {
+                margin: 24px 0 8px;
+                padding: 20px;
+                border-radius: 16px;
+                background: rgba(255, 255, 255, 0.75);
+                border: 1px solid rgba(255, 255, 255, 0.45);
+                box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+            }
+
+            /* Hierarquia visual: labels discretos e valores em destaque */
+            .juntaplay-cancelamento__caucao-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+            }
+
+            .juntaplay-cancelamento__caucao-item-label {
+                font-size: 0.85rem;
+                color: rgba(15, 23, 42, 0.65);
+                margin-bottom: 6px;
+                display: block;
+            }
+
+            .juntaplay-cancelamento__caucao-item-value {
+                font-size: 1.15rem;
+                font-weight: 700;
+                color: rgba(15, 23, 42, 0.9);
+            }
+
             /* Responsividade: botões empilhados e largura total em telas pequenas */
             @media (max-width: 640px) {
                 .juntaplay-cancelamento__box {
                     padding: 24px;
+                }
+
+                .juntaplay-cancelamento__caucao-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .juntaplay-cancelamento__caucao-item-value {
+                    font-size: 1.05rem;
                 }
 
                 .juntaplay-cancelamento__form .juntaplay-button--primary,
@@ -1026,20 +1066,27 @@ class Shortcodes
                     </form>
                 <?php endif; ?>
 
+                <div class="juntaplay-cancelamento__caucao">
+                    <div class="juntaplay-cancelamento__caucao-grid">
+                        <div class="juntaplay-cancelamento__caucao-item">
+                            <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Calção do grupo', 'juntaplay'); ?></span>
+                            <div class="juntaplay-cancelamento__caucao-item-value">
+                                <?php echo wp_kses_post(wc_price($caucao_amount)); ?>
+                            </div>
+                        </div>
+                        <div class="juntaplay-cancelamento__caucao-item">
+                            <span class="juntaplay-cancelamento__caucao-item-label"><?php echo esc_html__('Status do calção', 'juntaplay'); ?></span>
+                            <div class="juntaplay-cancelamento__caucao-item-value">
+                                <?php echo esc_html($caucao_status); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="juntaplay-cancelamento__meta">
                     <?php if ($group_name !== '') : ?>
                         <li><strong><?php echo esc_html__('Grupo:', 'juntaplay'); ?></strong> <?php echo esc_html($group_name); ?></li>
                     <?php endif; ?>
-                    <li>
-                        <strong><?php echo esc_html__('Calção do grupo:', 'juntaplay'); ?></strong>
-                        <?php
-                        echo wp_kses_post(wc_price($caucao_amount));
-                        ?>
-                    </li>
-                    <li>
-                        <strong><?php echo esc_html__('Status do calção:', 'juntaplay'); ?></strong>
-                        <?php echo esc_html($caucao_status); ?>
-                    </li>
                 </ul>
 
                 <a class="juntaplay-button juntaplay-button--primary" href="<?php echo esc_url($my_groups_url); ?>">
