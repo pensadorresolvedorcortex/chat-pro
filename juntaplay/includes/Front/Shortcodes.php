@@ -886,6 +886,78 @@ class Shortcodes
 
         ob_start();
         ?>
+        <style>
+            /* Glassmorphism aplicado apenas ao cartão do shortcode de cancelamento */
+            .juntaplay-cancelamento {
+                padding: 24px 16px;
+            }
+
+            .juntaplay-cancelamento__box {
+                max-width: 720px;
+                margin: 0 auto;
+                padding: 32px;
+                background: rgba(255, 255, 255, 0.78);
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                border-radius: 20px;
+                box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+            }
+
+            .juntaplay-cancelamento__title {
+                margin-bottom: 16px;
+            }
+
+            .juntaplay-cancelamento__text {
+                margin: 12px 0;
+            }
+
+            /* Espaçamento entre textarea e botões */
+            .juntaplay-cancelamento__form .juntaplay-form__group {
+                margin-bottom: 28px;
+            }
+
+            .juntaplay-cancelamento__form .juntaplay-form__input {
+                border-radius: 14px;
+                border: 1px solid rgba(15, 23, 42, 0.2);
+                padding: 14px;
+                background: rgba(255, 255, 255, 0.9);
+                box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+            }
+
+            .juntaplay-cancelamento__form .juntaplay-form__input:focus {
+                outline: none;
+                border-color: rgba(59, 130, 246, 0.6);
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+            }
+
+            /* Botões com respiro e estilo de ação */
+            .juntaplay-cancelamento__form .juntaplay-button--primary {
+                border-radius: 999px;
+                padding: 12px 28px;
+            }
+
+            .juntaplay-cancelamento__box > a.juntaplay-button--primary {
+                margin-top: 24px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.85);
+                color: inherit;
+                border: 1px solid rgba(15, 23, 42, 0.15);
+            }
+
+            /* Responsividade: botões empilhados e largura total em telas pequenas */
+            @media (max-width: 640px) {
+                .juntaplay-cancelamento__box {
+                    padding: 24px;
+                }
+
+                .juntaplay-cancelamento__form .juntaplay-button--primary,
+                .juntaplay-cancelamento__box > a.juntaplay-button--primary {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        </style>
         <section class="juntaplay-cancelamento">
             <div class="juntaplay-cancelamento__box">
                 <h2 class="juntaplay-cancelamento__title"><?php echo esc_html($notice_title); ?></h2>
