@@ -661,8 +661,31 @@ class Shortcodes
 
         $user_id = get_current_user_id();
 
-        // Validação 1: group_id obrigatório via query string.
-        $group_id = isset($_GET['group_id']) ? absint(wp_unslash($_GET['group_id'])) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // Validação 1: group_id obrigatório via query string (com fallbacks).
+        $group_id = 0;
+        if (isset($_GET['group_id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $group_id = absint(wp_unslash($_GET['group_id'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        } elseif (isset($_GET['gid'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $group_id = absint(wp_unslash($_GET['gid'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        } elseif (isset($_GET['group'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $group_id = absint(wp_unslash($_GET['group'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        } elseif (isset($_POST['group_id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+            $group_id = absint(wp_unslash($_POST['group_id'])); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        }
+
+        if ($group_id <= 0) {
+            $groups = Groups::get_groups_for_user($user_id);
+            $member_groups = isset($groups['member']) && is_array($groups['member']) ? $groups['member'] : [];
+            $active_groups = array_values(array_filter($member_groups, static function (array $group): bool {
+                $status = isset($group['membership_status']) ? (string) $group['membership_status'] : 'active';
+                return $status === 'active';
+            }));
+
+            if (count($active_groups) === 1) {
+                $group_id = (int) ($active_groups[0]['id'] ?? 0);
+            }
+        }
+
         if ($group_id <= 0) {
             return '<p class="juntaplay-notice">' . esc_html__('Grupo inválido para cancelamento. Volte para seus grupos e tente novamente.', 'juntaplay') . '</p>';
         }

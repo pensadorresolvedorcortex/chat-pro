@@ -1570,7 +1570,7 @@ if ($group_suggestions) {
                                                                 <?php echo esc_html($toggle_label); ?>
                                                             </button>
                                                             <?php if ($membership_status !== 'exit_scheduled') : ?>
-                                                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-exit-modal-id="<?php echo esc_attr($exit_modal_id); ?>">
+                                                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-exit-modal-id="<?php echo esc_attr($exit_modal_id); ?>">
                                                                     <?php echo esc_html__('Cancelar minha participação', 'juntaplay'); ?>
                                                                 </button>
                                                             <?php endif; ?>
@@ -1959,7 +1959,22 @@ $group_cards[] = trim((string) ob_get_clean());
                         event.stopPropagation();
                         const openModals = document.querySelectorAll('.juntaplay-modal.is-open');
                         openModals.forEach((modal) => closeModal(modal));
-                        window.location.href = '/cancelamento';
+                        const groupId =
+                            exitTrigger.dataset.groupId ||
+                            exitTrigger.getAttribute('data-group-id') ||
+                            exitTrigger.getAttribute('data-group') ||
+                            exitTrigger.closest('[data-group-id]')?.getAttribute('data-group-id') ||
+                            exitTrigger.closest('[data-group]')?.getAttribute('data-group');
+
+                        if (!groupId || Number.isNaN(Number(groupId))) {
+                            console.warn('JuntaPlay: group_id inválido para cancelamento.', {
+                                groupId,
+                                trigger: exitTrigger,
+                            });
+                            return;
+                        }
+
+                        window.location.href = `/cancelamento?group_id=${encodeURIComponent(groupId)}`;
                         return;
                     }
 
