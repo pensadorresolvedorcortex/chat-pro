@@ -147,9 +147,12 @@ switch ($support_type) {
                 <div class="juntaplay-group-complaint__actions">
                     <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($complaint_url); ?>"><?php echo esc_html($complaint_label); ?></a>
                     <?php if (!$is_owner && $membership_status !== 'exit_scheduled') : ?>
-                        <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-exit-modal-id="jp-group-exit-modal-detail-<?php echo esc_attr((string) $group_id); ?>">
+                        <a
+                            class="juntaplay-button juntaplay-button--ghost"
+                            href="<?php echo esc_url(add_query_arg('group_id', (int) $group_id, site_url('/cancelamento'))); ?>"
+                        >
                             <?php echo esc_html__('Cancelar minha participação', 'juntaplay'); ?>
-                        </button>
+                        </a>
                     <?php endif; ?>
                 </div>
             </div>
