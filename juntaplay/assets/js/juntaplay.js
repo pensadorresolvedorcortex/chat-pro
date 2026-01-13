@@ -2427,6 +2427,32 @@
         updateRegisterStep($form, target);
     }
 
+    function normalizeCpfValue(value) {
+        if (!value) {
+            return '';
+        }
+
+        return value.toString().replace(/\D+/g, '').slice(0, 11);
+    }
+
+    function formatCpfValue(value) {
+        var digits = normalizeCpfValue(value);
+
+        if (digits.length <= 3) {
+            return digits;
+        }
+
+        if (digits.length <= 6) {
+            return digits.slice(0, 3) + '.' + digits.slice(3);
+        }
+
+        if (digits.length <= 9) {
+            return digits.slice(0, 3) + '.' + digits.slice(3, 6) + '.' + digits.slice(6);
+        }
+
+        return digits.slice(0, 3) + '.' + digits.slice(3, 6) + '.' + digits.slice(6, 9) + '-' + digits.slice(9);
+    }
+
     $(document).on('click', '[data-auth-step-next]', function (event) {
         event.preventDefault();
 
@@ -2463,7 +2489,18 @@
             return false;
         }
 
+        // Normalize CPF to digits-only before submit to match server-side validation.
+        $form.find('[data-cpf-input]').each(function () {
+            var $input = $(this);
+            $input.val(normalizeCpfValue($input.val()));
+        });
+
         return true;
+    });
+
+    $(document).on('input', '[data-cpf-input]', function () {
+        var $input = $(this);
+        $input.val(formatCpfValue($input.val()));
     });
 
     $(function () {
