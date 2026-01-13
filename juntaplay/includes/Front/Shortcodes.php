@@ -661,79 +661,60 @@ class Shortcodes
 
         $user_id = get_current_user_id();
 
-        $requested_group_id = 0;
-        if (isset($_POST['jp_cancelamento_group_id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
-            $requested_group_id = absint(wp_unslash($_POST['jp_cancelamento_group_id'])); // phpcs:ignore WordPress.Security.NonceVerification.Missing
-        } elseif (isset($_GET['group_id'])) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            $requested_group_id = absint(wp_unslash($_GET['group_id'])); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        // Validação 1: group_id obrigatório via query string.
+        $group_id = isset($_GET['group_id']) ? absint(wp_unslash($_GET['group_id'])) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        if ($group_id <= 0) {
+            return '<p class="juntaplay-notice">' . esc_html__('Grupo inválido para cancelamento. Volte para seus grupos e tente novamente.', 'juntaplay') . '</p>';
         }
 
-        $groups = Groups::get_groups_for_user($user_id);
-        $member_groups = isset($groups['member']) && is_array($groups['member']) ? $groups['member'] : [];
-
-        $eligible_groups = array_values(array_filter($member_groups, static function (array $group): bool {
-            $role = isset($group['membership_role']) ? (string) $group['membership_role'] : 'member';
-            $status = isset($group['membership_status']) ? (string) $group['membership_status'] : 'active';
-            $blocked_roles = ['owner', 'manager', 'staff', 'system'];
-
-            if ($status === 'guest') {
-                return false;
-            }
-
-            return !in_array($role, $blocked_roles, true);
-        }));
-
-        $selected_group = null;
-        if ($requested_group_id > 0) {
-            foreach ($eligible_groups as $group) {
-                if ((int) ($group['id'] ?? 0) === $requested_group_id) {
-                    $selected_group = $group;
-                    break;
-                }
-            }
-        } elseif (count($eligible_groups) === 1) {
-            $selected_group = $eligible_groups[0];
-        }
-
-        if (!$selected_group) {
-            return '<p class="juntaplay-notice">' . esc_html__('Nenhum grupo elegível para cancelamento foi localizado. Volte para seus grupos e tente novamente.', 'juntaplay') . '</p>';
-        }
-
-        $group_id = (int) ($selected_group['id'] ?? 0);
-        $group_name = (string) ($selected_group['title'] ?? '');
-        $membership_status = isset($selected_group['membership_status']) ? (string) $selected_group['membership_status'] : 'active';
-        $membership_exit_effective_at = isset($selected_group['membership_exit_effective_at']) ? (string) $selected_group['membership_exit_effective_at'] : '';
-
+        // Validação 2: membership existente.
         $membership = GroupMembers::get_membership($group_id, $user_id);
         if (!$membership) {
             return '<p class="juntaplay-notice">' . esc_html__('Você não participa deste grupo ou sua participação já foi encerrada.', 'juntaplay') . '</p>';
         }
 
-        if (($membership['role'] ?? '') === 'owner') {
-            return '<p class="juntaplay-notice">' . esc_html__('Você é o administrador deste grupo. Use as ferramentas de gerenciamento para encerrar a participação.', 'juntaplay') . '</p>';
+        // Validação 3: papel do usuário (bloqueia administradores).
+        $membership_role = isset($membership['role']) ? (string) $membership['role'] : 'member';
+        $blocked_roles = ['owner', 'manager', 'staff', 'system'];
+        if (in_array($membership_role, $blocked_roles, true)) {
+            return '<p class="juntaplay-notice">' . esc_html__('Você é administrador deste grupo e não pode cancelar sua própria participação.', 'juntaplay') . '</p>';
         }
 
-        $cycle_end = '';
+        // Validação 4: status permitido (apenas active).
+        $membership_status = isset($membership['status']) ? (string) $membership['status'] : 'active';
+        if ($membership_status !== 'active') {
+            return '<p class="juntaplay-notice">' . esc_html__('Sua participação não está ativa para cancelamento.', 'juntaplay') . '</p>';
+        }
+
+        // Validação 5: ciclo de caução ativo.
         $cycles = CaucaoCycles::get_latest_for_user_groups($user_id, [$group_id]);
-        if (isset($cycles[$group_id])) {
-            $cycle_end = (string) ($cycles[$group_id]['cycle_end'] ?? '');
+        if (!isset($cycles[$group_id])) {
+            return '<p class="juntaplay-notice">' . esc_html__('Não foi possível localizar o ciclo de caução deste grupo. Tente novamente em instantes.', 'juntaplay') . '</p>';
         }
 
-        $cycle_end_ts = $cycle_end !== '' ? strtotime($cycle_end) : false;
-        if (!$cycle_end_ts && $membership_exit_effective_at !== '') {
-            $cycle_end_ts = strtotime($membership_exit_effective_at);
+        $cycle_end = (string) ($cycles[$group_id]['cycle_end'] ?? '');
+        if ($cycle_end === '') {
+            return '<p class="juntaplay-notice">' . esc_html__('Não foi possível identificar a data de vencimento do ciclo. Tente novamente em instantes.', 'juntaplay') . '</p>';
         }
 
+        $cycle_end_ts = strtotime($cycle_end);
+        if (!$cycle_end_ts) {
+            return '<p class="juntaplay-notice">' . esc_html__('Não foi possível calcular a data de vencimento do ciclo. Tente novamente em instantes.', 'juntaplay') . '</p>';
+        }
+
+        // Cálculo de datas: a saída efetiva sempre ocorre no cycle_end.
         $now_ts = current_time('timestamp');
-        $is_within_15_days = $cycle_end_ts ? ($cycle_end_ts - $now_ts) < (15 * DAY_IN_SECONDS) : false;
+        $days_until_cycle_end = (int) floor(($cycle_end_ts - $now_ts) / DAY_IN_SECONDS);
+        $is_within_15_days = $days_until_cycle_end < 15;
+        $exit_effective_ts = $cycle_end_ts;
+        $exit_effective_at = date('Y-m-d H:i:s', $exit_effective_ts);
+        $exit_display = date_i18n(get_option('date_format'), $exit_effective_ts);
 
-        // Calcula a data efetiva de saída com base no ciclo vigente e na regra de 15 dias.
-        $exit_effective_ts = $cycle_end_ts ?: $now_ts;
-        $exit_effective_at = $exit_effective_ts ? date('Y-m-d H:i:s', $exit_effective_ts) : '';
-        $exit_display = $exit_effective_ts ? date_i18n(get_option('date_format'), $exit_effective_ts) : '';
-
-        // Define o destino da caução conforme a antecedência do pedido.
+        // Decisão da caução: muda apenas a mensagem, a data permanece a mesma.
         $caucao_will_return = !$is_within_15_days;
+
+        $group = Groups::get($group_id);
+        $group_name = is_array($group) ? (string) ($group['title'] ?? '') : '';
 
         $notice_title = esc_html__('Aviso Importante!', 'juntaplay');
         $user = get_user_by('id', $user_id);
@@ -743,12 +724,7 @@ class Shortcodes
         $errors = [];
         $scheduled = false;
 
-        if ($membership_status === 'exit_scheduled') {
-            $exit_display = $membership_exit_effective_at !== ''
-                ? date_i18n(get_option('date_format'), strtotime($membership_exit_effective_at))
-                : $exit_display;
-            $scheduled = true;
-        } elseif (!empty($_POST['jp_cancelamento_submit'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+        if (!empty($_POST['jp_cancelamento_submit'])) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
             $nonce = isset($_POST['jp_cancelamento_nonce']) ? wp_unslash($_POST['jp_cancelamento_nonce']) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
             if (!wp_verify_nonce($nonce, 'jp_cancelamento')) {
                 $errors[] = esc_html__('Sua sessão expirou. Atualize a página e tente novamente.', 'juntaplay');
