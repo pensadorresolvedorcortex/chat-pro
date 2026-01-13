@@ -147,7 +147,7 @@ switch ($support_type) {
                 <div class="juntaplay-group-complaint__actions">
                     <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($complaint_url); ?>"><?php echo esc_html($complaint_label); ?></a>
                     <?php if (!$is_owner && $membership_status !== 'exit_scheduled') : ?>
-                        <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-exit-modal-id="jp-group-exit-modal-detail-<?php echo esc_attr((string) $group_id); ?>">
+                        <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-exit-modal-id="jp-group-exit-modal-detail-<?php echo esc_attr((string) $group_id); ?>">
                             <?php echo esc_html__('Cancelar minha participação', 'juntaplay'); ?>
                         </button>
                     <?php endif; ?>
@@ -376,7 +376,23 @@ switch ($support_type) {
             });
 
             document.body.classList.remove('juntaplay-modal-open');
-            window.location.href = '/cancelamento';
+
+            const groupId =
+                trigger.dataset.groupId ||
+                trigger.getAttribute('data-group-id') ||
+                trigger.getAttribute('data-group') ||
+                trigger.closest('[data-group-id]')?.getAttribute('data-group-id') ||
+                trigger.closest('[data-group]')?.getAttribute('data-group');
+
+            if (!groupId || Number.isNaN(Number(groupId))) {
+                console.warn('JuntaPlay: group_id inválido para cancelamento.', {
+                    groupId,
+                    trigger,
+                });
+                return;
+            }
+
+            window.location.href = `/cancelamento?group_id=${encodeURIComponent(groupId)}`;
         });
 
         document.addEventListener('click', (event) => {
