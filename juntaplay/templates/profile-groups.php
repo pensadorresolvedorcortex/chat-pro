@@ -1570,9 +1570,12 @@ if ($group_suggestions) {
                                                                 <?php echo esc_html($toggle_label); ?>
                                                             </button>
                                                             <?php if ($membership_status !== 'exit_scheduled') : ?>
-                                                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-exit-trigger data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-exit-modal-id="<?php echo esc_attr($exit_modal_id); ?>">
+                                                                <a
+                                                                    class="juntaplay-button juntaplay-button--ghost"
+                                                                    href="<?php echo esc_url(add_query_arg('group_id', (int) $group_id, site_url('/cancelamento'))); ?>"
+                                                                >
                                                                     <?php echo esc_html__('Cancelar minha participação', 'juntaplay'); ?>
-                                                                </button>
+                                                                </a>
                                                             <?php endif; ?>
                                                         </div>
                                                         <form id="jp-group-complaint-<?php echo esc_attr($group_id); ?>" class="juntaplay-group-complaint__form<?php echo $form_open ? ' is-open' : ' is-hidden'; ?>" method="post" enctype="multipart/form-data" data-group-complaint-form>
