@@ -719,6 +719,12 @@ class Shortcodes
         }
 
         $has_caucao = (bool) $caucao;
+        $caucao_amount = 0.0;
+        if ($has_caucao) {
+            $caucao_amount = is_array($caucao)
+                ? (float) ($caucao['amount'] ?? 0.0)
+                : (float) ($caucao->amount ?? 0.0);
+        }
 
         $cycle_end = '';
         if ($has_caucao) {
@@ -757,6 +763,9 @@ class Shortcodes
 
         // Decisão da caução: muda apenas a mensagem, a data permanece a mesma.
         $caucao_will_return = $has_caucao ? !$is_within_15_days : false;
+        $caucao_status = $has_caucao && $exit_display !== ''
+            ? sprintf(__('Retido até %s', 'juntaplay'), $exit_display)
+            : __('Retido (aguardando confirmação do ciclo)', 'juntaplay');
 
         $notice_title = esc_html__('Aviso Importante!', 'juntaplay');
         $user = get_user_by('id', $user_id);
@@ -867,20 +876,14 @@ class Shortcodes
                     }
                     ?>
                 </p>
-                <?php if ($has_caucao) : ?>
-                    <p class="juntaplay-cancelamento__text">
-                        <?php
-                        echo esc_html__(
-                            'Atenção: você pagou um crédito de assinatura (caução) ao entrar no grupo. Para recebê-lo de volta, o cancelamento deve ser solicitado com no mínimo 15 dias de antecedência e não pode haver pendências.',
-                            'juntaplay'
-                        );
-                        ?>
-                    </p>
-                <?php else : ?>
-                    <p class="juntaplay-cancelamento__text">
-                        <?php echo esc_html__('Este grupo não possui caução ativa vinculada à sua assinatura.', 'juntaplay'); ?>
-                    </p>
-                <?php endif; ?>
+                <p class="juntaplay-cancelamento__text">
+                    <?php
+                    echo esc_html__(
+                        'Atenção: você pagou um crédito de assinatura (caução) ao entrar no grupo. Para recebê-lo de volta, o cancelamento deve ser solicitado com no mínimo 15 dias de antecedência e não pode haver pendências.',
+                        'juntaplay'
+                    );
+                    ?>
+                </p>
 
                 <?php if ($errors) : ?>
                     <div class="juntaplay-alert juntaplay-alert--danger">
@@ -922,14 +925,14 @@ class Shortcodes
                         <li><strong><?php echo esc_html__('Grupo:', 'juntaplay'); ?></strong> <?php echo esc_html($group_name); ?></li>
                     <?php endif; ?>
                     <li>
-                        <strong><?php echo esc_html__('Caução:', 'juntaplay'); ?></strong>
+                        <strong><?php echo esc_html__('Calção do grupo:', 'juntaplay'); ?></strong>
                         <?php
-                        if (!$has_caucao) {
-                            echo esc_html__('Sem caução ativa', 'juntaplay');
-                        } else {
-                            echo $caucao_will_return ? esc_html__('Devolvida', 'juntaplay') : esc_html__('Utilizada', 'juntaplay');
-                        }
+                        echo $caucao_amount > 0 ? wp_kses_post(wc_price($caucao_amount)) : esc_html__('Consulte o pedido de adesão', 'juntaplay');
                         ?>
+                    </li>
+                    <li>
+                        <strong><?php echo esc_html__('Status atual:', 'juntaplay'); ?></strong>
+                        <?php echo esc_html($caucao_status); ?>
                     </li>
                 </ul>
 
