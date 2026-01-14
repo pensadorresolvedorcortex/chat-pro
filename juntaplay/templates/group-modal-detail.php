@@ -125,7 +125,7 @@ switch ($support_type) {
     </header>
 
     <div class="juntaplay-group-modal__body">
-        <?php if ($price_highlight !== '' || $cta_label !== '' || $admin_cancel_allowed) : ?>
+        <?php if ($price_highlight !== '' || $cta_label !== '') : ?>
             <div class="juntaplay-group-modal__cta">
                 <?php if ($price_highlight !== '') : ?>
                     <span class="juntaplay-group-modal__cta-price"><?php echo esc_html($price_highlight); ?></span>
@@ -136,16 +136,6 @@ switch ($support_type) {
                     <?php else : ?>
                         <button type="button" class="juntaplay-button juntaplay-button--primary" disabled><?php echo esc_html($cta_label); ?></button>
                     <?php endif; ?>
-                <?php endif; ?>
-                <?php if ($admin_cancel_allowed) : ?>
-                    <button
-                        type="button"
-                        class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
-                        data-group-admin-cancel-open
-                        data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
-                    >
-                        <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
-                    </button>
                 <?php endif; ?>
             </div>
         <?php endif; ?>
