@@ -408,6 +408,19 @@ switch ($support_type) {
             </section>
         <?php endif; ?>
 
+        <?php if ($admin_cancel_allowed) : ?>
+            <div class="juntaplay-group-modal__section" style="margin-top: 16px;">
+                <button
+                    type="button"
+                    class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
+                    data-group-admin-cancel-open
+                    data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
+                >
+                    <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
+                </button>
+            </div>
+        <?php endif; ?>
+
     </div>
 </div>
 <script>
