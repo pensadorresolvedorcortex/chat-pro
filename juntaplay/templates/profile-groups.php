@@ -1071,7 +1071,13 @@ if ($group_suggestions) {
                         || in_array($group_role_key, ['owner', 'manager', 'creator', 'admin', 'administrator'], true)
                         || (is_string($role_label) && stripos($role_label, 'administra') !== false);
                     $status_key = strtolower(trim($status));
-                    $is_admin_canceled = $status_key === Groups::STATUS_CANCELED_BY_ADMIN;
+                    $admin_cancel_statuses = [
+                        Groups::STATUS_CANCELED_BY_ADMIN,
+                        'cancelled_by_admin',
+                        'admin_canceled',
+                        'admin_cancelled',
+                    ];
+                    $is_admin_canceled = in_array($status_key, $admin_cancel_statuses, true);
                     $admin_cancel_allowed = $is_admin_role
                         && in_array($status_key, ['active', Groups::STATUS_APPROVED], true);
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
