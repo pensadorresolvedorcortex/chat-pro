@@ -1170,7 +1170,9 @@ if ($group_suggestions) {
                 data-chat-link="<?php echo esc_url($chat_link_prefill); ?>"
                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
             >
-                        <span class="special-offer" aria-hidden="true">Cancelado!</span>
+                        <?php if ($status === 'canceled_by_admin' && in_array($group_role, ['owner', 'manager'], true)) : ?>
+                            <span class="group-status-cancelled" aria-hidden="true">Cancelado!</span>
+                        <?php endif; ?>
                         <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
                             <span
                                 class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"

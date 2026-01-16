@@ -7237,28 +7237,18 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
    ADMIN CANCEL BADGE (UX PREMIUM)
 ================================ */
 
-/* Oculto por padrão */
-.special-offer {
-    display: none;
-}
-
-article[data-group-status="canceled_by_admin"][data-group-role="owner"] .special-offer,
-article[data-group-status="canceled_by_admin"][data-group-role="manager"] .special-offer {
-    display: block;
+.group-status-cancelled {
     position: absolute;
-    top: 14px;
-    left: -38px;
-    background-color: #FF4858;
-    color: #ffffff;
-    padding: 6px 40px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    transform: rotate(-45deg);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-    z-index: 10;
+    top: 12px;
+    left: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8B8B8B;
+    background: rgba(0, 0, 0, 0.04);
+    padding: 4px 10px;
+    border-radius: 8px;
     pointer-events: none;
+    user-select: none;
 }
 
 article[data-group-status="canceled_by_admin"] .juntaplay-join-button,
