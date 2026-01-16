@@ -7238,6 +7238,7 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
    Badge Cancelamento (Ribbon)
 ================================ */
 .juntaplay-group-card__cancel-ribbon {
+    display: none;
     position: absolute;
     top: 14px;
     right: -38px;
@@ -7251,6 +7252,11 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
     z-index: 30;
     pointer-events: none;
+}
+
+article[data-group-status="canceled_by_admin"][data-group-role="owner"] .juntaplay-group-card__cancel-ribbon,
+article[data-group-status="canceled_by_admin"][data-group-role="manager"] .juntaplay-group-card__cancel-ribbon {
+    display: block;
 }
 
 article[data-group-status="canceled_by_admin"] {
