@@ -1072,8 +1072,13 @@ if ($group_suggestions) {
                         || (is_string($role_label) && stripos($role_label, 'administra') !== false);
                     $admin_cancel_allowed = $is_admin_role && $status === 'active';
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
-                    $show_admin_cancel_badge = in_array($group_role_key, ['owner', 'manager'], true)
-                        && in_array($membership_status, ['exited_by_group_cancellation', 'active_until_end_of_cycle'], true);
+                    $is_admin_badge_role = $is_owner || $group_role_key === 'manager';
+                    $is_admin_cancel_status = in_array(
+                        $membership_status,
+                        ['exited_by_group_cancellation', 'active_until_end_of_cycle'],
+                        true
+                    ) || $status === 'canceled_by_admin';
+                    $show_admin_cancel_badge = $is_admin_badge_role && $is_admin_cancel_status;
 
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
