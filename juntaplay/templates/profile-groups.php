@@ -1070,7 +1070,8 @@ if ($group_suggestions) {
                     $is_admin_role  = $owner_id === $current_user_id
                         || in_array($group_role_key, ['owner', 'manager', 'creator', 'admin', 'administrator'], true)
                         || (is_string($role_label) && stripos($role_label, 'administra') !== false);
-                    $status_key = strtolower($status);
+                    $status_key = strtolower(trim($status));
+                    $status_label_key = is_string($status_label) ? strtolower(trim($status_label)) : '';
                     $admin_cancel_statuses = [
                         'canceled_by_admin',
                         'cancelled_by_admin',
@@ -1078,6 +1079,11 @@ if ($group_suggestions) {
                         'admin_cancelled',
                     ];
                     $is_admin_canceled = in_array($status_key, $admin_cancel_statuses, true);
+                    if (!$is_admin_canceled && $status_label_key !== '') {
+                        $has_cancel_label = strpos($status_label_key, 'cancelado') !== false
+                            && (strpos($status_label_key, 'admin') !== false || strpos($status_label_key, 'administrador') !== false);
+                        $is_admin_canceled = $has_cancel_label;
+                    }
                     $admin_cancel_allowed = $is_admin_role && $status === 'active';
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
                     $chat_link_prefill  = '';
