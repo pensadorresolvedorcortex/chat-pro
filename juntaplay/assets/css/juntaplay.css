@@ -7238,33 +7238,27 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
    Badge Cancelamento (Ribbon)
 ================================ */
 .juntaplay-group-card__cancel-ribbon {
-    display: none;
     position: absolute;
     top: 14px;
-    right: -38px;
+    right: -46px;
     background-color: #ff4858;
     color: #ffffff;
-    padding: 6px 40px;
+    padding: 6px 44px;
     font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.4px;
     transform: rotate(45deg);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     z-index: 30;
     pointer-events: none;
 }
 
-article[data-group-status="canceled_by_admin"][data-group-role="owner"] .juntaplay-group-card__cancel-ribbon,
-article[data-group-status="canceled_by_admin"][data-group-role="manager"] .juntaplay-group-card__cancel-ribbon {
-    display: block;
-}
-
-article[data-group-status="canceled_by_admin"] {
+article.is-admin-canceled {
     pointer-events: none;
     opacity: 0.75;
 }
 
-article[data-group-status="canceled_by_admin"] .juntaplay-group-card__footer {
+article.is-admin-canceled .juntaplay-group-card__footer {
     pointer-events: auto;
 }
 

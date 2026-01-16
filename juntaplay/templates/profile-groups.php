@@ -1156,6 +1156,9 @@ if ($group_suggestions) {
                         'juntaplay-service-card--group',
                         'juntaplay-service-card--highlight',
                     ];
+                    if ($is_admin_canceled && $is_admin_role) {
+                        $service_classes[] = 'is-admin-canceled';
+                    }
 
             $card_link_attrs = $cta_url !== ''
                 ? ' href="' . esc_url($cta_url) . '"'
@@ -1173,9 +1176,11 @@ if ($group_suggestions) {
                 data-chat-link="<?php echo esc_url($chat_link_prefill); ?>"
                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
             >
-                        <span class="juntaplay-group-card__cancel-ribbon" aria-hidden="true">
-                            <?php echo esc_html__('Cancelado!', 'juntaplay'); ?>
-                        </span>
+                        <?php if ($is_admin_canceled && $is_admin_role) : ?>
+                            <span class="juntaplay-group-card__cancel-ribbon" aria-hidden="true">
+                                <?php echo esc_html__('Cancelado!', 'juntaplay'); ?>
+                            </span>
+                        <?php endif; ?>
                         <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
                             <span
                                 class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
