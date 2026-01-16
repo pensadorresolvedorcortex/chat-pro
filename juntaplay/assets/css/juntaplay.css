@@ -7255,6 +7255,67 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
     pointer-events: none;
 }
 
+/* ===============================
+   Tooltip – Cancelamento Admin
+================================ */
+.juntaplay-group-card__cancel-ribbon,
+.juntaplay-group-card_cancel-ribbon {
+    cursor: help;
+    pointer-events: auto;
+}
+
+/* Tooltip container */
+.juntaplay-group-card__cancel-ribbon::after,
+.juntaplay-group-card_cancel-ribbon::after {
+    content: "Este grupo foi cancelado pelo administrador e não aceita novos participantes.";
+    position: absolute;
+    bottom: calc(100% + 10px);
+    right: 0;
+    width: 260px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    font-weight: 500;
+    color: #ffffff;
+    background: rgba(20, 20, 20, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 12px;
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    transform: translateY(6px);
+    pointer-events: none;
+    transition: all 0.25s ease;
+    z-index: 100;
+}
+
+/* Tooltip arrow */
+.juntaplay-group-card__cancel-ribbon::before,
+.juntaplay-group-card_cancel-ribbon::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 2px);
+    right: 16px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(20, 20, 20, 0.55) transparent transparent transparent;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.25s ease;
+    z-index: 99;
+}
+
+/* Hover state */
+.juntaplay-group-card__cancel-ribbon:hover::after,
+.juntaplay-group-card__cancel-ribbon:hover::before,
+.juntaplay-group-card_cancel-ribbon:hover::after,
+.juntaplay-group-card_cancel-ribbon:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 article.is-admin-canceled {
     pointer-events: none;
     opacity: 0.75;
