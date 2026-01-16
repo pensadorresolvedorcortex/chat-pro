@@ -1171,7 +1171,7 @@ if ($group_suggestions) {
                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
             >
                         <span class="jp-admin-cancel-badge" aria-hidden="true">
-                            <span class="jp-admin-cancel-dot"></span>Grupo em cancelamento
+                            <span class="jp-admin-cancel-dot"></span>
                         </span>
                         <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
                             <span
