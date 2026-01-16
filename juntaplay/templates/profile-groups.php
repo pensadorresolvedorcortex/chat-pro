@@ -1072,14 +1072,6 @@ if ($group_suggestions) {
                         || (is_string($role_label) && stripos($role_label, 'administra') !== false);
                     $admin_cancel_allowed = $is_admin_role && $status === 'active';
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
-                    $is_admin_badge_role = $is_owner || $group_role_key === 'manager';
-                    $is_admin_cancel_status = in_array(
-                        $membership_status,
-                        ['exited_by_group_cancellation', 'active_until_end_of_cycle'],
-                        true
-                    ) || $status === 'canceled_by_admin';
-                    $show_admin_cancel_badge = $is_admin_badge_role && $is_admin_cancel_status;
-
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
 
@@ -1178,11 +1170,9 @@ if ($group_suggestions) {
                 data-chat-link="<?php echo esc_url($chat_link_prefill); ?>"
                 data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>"
             >
-                        <?php if ($show_admin_cancel_badge) : ?>
-                            <span class="juntaplay-group-card__admin-cancel-badge">
-                                <?php echo esc_html__('Cancelamento', 'juntaplay'); ?>
-                            </span>
-                        <?php endif; ?>
+                        <span class="jp-badge-cancelamento">
+                            <?php echo esc_html__('Cancelamento', 'juntaplay'); ?>
+                        </span>
                         <a class="juntaplay-service-card__link"<?php echo $card_link_attrs; ?> data-jp-group-open data-group-id="<?php echo esc_attr((string) $group_id); ?>" data-chat-link="<?php echo esc_url($chat_link_prefill); ?>" data-chat-label="<?php echo esc_attr($chat_label_prefill); ?>">
                             <span
                                 class="<?php echo esc_attr(implode(' ', $icon_classes)); ?>"
