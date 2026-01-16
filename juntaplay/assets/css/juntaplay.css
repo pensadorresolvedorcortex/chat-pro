@@ -7238,49 +7238,27 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
 ================================ */
 
 /* Oculto por padrão */
-.jp-admin-cancel-badge {
+.special-offer {
     display: none;
 }
 
-article[data-group-status="canceled_by_admin"][data-group-role="owner"] .jp-admin-cancel-badge,
-article[data-group-status="canceled_by_admin"][data-group-role="manager"] .jp-admin-cancel-badge {
-    display: flex;
+article[data-group-status="canceled_by_admin"][data-group-role="owner"] .special-offer,
+article[data-group-status="canceled_by_admin"][data-group-role="manager"] .special-offer {
+    display: block;
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 34px;
-    height: 34px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 80, 80, 0.35);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow:
-        0 8px 20px rgba(255, 80, 80, 0.35),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.35);
-    z-index: 50;
-}
-
-.jp-admin-cancel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
-    animation: jp-pulse 1.6s infinite;
-}
-
-@keyframes jp-pulse {
-    0% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.35;
-    }
-    100% {
-        opacity: 1;
-    }
+    top: 14px;
+    left: -38px;
+    background-color: #FF4858;
+    color: #ffffff;
+    padding: 6px 40px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    transform: rotate(-45deg);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    z-index: 10;
+    pointer-events: none;
 }
 
 article[data-group-status="canceled_by_admin"] .juntaplay-join-button,
