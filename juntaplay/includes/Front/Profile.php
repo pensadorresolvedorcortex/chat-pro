@@ -6588,6 +6588,28 @@ class Profile
         }
 
         $group = Groups::get($group_id);
+        if (!is_array($group) && method_exists(Groups::class, 'get_by_id')) {
+            $group = Groups::get_by_id($group_id);
+        }
+        if (!is_array($group) && method_exists(Groups::class, 'get_group')) {
+            $group = Groups::get_group($group_id);
+        }
+        if (!is_array($group) && method_exists(Groups::class, 'get_groups_for_user')) {
+            $groups_for_user = Groups::get_groups_for_user($user_id);
+            $candidates = [];
+            if (is_array($groups_for_user)) {
+                $candidates = array_merge(
+                    isset($groups_for_user['owned']) && is_array($groups_for_user['owned']) ? $groups_for_user['owned'] : [],
+                    isset($groups_for_user['member']) && is_array($groups_for_user['member']) ? $groups_for_user['member'] : []
+                );
+            }
+            foreach ($candidates as $candidate) {
+                if (is_array($candidate) && (int) ($candidate['id'] ?? 0) === $group_id) {
+                    $group = $candidate;
+                    break;
+                }
+            }
+        }
         if (!is_array($group)) {
             $this->add_error('group_admin_cancel', __('Grupo não encontrado.', 'juntaplay'));
 
