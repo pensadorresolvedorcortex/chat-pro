@@ -7239,19 +7239,25 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
 ================================ */
 .juntaplay-group-card__cancel-ribbon {
     position: absolute;
-    top: 12px;
-    right: -32px;
-    background-color: #ff4858;
-    color: #ffffff;
-    padding: 6px 28px;
-    font-size: 11px;
-    font-weight: 700;
+    top: 14px;
+    right: 14px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
     letter-spacing: 0.3px;
-    text-transform: uppercase;
-    border-radius: 6px;
-    transform: rotate(20deg);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-    z-index: 30;
+    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        rgba(120, 20, 20, 0.55),
+        rgba(60, 10, 10, 0.45)
+    );
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow:
+        0 8px 20px rgba(120, 20, 20, 0.35),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+    z-index: 40;
     pointer-events: none;
 }
 
@@ -7267,7 +7273,7 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
 /* Tooltip container */
 .juntaplay-group-card__cancel-ribbon::after,
 .juntaplay-group-card_cancel-ribbon::after {
-    content: "Este grupo foi cancelado pelo administrador e não aceita novos participantes.";
+    content: "Este grupo foi encerrado pelo administrador.";
     position: absolute;
     bottom: calc(100% + 10px);
     right: 0;
@@ -7318,7 +7324,8 @@ section.juntaplay-groups form.juntaplay-filters .juntaplay-filters__actions .jun
 
 article.is-admin-canceled {
     pointer-events: none;
-    opacity: 0.75;
+    opacity: 0.88;
+    filter: grayscale(0.25);
 }
 
 article.is-admin-canceled .juntaplay-group-card__footer {
