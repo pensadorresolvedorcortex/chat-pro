@@ -1084,7 +1084,8 @@ if ($group_suggestions) {
                             && (strpos($status_label_key, 'admin') !== false || strpos($status_label_key, 'administrador') !== false);
                         $is_admin_canceled = $has_cancel_label;
                     }
-                    $admin_cancel_allowed = $is_admin_role && $status === 'active';
+                    $admin_cancel_allowed = $is_admin_role
+                        && in_array($status_key, ['active', Groups::STATUS_APPROVED], true);
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
