@@ -1072,7 +1072,8 @@ if ($group_suggestions) {
                         || (is_string($role_label) && stripos($role_label, 'administra') !== false);
                     $admin_cancel_allowed = $is_admin_role && $status === 'active';
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
-                    $show_admin_cancel_badge = $is_admin_role && $status === Groups::STATUS_CANCELED_BY_ADMIN;
+                    $show_admin_cancel_badge = in_array($group_role_key, ['owner', 'manager'], true)
+                        && in_array($membership_status, ['exited_by_group_cancellation', 'active_until_end_of_cycle'], true);
 
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
