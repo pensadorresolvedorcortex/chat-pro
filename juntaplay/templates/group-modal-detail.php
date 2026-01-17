@@ -273,7 +273,7 @@ switch ($support_type) {
                         <?php endif; ?>
                     <?php endif; ?>
                     <?php if ($should_show_contact) : ?>
-                        <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($contact_url); ?>"><?php echo esc_html($contact_label); ?></a>
+                        <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($contact_url); ?>" data-group-contact-link><?php echo esc_html($contact_label); ?></a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -740,6 +740,20 @@ switch ($support_type) {
                 } else {
                     input.type = 'password';
                     toggleButton.textContent = <?php echo wp_json_encode(__('Mostrar', 'juntaplay')); ?>;
+                }
+                return;
+            }
+
+            const contactLink = event.target.closest('[data-group-contact-link]');
+            if (contactLink) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (typeof event.stopImmediatePropagation === 'function') {
+                    event.stopImmediatePropagation();
+                }
+                const destination = contactLink.getAttribute('href');
+                if (destination) {
+                    window.location.href = destination;
                 }
                 return;
             }
