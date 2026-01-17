@@ -1092,7 +1092,6 @@ if ($group_suggestions) {
                     $admin_cancel_allowed = $is_admin_role
                         && in_array($status_key, ['active', Groups::STATUS_APPROVED], true);
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
-                    $access_modal_id = $is_admin_role ? 'jp-group-access-modal-' . $group_id : '';
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
 
@@ -1316,15 +1315,25 @@ if ($group_suggestions) {
                                                     </button>
                                                 <?php endif; ?>
                                                 <?php if ($membership_status !== 'guest') : ?>
-                                                    <button
-                                                        type="button"
-                                                        class="juntaplay-group-card__access-btn"
-                                                        data-group-access="<?php echo esc_attr((string) $group_id); ?>"
-                                                        data-group-access-mode="<?php echo esc_attr($is_admin_role ? 'send' : 'view'); ?>"
-                                                        <?php echo $access_modal_id !== '' ? 'data-group-access-modal="' . esc_attr($access_modal_id) . '"' : ''; ?>
-                                                    >
-                                                        <?php esc_html_e('Dados de Acesso', 'juntaplay'); ?>
-                                                    </button>
+                                                    <?php if ($is_admin_role) : ?>
+                                                        <button
+                                                            type="button"
+                                                            class="juntaplay-group-card__access-btn juntaplay-group-card__edit"
+                                                            data-group-id="<?php echo esc_attr((string) $group_id); ?>"
+                                                            data-group-edit-step="access"
+                                                        >
+                                                            <?php esc_html_e('Dados de Acesso', 'juntaplay'); ?>
+                                                        </button>
+                                                    <?php else : ?>
+                                                        <button
+                                                            type="button"
+                                                            class="juntaplay-group-card__access-btn"
+                                                            data-group-access="<?php echo esc_attr((string) $group_id); ?>"
+                                                            data-group-access-mode="view"
+                                                        >
+                                                            <?php esc_html_e('Dados de Acesso', 'juntaplay'); ?>
+                                                        </button>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                                 <?php
                                                 $chat_link  = $chat_link_prefill;
