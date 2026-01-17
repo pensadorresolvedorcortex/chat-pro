@@ -673,6 +673,10 @@ class Auth
     {
         $method = (string) get_user_meta($user->ID, 'juntaplay_two_factor_method', true);
 
+        if ($method === '') {
+            return true;
+        }
+
         return in_array($method, ['email', 'whatsapp'], true);
     }
 
