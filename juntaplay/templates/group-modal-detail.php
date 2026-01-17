@@ -273,7 +273,7 @@ switch ($support_type) {
                         <?php endif; ?>
                     <?php endif; ?>
                     <?php if ($should_show_contact) : ?>
-                        <a class="juntaplay-button juntaplay-button--ghost" href="<?php echo esc_url($contact_url); ?>" data-group-contact-link><?php echo esc_html($contact_label); ?></a>
+                        <a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" href="<?php echo esc_url($contact_url); ?>" data-group-contact-link><?php echo esc_html($contact_label); ?></a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -632,23 +632,31 @@ switch ($support_type) {
 </div>
 <script>
     (() => {
-        const detailRoot = document.querySelector('.juntaplay-group-modal__detail');
-        if (detailRoot) {
-            const parentModal = detailRoot.closest('.juntaplay-modal');
-            if (parentModal) {
-                const overlay = parentModal.querySelector('.juntaplay-modal__overlay');
-                const dialog = parentModal.querySelector('.juntaplay-modal__dialog');
-                if (overlay) {
-                    overlay.style.zIndex = '1';
-                }
-                if (dialog) {
-                    dialog.style.zIndex = '2';
-                    dialog.style.position = 'relative';
-                }
-            }
-        }
-
         const cancelamentoBase = <?php echo wp_json_encode(site_url('/cancelamento')); ?>;
+
+        const closeModal = (modal) => {
+            if (!modal) {
+                return;
+            }
+            modal.setAttribute('aria-hidden', 'true');
+            modal.setAttribute('hidden', 'hidden');
+            modal.classList.remove('is-open');
+
+            const openModals = document.querySelectorAll('.juntaplay-modal.is-open');
+            if (!openModals.length) {
+                document.body.classList.remove('juntaplay-modal-open');
+            }
+        };
+
+        const openModal = (modal) => {
+            if (!modal) {
+                return;
+            }
+            modal.removeAttribute('hidden');
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('is-open');
+            document.body.classList.add('juntaplay-modal-open');
+        };
 
         document.addEventListener('click', (event) => {
             const trigger = event.target.closest('[data-group-exit-trigger]');
@@ -660,13 +668,7 @@ switch ($support_type) {
             event.stopPropagation();
 
             const openModals = document.querySelectorAll('.juntaplay-modal.is-open');
-            openModals.forEach((modal) => {
-                modal.setAttribute('aria-hidden', 'true');
-                modal.setAttribute('hidden', 'hidden');
-                modal.classList.remove('is-open');
-            });
-
-            document.body.classList.remove('juntaplay-modal-open');
+            openModals.forEach((modal) => closeModal(modal));
 
             const groupId =
                 trigger.dataset.groupId ||
@@ -698,10 +700,8 @@ switch ($support_type) {
                 if (!modal) {
                     return;
                 }
-                modal.removeAttribute('hidden');
-                modal.setAttribute('aria-hidden', 'false');
-                modal.classList.add('is-open');
-                document.body.classList.add('juntaplay-modal-open');
+                closeModal(adminCancelTrigger.closest('.juntaplay-modal'));
+                openModal(modal);
                 return;
             }
 
@@ -716,10 +716,8 @@ switch ($support_type) {
                 if (!modal) {
                     return;
                 }
-                modal.removeAttribute('hidden');
-                modal.setAttribute('aria-hidden', 'false');
-                modal.classList.add('is-open');
-                document.body.classList.add('juntaplay-modal-open');
+                closeModal(credentialsTrigger.closest('.juntaplay-modal'));
+                openModal(modal);
                 return;
             }
 

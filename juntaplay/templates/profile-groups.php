@@ -1273,7 +1273,7 @@ if ($group_suggestions) {
                                                     <?php endif; ?>
                                                 </div>
                                             </div>
-                                            <?php if ($cta_label !== '' || $price_highlight !== '' || $admin_cancel_allowed) : ?>
+                                            <?php if ($cta_label !== '' || $price_highlight !== '') : ?>
                                                 <div class="juntaplay-group-card__cta juntaplay-group-modal__cta">
                                                     <?php if ($price_highlight !== '') : ?>
                                                         <span class="juntaplay-group-card__cta-price"><?php echo esc_html($price_highlight); ?></span>
@@ -1293,32 +1293,23 @@ if ($group_suggestions) {
                                                             <button type="button" class="<?php echo esc_attr($cta_class_attr); ?>" disabled><?php echo esc_html($cta_label); ?></button>
                                                         <?php endif; ?>
                                                     <?php endif; ?>
-                                                    <?php if ($admin_cancel_allowed) : ?>
-                                                        <button
-                                                            type="button"
-                                                            class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
-                                                            data-group-admin-cancel-open
-                                                            data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
-                                                        >
-                                                            <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
-                                                        </button>
-                                                    <?php endif; ?>
                                                 </div>
                                             <?php endif; ?>
                                             <div class="juntaplay-group-card__details-actions">
                                                 <?php if ($is_owner) : ?>
-                                                    <button type="button" class="juntaplay-group-card__edit" data-group-id="<?php echo esc_attr((string) $group_id); ?>">
-                                                        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-                                                            <path d="M11.013 2.338c.33-.33.866-.33 1.196 0l1.453 1.453c.33.33.33.866 0 1.196l-6.6 6.6a.85.85 0 0 1-.42.228l-2.32.53a.5.5 0 0 1-.6-.6l.53-2.32a.85.85 0 0 1 .228-.42zM9.5 4L3.75 9.75l-.4 1.74l1.74-.4L11 5.5z" fill="currentColor" />
-                                                        </svg>
-                                                        <span><?php esc_html_e('Editar grupo', 'juntaplay'); ?></span>
+                                                    <button
+                                                        type="button"
+                                                        class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__edit"
+                                                        data-group-id="<?php echo esc_attr((string) $group_id); ?>"
+                                                    >
+                                                        <?php esc_html_e('Editar grupo', 'juntaplay'); ?>
                                                     </button>
                                                 <?php endif; ?>
                                                 <?php if ($membership_status !== 'guest') : ?>
                                                     <?php if ($is_admin_role) : ?>
                                                         <button
                                                             type="button"
-                                                            class="juntaplay-group-card__access-btn juntaplay-group-card__edit"
+                                                            class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__access-btn juntaplay-group-card__edit"
                                                             data-group-id="<?php echo esc_attr((string) $group_id); ?>"
                                                             data-group-edit-step="access"
                                                         >
@@ -1327,7 +1318,7 @@ if ($group_suggestions) {
                                                     <?php else : ?>
                                                         <button
                                                             type="button"
-                                                            class="juntaplay-group-card__access-btn"
+                                                            class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__access-btn"
                                                             data-group-access="<?php echo esc_attr((string) $group_id); ?>"
                                                             data-group-access-mode="view"
                                                         >
@@ -1341,6 +1332,16 @@ if ($group_suggestions) {
                                                 ?>
                                                 <?php if ($chat_link !== '' && $chat_label !== '') : ?>
                                                     <a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" href="<?php echo esc_url($chat_link); ?>"><?php echo esc_html($chat_label); ?></a>
+                                                <?php endif; ?>
+                                                <?php if ($admin_cancel_allowed) : ?>
+                                                    <button
+                                                        type="button"
+                                                        class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
+                                                        data-group-admin-cancel-open
+                                                        data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
+                                                    >
+                                                        <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
+                                                    </button>
                                                 <?php endif; ?>
                                             </div>
                                             <div class="juntaplay-group-card__access-panel" data-group-access-panel hidden>
@@ -1887,6 +1888,19 @@ $group_cards[] = trim((string) ob_get_clean());
         <p class="juntaplay-profile__empty"><?php echo esc_html__('Você ainda não participa de nenhum grupo. Crie um novo grupo ou participe de outro grupo para aparecer aqui.', 'juntaplay'); ?></p>
     <?php endif; ?>
     </div>
+
+    <style>
+        .juntaplay-group-card__details-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .juntaplay-group-card__details-actions .juntaplay-button--primary.juntaplay-button--glass {
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
 
     <script>
         (() => {
