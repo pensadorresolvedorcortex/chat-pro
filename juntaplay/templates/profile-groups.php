@@ -1333,6 +1333,16 @@ if ($group_suggestions) {
                                                 <?php if ($chat_link !== '' && $chat_label !== '') : ?>
                                                     <a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" href="<?php echo esc_url($chat_link); ?>"><?php echo esc_html($chat_label); ?></a>
                                                 <?php endif; ?>
+                                                <?php if ($admin_cancel_allowed) : ?>
+                                                    <button
+                                                        type="button"
+                                                        class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
+                                                        data-group-admin-cancel-open
+                                                        data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
+                                                    >
+                                                        <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
+                                                    </button>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="juntaplay-group-card__access-panel" data-group-access-panel hidden>
                                                 <h4 class="juntaplay-group-card__access-title"><?php esc_html_e('Dados de acesso do grupo', 'juntaplay'); ?></h4>
