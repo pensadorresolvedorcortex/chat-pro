@@ -644,11 +644,7 @@ class Auth
 
     private function should_require_two_factor(WP_User $user): bool
     {
-        if (!$this->is_two_factor_enabled($user)) {
-            return false;
-        }
-
-        $method = $this->get_two_factor_method($user);
+        $method = $this->resolve_verification_method($user);
 
         return (bool) apply_filters('juntaplay/login/require_two_factor', true, $user, $method);
     }
