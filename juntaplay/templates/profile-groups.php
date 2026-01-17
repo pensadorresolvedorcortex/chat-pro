@@ -2159,6 +2159,42 @@ $group_cards[] = trim((string) ob_get_clean());
                         return;
                     }
 
+                    const editTrigger = event.target.closest('[data-group-edit-step], .juntaplay-group-card__edit');
+                    if (editTrigger) {
+                        const parentModal = editTrigger.closest('.juntaplay-modal');
+                        if (parentModal) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            if (typeof event.stopImmediatePropagation === 'function') {
+                                event.stopImmediatePropagation();
+                            }
+
+                            const groupId =
+                                editTrigger.getAttribute('data-group-id') ||
+                                editTrigger.closest('[data-group-id]')?.getAttribute('data-group-id');
+                            if (!groupId) {
+                                return;
+                            }
+
+                            const stepTarget = editTrigger.getAttribute('data-group-edit-step');
+                            const card = document.querySelector(`[data-group-item][data-group-id="${groupId}"]`);
+                            if (!card) {
+                                return;
+                            }
+
+                            const selector = stepTarget
+                                ? `.juntaplay-group-card__edit[data-group-edit-step="${stepTarget}"]`
+                                : '.juntaplay-group-card__edit';
+                            const sourceTrigger = card.querySelector(selector) || card.querySelector('.juntaplay-group-card__edit');
+                            if (!sourceTrigger) {
+                                return;
+                            }
+
+                            closeModal(parentModal);
+                            sourceTrigger.click();
+                        }
+                    }
+
                     const trigger = event.target.closest('[data-jp-group-open]');
 
                     if (trigger) {
