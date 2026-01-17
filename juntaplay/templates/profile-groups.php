@@ -1333,16 +1333,6 @@ if ($group_suggestions) {
                                                 <?php if ($chat_link !== '' && $chat_label !== '') : ?>
                                                     <a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" href="<?php echo esc_url($chat_link); ?>"><?php echo esc_html($chat_label); ?></a>
                                                 <?php endif; ?>
-                                                <?php if ($admin_cancel_allowed) : ?>
-                                                    <button
-                                                        type="button"
-                                                        class="juntaplay-button juntaplay-button--danger juntaplay-group-cancel"
-                                                        data-group-admin-cancel-open
-                                                        data-modal-id="<?php echo esc_attr($admin_cancel_modal_id); ?>"
-                                                    >
-                                                        <?php echo esc_html__('Cancelar Grupo', 'juntaplay'); ?>
-                                                    </button>
-                                                <?php endif; ?>
                                             </div>
                                             <div class="juntaplay-group-card__access-panel" data-group-access-panel hidden>
                                                 <h4 class="juntaplay-group-card__access-title"><?php esc_html_e('Dados de acesso do grupo', 'juntaplay'); ?></h4>
@@ -1892,13 +1882,15 @@ $group_cards[] = trim((string) ob_get_clean());
     <style>
         .juntaplay-group-card__details-actions {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         .juntaplay-group-card__details-actions .juntaplay-button--primary.juntaplay-button--glass {
             justify-content: center;
-            width: 100%;
+            width: auto;
+            flex: 0 0 auto;
         }
     </style>
 
