@@ -190,7 +190,6 @@ $approved_status = function_exists('sanitize_key') ? sanitize_key($approved_stat
 $admin_cancel_allowed = $is_group_admin && $group_id > 0 && $group_status === $approved_status;
 $admin_cancel_modal_id = $admin_cancel_allowed ? 'jp-group-admin-cancel-detail-' . $group_id : '';
 $credentials_allowed = $is_group_admin && $group_id > 0;
-$credentials_modal_id = $credentials_allowed ? 'jp-group-credentials-modal-' . $group_id : '';
 $credentials_available = $credentials_allowed && ($access_login !== '' || $access_password !== '' || $access_notes !== '');
 
 $current_user = wp_get_current_user();
@@ -233,6 +232,7 @@ switch ($support_type) {
     </header>
 
     <div class="juntaplay-group-modal__body">
+        <div data-group-detail-view>
         <?php if ($price_highlight !== '' || $cta_label !== '') : ?>
             <div class="juntaplay-group-modal__cta">
                 <?php if ($price_highlight !== '') : ?>
@@ -288,7 +288,6 @@ switch ($support_type) {
                         type="button"
                         class="juntaplay-button juntaplay-button--ghost"
                         data-group-credentials-open
-                        data-modal-id="<?php echo esc_attr($credentials_modal_id); ?>"
                     >
                         <?php echo esc_html__('Credenciais do grupo', 'juntaplay'); ?>
                     </button>
@@ -447,55 +446,51 @@ switch ($support_type) {
         <?php endif; ?>
 
         <?php if ($credentials_available) : ?>
-            <div class="juntaplay-modal juntaplay-modal--compact" id="<?php echo esc_attr($credentials_modal_id); ?>" hidden aria-hidden="true">
-                <div class="juntaplay-modal__overlay" data-modal-close></div>
-                <div class="juntaplay-modal__dialog" role="dialog" aria-modal="true">
-                    <button type="button" class="juntaplay-modal__close" data-modal-close aria-label="<?php echo esc_attr__('Fechar', 'juntaplay'); ?>">&times;</button>
-                    <div class="juntaplay-modal__content">
-                        <h3 class="juntaplay-modal__title"><?php echo esc_html__('Credenciais de acesso', 'juntaplay'); ?></h3>
-                        <p class="juntaplay-modal__text"><?php echo esc_html__('Estas credenciais são compartilhadas com os participantes do grupo.', 'juntaplay'); ?></p>
-                        <div class="juntaplay-form__group">
-                            <label for="jp-group-credentials-login-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Login', 'juntaplay'); ?></label>
+            <div data-group-credentials-view hidden>
+                <section class="juntaplay-group-modal__section">
+                    <h4><?php esc_html_e('Credenciais de acesso', 'juntaplay'); ?></h4>
+                    <p><?php esc_html_e('Estas credenciais são compartilhadas com os participantes do grupo.', 'juntaplay'); ?></p>
+                    <div class="juntaplay-form__group">
+                        <label for="jp-group-credentials-login-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Login', 'juntaplay'); ?></label>
+                        <input
+                            id="jp-group-credentials-login-<?php echo esc_attr((string) $group_id); ?>"
+                            type="text"
+                            class="juntaplay-form__input"
+                            value="<?php echo esc_attr($access_login); ?>"
+                            readonly
+                        />
+                    </div>
+                    <div class="juntaplay-form__group">
+                        <label for="jp-group-credentials-password-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Senha', 'juntaplay'); ?></label>
+                        <div class="juntaplay-input-group" style="display:flex; gap:8px; align-items:center;">
                             <input
-                                id="jp-group-credentials-login-<?php echo esc_attr((string) $group_id); ?>"
-                                type="text"
+                                id="jp-group-credentials-password-<?php echo esc_attr((string) $group_id); ?>"
+                                type="password"
                                 class="juntaplay-form__input"
-                                value="<?php echo esc_attr($access_login); ?>"
+                                value="<?php echo esc_attr($access_password); ?>"
                                 readonly
+                                data-group-credentials-password
                             />
-                        </div>
-                        <div class="juntaplay-form__group">
-                            <label for="jp-group-credentials-password-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Senha', 'juntaplay'); ?></label>
-                            <div class="juntaplay-input-group" style="display:flex; gap:8px; align-items:center;">
-                                <input
-                                    id="jp-group-credentials-password-<?php echo esc_attr((string) $group_id); ?>"
-                                    type="password"
-                                    class="juntaplay-form__input"
-                                    value="<?php echo esc_attr($access_password); ?>"
-                                    readonly
-                                    data-group-credentials-password
-                                />
-                                <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-credentials-toggle>
-                                    <?php esc_html_e('Mostrar', 'juntaplay'); ?>
-                                </button>
-                            </div>
-                        </div>
-                        <?php if ($access_notes !== '') : ?>
-                            <div class="juntaplay-form__group">
-                                <label for="jp-group-credentials-notes-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Observações', 'juntaplay'); ?></label>
-                                <textarea
-                                    id="jp-group-credentials-notes-<?php echo esc_attr((string) $group_id); ?>"
-                                    class="juntaplay-form__input"
-                                    rows="3"
-                                    readonly
-                                ><?php echo esc_textarea($access_notes); ?></textarea>
-                            </div>
-                        <?php endif; ?>
-                        <div class="juntaplay-group-complaint__actions">
-                            <button type="button" class="juntaplay-button juntaplay-button--ghost" data-modal-close><?php echo esc_html__('Fechar', 'juntaplay'); ?></button>
+                            <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-credentials-toggle>
+                                <?php esc_html_e('Mostrar', 'juntaplay'); ?>
+                            </button>
                         </div>
                     </div>
-                </div>
+                    <?php if ($access_notes !== '') : ?>
+                        <div class="juntaplay-form__group">
+                            <label for="jp-group-credentials-notes-<?php echo esc_attr((string) $group_id); ?>"><?php esc_html_e('Observações', 'juntaplay'); ?></label>
+                            <textarea
+                                id="jp-group-credentials-notes-<?php echo esc_attr((string) $group_id); ?>"
+                                class="juntaplay-form__input"
+                                rows="3"
+                                readonly
+                            ><?php echo esc_textarea($access_notes); ?></textarea>
+                        </div>
+                    <?php endif; ?>
+                    <div class="juntaplay-group-complaint__actions">
+                        <button type="button" class="juntaplay-button juntaplay-button--ghost" data-group-credentials-back><?php echo esc_html__('Voltar aos detalhes do grupo', 'juntaplay'); ?></button>
+                    </div>
+                </section>
             </div>
         <?php endif; ?>
 
@@ -612,6 +607,7 @@ switch ($support_type) {
             </section>
         <?php endif; ?>
 
+        </div>
     </div>
 </div>
 <script>
@@ -692,16 +688,50 @@ switch ($support_type) {
             const credentialsTrigger = event.target.closest('[data-group-credentials-open]');
             if (credentialsTrigger) {
                 event.preventDefault();
-                const modalId = credentialsTrigger.getAttribute('data-modal-id');
-                if (!modalId) {
-                    return;
-                }
-                const modal = document.getElementById(modalId);
+                const modal = credentialsTrigger.closest('.juntaplay-group-modal__detail');
                 if (!modal) {
                     return;
                 }
-                closeModal(credentialsTrigger.closest('.juntaplay-modal'));
-                openModal(modal);
+                const detailView = modal.querySelector('[data-group-detail-view]');
+                const credentialsView = modal.querySelector('[data-group-credentials-view]');
+                if (!detailView || !credentialsView) {
+                    return;
+                }
+                detailView.setAttribute('hidden', 'hidden');
+                credentialsView.removeAttribute('hidden');
+                return;
+            }
+
+            const credentialsBack = event.target.closest('[data-group-credentials-back]');
+            if (credentialsBack) {
+                event.preventDefault();
+                const modal = credentialsBack.closest('.juntaplay-group-modal__detail');
+                if (!modal) {
+                    return;
+                }
+                const detailView = modal.querySelector('[data-group-detail-view]');
+                const credentialsView = modal.querySelector('[data-group-credentials-view]');
+                if (!detailView || !credentialsView) {
+                    return;
+                }
+                credentialsView.setAttribute('hidden', 'hidden');
+                detailView.removeAttribute('hidden');
+                return;
+            }
+
+            const modalClose = event.target.closest('[data-modal-close]');
+            if (modalClose) {
+                const modal = modalClose.closest('.juntaplay-group-modal__detail');
+                if (!modal) {
+                    return;
+                }
+                const detailView = modal.querySelector('[data-group-detail-view]');
+                const credentialsView = modal.querySelector('[data-group-credentials-view]');
+                if (!detailView || !credentialsView) {
+                    return;
+                }
+                credentialsView.setAttribute('hidden', 'hidden');
+                detailView.removeAttribute('hidden');
                 return;
             }
 
