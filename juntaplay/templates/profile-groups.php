@@ -891,7 +891,7 @@ if ($group_suggestions) {
     </div>
 
     <?php if ($cancel_general_errors) : ?>
-        <div class="juntaplay-alert juntaplay-alert--danger">
+        <div class="juntaplay-alert juntaplay-alert--danger" role="alert">
             <ul>
                 <?php foreach ($cancel_general_errors as $cancel_general_error) : ?>
                     <li><?php echo esc_html((string) $cancel_general_error); ?></li>
@@ -900,7 +900,7 @@ if ($group_suggestions) {
         </div>
     <?php endif; ?>
     <?php if ($admin_cancel_general_errors) : ?>
-        <div class="juntaplay-alert juntaplay-alert--danger">
+        <div class="juntaplay-alert juntaplay-alert--danger" role="alert">
             <ul>
                 <?php foreach ($admin_cancel_general_errors as $admin_cancel_general_error) : ?>
                     <li><?php echo esc_html((string) $admin_cancel_general_error); ?></li>
@@ -1092,6 +1092,7 @@ if ($group_suggestions) {
                     $admin_cancel_allowed = $is_admin_role
                         && in_array($status_key, ['active', Groups::STATUS_APPROVED], true);
                     $admin_cancel_modal_id = 'jp-group-admin-cancel-modal-' . $group_id;
+                    $access_modal_id = $is_admin_role ? 'jp-group-access-modal-' . $group_id : '';
                     $chat_link_prefill  = '';
                     $chat_label_prefill = '';
 
@@ -1315,8 +1316,14 @@ if ($group_suggestions) {
                                                     </button>
                                                 <?php endif; ?>
                                                 <?php if ($membership_status !== 'guest') : ?>
-                                                    <button type="button" class="juntaplay-group-card__access-btn" data-group-access="<?php echo esc_attr((string) $group_id); ?>">
-                                                        <?php esc_html_e('Ver dados de acesso', 'juntaplay'); ?>
+                                                    <button
+                                                        type="button"
+                                                        class="juntaplay-group-card__access-btn"
+                                                        data-group-access="<?php echo esc_attr((string) $group_id); ?>"
+                                                        data-group-access-mode="<?php echo esc_attr($is_admin_role ? 'send' : 'view'); ?>"
+                                                        <?php echo $access_modal_id !== '' ? 'data-group-access-modal="' . esc_attr($access_modal_id) . '"' : ''; ?>
+                                                    >
+                                                        <?php esc_html_e('Dados de Acesso', 'juntaplay'); ?>
                                                     </button>
                                                 <?php endif; ?>
                                                 <?php
@@ -1939,6 +1946,7 @@ $group_cards[] = trim((string) ob_get_clean());
                 if (!alert) {
                     alert = document.createElement('div');
                     alert.className = 'juntaplay-alert juntaplay-alert--danger';
+                    alert.setAttribute('role', 'alert');
                     alert.dataset.groupCancelError = '1';
                     form.prepend(alert);
                 }
