@@ -1999,63 +1999,44 @@ $group_cards[] = trim((string) ob_get_clean());
             let lastChatLink = '';
             let lastChatLabel = '';
 
-            const injectChatCta = (chatLink, chatLabel) => {
-                if (!chatLink || !chatLabel) {
+            const renderGroupActionButtons = () => {
+                if (!lastCardDetails) {
                     return;
                 }
 
-                const modalCta = document.querySelector('.juntaplay-group-modal__cta');
-
-                if (!modalCta) {
+                const modalBody = document.querySelector('.juntaplay-group-modal__body');
+                if (!modalBody) {
                     return;
                 }
 
-                const existing = modalCta.querySelector('[data-chat-cta]');
-                if (existing) {
-                    existing.href = chatLink;
-                    existing.textContent = chatLabel;
+                const temp = document.createElement('div');
+                temp.innerHTML = lastCardDetails;
 
-                    return;
-                }
-
-                const chatButton = document.createElement('a');
-                chatButton.className = 'juntaplay-button juntaplay-button--primary juntaplay-button--glass';
-                chatButton.href = chatLink;
-                chatButton.textContent = chatLabel;
-                chatButton.dataset.chatCta = '1';
-                modalCta.appendChild(chatButton);
-            };
-
-            const injectContactAction = (chatLink, chatLabel) => {
-                if (!chatLink || !chatLabel) {
-                    return;
-                }
-
-                const notice = document.querySelector('.juntaplay-group-modal__notice--highlight');
-                if (!notice) {
-                    return;
-                }
-
-                const actions = notice.querySelector('.juntaplay-group-complaint__actions');
+                const actions = temp.querySelector('.juntaplay-group-card__details-actions');
                 if (!actions) {
                     return;
                 }
 
-                let contactButton = actions.querySelector('[data-group-contact-link]');
-                if (!contactButton) {
-                    contactButton = document.createElement('a');
-                    contactButton.className = 'juntaplay-button juntaplay-button--ghost';
-                    contactButton.dataset.groupContactLink = '1';
-                    actions.appendChild(contactButton);
+                const accessPanel = temp.querySelector('[data-group-access-panel]');
+
+                let wrapper = modalBody.querySelector('[data-group-action-buttons]');
+                if (!wrapper) {
+                    wrapper = document.createElement('div');
+                    wrapper.className = 'juntaplay-group-modal__actions';
+                    wrapper.dataset.groupActionButtons = '1';
+                    modalBody.appendChild(wrapper);
                 }
 
-                contactButton.href = chatLink;
-                contactButton.textContent = chatLabel;
+                wrapper.innerHTML = '';
+                wrapper.appendChild(actions.cloneNode(true));
+
+                if (accessPanel) {
+                    wrapper.appendChild(accessPanel.cloneNode(true));
+                }
             };
 
             const tryInjectFromState = () => {
-                injectChatCta(lastChatLink, lastChatLabel);
-                injectContactAction(lastChatLink, lastChatLabel);
+                renderGroupActionButtons();
             };
 
             const markModalDirty = () => {
