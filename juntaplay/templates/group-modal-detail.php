@@ -286,7 +286,7 @@ switch ($support_type) {
                 <div class="juntaplay-group-complaint__actions">
                     <button
                         type="button"
-                        class="juntaplay-button juntaplay-button--ghost"
+                        class="juntaplay-button juntaplay-button--primary juntaplay-button--glass"
                         data-group-credentials-open
                     >
                         <?php echo esc_html__('Credenciais do grupo', 'juntaplay'); ?>
