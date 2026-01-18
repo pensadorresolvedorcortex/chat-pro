@@ -189,7 +189,7 @@ switch ($support_type) {
         <?php endif; ?>
 
         <?php if ($can_edit || $membership_status !== 'guest' || ($chat_link !== '' && $chat_label !== '')) : ?>
-            <div class="juntaplay-group-modal__actions juntaplay-group-card__details-actions" data-group-modal-actions>
+            <div class="juntaplay-group-modal__actions" data-group-modal-actions>
                 <?php if ($can_edit) : ?>
                     <button
                         type="button"
