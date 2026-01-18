@@ -6543,6 +6543,7 @@
             $modal.find('.juntaplay-modal__content').html(html);
             $modal.removeAttr('hidden').addClass('is-open').attr('aria-hidden', 'false');
             jQuery('body').addClass('juntaplay-modal-open');
+            injectChatCta();
 
             window.requestAnimationFrame(function () {
                 var $focusable = $modal.find('input, select, textarea, button, a[href]').filter(':visible').first();
@@ -6552,6 +6553,35 @@
                     $modal.trigger('focus');
                 }
             });
+        }
+
+        function injectChatCta() {
+            var $modal = getModal();
+            if (!$modal.length) {
+                return;
+            }
+
+            var chatLink = ($modal.attr('data-chat-link') || '').toString();
+            var chatLabel = ($modal.attr('data-chat-label') || '').toString();
+
+            if (!chatLink || !chatLabel) {
+                return;
+            }
+
+            var $slot = $modal.find('[data-group-chat-slot]').first();
+            if (!$slot.length) {
+                return;
+            }
+
+            var $existing = $slot.find('[data-group-chat-cta]').first();
+            if ($existing.length) {
+                $existing.attr('href', chatLink).text(chatLabel);
+                return;
+            }
+
+            var $chat = jQuery('<a class="juntaplay-button juntaplay-button--primary juntaplay-button--glass" data-group-chat-cta></a>');
+            $chat.attr('href', chatLink).text(chatLabel);
+            $slot.empty().append($chat);
         }
 
         function setModalState(view, groupId) {
@@ -6610,7 +6640,7 @@
             $modal.removeClass('is-open').attr('aria-hidden', 'true').attr('hidden', 'hidden');
             $modal.find('.juntaplay-modal__content').empty();
             $modal.find('[data-modal-messages]').empty();
-            $modal.removeAttr('data-group-id data-group-view');
+            $modal.removeAttr('data-group-id data-group-view data-chat-link data-chat-label');
 
             if (!jQuery('.juntaplay-modal.is-open').not($modal).length) {
                 jQuery('body').removeClass('juntaplay-modal-open');
@@ -6721,9 +6751,19 @@
 
         var $card = jQuery(this).closest('[data-group-id]');
         var groupId = $card.length ? parseInt($card.data('group-id'), 10) : 0;
+        var chatLink = (jQuery(this).attr('data-chat-link') || '').toString();
+        var chatLabel = (jQuery(this).attr('data-chat-label') || '').toString();
 
         if (!groupId) {
             return;
+        }
+
+        if (chatLink && chatLabel) {
+            var $modal = jQuery('#juntaplay-group-modal');
+            if ($modal.length) {
+                $modal.attr('data-chat-link', chatLink);
+                $modal.attr('data-chat-label', chatLabel);
+            }
         }
 
         jpGroupModal.loadDetail(groupId);

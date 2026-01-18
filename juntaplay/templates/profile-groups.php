@@ -1321,7 +1321,7 @@ if ($group_suggestions) {
                                                 <?php if ($membership_status !== 'guest') : ?>
                                                     <button
                                                         type="button"
-                                                        class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__access-btn"
+                                                        class="juntaplay-button juntaplay-button--primary juntaplay-button--glass"
                                                         data-group-access="<?php echo esc_attr((string) $group_id); ?>"
                                                     >
                                                         <?php esc_html_e('Dados de acesso', 'juntaplay'); ?>
