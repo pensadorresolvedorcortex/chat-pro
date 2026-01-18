@@ -1309,7 +1309,7 @@ if ($group_suggestions) {
                                                     <?php if ($is_admin_role) : ?>
                                                         <button
                                                             type="button"
-                                                            class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__access-btn juntaplay-group-card__edit"
+                                                            class="juntaplay-button juntaplay-button--primary juntaplay-button--glass juntaplay-group-card__access-btn"
                                                             data-group-id="<?php echo esc_attr((string) $group_id); ?>"
                                                             data-group-edit-step="access"
                                                         >
