@@ -2012,6 +2012,24 @@ $group_cards[] = trim((string) ob_get_clean());
                     return;
                 }
 
+                const slot = document.querySelector('[data-group-chat-slot]');
+                if (slot) {
+                    const existing = slot.querySelector('[data-chat-cta]');
+                    if (existing) {
+                        existing.href = chatLink;
+                        existing.textContent = chatLabel;
+                        return;
+                    }
+
+                    const chatButton = document.createElement('a');
+                    chatButton.className = 'juntaplay-button juntaplay-button--primary juntaplay-button--glass';
+                    chatButton.href = chatLink;
+                    chatButton.textContent = chatLabel;
+                    chatButton.dataset.chatCta = '1';
+                    slot.replaceChildren(chatButton);
+                    return;
+                }
+
                 const modalCta = document.querySelector('.juntaplay-group-modal__cta');
 
                 if (!modalCta) {
