@@ -1,0 +1,29 @@
+<section class="cpapjf-section">
+  <div class="cpapjf-container">
+    {% if section.settings.cpapjf_title %}
+      <h2 class="cpapjf-title">{{ section.settings.cpapjf_title }}</h2>
+    {% endif %}
+    <div class="cpapjf-brands-row">
+      {% if section.settings.cpapjf_brand_1_image %}
+        <a class="cpapjf-brand-card" href="{{ section.settings.cpapjf_brand_1_url }}">
+          <img class="cpapjf-brand-image" src="{{ section.settings.cpapjf_brand_1_image }}" alt="Marca 1">
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_brand_2_image %}
+        <a class="cpapjf-brand-card" href="{{ section.settings.cpapjf_brand_2_url }}">
+          <img class="cpapjf-brand-image" src="{{ section.settings.cpapjf_brand_2_image }}" alt="Marca 2">
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_brand_3_image %}
+        <a class="cpapjf-brand-card" href="{{ section.settings.cpapjf_brand_3_url }}">
+          <img class="cpapjf-brand-image" src="{{ section.settings.cpapjf_brand_3_image }}" alt="Marca 3">
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_brand_4_image %}
+        <a class="cpapjf-brand-card" href="{{ section.settings.cpapjf_brand_4_url }}">
+          <img class="cpapjf-brand-image" src="{{ section.settings.cpapjf_brand_4_image }}" alt="Marca 4">
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>

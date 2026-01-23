@@ -1,0 +1,336 @@
+:root {
+  --cpapjf-primary: #174b90;
+  --cpapjf-secondary: #51b2e5;
+  --cpapjf-background: #f3f2ee;
+  --cpapjf-text: #1a1a1a;
+}
+
+.cpapjf-body {
+  background: var(--cpapjf-background);
+  color: var(--cpapjf-text);
+  font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.cpapjf-section {
+  padding: 64px 20px;
+}
+
+.cpapjf-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cpapjf-title {
+  font-size: 32px;
+  margin: 0 0 12px;
+  color: var(--cpapjf-primary);
+}
+
+.cpapjf-subtitle {
+  font-size: 18px;
+  margin: 0 0 32px;
+}
+
+.cpapjf-button {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--cpapjf-primary);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.cpapjf-hero {
+  background: linear-gradient(120deg, rgba(23, 75, 144, 0.08), rgba(81, 178, 229, 0.2));
+}
+
+.cpapjf-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  align-items: center;
+}
+
+.cpapjf-hero-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.cpapjf-hero-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.cpapjf-hero-card img {
+  width: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+.cpapjf-categories-grid,
+.cpapjf-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.cpapjf-category-card,
+.cpapjf-product-card,
+.cpapjf-brand-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.cpapjf-category-title {
+  font-size: 18px;
+  margin: 8px 0 4px;
+}
+
+.cpapjf-category-meta {
+  font-size: 14px;
+  color: #555;
+}
+
+.cpapjf-product-image {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.cpapjf-product-title {
+  margin: 12px 0 4px;
+  font-size: 16px;
+}
+
+.cpapjf-product-price {
+  font-weight: 700;
+  color: var(--cpapjf-primary);
+}
+
+.cpapjf-brands-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.cpapjf-brand-card {
+  text-align: center;
+}
+
+.cpapjf-brand-card img {
+  max-width: 100%;
+  height: 60px;
+  object-fit: contain;
+}
+
+.cpapjf-institutional {
+  background: #fff;
+}
+
+.cpapjf-institutional-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.cpapjf-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cpapjf-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+:root {
+  --primary: #174b90;
+  --secondary: #51b2e5;
+  --bg: #f3f2ee;
+  --text: #1a1a1a;
+  --radius: 14px;
+  --shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  --container: 1200px;
+}
+
+.cpapjf-body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.cpapjf-container {
+  max-width: var(--container);
+}
+
+.cpapjf-section {
+  padding: 72px 20px;
+}
+
+.cpapjf-title {
+  letter-spacing: -0.02em;
+}
+
+.cpapjf-hero {
+  background: radial-gradient(circle at top left, rgba(81, 178, 229, 0.25), transparent 55%),
+    linear-gradient(120deg, rgba(23, 75, 144, 0.1), rgba(81, 178, 229, 0.2));
+}
+
+.cpapjf-hero-content {
+  display: grid;
+  gap: 16px;
+}
+
+.cpapjf-hero-card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cpapjf-hero-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.12);
+}
+
+.cpapjf-hero-image,
+.cpapjf-product-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.cpapjf-category-card,
+.cpapjf-product-card,
+.cpapjf-brand-card {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cpapjf-category-card:hover,
+.cpapjf-product-card:hover,
+.cpapjf-brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
+.cpapjf-button:focus-visible,
+.cpapjf-category-card:focus-visible,
+.cpapjf-product-card:focus-visible,
+.cpapjf-brand-card:focus-visible {
+  outline: 3px solid var(--secondary);
+  outline-offset: 3px;
+}
+
+.cpapjf-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.cpapjf-badge {
+  background: rgba(81, 178, 229, 0.15);
+  color: var(--primary);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .cpapjf-hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cpapjf-section {
+    padding: 56px 16px;
+  }
+}
+
+.cpapjf-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cpapjf-button-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.cpapjf-button-secondary:hover,
+.cpapjf-button-secondary:focus-visible {
+  background: rgba(23, 75, 144, 0.1);
+}
+
+.cpapjf-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(23, 75, 144, 0.12);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.cpapjf-product-card {
+  position: relative;
+  gap: 8px;
+}
+
+.cpapjf-product-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cpapjf-product-cta {
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.cpapjf-benefits {
+  list-style: disc;
+  margin: 16px 0 0 18px;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cpapjf-benefits li {
+  color: var(--text);
+}
+
+.cpapjf-button:focus-visible,
+.cpapjf-category-card:focus-visible,
+.cpapjf-product-card:focus-visible,
+.cpapjf-brand-card:focus-visible {
+  outline: 3px solid #51b2e5;
+  outline-offset: 4px;
+}
+
+@media (max-width: 860px) {
+  .cpapjf-institutional-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cpapjf-badges {
+    align-items: flex-start;
+  }
+}

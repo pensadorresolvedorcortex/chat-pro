@@ -1,0 +1,36 @@
+<section class="cpapjf-section cpapjf-institutional">
+  <div class="cpapjf-container cpapjf-institutional-grid">
+    <div>
+      {% if section.settings.cpapjf_title %}
+        <h2 class="cpapjf-title">{{ section.settings.cpapjf_title }}</h2>
+      {% endif %}
+      {% if section.settings.cpapjf_text %}
+        <p class="cpapjf-subtitle">{{ section.settings.cpapjf_text }}</p>
+      {% endif %}
+    </div>
+    <div class="cpapjf-badges">
+      {% if section.settings.cpapjf_badge_1 %}
+        <span class="cpapjf-badge">{{ section.settings.cpapjf_badge_1 }}</span>
+      {% endif %}
+      {% if section.settings.cpapjf_badge_2 %}
+        <span class="cpapjf-badge">{{ section.settings.cpapjf_badge_2 }}</span>
+      {% endif %}
+      {% if section.settings.cpapjf_badge_3 %}
+        <span class="cpapjf-badge">{{ section.settings.cpapjf_badge_3 }}</span>
+      {% endif %}
+      {% if section.settings.cpapjf_benefit_1 or section.settings.cpapjf_benefit_2 or section.settings.cpapjf_benefit_3 %}
+        <ul class="cpapjf-benefits">
+          {% if section.settings.cpapjf_benefit_1 %}
+            <li>{{ section.settings.cpapjf_benefit_1 }}</li>
+          {% endif %}
+          {% if section.settings.cpapjf_benefit_2 %}
+            <li>{{ section.settings.cpapjf_benefit_2 }}</li>
+          {% endif %}
+          {% if section.settings.cpapjf_benefit_3 %}
+            <li>{{ section.settings.cpapjf_benefit_3 }}</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>

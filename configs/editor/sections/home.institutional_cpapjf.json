@@ -1,0 +1,55 @@
+{
+  "name": "home.institutional_cpapjf",
+  "label": "Institucional cpapjf",
+  "snippet": "home-institutional-cpapjf",
+  "settings": [
+    {
+      "id": "cpapjf_title",
+      "type": "text",
+      "label": "Title",
+      "default": "Sobre a loja"
+    },
+    {
+      "id": "cpapjf_text",
+      "type": "textarea",
+      "label": "Texto",
+      "default": "Atendimento especializado para ajudar você a escolher o item ideal."
+    },
+    {
+      "id": "cpapjf_badge_1",
+      "type": "text",
+      "label": "Badge 1",
+      "default": "Envio rápido"
+    },
+    {
+      "id": "cpapjf_badge_2",
+      "type": "text",
+      "label": "Badge 2",
+      "default": "Suporte humano"
+    },
+    {
+      "id": "cpapjf_badge_3",
+      "type": "text",
+      "label": "Badge 3",
+      "default": "Pagamentos flexíveis"
+    },
+    {
+      "id": "cpapjf_benefit_1",
+      "type": "text",
+      "label": "Benefício 1",
+      "default": "Equipe especializada"
+    },
+    {
+      "id": "cpapjf_benefit_2",
+      "type": "text",
+      "label": "Benefício 2",
+      "default": "Troca descomplicada"
+    },
+    {
+      "id": "cpapjf_benefit_3",
+      "type": "text",
+      "label": "Benefício 3",
+      "default": "Atendimento ágil"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "home.brands_cpapjf",
+  "label": "Marcas cpapjf",
+  "snippet": "home-brands-cpapjf",
+  "settings": [
+    {
+      "id": "cpapjf_title",
+      "type": "text",
+      "label": "Title",
+      "default": "Marcas parceiras"
+    },
+    {
+      "id": "cpapjf_brand_1_image",
+      "type": "image",
+      "label": "Marca 1",
+      "default": "/img/brands/brand-1.png"
+    },
+    {
+      "id": "cpapjf_brand_1_url",
+      "type": "url",
+      "label": "Link 1",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_brand_2_image",
+      "type": "image",
+      "label": "Marca 2",
+      "default": "/img/brands/brand-2.png"
+    },
+    {
+      "id": "cpapjf_brand_2_url",
+      "type": "url",
+      "label": "Link 2",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_brand_3_image",
+      "type": "image",
+      "label": "Marca 3",
+      "default": "/img/brands/brand-3.png"
+    },
+    {
+      "id": "cpapjf_brand_3_url",
+      "type": "url",
+      "label": "Link 3",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_brand_4_image",
+      "type": "image",
+      "label": "Marca 4",
+      "default": "/img/brands/brand-4.png"
+    },
+    {
+      "id": "cpapjf_brand_4_url",
+      "type": "url",
+      "label": "Link 4",
+      "default": "/"
+    }
+  ]
+}
