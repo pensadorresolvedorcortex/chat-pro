@@ -1,0 +1,37 @@
+/* Ritmo editorial: espaçamento vertical entre blocos da home */
+.hero-woodmart,
+.cat-woodmart,
+.prod-woodmart,
+.brand-woodmart,
+.coll-woodmart,
+.inst-woodmart {
+  margin-block: 0;
+}
+
+.hero-woodmart {
+  margin-bottom: 72px;
+}
+
+.cat-woodmart,
+.prod-woodmart,
+.brand-woodmart,
+.coll-woodmart {
+  margin-bottom: 64px;
+}
+
+.inst-woodmart {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-woodmart {
+    margin-bottom: 56px;
+  }
+
+  .cat-woodmart,
+  .prod-woodmart,
+  .brand-woodmart,
+  .coll-woodmart {
+    margin-bottom: 48px;
+  }
+}

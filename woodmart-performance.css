@@ -1,0 +1,28 @@
+/* Performance visual: reservar área para mídia e cards */
+.hero-woodmart__media {
+  min-height: 320px;
+}
+
+.hero-woodmart__frame {
+  min-height: 320px;
+}
+
+.prod-page-woodmart__main-image {
+  aspect-ratio: 4 / 5;
+  min-height: 340px;
+}
+
+.prod-page-woodmart__thumb {
+  aspect-ratio: 1 / 1;
+  min-height: 64px;
+}
+
+.prod-woodmart__image {
+  aspect-ratio: 4 / 5;
+  min-height: 220px;
+}
+
+.cat-page-woodmart__card-image {
+  aspect-ratio: 4 / 5;
+  min-height: 220px;
+}

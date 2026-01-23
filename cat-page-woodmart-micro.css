@@ -1,0 +1,26 @@
+/* Microinteração: hover e foco nos cards da categoria */
+.cat-page-woodmart__card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+/* Elevação leve no hover */
+.cat-page-woodmart__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(42, 36, 32, 0.14);
+}
+
+/* Zoom sutil na imagem */
+.cat-page-woodmart__card-image {
+  transition: transform 220ms ease;
+}
+
+.cat-page-woodmart__card:hover .cat-page-woodmart__card-image {
+  transform: scale(1.03);
+}
+
+/* Reforço discreto de foco visível */
+.cat-page-woodmart__card-cta:focus-visible,
+.cat-page-woodmart__card-media:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 3px;
+}
