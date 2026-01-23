@@ -1,0 +1,40 @@
+<section class="cpapjf-section cpapjf-hero">
+  <div class="cpapjf-container cpapjf-hero-grid">
+    <div class="cpapjf-hero-content">
+      {% if section.settings.cpapjf_heading %}
+        <h1 class="cpapjf-title">{{ section.settings.cpapjf_heading }}</h1>
+      {% endif %}
+      {% if section.settings.cpapjf_subtitle %}
+        <p class="cpapjf-subtitle">{{ section.settings.cpapjf_subtitle }}</p>
+      {% endif %}
+      <div class="cpapjf-hero-actions">
+        {% if section.settings.cpapjf_cta_text and section.settings.cpapjf_cta_url %}
+          <a class="cpapjf-button" href="{{ section.settings.cpapjf_cta_url }}">{{ section.settings.cpapjf_cta_text }}</a>
+        {% endif %}
+        {% if section.settings.cpapjf_cta_secondary_text and section.settings.cpapjf_cta_secondary_url %}
+          <a class="cpapjf-button cpapjf-button-secondary" href="{{ section.settings.cpapjf_cta_secondary_url }}">{{ section.settings.cpapjf_cta_secondary_text }}</a>
+        {% endif %}
+      </div>
+      {% if section.settings.cpapjf_trust_badge %}
+        <span class="cpapjf-trust-badge">{{ section.settings.cpapjf_trust_badge }}</span>
+      {% endif %}
+    </div>
+    <div class="cpapjf-hero-images">
+      {% if section.settings.cpapjf_slide_1_image %}
+        <div class="cpapjf-hero-card">
+          <img class="cpapjf-hero-image" src="{{ section.settings.cpapjf_slide_1_image }}" alt="Destaque 1">
+        </div>
+      {% endif %}
+      {% if section.settings.cpapjf_slide_2_image %}
+        <div class="cpapjf-hero-card">
+          <img class="cpapjf-hero-image" src="{{ section.settings.cpapjf_slide_2_image }}" alt="Destaque 2">
+        </div>
+      {% endif %}
+      {% if section.settings.cpapjf_slide_3_image %}
+        <div class="cpapjf-hero-card">
+          <img class="cpapjf-hero-image" src="{{ section.settings.cpapjf_slide_3_image }}" alt="Destaque 3">
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

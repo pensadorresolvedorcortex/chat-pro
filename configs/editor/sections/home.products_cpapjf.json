@@ -1,0 +1,127 @@
+{
+  "name": "home.products_cpapjf",
+  "label": "Produtos cpapjf",
+  "snippet": "home-products-cpapjf",
+  "settings": [
+    {
+      "id": "cpapjf_title",
+      "type": "text",
+      "label": "Title",
+      "default": "Produtos mais buscados"
+    },
+    {
+      "id": "cpapjf_subtitle",
+      "type": "text",
+      "label": "Subtitle",
+      "default": "Seleção com alta procura e entrega rápida."
+    },
+    {
+      "id": "cpapjf_badge_text",
+      "type": "text",
+      "label": "Badge",
+      "default": "Mais vendido"
+    },
+    {
+      "id": "cpapjf_cta_text",
+      "type": "text",
+      "label": "CTA",
+      "default": "Comprar agora"
+    },
+    {
+      "id": "cpapjf_product_1_name",
+      "type": "text",
+      "label": "Produto 1",
+      "default": "Kit conforto premium"
+    },
+    {
+      "id": "cpapjf_product_1_price",
+      "type": "text",
+      "label": "Preço 1",
+      "default": "R$ 299,90"
+    },
+    {
+      "id": "cpapjf_product_1_image",
+      "type": "image",
+      "label": "Imagem 1",
+      "default": "/img/products/product-1.jpg"
+    },
+    {
+      "id": "cpapjf_product_1_url",
+      "type": "url",
+      "label": "Link 1",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_product_2_name",
+      "type": "text",
+      "label": "Produto 2",
+      "default": "Máscara ajuste suave"
+    },
+    {
+      "id": "cpapjf_product_2_price",
+      "type": "text",
+      "label": "Preço 2",
+      "default": "R$ 189,90"
+    },
+    {
+      "id": "cpapjf_product_2_image",
+      "type": "image",
+      "label": "Imagem 2",
+      "default": "/img/products/product-2.jpg"
+    },
+    {
+      "id": "cpapjf_product_2_url",
+      "type": "url",
+      "label": "Link 2",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_product_3_name",
+      "type": "text",
+      "label": "Produto 3",
+      "default": "Filtro avançado"
+    },
+    {
+      "id": "cpapjf_product_3_price",
+      "type": "text",
+      "label": "Preço 3",
+      "default": "R$ 89,90"
+    },
+    {
+      "id": "cpapjf_product_3_image",
+      "type": "image",
+      "label": "Imagem 3",
+      "default": "/img/products/product-3.jpg"
+    },
+    {
+      "id": "cpapjf_product_3_url",
+      "type": "url",
+      "label": "Link 3",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_product_4_name",
+      "type": "text",
+      "label": "Produto 4",
+      "default": "Adaptador ergonômico"
+    },
+    {
+      "id": "cpapjf_product_4_price",
+      "type": "text",
+      "label": "Preço 4",
+      "default": "R$ 149,90"
+    },
+    {
+      "id": "cpapjf_product_4_image",
+      "type": "image",
+      "label": "Imagem 4",
+      "default": "/img/products/product-4.jpg"
+    },
+    {
+      "id": "cpapjf_product_4_url",
+      "type": "url",
+      "label": "Link 4",
+      "default": "/"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "cpapjf",
+  "description": "Tema premium para lojas de equipamentos médicos (CPAP), focado em conversão",
+  "version": "1.0.0",
+  "author": "cpapjf",
+  "preview_image": "",
+  "category": "ecommerce / health / medical",
+  "editor": "visual (sections)",
+  "colors": {
+    "primary": "#174b90",
+    "secondary": "#51b2e5",
+    "background": "#f3f2ee",
+    "text": "#1a1a1a"
+  }
+}

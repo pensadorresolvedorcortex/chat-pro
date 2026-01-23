@@ -1,0 +1,67 @@
+{
+  "name": "home.hero_cpapjf",
+  "label": "Hero cpapjf",
+  "snippet": "home-hero-cpapjf",
+  "settings": [
+    {
+      "id": "cpapjf_heading",
+      "type": "text",
+      "label": "Heading",
+      "default": "Linha completa para bem-estar diário"
+    },
+    {
+      "id": "cpapjf_subtitle",
+      "type": "text",
+      "label": "Subtitle",
+      "default": "Explore lançamentos, kits especiais e condições exclusivas."
+    },
+    {
+      "id": "cpapjf_cta_text",
+      "type": "text",
+      "label": "CTA text",
+      "default": "Ver novidades"
+    },
+    {
+      "id": "cpapjf_cta_url",
+      "type": "url",
+      "label": "CTA URL",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_cta_secondary_text",
+      "type": "text",
+      "label": "CTA secundário",
+      "default": "Falar com consultor"
+    },
+    {
+      "id": "cpapjf_cta_secondary_url",
+      "type": "url",
+      "label": "URL CTA secundário",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_trust_badge",
+      "type": "text",
+      "label": "Selo de confiança",
+      "default": "Entrega segura em todo o Brasil"
+    },
+    {
+      "id": "cpapjf_slide_1_image",
+      "type": "image",
+      "label": "Slide 1",
+      "default": "/img/hero/slide-1.jpg"
+    },
+    {
+      "id": "cpapjf_slide_2_image",
+      "type": "image",
+      "label": "Slide 2",
+      "default": "/img/hero/slide-2.jpg"
+    },
+    {
+      "id": "cpapjf_slide_3_image",
+      "type": "image",
+      "label": "Slide 3",
+      "default": "/img/hero/slide-3.jpg"
+    }
+  ]
+}

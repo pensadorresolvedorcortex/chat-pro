@@ -1,0 +1,80 @@
+<section class="cpapjf-section">
+  <div class="cpapjf-container">
+    {% if section.settings.cpapjf_title %}
+      <h2 class="cpapjf-title">{{ section.settings.cpapjf_title }}</h2>
+    {% endif %}
+    {% if section.settings.cpapjf_subtitle %}
+      <p class="cpapjf-subtitle">{{ section.settings.cpapjf_subtitle }}</p>
+    {% endif %}
+    <div class="cpapjf-products-grid">
+      {% if section.settings.cpapjf_product_1_name %}
+        <a class="cpapjf-product-card" href="{{ section.settings.cpapjf_product_1_url }}">
+          {% if section.settings.cpapjf_product_1_image %}
+            <img class="cpapjf-product-image" src="{{ section.settings.cpapjf_product_1_image }}" alt="{{ section.settings.cpapjf_product_1_name }}">
+          {% endif %}
+          {% if section.settings.cpapjf_badge_text %}
+            <span class="cpapjf-product-badge">{{ section.settings.cpapjf_badge_text }}</span>
+          {% endif %}
+          <h3 class="cpapjf-product-title">{{ section.settings.cpapjf_product_1_name }}</h3>
+          {% if section.settings.cpapjf_product_1_price %}
+            <p class="cpapjf-product-price">{{ section.settings.cpapjf_product_1_price }}</p>
+          {% endif %}
+          {% if section.settings.cpapjf_cta_text and section.settings.cpapjf_product_1_url %}
+            <span class="cpapjf-product-cta">{{ section.settings.cpapjf_cta_text }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_product_2_name %}
+        <a class="cpapjf-product-card" href="{{ section.settings.cpapjf_product_2_url }}">
+          {% if section.settings.cpapjf_product_2_image %}
+            <img class="cpapjf-product-image" src="{{ section.settings.cpapjf_product_2_image }}" alt="{{ section.settings.cpapjf_product_2_name }}">
+          {% endif %}
+          {% if section.settings.cpapjf_badge_text %}
+            <span class="cpapjf-product-badge">{{ section.settings.cpapjf_badge_text }}</span>
+          {% endif %}
+          <h3 class="cpapjf-product-title">{{ section.settings.cpapjf_product_2_name }}</h3>
+          {% if section.settings.cpapjf_product_2_price %}
+            <p class="cpapjf-product-price">{{ section.settings.cpapjf_product_2_price }}</p>
+          {% endif %}
+          {% if section.settings.cpapjf_cta_text and section.settings.cpapjf_product_2_url %}
+            <span class="cpapjf-product-cta">{{ section.settings.cpapjf_cta_text }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_product_3_name %}
+        <a class="cpapjf-product-card" href="{{ section.settings.cpapjf_product_3_url }}">
+          {% if section.settings.cpapjf_product_3_image %}
+            <img class="cpapjf-product-image" src="{{ section.settings.cpapjf_product_3_image }}" alt="{{ section.settings.cpapjf_product_3_name }}">
+          {% endif %}
+          {% if section.settings.cpapjf_badge_text %}
+            <span class="cpapjf-product-badge">{{ section.settings.cpapjf_badge_text }}</span>
+          {% endif %}
+          <h3 class="cpapjf-product-title">{{ section.settings.cpapjf_product_3_name }}</h3>
+          {% if section.settings.cpapjf_product_3_price %}
+            <p class="cpapjf-product-price">{{ section.settings.cpapjf_product_3_price }}</p>
+          {% endif %}
+          {% if section.settings.cpapjf_cta_text and section.settings.cpapjf_product_3_url %}
+            <span class="cpapjf-product-cta">{{ section.settings.cpapjf_cta_text }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_product_4_name %}
+        <a class="cpapjf-product-card" href="{{ section.settings.cpapjf_product_4_url }}">
+          {% if section.settings.cpapjf_product_4_image %}
+            <img class="cpapjf-product-image" src="{{ section.settings.cpapjf_product_4_image }}" alt="{{ section.settings.cpapjf_product_4_name }}">
+          {% endif %}
+          {% if section.settings.cpapjf_badge_text %}
+            <span class="cpapjf-product-badge">{{ section.settings.cpapjf_badge_text }}</span>
+          {% endif %}
+          <h3 class="cpapjf-product-title">{{ section.settings.cpapjf_product_4_name }}</h3>
+          {% if section.settings.cpapjf_product_4_price %}
+            <p class="cpapjf-product-price">{{ section.settings.cpapjf_product_4_price }}</p>
+          {% endif %}
+          {% if section.settings.cpapjf_cta_text and section.settings.cpapjf_product_4_url %}
+            <span class="cpapjf-product-cta">{{ section.settings.cpapjf_cta_text }}</span>
+          {% endif %}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>

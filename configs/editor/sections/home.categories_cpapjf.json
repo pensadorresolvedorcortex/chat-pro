@@ -1,0 +1,61 @@
+{
+  "name": "home.categories_cpapjf",
+  "label": "Categorias cpapjf",
+  "snippet": "home-categories-cpapjf",
+  "settings": [
+    {
+      "id": "cpapjf_title",
+      "type": "text",
+      "label": "Title",
+      "default": "Categorias em destaque"
+    },
+    {
+      "id": "cpapjf_category_1_label",
+      "type": "text",
+      "label": "Categoria 1",
+      "default": "Máscaras"
+    },
+    {
+      "id": "cpapjf_category_1_url",
+      "type": "url",
+      "label": "Link categoria 1",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_category_2_label",
+      "type": "text",
+      "label": "Categoria 2",
+      "default": "Acessórios"
+    },
+    {
+      "id": "cpapjf_category_2_url",
+      "type": "url",
+      "label": "Link categoria 2",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_category_3_label",
+      "type": "text",
+      "label": "Categoria 3",
+      "default": "Filtros"
+    },
+    {
+      "id": "cpapjf_category_3_url",
+      "type": "url",
+      "label": "Link categoria 3",
+      "default": "/"
+    },
+    {
+      "id": "cpapjf_category_4_label",
+      "type": "text",
+      "label": "Categoria 4",
+      "default": "Higiene"
+    },
+    {
+      "id": "cpapjf_category_4_url",
+      "type": "url",
+      "label": "Link categoria 4",
+      "default": "/"
+    }
+  ]
+}

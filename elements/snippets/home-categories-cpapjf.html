@@ -1,0 +1,29 @@
+<section class="cpapjf-section">
+  <div class="cpapjf-container">
+    {% if section.settings.cpapjf_title %}
+      <h2 class="cpapjf-title">{{ section.settings.cpapjf_title }}</h2>
+    {% endif %}
+    <div class="cpapjf-categories-grid">
+      {% if section.settings.cpapjf_category_1_label %}
+        <a class="cpapjf-category-card" href="{{ section.settings.cpapjf_category_1_url }}">
+          <h3 class="cpapjf-category-title">{{ section.settings.cpapjf_category_1_label }}</h3>
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_category_2_label %}
+        <a class="cpapjf-category-card" href="{{ section.settings.cpapjf_category_2_url }}">
+          <h3 class="cpapjf-category-title">{{ section.settings.cpapjf_category_2_label }}</h3>
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_category_3_label %}
+        <a class="cpapjf-category-card" href="{{ section.settings.cpapjf_category_3_url }}">
+          <h3 class="cpapjf-category-title">{{ section.settings.cpapjf_category_3_label }}</h3>
+        </a>
+      {% endif %}
+      {% if section.settings.cpapjf_category_4_label %}
+        <a class="cpapjf-category-card" href="{{ section.settings.cpapjf_category_4_url }}">
+          <h3 class="cpapjf-category-title">{{ section.settings.cpapjf_category_4_label }}</h3>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
