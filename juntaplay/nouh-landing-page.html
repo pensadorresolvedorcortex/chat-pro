@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nouh Engenharia | Consultoria em Engenharia Geotécnica</title>
+  <style>
+    /* ============================================
+       Nouh Engenharia | Landing Page Institucional
+       Layout inspirado fielmente em nouh.png
+    ============================================ */
+    :root {
+      --white: #ffffff;
+      --gray-50: #f5f6f7;
+      --gray-100: #e5e7eb;
+      --gray-700: #1f2933;
+      --gray-800: #111827;
+      --black: #0b0f14;
+      --accent: #1f3b3a; /* azul petróleo / verde escuro técnico */
+      --shadow-soft: 0 16px 40px rgba(17, 24, 39, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", "Manrope", "IBM Plex Sans", "Source Sans 3", sans-serif;
+      color: var(--gray-700);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    h1, h2, h3, h4 {
+      color: var(--gray-800);
+      line-height: 1.2;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    p {
+      color: var(--gray-700);
+      font-weight: 400;
+    }
+
+    /* =========================
+       Utilities
+    ========================= */
+    .container {
+      width: min(1140px, 92%);
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 88px 0;
+    }
+
+    .section-light {
+      background: var(--white);
+    }
+
+    .section-gray {
+      background: var(--gray-50);
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      font-weight: 600;
+      display: inline-flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 1px;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 26px;
+      border-radius: 4px;
+      font-weight: 600;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    .button-primary {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .button-primary:hover {
+      background: #162f2e;
+    }
+
+    .button-outline {
+      border-color: rgba(255, 255, 255, 0.4);
+      color: var(--white);
+      background: transparent;
+    }
+
+    .button-outline:hover {
+      border-color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .grid {
+      display: grid;
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* =========================
+       Header + Hero (full width)
+    ========================= */
+    .hero {
+      background: linear-gradient(rgba(11, 15, 20, 0.65), rgba(11, 15, 20, 0.75)),
+        url("nouh.png") center/cover no-repeat;
+      color: var(--white);
+      padding: 40px 0 120px;
+    }
+
+    .hero header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 70px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand img {
+      width: 140px;
+      height: auto;
+    }
+
+    .hero-content {
+      max-width: 560px;
+    }
+
+    .hero h1 {
+      color: var(--white);
+      font-size: clamp(2.4rem, 3vw, 3.3rem);
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .hero .subtitle {
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+    }
+
+    .hero .support {
+      margin-bottom: 28px;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    /* =========================
+       Serviços - cards horizontais
+    ========================= */
+    .services-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .service-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .service-card img {
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .service-card .content {
+      padding: 20px;
+    }
+
+    /* =========================
+       Diferenciais / Valores
+    ========================= */
+    .values-grid {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .value-item {
+      display: grid;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .value-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-100);
+      display: grid;
+      place-items: center;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    /* =========================
+       Institucional (duas colunas)
+    ========================= */
+    .about-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+    }
+
+    .about-image {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--gray-100);
+    }
+
+    /* =========================
+       Métricas
+    ========================= */
+    .metrics {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      text-align: left;
+    }
+
+    .metric {
+      display: grid;
+      gap: 8px;
+    }
+
+    .metric strong {
+      font-size: 2rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    /* =========================
+       Processo / atuação
+    ========================= */
+    .process-grid {
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    }
+
+    .process-step {
+      display: grid;
+      gap: 14px;
+    }
+
+    .process-step span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    /* =========================
+       Autoridade
+    ========================= */
+    .authority-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: center;
+    }
+
+    .authority-photo {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow-soft);
+    }
+
+    /* =========================
+       CTA final + Footer
+    ========================= */
+    .cta-final {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 0;
+    }
+
+    .cta-final h2,
+    .cta-final p {
+      color: var(--white);
+    }
+
+    footer {
+      background: #05070a;
+      color: rgba(255, 255, 255, 0.65);
+      padding: 48px 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .footer-title {
+      color: var(--white);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    /* =========================
+       Responsividade
+    ========================= */
+    @media (max-width: 900px) {
+      .hero header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding: 32px 0 100px;
+      }
+
+      .section {
+        padding: 64px 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- HERO SECTION -->
+  <section class="hero" id="topo">
+    <div class="container">
+      <header>
+        <div class="brand">
+          <img src="logo.png" alt="Nouh Engenharia" />
+        </div>
+        <nav>
+          <a class="button button-outline" href="#contato">Contato</a>
+        </nav>
+      </header>
+
+      <div class="hero-content">
+        <span class="eyebrow">Engenharia geotécnica</span>
+        <h1>Engenharia geotécnica com precisão técnica, segurança e responsabilidade</h1>
+        <p class="subtitle">
+          Consultoria e projetos em engenharia geotécnica para obras simples e complexas, com atuação independente, base acadêmica sólida e
+          foco absoluto na segurança das soluções.
+        </p>
+        <p class="support">
+          A Nouh Engenharia atua no desenvolvimento de soluções geotécnicas fundamentadas em critérios técnicos rigorosos, experiência acumulada
+          e análise criteriosa dos riscos. Nosso trabalho é orientado pela engenharia responsável, pela ética profissional e pelo compromisso com a
+          segurança estrutural e a viabilidade técnica de cada empreendimento.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#formulario">Fale com um especialista</a>
+          <a class="button button-outline" href="https://wa.me/5511999164077" target="_blank" rel="noopener">Solicite uma consultoria técnica</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section class="section section-light" id="servicos">
+    <div class="container">
+      <span class="eyebrow">Áreas de atuação</span>
+      <h2>Soluções completas em engenharia geotécnica</h2>
+      <p class="section-subtitle">
+        A Nouh Engenharia atua de forma abrangente na engenharia geotécnica, oferecendo suporte técnico especializado em diferentes fases dos
+        empreendimentos.
+      </p>
+      <div class="grid services-grid" style="margin-top: 32px;">
+        <article class="card service-card">
+          <img src="nouh.png" alt="Fundações e infraestrutura de engenharia" />
+          <div class="content">
+            <h3>Fundações</h3>
+            <p>Estudos, projetos e análises de soluções de fundações rasas e profundas, considerando segurança, desempenho e viabilidade técnica.</p>
+          </div>
+        </article>
+        <article class="card service-card">
+          <img src="nouh.png" alt="Contenções e estabilidade de taludes" />
+          <div class="content">
+            <h3>Contenções e estabilidade</h3>
+            <p>Projetos e análises de estruturas de contenção, estabilidade de taludes naturais e artificiais, cortes e aterros.</p>
+          </div>
+        </article>
+        <article class="card service-card">
+          <img src="nouh.png" alt="Barragens e obras de terra" />
+          <div class="content">
+            <h3>Barragens e diques</h3>
+            <p>Análises geotécnicas, estudos de segurança, confiabilidade e desempenho de estruturas hidráulicas e de contenção.</p>
+          </div>
+        </article>
+        <article class="card service-card">
+          <img src="nouh.png" alt="Terraplenagem e obras de terra" />
+          <div class="content">
+            <h3>Terraplenagem e obras de terra</h3>
+            <p>Avaliação geotécnica, projetos e acompanhamento técnico de obras de movimentação de terra.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFERENCIAIS -->
+  <section class="section section-light" id="diferenciais">
+    <div class="container">
+      <span class="eyebrow">Diferenciais</span>
+      <h2>Independência técnica e rigor científico em cada decisão</h2>
+      <div class="grid values-grid" style="margin-top: 32px;">
+        <div class="value-item">
+          <div class="value-icon">01</div>
+          <h3>Consultoria independente e ética</h3>
+          <p>Atuação técnica isenta, sem vínculos com fornecedores ou executores, garantindo decisões baseadas exclusivamente em critérios técnicos.</p>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">02</div>
+          <h3>Base acadêmica e técnica consolidada</h3>
+          <p>Fundamentação em conhecimento científico, pesquisa aplicada e constante atualização técnica, aliada à experiência prática acumulada.</p>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">03</div>
+          <h3>Atuação nacional em projetos críticos</h3>
+          <p>Experiência em situações que exigem elevado rigor técnico, análise de riscos, confiabilidade estrutural e tomada de decisão responsável.</p>
+        </div>
+        <div class="value-item">
+          <div class="value-icon">04</div>
+          <h3>Soluções sob medida</h3>
+          <p>Cada projeto é tratado de forma individual, com análises específicas e soluções ajustadas às condições reais do terreno e da obra.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE A EMPRESA -->
+  <section class="section section-gray" id="sobre">
+    <div class="container">
+      <div class="grid about-grid">
+        <div>
+          <span class="eyebrow">Sobre a Nouh Engenharia</span>
+          <h2>Consultoria técnica que integra ciência, campo e responsabilidade</h2>
+          <p>
+            A Nouh Engenharia é uma empresa especializada em engenharia geotécnica, com atuação voltada à consultoria técnica independente, ao
+            desenvolvimento de projetos e à análise de soluções para obras de diferentes portes e níveis de complexidade.
+          </p>
+          <p>
+            Com sede em São Paulo e atuação em todo o território nacional, a empresa construiu sua trajetória apoiada em uma base acadêmica sólida,
+            na experiência prática em campo e na aplicação criteriosa dos princípios da engenharia. Cada solução é desenvolvida de forma personalizada,
+            considerando as condições geológicas, geotécnicas, estruturais e operacionais de cada empreendimento.
+          </p>
+        </div>
+        <div class="about-image">
+          <img src="nouh.png" alt="Obras geotécnicas e infraestrutura" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTRICAS -->
+  <section class="section section-gray">
+    <div class="container">
+      <div class="grid metrics">
+        <div class="metric">
+          <strong>+35 anos</strong>
+          <p>Atuação técnica em engenharia geotécnica desde 1989.</p>
+        </div>
+        <div class="metric">
+          <strong>Atuação nacional</strong>
+          <p>Projetos em diferentes regiões, com domínio das particularidades geotécnicas locais.</p>
+        </div>
+        <div class="metric">
+          <strong>Foco em segurança</strong>
+          <p>Critérios rigorosos para confiabilidade estrutural e mitigação de riscos.</p>
+        </div>
+        <div class="metric">
+          <strong>Consultoria independente</strong>
+          <p>Decisões técnicas isentas e alinhadas aos objetivos do cliente.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO / ATUAÇÃO -->
+  <section class="section section-light" id="processo">
+    <div class="container">
+      <span class="eyebrow">Processo técnico</span>
+      <h2>Rigor metodológico em todas as etapas</h2>
+      <div class="grid process-grid" style="margin-top: 32px;">
+        <div class="process-step">
+          <span>01</span>
+          <h3>Diagnóstico geotécnico</h3>
+          <p>Levantamento detalhado das condições do solo, riscos e restrições técnicas do empreendimento.</p>
+        </div>
+        <div class="process-step">
+          <span>02</span>
+          <h3>Modelagem e projeto</h3>
+          <p>Desenvolvimento de soluções sob medida, alinhadas às normas técnicas e à viabilidade econômica.</p>
+        </div>
+        <div class="process-step">
+          <span>03</span>
+          <h3>Validação e segurança</h3>
+          <p>Análises de estabilidade, confiabilidade estrutural e mitigação de riscos críticos.</p>
+        </div>
+        <div class="process-step">
+          <span>04</span>
+          <h3>Acompanhamento técnico</h3>
+          <p>Suporte especializado durante a execução para garantir aderência ao projeto e segurança da obra.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTORIDADE TÉCNICA -->
+  <section class="section section-light" id="autoridade">
+    <div class="container">
+      <div class="grid authority-grid">
+        <div class="authority-photo">
+          <img src="nouh.png" alt="Engenheiro Jorge Roberto Nouh" />
+        </div>
+        <div>
+          <span class="eyebrow">Autoridade técnica</span>
+          <h2>Eng. Jorge Roberto Nouh</h2>
+          <p>
+            O Engenheiro Jorge Roberto Nouh é o fundador e diretor técnico da Nouh Engenharia. Formado em Engenharia em 1972, construiu uma
+            trajetória profissional marcada pela sólida formação acadêmica, atuação como professor universitário e consultor técnico desde 1989.
+          </p>
+          <p>
+            É membro de importantes entidades técnicas nacionais, como ABMS, ABGE, CBT, CBDB e IBRACON. Sua experiência orienta a atuação da Nouh
+            Engenharia, assegurando alto nível técnico, confiabilidade e responsabilidade profissional em cada projeto.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULÁRIO DE CONTATO -->
+  <section class="section section-gray" id="formulario">
+    <div class="container">
+      <span class="eyebrow">Contato técnico</span>
+      <h2>Solicite uma consultoria especializada</h2>
+      <div class="grid" style="margin-top: 28px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+        <form class="card" style="display: grid; gap: 16px;">
+          <div>
+            <label for="nome" style="font-weight: 600;">Nome</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required />
+          </div>
+          <div>
+            <label for="empresa" style="font-weight: 600;">Empresa</label>
+            <input id="empresa" name="empresa" type="text" placeholder="Nome da empresa" />
+          </div>
+          <div>
+            <label for="email" style="font-weight: 600;">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="voce@empresa.com" required />
+          </div>
+          <div>
+            <label for="telefone" style="font-weight: 600;">Telefone</label>
+            <input id="telefone" name="telefone" type="tel" placeholder="(11) 00000-0000" required />
+          </div>
+          <div>
+            <label for="mensagem" style="font-weight: 600;">Mensagem</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Descreva o projeto ou sua necessidade técnica" required></textarea>
+          </div>
+          <button class="button button-primary" type="submit">Solicitar consultoria</button>
+        </form>
+        <div class="card">
+          <h3>Atendimento técnico personalizado</h3>
+          <p>
+            Contratar a Nouh Engenharia significa contar com uma consultoria técnica que prioriza a redução de riscos, a segurança estrutural e a
+            qualidade das decisões técnicas. A atuação independente e fundamentada permite identificar soluções eficientes, evitar retrabalhos e
+            otimizar custos ao longo do ciclo de vida da obra.
+          </p>
+          <div style="margin-top: 18px; display: grid; gap: 12px;">
+            <a class="button button-primary" href="https://wa.me/5511999164077" target="_blank" rel="noopener">Agende uma análise técnica</a>
+            <a class="button" href="#contato" style="border: 1px solid var(--gray-100);">Fale com um especialista</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <span class="eyebrow" style="color: rgba(255, 255, 255, 0.7);">Chamada final</span>
+      <h2>Soluções geotécnicas seguras começam com uma conversa técnica</h2>
+      <p style="max-width: 640px; margin-top: 12px;">
+        Entre em contato com a Nouh Engenharia para discutir seu projeto, solicitar uma consultoria técnica ou realizar uma análise geotécnica
+        especializada. Nossa equipe está preparada para oferecer atendimento técnico personalizado, com soluções fundamentadas, seguras e adequadas
+        às necessidades do seu empreendimento.
+      </p>
+      <div class="hero-actions" style="margin-top: 24px;">
+        <a class="button button-primary" href="#formulario">Solicite uma consultoria</a>
+        <a class="button button-outline" href="https://wa.me/5511999164077" target="_blank" rel="noopener">Fale via WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer id="contato">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-title">Nouh Engenharia</div>
+          <p>Consultoria técnica independente em engenharia geotécnica, com foco em segurança, confiabilidade e responsabilidade profissional.</p>
+        </div>
+        <div>
+          <div class="footer-title">Endereço</div>
+          <p>Rua Humberto I, 805 – Sala 05<br />Vila Mariana – São Paulo – SP<br />CEP 04018-032</p>
+        </div>
+        <div>
+          <div class="footer-title">Contato</div>
+          <p>Telefone: (11) 5573-3566<br />WhatsApp: (11) 99916-4077</p>
+        </div>
+      </div>
+      <p style="margin-top: 28px;">© 2024 Nouh Engenharia. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</body>
+</html>
