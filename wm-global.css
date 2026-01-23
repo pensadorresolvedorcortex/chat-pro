@@ -1,0 +1,112 @@
+/*
+  AJUSTES GLOBAIS WOODMART
+  Escopo: aplicar a classe .wm-global-scope no container da HOME.
+*/
+
+/* Tipografia */
+.wm-global-scope .wm-global-title-lg {
+  font-size: clamp(32px, 4.8vw, 56px);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.wm-global-scope .wm-global-title-md {
+  font-size: clamp(24px, 3.6vw, 42px);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.wm-global-scope .wm-global-title-sm {
+  font-size: clamp(18px, 2.6vw, 28px);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.wm-global-scope .wm-global-subtitle {
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  color: #6a5d54;
+}
+
+.wm-global-scope .wm-global-text {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #2a2420;
+}
+
+/* Espaçamento */
+.wm-global-scope .wm-global-section {
+  margin: 0 auto 80px;
+}
+
+.wm-global-scope .wm-global-section:last-child {
+  margin-bottom: 0;
+}
+
+.wm-global-scope .wm-global-stack-md {
+  display: grid;
+  gap: 24px;
+}
+
+.wm-global-scope .wm-global-stack-sm {
+  display: grid;
+  gap: 16px;
+}
+
+/* Botões */
+.wm-global-scope .wm-global-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  background: #8b6a4d;
+  color: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.wm-global-scope .wm-global-btn:hover {
+  transform: translateY(-2px);
+  background: #6d523d;
+  box-shadow: 0 16px 30px rgba(42, 36, 32, 0.18);
+}
+
+.wm-global-scope .wm-global-btn--ghost {
+  background: transparent;
+  color: #2a2420;
+  border: 1px solid rgba(42, 36, 32, 0.2);
+}
+
+.wm-global-scope .wm-global-btn--ghost:hover {
+  background: rgba(42, 36, 32, 0.05);
+}
+
+/* Ajustes finos */
+.wm-global-scope .wm-global-muted {
+  color: #6a5d54;
+}
+
+.wm-global-scope .wm-global-card {
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 14px 26px rgba(42, 36, 32, 0.08);
+}
+
+.wm-global-scope .wm-global-divider {
+  width: 72px;
+  height: 2px;
+  background: rgba(42, 36, 32, 0.12);
+  border-radius: 999px;
+}
+
+@media (max-width: 768px) {
+  .wm-global-scope .wm-global-section {
+    margin-bottom: 60px;
+  }
+}

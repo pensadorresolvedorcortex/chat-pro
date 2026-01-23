@@ -1,0 +1,36 @@
+/* HERO MICRO: transições suaves para o CTA */
+.hero-woodmart__cta {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+}
+
+/* HERO MICRO: hover sutil no CTA */
+.hero-woodmart__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(42, 36, 32, 0.18);
+}
+
+/* HERO MICRO: foco acessível no CTA */
+.hero-woodmart__cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}
+
+/* HERO MICRO: realce suave no frame */
+.hero-woodmart__frame {
+  transition: box-shadow 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.hero-woodmart__frame:hover {
+  box-shadow: 0 26px 44px rgba(42, 36, 32, 0.2);
+  transform: translateY(-2px);
+}
+
+/* HERO MICRO: suavização das formas SVG */
+.hero-woodmart__shape {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.hero-woodmart__shape:hover {
+  opacity: 0.85;
+  transform: translateY(-4px);
+}

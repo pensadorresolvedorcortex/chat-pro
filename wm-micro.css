@@ -1,0 +1,95 @@
+/*
+  MICROINTERAÇÕES WOODMART
+  Escopo: efeitos sutis para blocos existentes (HTML/CSS apenas).
+*/
+
+/* Botões: elevação e sombra progressiva */
+.wm-micro-btn,
+.hero-woodmart__cta,
+.prod-woodmart__cta,
+.cat-woodmart__cta,
+.brand-woodmart__card,
+.coll-woodmart__cta,
+.inst-woodmart__cta,
+.prod-page-woodmart__cta,
+.cat-page-woodmart__card-cta {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+}
+
+.wm-micro-btn:hover,
+.hero-woodmart__cta:hover,
+.prod-woodmart__cta:hover,
+.cat-woodmart__cta:hover,
+.coll-woodmart__cta:hover,
+.inst-woodmart__cta:hover,
+.prod-page-woodmart__cta:hover,
+.cat-page-woodmart__card-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(42, 36, 32, 0.18);
+}
+
+/* Cards de produto: destaque suave + zoom da imagem */
+.prod-woodmart__card,
+.cat-page-woodmart__card,
+.prod-page-woodmart__main-image,
+.prod-page-woodmart__thumb {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.prod-woodmart__card:hover,
+.cat-page-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.18);
+}
+
+.prod-woodmart__image,
+.cat-page-woodmart__card-image {
+  transition: transform 0.4s ease-out;
+}
+
+.prod-woodmart__card:hover .prod-woodmart__image,
+.cat-page-woodmart__card:hover .cat-page-woodmart__card-image {
+  transform: scale(1.05);
+}
+
+/* Cards editoriais e marcas: leve elevação */
+.cat-woodmart__item,
+.brand-woodmart__card,
+.coll-woodmart__card,
+.inst-woodmart__video,
+.prod-page-woodmart__main-image {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.cat-woodmart__item:hover,
+.brand-woodmart__card:hover,
+.coll-woodmart__card:hover,
+.inst-woodmart__video:hover,
+.prod-page-woodmart__main-image:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 38px rgba(42, 36, 32, 0.18);
+}
+
+/* CTA suave: destaque de ícones/labels */
+.wm-micro-cta,
+.cat-woodmart__label,
+.brand-woodmart__name,
+.coll-woodmart__cta,
+.inst-woodmart__badge {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out, text-shadow 0.3s ease-out;
+}
+
+/* Foco visível (acessibilidade) */
+.wm-micro-focus:focus-visible,
+.hero-woodmart__cta:focus-visible,
+.prod-woodmart__cta:focus-visible,
+.cat-woodmart__item:focus-visible,
+.brand-woodmart__card:focus-visible,
+.coll-woodmart__card:focus-visible,
+.inst-woodmart__cta:focus-visible,
+.prod-page-woodmart__cta:focus-visible,
+.cat-page-woodmart__card-cta:focus-visible,
+.cat-page-woodmart__card-media:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

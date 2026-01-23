@@ -1,0 +1,27 @@
+/* Microinteração: transições suaves nos cards */
+.coll-woodmart__card {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-size 0.4s ease-out;
+}
+
+/* Microinteração: elevação sutil e sombra leve */
+.coll-woodmart__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 28px rgba(42, 36, 32, 0.14);
+  background-size: 102%;
+}
+
+/* Microinteração: CTA revela de forma suave */
+.coll-woodmart__cta {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.coll-woodmart__card:hover .coll-woodmart__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Microinteração: foco acessível */
+.coll-woodmart__card:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

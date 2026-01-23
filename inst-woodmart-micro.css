@@ -1,0 +1,26 @@
+/* Microinteração: transições suaves no card de vídeo */
+.inst-woodmart__video {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Microinteração: hover sutil no card de vídeo */
+.inst-woodmart__video:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 36px rgba(42, 36, 32, 0.18);
+}
+
+/* Microinteração: aparição elegante do texto sobreposto */
+.inst-woodmart__badge {
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.inst-woodmart__video:hover .inst-woodmart__badge {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Microinteração: foco acessível no CTA */
+.inst-woodmart__cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

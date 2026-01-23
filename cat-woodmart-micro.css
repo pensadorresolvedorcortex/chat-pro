@@ -1,0 +1,27 @@
+/* Microinteração: transições suaves no item */
+.cat-woodmart__item {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-size 0.4s ease-out;
+}
+
+/* Microinteração: leve elevação e sombra progressiva */
+.cat-woodmart__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.16);
+  background-size: 105%;
+}
+
+/* Microinteração: realce do nome da categoria */
+.cat-woodmart__label {
+  transition: transform 0.3s ease-out, text-shadow 0.3s ease-out;
+}
+
+.cat-woodmart__item:hover .cat-woodmart__label {
+  transform: translateY(-2px);
+  text-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Microinteração: foco acessível */
+.cat-woodmart__item:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

@@ -1,0 +1,116 @@
+/*
+  BLOCO DE MARCAS WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.brand-woodmart {
+  --brand-woodmart-bg: #f7f2ec;
+  --brand-woodmart-text: #2a2420;
+  --brand-woodmart-muted: #6a5d54;
+  --brand-woodmart-card: #ffffff;
+  --brand-woodmart-border: rgba(42, 36, 32, 0.08);
+  --brand-woodmart-shadow: 0 16px 28px rgba(42, 36, 32, 0.12);
+}
+
+/* Estrutura principal */
+.brand-woodmart {
+  background: var(--brand-woodmart-bg);
+  color: var(--brand-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Cabeçalho */
+.brand-woodmart__header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.brand-woodmart__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.brand-woodmart__subtitle {
+  font-size: 16px;
+  color: var(--brand-woodmart-muted);
+  margin: 0;
+}
+
+/* Grid de marcas */
+.brand-woodmart__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Card de marca */
+.brand-woodmart__card {
+  background: var(--brand-woodmart-card);
+  border-radius: 18px;
+  border: 1px solid var(--brand-woodmart-border);
+  text-decoration: none;
+  color: var(--brand-woodmart-text);
+  padding: 22px 18px;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  align-content: center;
+  min-height: 140px;
+  box-shadow: 0 8px 16px rgba(42, 36, 32, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Logo placeholder */
+.brand-woodmart__logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  background: var(--brand-woodmart-logo) center/cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(42, 36, 32, 0.08);
+}
+
+/* Nome da marca */
+.brand-woodmart__name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Hover elegante */
+.brand-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--brand-woodmart-shadow);
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .brand-woodmart__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .brand-woodmart {
+    padding: 60px 0;
+  }
+
+  .brand-woodmart__header {
+    margin-bottom: 32px;
+  }
+
+  .brand-woodmart__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}

@@ -1,0 +1,36 @@
+/* Microinteração: transições suaves nos CTAs */
+.prod-page-woodmart__cta {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+}
+
+/* Microinteração: hover sutil nos CTAs */
+.prod-page-woodmart__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px rgba(42, 36, 32, 0.18);
+}
+
+/* Microinteração: destaque discreto na galeria */
+.prod-page-woodmart__main-image,
+.prod-page-woodmart__thumb {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.prod-page-woodmart__main-image:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 38px rgba(42, 36, 32, 0.2);
+}
+
+/* Microinteração: reforço sutil na hierarquia visual */
+.prod-page-woodmart__title {
+  transition: color 0.2s ease-out;
+}
+
+.prod-page-woodmart__info:hover .prod-page-woodmart__title {
+  color: #6d523d;
+}
+
+/* Microinteração: foco acessível nos CTAs */
+.prod-page-woodmart__cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

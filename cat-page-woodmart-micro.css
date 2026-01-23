@@ -1,0 +1,40 @@
+/* Microinteração: transições suaves nos cards */
+.cat-page-woodmart__card {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+/* Microinteração: hover sutil nos cards */
+.cat-page-woodmart__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.16);
+}
+
+/* Microinteração: zoom leve na imagem */
+.cat-page-woodmart__card-image {
+  transition: transform 0.4s ease-out;
+}
+
+.cat-page-woodmart__card:hover .cat-page-woodmart__card-image {
+  transform: scale(1.04);
+}
+
+/* Microinteração: realce sutil nos filtros */
+.cat-page-woodmart__pill,
+.cat-page-woodmart__check,
+.cat-page-woodmart__swatch {
+  transition: box-shadow 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.cat-page-woodmart__pill:hover,
+.cat-page-woodmart__check:hover,
+.cat-page-woodmart__swatch:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(42, 36, 32, 0.12);
+}
+
+/* Microinteração: foco acessível */
+.cat-page-woodmart__card-cta:focus-visible,
+.cat-page-woodmart__card-media:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

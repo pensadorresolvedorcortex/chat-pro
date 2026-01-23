@@ -1,0 +1,36 @@
+/* PRODUCT GRID MICRO: transições suaves no card */
+.prod-woodmart__card {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+/* PRODUCT GRID MICRO: hover com leve elevação */
+.prod-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.18);
+}
+
+/* PRODUCT GRID MICRO: transição suave na imagem */
+.prod-woodmart__image {
+  transition: transform 0.4s ease-out;
+}
+
+/* PRODUCT GRID MICRO: zoom sutil na imagem */
+.prod-woodmart__card:hover .prod-woodmart__image {
+  transform: scale(1.05);
+}
+
+/* PRODUCT GRID MICRO: realce no CTA do card */
+.prod-woodmart__cta {
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out, background 0.2s ease-out;
+}
+
+.prod-woodmart__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(42, 36, 32, 0.16);
+}
+
+/* PRODUCT GRID MICRO: foco acessível no CTA */
+.prod-woodmart__cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+}

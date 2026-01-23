@@ -1,0 +1,160 @@
+/*
+  BLOCO INSTITUCIONAL WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.inst-woodmart {
+  --inst-woodmart-bg: #f7f2ec;
+  --inst-woodmart-text: #2a2420;
+  --inst-woodmart-muted: #6a5d54;
+  --inst-woodmart-accent: #8b6a4d;
+  --inst-woodmart-overlay: rgba(42, 36, 32, 0.35);
+}
+
+/* Estrutura principal */
+.inst-woodmart {
+  background: var(--inst-woodmart-bg);
+  color: var(--inst-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Layout em duas colunas */
+.inst-woodmart__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: center;
+}
+
+/* Coluna de texto */
+.inst-woodmart__title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.inst-woodmart__intro {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--inst-woodmart-muted);
+  margin: 0 0 24px;
+}
+
+.inst-woodmart__list {
+  margin: 0 0 28px;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  color: var(--inst-woodmart-text);
+}
+
+.inst-woodmart__item {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* CTA discreto */
+.inst-woodmart__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--inst-woodmart-accent);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.inst-woodmart__cta:hover {
+  background: #6d523d;
+  transform: translateY(-2px);
+}
+
+/* Coluna de vídeo */
+.inst-woodmart__video {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--inst-woodmart-video) center/cover no-repeat;
+  box-shadow: 0 20px 36px rgba(42, 36, 32, 0.18);
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Overlay suave */
+.inst-woodmart__video::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(42, 36, 32, 0.1), var(--inst-woodmart-overlay));
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* Ícone play */
+.inst-woodmart__play {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--inst-woodmart-text);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: 0 10px 18px rgba(42, 36, 32, 0.2);
+}
+
+/* Texto sobreposto */
+.inst-woodmart__badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--inst-woodmart-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Hover sutil no card de vídeo */
+.inst-woodmart__video:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 44px rgba(42, 36, 32, 0.22);
+}
+
+.inst-woodmart__video:hover::before {
+  opacity: 0.95;
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .inst-woodmart__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .inst-woodmart {
+    padding: 60px 0;
+  }
+
+  .inst-woodmart__content {
+    gap: 32px;
+  }
+}
