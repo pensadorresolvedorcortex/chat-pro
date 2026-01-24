@@ -1,0 +1,5 @@
+/* Ajuste complementar: hover mais suave do CTA do hero */
+.hero-woodmart__cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(42, 36, 32, 0.12);
+}
