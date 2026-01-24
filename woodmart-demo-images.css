@@ -1,0 +1,94 @@
+/* DEMO ONLY: imagens fictícias para visualização de layout */
+.hero-woodmart__frame {
+  background-image: url("https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+/* DEMO ONLY: categorias em círculo */
+.cat-woodmart__item {
+  background-size: cover;
+  background-position: center;
+}
+
+.cat-woodmart__item:nth-child(1) {
+  background-image: url("https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(2) {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(3) {
+  background-image: url("https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(4) {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80");
+}
+
+/* DEMO ONLY: cards de produto (home) */
+.prod-woodmart__image {
+  background-size: cover;
+  background-position: center;
+}
+
+.prod-woodmart__card:nth-child(1) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(2) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(3) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(4) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80");
+}
+
+/* DEMO ONLY: cards de marca */
+.brand-woodmart__logo {
+  background-size: cover;
+  background-position: center;
+}
+
+.brand-woodmart__card:nth-child(1) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(2) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(3) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(4) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80");
+}
+
+/* DEMO ONLY: mosaico editorial */
+.coll-woodmart__card {
+  background-size: cover;
+  background-position: center;
+}
+
+.coll-woodmart__card:nth-child(1) {
+  background-image: url("https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(2) {
+  background-image: url("https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(3) {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(4) {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80");
+}

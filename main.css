@@ -1,0 +1,1256 @@
+/* =============================== */
+/* hero-woodmart.css              */
+/* =============================== */
+/*
+  HERO WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais para manter consistência visual */
+.hero-woodmart {
+  --hero-woodmart-bg: #f7f2ec;
+  --hero-woodmart-text: #2a2420;
+  --hero-woodmart-muted: #6a5d54;
+  --hero-woodmart-accent: #8b6a4d;
+  --hero-woodmart-accent-dark: #6d523d;
+  --hero-woodmart-card: #ffffff;
+}
+
+/* Estrutura principal (full width, sem mexer no body/html) */
+.hero-woodmart {
+  position: relative;
+  background: var(--hero-woodmart-bg);
+  color: var(--hero-woodmart-text);
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+/* Conteúdo central e responsivo */
+.hero-woodmart__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* Tipografia editorial */
+.hero-woodmart__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 12px;
+  color: var(--hero-woodmart-muted);
+  margin-bottom: 16px;
+}
+
+.hero-woodmart__title {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.1;
+  margin: 0 0 16px;
+  font-weight: 600;
+}
+
+.hero-woodmart__title-accent {
+  display: block;
+  color: var(--hero-woodmart-accent);
+  font-weight: 500;
+}
+
+.hero-woodmart__subtitle {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--hero-woodmart-muted);
+  margin: 0 0 32px;
+}
+
+/* CTA arredondado */
+.hero-woodmart__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: var(--hero-woodmart-accent);
+  box-shadow: 0 10px 24px rgba(139, 106, 77, 0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.hero-woodmart__cta:hover {
+  transform: translateY(-2px);
+  background: var(--hero-woodmart-accent-dark);
+  box-shadow: 0 16px 30px rgba(139, 106, 77, 0.32);
+}
+
+/* Área visual com moldura */
+.hero-woodmart__media {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-woodmart__frame {
+  width: min(380px, 90%);
+  aspect-ratio: 4 / 5;
+  border-radius: 32px;
+  background:
+    linear-gradient(135deg, rgba(139, 106, 77, 0.18), rgba(255, 255, 255, 0)),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.8), transparent 60%);
+  border: 6px solid var(--hero-woodmart-card);
+  box-shadow: 0 24px 40px rgba(42, 36, 32, 0.18);
+}
+
+/* Formas orgânicas em overlay */
+.hero-woodmart__shape {
+  position: absolute;
+  color: rgba(139, 106, 77, 0.12);
+  z-index: 1;
+}
+
+.hero-woodmart__shape--left {
+  width: 280px;
+  height: 280px;
+  left: -90px;
+  top: 30px;
+}
+
+.hero-woodmart__shape--right {
+  width: 240px;
+  height: 240px;
+  right: -70px;
+  bottom: -50px;
+}
+
+/* Responsividade (mobile) */
+@media (max-width: 768px) {
+  .hero-woodmart {
+    padding: 60px 0;
+  }
+
+  .hero-woodmart__content {
+    gap: 32px;
+  }
+
+  .hero-woodmart__frame {
+    width: min(320px, 100%);
+  }
+}
+
+
+/* =============================== */
+/* cat-woodmart.css               */
+/* =============================== */
+/*
+  BLOCO DE CATEGORIAS WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.cat-woodmart {
+  --cat-woodmart-bg: #f7f2ec;
+  --cat-woodmart-text: #2a2420;
+  --cat-woodmart-muted: #6a5d54;
+  --cat-woodmart-overlay: rgba(0, 0, 0, 0.28);
+  --cat-woodmart-ring: rgba(42, 36, 32, 0.12);
+}
+
+/* Estrutura principal */
+.cat-woodmart {
+  background: var(--cat-woodmart-bg);
+  color: var(--cat-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Cabeçalho */
+.cat-woodmart__header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.cat-woodmart__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.cat-woodmart__subtitle {
+  font-size: 16px;
+  color: var(--cat-woodmart-muted);
+  margin: 0;
+}
+
+/* Grid de categorias */
+.cat-woodmart__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* Item circular */
+.cat-woodmart__item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: #fff;
+  aspect-ratio: 1 / 1;
+  border-radius: 999px;
+  background: var(--cat-woodmart-img) center/cover no-repeat;
+  overflow: hidden;
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Overlay suave */
+.cat-woodmart__item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--cat-woodmart-overlay);
+  opacity: 0.2;
+  transition: opacity 0.3s ease;
+}
+
+/* Anel sutil para acabamento */
+.cat-woodmart__item::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--cat-woodmart-ring);
+}
+
+/* Texto central */
+.cat-woodmart__label {
+  position: relative;
+  z-index: 1;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.02em;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* Hover elegante */
+.cat-woodmart__item:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 24px 36px rgba(42, 36, 32, 0.18);
+}
+
+.cat-woodmart__item:hover::before {
+  opacity: 0.45;
+}
+
+.cat-woodmart__item:hover .cat-woodmart__label {
+  transform: translateY(-2px);
+  text-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .cat-woodmart__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .cat-woodmart {
+    padding: 60px 0;
+  }
+
+  .cat-woodmart__header {
+    margin-bottom: 32px;
+  }
+
+  .cat-woodmart__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+
+/* =============================== */
+/* prod-woodmart.css              */
+/* =============================== */
+/*
+  GRID DE PRODUTOS WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.prod-woodmart {
+  --prod-woodmart-bg: #f7f2ec;
+  --prod-woodmart-text: #2a2420;
+  --prod-woodmart-muted: #6a5d54;
+  --prod-woodmart-border: rgba(42, 36, 32, 0.08);
+  --prod-woodmart-shadow: 0 18px 32px rgba(42, 36, 32, 0.12);
+  --prod-woodmart-accent: #8b6a4d;
+}
+
+/* Estrutura principal */
+.prod-woodmart {
+  background: var(--prod-woodmart-bg);
+  color: var(--prod-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Cabeçalho do bloco */
+.prod-woodmart__header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.prod-woodmart__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.prod-woodmart__subtitle {
+  font-size: 16px;
+  color: var(--prod-woodmart-muted);
+  margin: 0;
+}
+
+/* Grid de cards */
+.prod-woodmart__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+
+/* Card individual */
+.prod-woodmart__card {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--prod-woodmart-border);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 18px rgba(42, 36, 32, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Área de imagem com proporção fixa */
+.prod-woodmart__media {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.prod-woodmart__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--prod-woodmart-img) center/cover no-repeat;
+  transition: transform 0.4s ease;
+}
+
+/* Ícone de wishlist (visual) */
+.prod-woodmart__wishlist {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--prod-woodmart-text);
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  box-shadow: 0 8px 16px rgba(42, 36, 32, 0.12);
+  z-index: 1;
+}
+
+/* Informações do produto */
+.prod-woodmart__info {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.prod-woodmart__meta {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--prod-woodmart-muted);
+  margin: 0;
+}
+
+.prod-woodmart__name {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.prod-woodmart__rating {
+  font-size: 14px;
+  color: #d9a441;
+  letter-spacing: 0.1em;
+}
+
+.prod-woodmart__prices {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.prod-woodmart__price {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--prod-woodmart-text);
+}
+
+.prod-woodmart__price-old {
+  font-size: 13px;
+  color: var(--prod-woodmart-muted);
+  text-decoration: line-through;
+}
+
+/* Botão visual */
+.prod-woodmart__cta {
+  margin-top: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--prod-woodmart-accent);
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+/* Hover elegante */
+.prod-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--prod-woodmart-shadow);
+}
+
+.prod-woodmart__card:hover .prod-woodmart__image {
+  transform: scale(1.05);
+}
+
+.prod-woodmart__card:hover .prod-woodmart__cta {
+  background: #6d523d;
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .prod-woodmart__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .prod-woodmart {
+    padding: 60px 0;
+  }
+
+  .prod-woodmart__header {
+    margin-bottom: 32px;
+  }
+
+  .prod-woodmart__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+
+/* =============================== */
+/* brand-woodmart.css             */
+/* =============================== */
+/*
+  BLOCO DE MARCAS WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.brand-woodmart {
+  --brand-woodmart-bg: #f7f2ec;
+  --brand-woodmart-text: #2a2420;
+  --brand-woodmart-muted: #6a5d54;
+  --brand-woodmart-card: #ffffff;
+  --brand-woodmart-border: rgba(42, 36, 32, 0.08);
+  --brand-woodmart-shadow: 0 16px 28px rgba(42, 36, 32, 0.12);
+}
+
+/* Estrutura principal */
+.brand-woodmart {
+  background: var(--brand-woodmart-bg);
+  color: var(--brand-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Cabeçalho */
+.brand-woodmart__header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.brand-woodmart__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.brand-woodmart__subtitle {
+  font-size: 16px;
+  color: var(--brand-woodmart-muted);
+  margin: 0;
+}
+
+/* Grid de marcas */
+.brand-woodmart__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* Card de marca */
+.brand-woodmart__card {
+  background: var(--brand-woodmart-card);
+  border-radius: 18px;
+  border: 1px solid var(--brand-woodmart-border);
+  text-decoration: none;
+  color: var(--brand-woodmart-text);
+  padding: 22px 18px;
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  align-content: center;
+  min-height: 140px;
+  box-shadow: 0 8px 16px rgba(42, 36, 32, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Logo placeholder */
+.brand-woodmart__logo {
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  background: var(--brand-woodmart-logo) center/cover no-repeat;
+  box-shadow: inset 0 0 0 1px rgba(42, 36, 32, 0.08);
+}
+
+/* Nome da marca */
+.brand-woodmart__name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Hover elegante */
+.brand-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--brand-woodmart-shadow);
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .brand-woodmart__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .brand-woodmart {
+    padding: 60px 0;
+  }
+
+  .brand-woodmart__header {
+    margin-bottom: 32px;
+  }
+
+  .brand-woodmart__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+
+/* =============================== */
+/* coll-woodmart.css              */
+/* =============================== */
+/*
+  COLEÇÕES WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.coll-woodmart {
+  --coll-woodmart-bg: #f7f2ec;
+  --coll-woodmart-text: #2a2420;
+  --coll-woodmart-muted: #6a5d54;
+  --coll-woodmart-overlay: rgba(42, 36, 32, 0.35);
+  --coll-woodmart-radius: 20px;
+}
+
+/* Estrutura principal */
+.coll-woodmart {
+  background: var(--coll-woodmart-bg);
+  color: var(--coll-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Cabeçalho */
+.coll-woodmart__header {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.coll-woodmart__title {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.coll-woodmart__subtitle {
+  font-size: 16px;
+  color: var(--coll-woodmart-muted);
+  margin: 0;
+}
+
+/* Mosaico editorial */
+.coll-woodmart__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Card base */
+.coll-woodmart__card {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px;
+  min-height: 220px;
+  border-radius: var(--coll-woodmart-radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: #fff;
+  background: var(--coll-woodmart-img) center/cover no-repeat;
+  box-shadow: 0 16px 30px rgba(42, 36, 32, 0.12);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Overlay suave */
+.coll-woodmart__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(42, 36, 32, 0.05), var(--coll-woodmart-overlay));
+  opacity: 0.8;
+  transition: opacity 0.35s ease;
+}
+
+/* Conteúdo interno */
+.coll-woodmart__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+}
+
+.coll-woodmart__card-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.coll-woodmart__card-text {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* CTA discreto */
+.coll-woodmart__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Tamanhos do mosaico */
+.coll-woodmart__card--lg {
+  grid-column: span 7;
+  min-height: 420px;
+}
+
+.coll-woodmart__card--md {
+  grid-column: span 5;
+  min-height: 260px;
+}
+
+.coll-woodmart__card--sm {
+  grid-column: span 4;
+  min-height: 220px;
+}
+
+/* Hover elegante */
+.coll-woodmart__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 38px rgba(42, 36, 32, 0.18);
+}
+
+.coll-woodmart__card:hover::before {
+  opacity: 0.95;
+}
+
+.coll-woodmart__card:hover .coll-woodmart__cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.coll-woodmart__card:hover {
+  background-size: 105%;
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .coll-woodmart__grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .coll-woodmart__card--lg {
+    grid-column: span 6;
+  }
+
+  .coll-woodmart__card--md {
+    grid-column: span 3;
+  }
+
+  .coll-woodmart__card--sm {
+    grid-column: span 3;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .coll-woodmart {
+    padding: 60px 0;
+  }
+
+  .coll-woodmart__header {
+    margin-bottom: 32px;
+  }
+
+  .coll-woodmart__grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .coll-woodmart__card--lg,
+  .coll-woodmart__card--md,
+  .coll-woodmart__card--sm {
+    grid-column: span 1;
+    min-height: 240px;
+  }
+}
+
+
+/* =============================== */
+/* inst-woodmart.css              */
+/* =============================== */
+/*
+  BLOCO INSTITUCIONAL WOODMART
+  Estilos isolados e compatíveis com Tray (Tema Padrão 3.0).
+*/
+
+/* Variáveis locais do bloco */
+.inst-woodmart {
+  --inst-woodmart-bg: #f7f2ec;
+  --inst-woodmart-text: #2a2420;
+  --inst-woodmart-muted: #6a5d54;
+  --inst-woodmart-accent: #8b6a4d;
+  --inst-woodmart-overlay: rgba(42, 36, 32, 0.35);
+}
+
+/* Estrutura principal */
+.inst-woodmart {
+  background: var(--inst-woodmart-bg);
+  color: var(--inst-woodmart-text);
+  padding: 80px 0;
+}
+
+/* Layout em duas colunas */
+.inst-woodmart__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  align-items: center;
+}
+
+/* Coluna de texto */
+.inst-woodmart__title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.inst-woodmart__intro {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--inst-woodmart-muted);
+  margin: 0 0 24px;
+}
+
+.inst-woodmart__list {
+  margin: 0 0 28px;
+  padding-left: 18px;
+  display: grid;
+  gap: 10px;
+  color: var(--inst-woodmart-text);
+}
+
+.inst-woodmart__item {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* CTA discreto */
+.inst-woodmart__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--inst-woodmart-accent);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.inst-woodmart__cta:hover {
+  background: #6d523d;
+  transform: translateY(-2px);
+}
+
+/* Coluna de vídeo */
+.inst-woodmart__video {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--inst-woodmart-video) center/cover no-repeat;
+  box-shadow: 0 20px 36px rgba(42, 36, 32, 0.18);
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Overlay suave */
+.inst-woodmart__video::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(42, 36, 32, 0.1), var(--inst-woodmart-overlay));
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+/* Ícone play */
+.inst-woodmart__play {
+  position: relative;
+  z-index: 1;
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--inst-woodmart-text);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  box-shadow: 0 10px 18px rgba(42, 36, 32, 0.2);
+}
+
+/* Texto sobreposto */
+.inst-woodmart__badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--inst-woodmart-text);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Hover sutil no card de vídeo */
+.inst-woodmart__video:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 44px rgba(42, 36, 32, 0.22);
+}
+
+.inst-woodmart__video:hover::before {
+  opacity: 0.95;
+}
+
+/* Responsividade tablet */
+@media (max-width: 1024px) {
+  .inst-woodmart__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Responsividade mobile */
+@media (max-width: 768px) {
+  .inst-woodmart {
+    padding: 60px 0;
+  }
+
+  .inst-woodmart__content {
+    gap: 32px;
+  }
+}
+
+
+/* =============================== */
+/* prod-page-woodmart-micro.css   */
+/* =============================== */
+/* Ajuste micro: hover e focus-visible de CTA da página de produto */
+.prod-page-woodmart-cta {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+/* Suavização de elevação e sombra no hover */
+.prod-page-woodmart-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Reforço sutil do foco visível */
+.prod-page-woodmart-cta:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+
+/* =============================== */
+/* cat-page-woodmart-micro.css    */
+/* =============================== */
+/* Microinteração: hover e foco nos cards da categoria */
+.cat-page-woodmart__card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+/* Elevação leve no hover */
+.cat-page-woodmart__card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px rgba(42, 36, 32, 0.14);
+}
+
+/* Zoom sutil na imagem */
+.cat-page-woodmart__card-image {
+  transition: transform 220ms ease;
+}
+
+.cat-page-woodmart__card:hover .cat-page-woodmart__card-image {
+  transform: scale(1.03);
+}
+
+/* Reforço discreto de foco visível */
+.cat-page-woodmart__card-cta:focus-visible,
+.cat-page-woodmart__card-media:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 3px;
+}
+
+
+/* =============================== */
+/* cat-woodmart-micro.css         */
+/* =============================== */
+/* Microinteração: hover sutil nos itens circulares */
+.cat-woodmart__item {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.cat-woodmart__item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 26px 38px rgba(42, 36, 32, 0.2);
+}
+
+/* Microinteração: realce discreto do nome */
+.cat-woodmart__item:hover .cat-woodmart__label {
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.38);
+}
+
+/* Microinteração: foco acessível */
+.cat-woodmart__item:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 4px;
+}
+
+
+/* =============================== */
+/* brand-woodmart-micro.css       */
+/* =============================== */
+/* Microinteração: hover suave nos cards de marca */
+.brand-woodmart__card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.brand-woodmart__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.14);
+}
+
+/* Microinteração: zoom sutil no logo */
+.brand-woodmart__logo {
+  transition: transform 200ms ease;
+}
+
+.brand-woodmart__card:hover .brand-woodmart__logo {
+  transform: scale(1.04);
+}
+
+/* Microinteração: foco acessível */
+.brand-woodmart__card:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 4px;
+}
+
+
+/* =============================== */
+/* woodmart-rhythm.css            */
+/* =============================== */
+/* Ritmo editorial: espaçamento vertical entre blocos da home */
+.hero-woodmart,
+.cat-woodmart,
+.prod-woodmart,
+.brand-woodmart,
+.coll-woodmart,
+.inst-woodmart {
+  margin-block: 0;
+}
+
+.hero-woodmart {
+  margin-bottom: 72px;
+}
+
+.cat-woodmart,
+.prod-woodmart,
+.brand-woodmart,
+.coll-woodmart {
+  margin-bottom: 64px;
+}
+
+.inst-woodmart {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .hero-woodmart {
+    margin-bottom: 56px;
+  }
+
+  .cat-woodmart,
+  .prod-woodmart,
+  .brand-woodmart,
+  .coll-woodmart {
+    margin-bottom: 48px;
+  }
+}
+
+
+/* =============================== */
+/* woodmart-focus-visible.css     */
+/* =============================== */
+/* Foco visível: CTAs Woodmart-like */
+.hero-woodmart__cta:focus-visible,
+.prod-page-woodmart__cta:focus-visible,
+.prod-woodmart__cta:focus-visible,
+.cat-page-woodmart__card-cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(139, 106, 77, 0.18);
+}
+
+
+/* =============================== */
+/* woodmart-performance.css       */
+/* =============================== */
+/* Performance visual: reservar área para mídia e cards */
+.hero-woodmart__media {
+  min-height: 320px;
+}
+
+.hero-woodmart__frame {
+  min-height: 320px;
+}
+
+.prod-page-woodmart__main-image {
+  aspect-ratio: 4 / 5;
+  min-height: 340px;
+}
+
+.prod-page-woodmart__thumb {
+  aspect-ratio: 1 / 1;
+  min-height: 64px;
+}
+
+.prod-woodmart__image {
+  aspect-ratio: 4 / 5;
+  min-height: 220px;
+}
+
+.cat-page-woodmart__card-image {
+  aspect-ratio: 4 / 5;
+  min-height: 220px;
+}
+
+
+/* =============================== */
+/* woodmart-demo-images.css       */
+/* =============================== */
+/* DEMO ONLY: imagens fictícias para visualização de layout */
+.hero-woodmart__frame {
+  background-image: url("https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+/* DEMO ONLY: categorias em círculo */
+.cat-woodmart__item {
+  background-size: cover;
+  background-position: center;
+}
+
+.cat-woodmart__item:nth-child(1) {
+  background-image: url("https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(2) {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(3) {
+  background-image: url("https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=600&q=80");
+}
+
+.cat-woodmart__item:nth-child(4) {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80");
+}
+
+/* DEMO ONLY: cards de produto (home) */
+.prod-woodmart__image {
+  background-size: cover;
+  background-position: center;
+}
+
+.prod-woodmart__card:nth-child(1) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(2) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(3) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=800&q=80");
+}
+
+.prod-woodmart__card:nth-child(4) .prod-woodmart__image {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=80");
+}
+
+/* DEMO ONLY: cards de marca */
+.brand-woodmart__logo {
+  background-size: cover;
+  background-position: center;
+}
+
+.brand-woodmart__card:nth-child(1) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(2) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(3) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=400&q=80");
+}
+
+.brand-woodmart__card:nth-child(4) .brand-woodmart__logo {
+  background-image: url("https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=400&q=80");
+}
+
+/* DEMO ONLY: mosaico editorial */
+.coll-woodmart__card {
+  background-size: cover;
+  background-position: center;
+}
+
+.coll-woodmart__card:nth-child(1) {
+  background-image: url("https://images.unsplash.com/photo-1501045661006-fcebe0257c3f?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(2) {
+  background-image: url("https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(3) {
+  background-image: url("https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1000&q=80");
+}
+
+.coll-woodmart__card:nth-child(4) {
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1000&q=80");
+}
+
+

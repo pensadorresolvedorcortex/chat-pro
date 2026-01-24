@@ -1,0 +1,9 @@
+/* Foco visível: CTAs Woodmart-like */
+.hero-woodmart__cta:focus-visible,
+.prod-page-woodmart__cta:focus-visible,
+.prod-woodmart__cta:focus-visible,
+.cat-page-woodmart__card-cta:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.6);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(139, 106, 77, 0.18);
+}

@@ -1,0 +1,15 @@
+/* Ajuste micro: hover e focus-visible de CTA da página de produto */
+.prod-page-woodmart-cta {
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+/* Suavização de elevação e sombra no hover */
+.prod-page-woodmart-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Reforço sutil do foco visível */
+.prod-page-woodmart-cta:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.18), 0 6px 16px rgba(0, 0, 0, 0.16);
+}

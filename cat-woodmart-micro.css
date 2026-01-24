@@ -1,0 +1,20 @@
+/* Microinteração: hover sutil nos itens circulares */
+.cat-woodmart__item {
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.cat-woodmart__item:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 26px 38px rgba(42, 36, 32, 0.2);
+}
+
+/* Microinteração: realce discreto do nome */
+.cat-woodmart__item:hover .cat-woodmart__label {
+  text-shadow: 0 8px 18px rgba(0, 0, 0, 0.38);
+}
+
+/* Microinteração: foco acessível */
+.cat-woodmart__item:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 4px;
+}

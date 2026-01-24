@@ -1,0 +1,24 @@
+/* Microinteração: hover suave nos cards de marca */
+.brand-woodmart__card {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.brand-woodmart__card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 30px rgba(42, 36, 32, 0.14);
+}
+
+/* Microinteração: zoom sutil no logo */
+.brand-woodmart__logo {
+  transition: transform 200ms ease;
+}
+
+.brand-woodmart__card:hover .brand-woodmart__logo {
+  transform: scale(1.04);
+}
+
+/* Microinteração: foco acessível */
+.brand-woodmart__card:focus-visible {
+  outline: 2px solid rgba(139, 106, 77, 0.55);
+  outline-offset: 4px;
+}
