@@ -1,0 +1,293 @@
+/* =====================================================
+   PROJETO: CPAP
+   PLATAFORMA: TRAY
+   TIPO: CUSTOMIZAÇÃO NÃO-DESTRUTIVA
+   ===================================================== */
+
+/* 1. Variáveis de cor */
+:root{
+    --cpap-blue-primary: #0035bb;
+    --cpap-blue-secondary: #012a91;
+    --cpap-white: #ffffff;
+    --cpap-gray-50: #f5f7fb;
+    --cpap-gray-500: #6b7280;
+    --cpap-gray-900: #1f2933;
+    --cpap-shadow: 0 6px 18px rgba(1, 42, 145, 0.08);
+    --cpap-border: 1px solid rgba(1, 42, 145, 0.12);
+    --cpap-radius: 6px;
+    --cpap-radius-sm: 4px;
+    --cpap-transition: 0.25s ease;
+}
+
+/* 2. Reset visual seguro */
+body{
+    background-color: var(--cpap-gray-50);
+    color: var(--cpap-gray-900);
+}
+
+img,
+svg{
+    max-width: 100%;
+}
+
+/* 3. Tipografia */
+body,
+input,
+select,
+textarea,
+button{
+    color: var(--cpap-gray-900);
+}
+
+small,
+.text-muted,
+.help-block,
+.product-1 .product-availability,
+.product-1 .product-price .price-off{
+    color: var(--cpap-gray-500);
+}
+
+/* 4. Header e navegação */
+header,
+.wrapper-nav,
+.nav-full{
+    background-color: var(--cpap-white);
+}
+
+.cart .title,
+.nav-full .horizontal-nav .link-level1 span,
+.nav-full .horizontal-nav .link-level2,
+.nav-full .horizontal-nav .link-level3,
+.nav-full .horizontal-nav .link-level4{
+    color: var(--cpap-gray-900);
+}
+
+.nav-full .horizontal-nav .item-level1:hover{
+    background-color: rgba(0, 53, 187, 0.08);
+}
+
+.nav-full .horizontal-nav .item-level1:hover .link-level1 span,
+.nav-full .horizontal-nav .link-level1.active span,
+.nav-full .horizontal-nav .item-level1.active .link-level1 span{
+    color: var(--cpap-blue-primary);
+}
+
+.horizontal-nav .level2{
+    border-color: rgba(1, 42, 145, 0.2);
+}
+
+.search .icon,
+.cart .amount .icon,
+.trigger-menu svg{
+    fill: var(--cpap-blue-secondary);
+}
+
+.cart .amount span{
+    background-color: var(--cpap-blue-primary);
+    color: var(--cpap-white);
+}
+
+@media (max-width:768px){
+    .search .icon,
+    .cart .amount .icon,
+    .trigger-menu svg{
+        fill: var(--cpap-blue-secondary);
+    }
+}
+
+/* 5. Botões */
+button,
+.btn,
+.button,
+.product-1 .product-images .button-buy span,
+.page-product .product-buy-button,
+.news-full form .news-btn,
+.page-product #cepbox .botao-simular-frete,
+.page-register #CadastroAbas .aberta a,
+.page-product .product-tabs #ProdAbas li{
+    background-color: var(--cpap-blue-primary);
+    color: var(--cpap-white);
+    border-radius: var(--cpap-radius);
+    transition: var(--cpap-transition);
+}
+
+button:hover,
+.btn:hover,
+.button:hover,
+.product-1 .product-images .button-buy span:hover,
+.page-product .product-buy-button:hover,
+.news-full form .news-btn:hover,
+.page-product #cepbox .botao-simular-frete:hover{
+    background-color: var(--cpap-blue-secondary);
+}
+
+.btn-secondary,
+.button-secondary,
+.product-1 .product-buttons a span{
+    background-color: var(--cpap-white);
+    color: var(--cpap-blue-primary);
+    border: 1px solid var(--cpap-blue-primary);
+    border-radius: var(--cpap-radius-sm);
+    transition: var(--cpap-transition);
+}
+
+.btn-secondary:hover,
+.button-secondary:hover,
+.product-1 .product-buttons a span:hover{
+    background-color: var(--cpap-blue-primary);
+    color: var(--cpap-white);
+}
+
+.product-1 .product-buttons a .icon{
+    fill: var(--cpap-blue-primary);
+    transition: var(--cpap-transition);
+}
+
+.product-1 .product-buttons a:hover .icon{
+    fill: var(--cpap-blue-secondary);
+}
+
+/* 6. Links */
+a{
+    color: var(--cpap-blue-primary);
+    transition: var(--cpap-transition);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus{
+    color: var(--cpap-blue-secondary);
+    text-decoration: underline;
+}
+
+/* 7. Banners */
+.box_skitter,
+.banner-home,
+.banner,
+.banner-full{
+    background: linear-gradient(135deg, var(--cpap-blue-primary), var(--cpap-blue-secondary));
+    color: var(--cpap-white);
+}
+
+/* 8. Cards */
+.product-1,
+.showcase,
+.page-product .product-gallery,
+.page-product .product-buy,
+.news-full,
+.page-product .product-cross-sell,
+.page-product .products-related,
+.page-product .products-visited,
+.page-catalog .products-visited,
+.page-search .products-visited{
+    background-color: var(--cpap-white);
+    border: var(--cpap-border);
+    box-shadow: var(--cpap-shadow);
+    border-radius: var(--cpap-radius);
+}
+
+.showcase .showcase-name>h2 strong,
+.page-product .products-related>h3,
+.page-product .products-visited>h3,
+.page-product .product-cross-sell>h3,
+.page-newsletter h1.color,
+.foo-rating h3,
+.tagcloud>h3{
+    color: var(--cpap-blue-primary);
+}
+
+/* 9. Preços */
+.product-1 .product-price,
+.page-product .product-price,
+.page-product .products-visited .ValoresLista .precoAvista,
+.page-product .product-cross-sell .precoCompreJunto div:first-child strong,
+.page-checkout_payment .caixa-detalhes-compra .caixa-frete+tr+tr .valores_carrinho h3{
+    color: var(--cpap-blue-primary);
+}
+
+.product-1 .product-price .price-off,
+.page-product .product-price-old,
+.product-1 .product-price .price-before{
+    color: var(--cpap-gray-500);
+}
+
+.page-product .product-cross-sell .precoCompreJunto div:last-child strong,
+.page-product .product-price .discount{
+    color: var(--cpap-blue-secondary);
+}
+
+/* 10. Formulários */
+input,
+select,
+textarea{
+    border: 1px solid rgba(107, 114, 128, 0.4);
+    border-radius: var(--cpap-radius-sm);
+    background-color: var(--cpap-white);
+    color: var(--cpap-gray-900);
+    transition: var(--cpap-transition);
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color: var(--cpap-blue-primary);
+    box-shadow: 0 0 0 2px rgba(0, 53, 187, 0.15);
+}
+
+label,
+.form-label{
+    color: var(--cpap-gray-900);
+}
+
+/* 11. Rodapé */
+footer,
+.subfooter{
+    background-color: var(--cpap-white);
+    color: var(--cpap-gray-900);
+}
+
+.foo-content h3,
+.foo-social h3,
+.message-footer{
+    color: var(--cpap-blue-primary);
+}
+
+.open-info svg,
+.store-phones svg,
+.store-email svg,
+.store-whatsapp svg,
+.foo-social svg{
+    fill: var(--cpap-blue-secondary);
+}
+
+.foo-social .icon-x,
+.foo-contact i{
+    border-color: var(--cpap-blue-secondary);
+}
+
+/* 12. Responsividade */
+@media (max-width: 991px){
+    .nav-full,
+    .horizontal-nav{
+        background-color: var(--cpap-white);
+    }
+
+    .product-1,
+    .showcase,
+    .news-full{
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 767px){
+    body{
+        background-color: var(--cpap-white);
+    }
+
+    .product-1,
+    .showcase,
+    .news-full,
+    .page-product .product-buy{
+        border-radius: var(--cpap-radius-sm);
+    }
+}
