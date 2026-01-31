@@ -2219,48 +2219,6 @@ form#et-lms-check input[type=submit]:hover {
   font-size: 17px;
 }
 
-.admin_page_hospa-admin-plugins .notice, .hospa-theme_page_hospa-support .notice, .hospa-theme_page_hospa-more-themes .notice, .hospa-theme_page_hospa-admin-plugins .notice, .toplevel_page_hospa-dashboard .notice, .hospa-theme_page_hospa-demo-import .notice, .hospa-theme_page_hospa-activation .notice {
-  display: none !important;
-}
-.admin_page_hospa-admin-plugins .hospa-purchase-notice, .hospa-theme_page_hospa-support .hospa-purchase-notice, .hospa-theme_page_hospa-more-themes .hospa-purchase-notice, .hospa-theme_page_hospa-admin-plugins .hospa-purchase-notice, .toplevel_page_hospa-dashboard .hospa-purchase-notice, .hospa-theme_page_hospa-demo-import .hospa-purchase-notice, .hospa-theme_page_hospa-activation .hospa-purchase-notice {
-  display: block !important;
-  max-width: 1400px;
-  margin: auto;
-  border-radius: 10px;
-  left: 9px;
-  margin-bottom: 10px;
-}
-
-.et-not-valid-nav .et-nav-options {
-  background: rgba(0, 0, 0, 0.1) !important;
-  cursor: not-allowed;
-  color: #b3b3b3 !important;
-  pointer-events: none;
-}
-
-.et-disabled-tab {
-  background: rgba(0, 0, 0, 0.1) !important;
-  cursor: not-allowed;
-  color: #b3b3b3 !important;
-}
-
-.et-disabled-tab:hover::after {
-  content: attr(title);
-  position: absolute;
-  background: rgba(255, 223, 130, 0.9);
-  color: #5a4100;
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 5px;
-  white-space: nowrap;
-  top: 50px;
-  left: 50%;
-  font-weight: 500;
-  transform: translateX(-50%);
-  z-index: 999;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 200, 100, 0.8);
-}
 
 .et-support-content h2 {
   color: #333;

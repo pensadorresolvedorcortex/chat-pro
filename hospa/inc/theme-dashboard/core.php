@@ -101,6 +101,40 @@ function hospa_enqueue_scripts() {
 add_action('admin_enqueue_scripts', 'hospa_enqueue_scripts');
 
 /**
+ * Remove activation/purchase notices injected into the admin UI.
+ */
+function hospa_remove_purchase_notice_hooks() {
+    global $wp_filter;
+
+    $hooks = array('admin_notices', 'all_admin_notices');
+    foreach ($hooks as $hook) {
+        if (empty($wp_filter[$hook]) || empty($wp_filter[$hook]->callbacks)) {
+            continue;
+        }
+
+        foreach ($wp_filter[$hook]->callbacks as $priority => $callbacks) {
+            foreach ($callbacks as $callback) {
+                $function = $callback['function'];
+                $name = '';
+
+                if (is_string($function)) {
+                    $name = $function;
+                } elseif (is_array($function) && isset($function[0], $function[1])) {
+                    $name = is_object($function[0])
+                        ? get_class($function[0]) . '::' . $function[1]
+                        : $function[0] . '::' . $function[1];
+                }
+
+                if ($name && stripos($name, 'hospa') !== false && (stripos($name, 'purchase') !== false || stripos($name, 'activation') !== false)) {
+                    remove_action($hook, $function, $priority);
+                }
+            }
+        }
+    }
+}
+add_action('admin_init', 'hospa_remove_purchase_notice_hooks', 1);
+
+/**
  * Generate Hospa Admin Navigation Tabs.
  *
  * @param string $active_tab Active tab identifier.
