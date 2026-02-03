@@ -241,6 +241,7 @@ const VERSION = '2.8.80';
         add_action( 'admin_post_bolaox_import_bets', array( $this, 'handle_import_bets' ) );
         add_action( 'admin_post_bolao_x_export_winners', array( $this, 'handle_export_winners_pdf' ) );
         add_action( 'admin_post_bolao_x_export_winners_flat', array( $this, 'handle_export_winners_pdf_flat_numbers' ) );
+        add_action( 'admin_post_bolao_x_export_pre_result_pdf', array( $this, 'handle_export_pre_result_pdf' ) );
         add_action( 'wp_logout', array( $this, 'logout_session' ) );
         add_filter( 'manage_bolaox_aposta_posts_columns', array( $this, 'aposta_columns' ) );
         add_action( 'manage_bolaox_aposta_posts_custom_column', array( $this, 'aposta_column_content' ), 10, 2 );
@@ -1750,6 +1751,37 @@ const VERSION = '2.8.80';
         exit;
     }
 
+    public function handle_export_pre_result_pdf() {
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_die( esc_html__( 'Você não tem permissão para gerar este relatório.', self::TEXT_DOMAIN ), '', array( 'response' => 403 ) );
+        }
+
+        check_admin_referer( 'bolao_x_export_pre_result_pdf' );
+
+        $contest_id = isset( $_GET['contest_id'] ) ? absint( wp_unslash( $_GET['contest_id'] ) ) : 0;
+        $order_key  = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : '';
+        $order      = ( 'date' === $order_key ) ? 'date' : 'score';
+
+        if ( ! $contest_id ) {
+            wp_die( esc_html__( 'Concurso inválido.', self::TEXT_DOMAIN ) );
+        }
+
+        if ( function_exists( 'nocache_headers' ) ) {
+            nocache_headers();
+        }
+
+        while ( ob_get_level() > 0 ) {
+            ob_end_clean();
+        }
+
+        $this->export_pre_result_pdf(
+            $contest_id,
+            get_the_title( $contest_id ),
+            $order
+        );
+        exit;
+    }
+
     public function contemplados_page() {
         $selected = isset( $_GET['contest'] ) ? intval( $_GET['contest'] ) : 0;
         $order    = isset( $_GET['orderby'] ) && 'date' === $_GET['orderby'] ? 'date' : 'score';
@@ -1856,8 +1888,20 @@ const VERSION = '2.8.80';
             ),
             'bolao_x_export_winners_flat'
         );
+        $export_link_pre = wp_nonce_url(
+            add_query_arg(
+                array(
+                    'action'     => 'bolao_x_export_pre_result_pdf',
+                    'contest_id' => $selected,
+                    'orderby'    => $order,
+                ),
+                admin_url( 'admin-post.php' )
+            ),
+            'bolao_x_export_pre_result_pdf'
+        );
         echo '<p><a href="' . esc_url( $export_link ) . '" class="button bolaox-export-pdf">' . esc_html__( 'Gerar PDF', self::TEXT_DOMAIN ) . '</a> ';
-        echo '<a href="' . esc_url( $export_link_flat ) . '" class="button bolaox-export-pdf" title="' . esc_attr__( 'Mesmo relatório, mas dezenas em texto', self::TEXT_DOMAIN ) . '">' . esc_html__( 'Gerar PDF (Sem Bolas)', self::TEXT_DOMAIN ) . '</a></p>';
+        echo '<a href="' . esc_url( $export_link_flat ) . '" class="button bolaox-export-pdf" title="' . esc_attr__( 'Mesmo relatório, mas dezenas em texto', self::TEXT_DOMAIN ) . '">' . esc_html__( 'Gerar PDF (Sem Bolas)', self::TEXT_DOMAIN ) . '</a> ';
+        echo '<a href="' . esc_url( $export_link_pre ) . '" class="button bolaox-export-pdf" title="' . esc_attr__( 'Relatório completo sem resultado (para uso antes do sorteio)', self::TEXT_DOMAIN ) . '">' . esc_html__( 'Gerar PDF Pré-Resultado', self::TEXT_DOMAIN ) . '</a></p>';
         echo '<h2>' . sprintf( esc_html__( 'Resultado do Concurso %s', self::TEXT_DOMAIN ), get_the_title( $selected ) ) . '</h2>';
         echo $this->generate_report( $numbers, $selected, $order, $prize_values, $prize_winners, $fundo_caixa );
         echo '</div>';
@@ -2852,6 +2896,166 @@ const VERSION = '2.8.80';
         exit;
     }
 
+    private function export_pre_result_pdf( $contest_id, $contest_title, $order_by = 'score' ) {
+        $pdf           = new BOLAOX_PDF();
+        $bottom_margin = 20;
+        $args          = array(
+            'post_type'   => 'bolaox_aposta',
+            'numberposts' => -1,
+        );
+        if ( $contest_id ) {
+            $args['meta_query'] = array(
+                array(
+                    'key'   => '_bolaox_concurso',
+                    'value' => $contest_id,
+                ),
+            );
+        }
+        $posts = get_posts( $args );
+        if ( ! $posts ) {
+            return;
+        }
+
+        $rows = array();
+        foreach ( $posts as $p ) {
+            $numbers = get_post_meta( $p->ID, '_bolaox_numbers', true );
+            $nums    = array_filter( array_map( 'trim', explode( ',', $numbers ) ), 'strlen' );
+            $rows[] = array(
+                'name'    => $p->post_title,
+                'numbers' => $nums,
+                'date'    => $p->post_date,
+            );
+        }
+
+        if ( 'date' === $order_by ) {
+            usort( $rows, function ( $a, $b ) {
+                return strcmp( $b['date'], $a['date'] );
+            } );
+        }
+
+        $pdf->SetCreator( 'Bolao X', true );
+        $pdf->SetAuthor( 'Bolao X', true );
+        $pdf->SetTitle( sprintf( __( 'Relatório do Concurso %s', self::TEXT_DOMAIN ), $contest_title ), true );
+        $pdf->AliasNbPages();
+        $pdf->SetAutoPageBreak( true, $bottom_margin );
+        $pdf->SetMargins( 12, 46, 12 );
+        $pdf->headerLogo     = 'https://www.bolaox.com.br/wp-content/uploads/2025/06/bolaox.png';
+        $pdf->headerTitle    = sprintf( __( 'Relatório do Concurso %s', self::TEXT_DOMAIN ), $contest_title );
+        $pdf->headerSubtitle = sprintf(
+            __( '%1$s apostas avaliadas • %2$s dezenas sorteadas', self::TEXT_DOMAIN ),
+            __( '—', self::TEXT_DOMAIN ),
+            __( '—', self::TEXT_DOMAIN )
+        );
+        $pdf->footerText  = sprintf( __( 'Gerado em %s', self::TEXT_DOMAIN ), date_i18n( 'd/m/Y H:i' ) );
+        $pdf->footerLabel = __( 'Página %d de {nb}', self::TEXT_DOMAIN );
+
+        $pdf->AddPage();
+        $pdf->SetFont( 'Arial', '', 11 );
+
+        $this->pdf_section_header( $pdf, __( 'DEZENAS SORTEADAS', self::TEXT_DOMAIN ), null, null, 0 );
+        $this->pdf_empty_section_body( $pdf );
+
+        $cards = array(
+            array(
+                'label'       => __( 'Total de apostas', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Apostas conferidas neste concurso', self::TEXT_DOMAIN ),
+                'start'       => array( 46, 132, 98 ),
+                'end'         => array( 32, 102, 74 ),
+            ),
+            array(
+                'label'       => __( 'Pontuação média', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Média de acertos por aposta', self::TEXT_DOMAIN ),
+                'start'       => array( 37, 159, 60 ),
+                'end'         => array( 21, 90, 57 ),
+            ),
+            array(
+                'label'       => __( 'Maior pontuação', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Melhor desempenho registrado', self::TEXT_DOMAIN ),
+                'start'       => array( 64, 122, 89 ),
+                'end'         => array( 101, 156, 120 ),
+            ),
+            array(
+                'label'       => __( 'Menor pontuação', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Piso de acertos entre todas as apostas', self::TEXT_DOMAIN ),
+                'start'       => array( 96, 112, 123 ),
+                'end'         => array( 70, 81, 94 ),
+            ),
+            array(
+                'label'       => __( 'Vencedores 10 pontos', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Apostas com 10 acertos perfeitos', self::TEXT_DOMAIN ),
+                'start'       => array( 185, 217, 56 ),
+                'end'         => array( 142, 201, 72 ),
+            ),
+            array(
+                'label'       => __( 'Vencedores 9 pontos', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Apostas na segunda faixa de premiação', self::TEXT_DOMAIN ),
+                'start'       => array( 78, 143, 212 ),
+                'end'         => array( 59, 110, 173 ),
+            ),
+            array(
+                'label'       => __( 'Apostadores 8 pontos', self::TEXT_DOMAIN ),
+                'value'       => __( '—', self::TEXT_DOMAIN ),
+                'description' => __( 'Apostas na terceira faixa de premiação', self::TEXT_DOMAIN ),
+                'start'       => array( 255, 175, 102 ),
+                'end'         => array( 226, 131, 70 ),
+            ),
+        );
+        $this->pdf_summary_cards( $pdf, $cards, $bottom_margin );
+
+        $this->pdf_prize_panel_empty( $pdf, $bottom_margin );
+
+        $this->pdf_section_placeholder(
+            $pdf,
+            __( 'VENCEDORES COM 10 PONTOS', self::TEXT_DOMAIN ),
+            sprintf( _n( '%s aposta com 10 pontos', '%s apostas com 10 pontos', 0, self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) )
+        );
+        $this->pdf_section_placeholder(
+            $pdf,
+            __( 'VENCEDORES COM 9 PONTOS', self::TEXT_DOMAIN ),
+            sprintf( _n( '%s aposta com 9 pontos', '%s apostas com 9 pontos', 0, self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) )
+        );
+        $this->pdf_section_placeholder(
+            $pdf,
+            __( 'APOSTADORES COM 8 PONTOS', self::TEXT_DOMAIN ),
+            sprintf( _n( '%s aposta com 8 pontos', '%s apostas com 8 pontos', 0, self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) )
+        );
+        $this->pdf_section_placeholder(
+            $pdf,
+            __( 'MENOS PONTOS', self::TEXT_DOMAIN ),
+            sprintf( __( 'Apostas com %s pontos (menor pontuação registrada)', self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) )
+        );
+
+        $this->pdf_table_section_pre_result_bets(
+            $pdf,
+            __( 'TODAS AS APOSTAS', self::TEXT_DOMAIN ),
+            $rows,
+            $bottom_margin,
+            array(
+                'color'    => array( array( 96, 112, 123 ), array( 70, 81, 94 ) ),
+                'subtitle' => ( 'score' === $order_by )
+                    ? __( 'Ordenado por pontuação (mais acertos primeiro)', self::TEXT_DOMAIN )
+                    : __( 'Ordenado por data (mais recentes primeiro)', self::TEXT_DOMAIN ),
+            )
+        );
+
+        $this->pdf_section_placeholder( $pdf, __( 'NÚMEROS REPETIDOS', self::TEXT_DOMAIN ) );
+
+        if ( ob_get_length() ) {
+            ob_end_clean();
+        }
+        nocache_headers();
+
+        $filename = sprintf( 'bolao-relatorio-pre-resultado-concurso-%d.pdf', (int) $contest_id );
+        $pdf->Output( 'D', $filename );
+        exit;
+    }
+
     private function pdf_summary_cards( $pdf, $cards, $bottom_margin ) {
         if ( empty( $cards ) ) {
             return;
@@ -3274,6 +3478,15 @@ const VERSION = '2.8.80';
         return $pdf->GetY() - $start_y;
     }
 
+    private function pdf_numbers_line_flat_placeholder( $pdf, $numbers, $width, $line_height = 4.5 ) {
+        $numbers = is_array( $numbers ) ? array_values( $numbers ) : array_values( array_filter( array_map( 'trim', (array) $numbers ), 'strlen' ) );
+        if ( empty( $numbers ) ) {
+            $pdf->Cell( $width, $line_height, '', 0, 1, 'L' );
+            return $line_height;
+        }
+        return $this->pdf_numbers_line_flat( $pdf, $numbers, $width, $line_height );
+    }
+
     private function pdf_estimate_numbers_height_flat( $pdf, $numbers, $width, $line_height = 4.5 ) {
         $numbers = is_array( $numbers ) ? array_values( $numbers ) : array_values( array_filter( array_map( 'trim', (array) $numbers ), 'strlen' ) );
         if ( empty( $numbers ) || $width <= 0 ) {
@@ -3289,6 +3502,181 @@ const VERSION = '2.8.80';
         $text_width = $pdf->GetStringWidth( $text );
         $lines      = max( 1, (int) ceil( $text_width / $width ) );
         return $lines * $line_height;
+    }
+
+    private function pdf_estimate_numbers_height_flat_min( $pdf, $numbers, $width, $line_height = 4.5, $min_height = 4.5 ) {
+        $height = $this->pdf_estimate_numbers_height_flat( $pdf, $numbers, $width, $line_height );
+        if ( 0 === $height ) {
+            return $min_height;
+        }
+        return $height;
+    }
+
+    private function pdf_empty_section_body( $pdf, $height = 6 ) {
+        $pdf->Cell( 0, $height, '', 0, 1, 'L' );
+    }
+
+    private function pdf_section_placeholder( $pdf, $title, $subtitle = '' ) {
+        $this->pdf_section_header( $pdf, $title, null, null );
+        if ( $subtitle ) {
+            $pdf->SetFont( 'Arial', '', 9 );
+            $pdf->SetTextColor( 92, 110, 102 );
+            $pdf->SetX( $pdf->getLeftMargin() );
+            $pdf->Cell( 0, 5, $subtitle, 0, 1, 'L' );
+        }
+        $pdf->SetFont( 'Arial', '', 10 );
+        $pdf->SetTextColor( 92, 110, 102 );
+        $pdf->SetX( $pdf->getLeftMargin() );
+        $pdf->Cell( 0, 6, __( '—', self::TEXT_DOMAIN ), 0, 1, 'L' );
+        $pdf->SetTextColor( 0, 0, 0 );
+        $pdf->SetFont( 'Arial', '', 11 );
+    }
+
+    private function pdf_prize_panel_empty( $pdf, $bottom_margin ) {
+        $rows = array(
+            array(
+                'label'  => __( 'Vencedores com 10 pontos', self::TEXT_DOMAIN ),
+                'value'  => __( '—', self::TEXT_DOMAIN ),
+                'winner' => __( '—', self::TEXT_DOMAIN ),
+            ),
+            array(
+                'label'  => __( 'Vencedores com 9 pontos', self::TEXT_DOMAIN ),
+                'value'  => __( '—', self::TEXT_DOMAIN ),
+                'winner' => __( '—', self::TEXT_DOMAIN ),
+            ),
+            array(
+                'label'  => __( 'Apostadores com 8 pontos', self::TEXT_DOMAIN ),
+                'value'  => __( '—', self::TEXT_DOMAIN ),
+                'winner' => __( '—', self::TEXT_DOMAIN ),
+            ),
+            array(
+                'label'  => __( 'Menos pontos', self::TEXT_DOMAIN ),
+                'value'  => __( '—', self::TEXT_DOMAIN ),
+                'winner' => __( '—', self::TEXT_DOMAIN ),
+            ),
+            array(
+                'label'  => __( 'Fundo de Caixa', self::TEXT_DOMAIN ),
+                'value'  => __( '—', self::TEXT_DOMAIN ),
+                'winner' => __( '—', self::TEXT_DOMAIN ),
+            ),
+        );
+        $this->pdf_section_header( $pdf, __( 'Resumo da Premiação', self::TEXT_DOMAIN ), array( 64, 122, 89 ), array( 101, 156, 120 ) );
+        $content_width = $pdf->getContentWidth();
+        $padding       = 7;
+        $line_width    = $content_width - ( 2 * $padding );
+        $estimate      = 2 * $padding;
+        $pdf->SetFont( 'Arial', '', 8.5 );
+        foreach ( $rows as $row ) {
+            $estimate += 6;
+            $text   = $row['winner'];
+            $string = $pdf->GetStringWidth( $text );
+            $lines  = $line_width > 0 ? max( 1, ceil( $string / $line_width ) ) : 1;
+            $estimate += ( $lines * 4 ) + 2;
+        }
+        $this->pdf_check_page_break( $pdf, $estimate, $bottom_margin );
+        $y = $pdf->GetY();
+        $pdf->SetFillColor( 248, 252, 249 );
+        $pdf->SetDrawColor( 220, 235, 227 );
+        $pdf->Rect( $pdf->getLeftMargin(), $y, $content_width, $estimate, 'F' );
+        $pdf->SetXY( $pdf->getLeftMargin() + $padding, $y + $padding );
+        foreach ( $rows as $row ) {
+            $pdf->SetFont( 'Arial', 'B', 9 );
+            $pdf->SetTextColor( 30, 115, 76 );
+            $pdf->Cell( $line_width, 5, sprintf( '%s (%s)', $row['label'], $row['value'] ), 0, 1, 'L' );
+            $pdf->SetFont( 'Arial', '', 8.5 );
+            $pdf->SetTextColor( 92, 110, 102 );
+            $pdf->MultiCell( $line_width, 4, $row['winner'], 0, 'L' );
+            $pdf->Ln( 2 );
+            $pdf->SetX( $pdf->getLeftMargin() + $padding );
+        }
+        $pdf->SetY( $y + $estimate + 4 );
+        $pdf->SetTextColor( 0, 0, 0 );
+        $pdf->SetFont( 'Arial', '', 11 );
+    }
+
+    private function pdf_table_section_pre_result_bets( $pdf, $title, $rows, $bottom_margin, $options = array() ) {
+        $colors = isset( $options['color'] ) ? $options['color'] : array( array( 30, 115, 76 ), array( 37, 159, 60 ) );
+        $subtitle = isset( $options['subtitle'] ) ? $options['subtitle'] : '';
+        $this->pdf_section_header( $pdf, $title, $colors[0], $colors[1] );
+        if ( $subtitle ) {
+            $pdf->SetFont( 'Arial', '', 9 );
+            $pdf->SetTextColor( 92, 110, 102 );
+            $pdf->SetX( $pdf->getLeftMargin() );
+            $pdf->Cell( 0, 5, $subtitle, 0, 1, 'L' );
+        }
+        $pdf->SetTextColor( 0, 0, 0 );
+        $content_width = $pdf->getContentWidth();
+        $padding       = 8;
+        $gap           = 6;
+        $line_height   = 4.5;
+        foreach ( $rows as $index => $row ) {
+            $numbers_height = $this->pdf_estimate_numbers_height_flat_min( $pdf, $row['numbers'], $content_width - ( 2 * $padding ), $line_height, $line_height );
+            $drawn_height   = $line_height;
+            $card_height    = $padding + 8 + 4 + 4 + $numbers_height + $gap + 4 + $drawn_height + $padding;
+            $this->pdf_check_page_break( $pdf, $card_height + 4, $bottom_margin );
+            $y = $pdf->GetY();
+            $bg = ( $index % 2 === 0 ) ? array( 255, 255, 255 ) : array( 245, 249, 246 );
+            $pdf->SetFillColor( $bg[0], $bg[1], $bg[2] );
+            $pdf->SetDrawColor( 220, 235, 227 );
+            $pdf->Rect( $pdf->getLeftMargin(), $y, $content_width, $card_height, 'F' );
+            $pdf->SetFillColor( 189, 207, 197 );
+            $pdf->Rect( $pdf->getLeftMargin(), $y, 3, $card_height, 'F' );
+
+            $inner_x = $pdf->getLeftMargin() + $padding;
+            $line_y  = $y + $padding;
+
+            $pdf->SetXY( $inner_x, $line_y );
+            $pdf->SetFont( 'Arial', 'B', 11 );
+            $pdf->SetTextColor( 30, 115, 76 );
+            $pdf->Cell( $content_width - ( 2 * $padding ) - 32, 6, $row['name'], 0, 0, 'L' );
+
+            $badge_width = 28;
+            $badge_x     = $pdf->getLeftMargin() + $content_width - $padding - $badge_width;
+            $pdf->SetFillColor( 96, 112, 123 );
+            $pdf->Rect( $badge_x, $line_y, $badge_width, 8, 'F' );
+            $pdf->SetXY( $badge_x, $line_y + 1.5 );
+            $pdf->SetFont( 'Arial', 'B', 9 );
+            $pdf->SetTextColor( 255, 255, 255 );
+            $pdf->Cell( $badge_width, 5, __( '—', self::TEXT_DOMAIN ), 0, 0, 'C' );
+
+            $line_y += 8;
+            $pdf->SetXY( $inner_x, $line_y );
+            $pdf->SetFont( 'Arial', '', 8.5 );
+            $pdf->SetTextColor( 110, 130, 120 );
+            $pdf->Cell( $content_width - ( 2 * $padding ), 4, sprintf( __( 'Concurso: %s', self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) ), 0, 1, 'L' );
+            $pdf->SetX( $inner_x );
+            $pdf->Cell( $content_width - ( 2 * $padding ), 4, sprintf( __( 'Data da aposta: %s', self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) ), 0, 1, 'L' );
+            $pdf->SetX( $inner_x );
+            $pdf->Cell( $content_width - ( 2 * $padding ), 4, sprintf( __( 'Status: %s', self::TEXT_DOMAIN ), __( '—', self::TEXT_DOMAIN ) ), 0, 1, 'L' );
+
+            $line_y = $pdf->GetY() + 2;
+            $pdf->SetXY( $inner_x, $line_y );
+            $pdf->SetFont( 'Arial', 'B', 9 );
+            $pdf->SetTextColor( 30, 115, 76 );
+            $pdf->Cell( 0, 5, __( 'Números apostados', self::TEXT_DOMAIN ), 0, 1, 'L' );
+            $pdf->SetX( $inner_x );
+            $pdf->SetTextColor( 0, 0, 0 );
+            $this->pdf_numbers_line_flat_placeholder( $pdf, $row['numbers'], $content_width - ( 2 * $padding ), $line_height );
+
+            $pdf->Ln( $gap / 2 );
+            $pdf->SetX( $inner_x );
+            $pdf->SetFont( 'Arial', 'B', 9 );
+            $pdf->SetTextColor( 30, 115, 76 );
+            $pdf->Cell( 0, 5, __( 'Dezenas sorteadas', self::TEXT_DOMAIN ), 0, 1, 'L' );
+            $pdf->SetX( $inner_x );
+            $pdf->SetTextColor( 0, 0, 0 );
+            $this->pdf_numbers_line_flat_placeholder( $pdf, array(), $content_width - ( 2 * $padding ), $line_height );
+
+            $pdf->SetFont( 'Arial', '', 7.5 );
+            $pdf->SetTextColor( 130, 145, 138 );
+            $pdf->SetXY( $inner_x, $y + $card_height - $padding );
+            $pdf->Cell( $content_width - ( 2 * $padding ), 4, sprintf( __( 'Posição na lista: #%d', self::TEXT_DOMAIN ), $index + 1 ), 0, 1, 'R' );
+
+            $pdf->SetY( $y + $card_height + 4 );
+            $pdf->SetTextColor( 0, 0, 0 );
+        }
+        $pdf->SetX( $pdf->getLeftMargin() );
+        $pdf->SetFont( 'Arial', '', 11 );
     }
 
     private function pdf_table_section_flat( $pdf, $title, $rows, $bottom_margin, $options = array() ) {
