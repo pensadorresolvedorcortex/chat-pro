@@ -147,13 +147,117 @@ add_shortcode('rma_conta_setup', function () {
     }
 
     $entity_id = rma_get_entity_id_by_author(get_current_user_id());
-    if ($entity_id > 0) {
-        return '<p>Cadastro da entidade já criado. Você pode seguir para o dashboard.</p>';
-    }
+    $rest_base = rest_url('rma/v1');
+    $rest_nonce = wp_create_nonce('wp_rest');
 
-    $rest_base     = rest_url('rma/v1');
-    $rest_nonce    = wp_create_nonce('wp_rest');
     $dashboard_url = home_url('/dashboard/');
+    $docs_url = apply_filters('rma_docs_page_url', home_url('/documentos/'));
+    $finance_url = apply_filters('rma_finance_page_url', home_url('/financeiro/'));
+
+    if ($entity_id > 0) {
+        $governance = (string) get_post_meta($entity_id, 'governance_status', true);
+        $finance = (string) get_post_meta($entity_id, 'finance_status', true);
+        $docs_status = (string) get_post_meta($entity_id, 'documentos_status', true);
+
+        $all_steps_done = ($governance === 'aprovado' && $finance === 'adimplente' && $docs_status === 'enviado');
+
+        ob_start();
+        ?>
+        <section class="rma-glass-card" style="margin:20px 0;padding:24px;">
+            <span class="rma-badge">RMA • Próximos passos</span>
+            <h2 class="rma-glass-title">Acompanhe status, documentos e financeiro</h2>
+            <p class="rma-glass-subtitle">Conclua as etapas da filiação antes de seguir para o dashboard.</p>
+
+            <ul style="margin:12px 0 16px 18px;">
+                <li><strong>Status de governança:</strong> <span id="rma-status-governanca"><?php echo esc_html($governance ?: 'pendente'); ?></span></li>
+                <li><strong>Status de documentos:</strong> <span id="rma-status-documentos"><?php echo esc_html($docs_status ?: 'pendente'); ?></span></li>
+                <li><strong>Status financeiro:</strong> <span id="rma-status-financeiro"><?php echo esc_html($finance ?: 'pendente'); ?></span></li>
+            </ul>
+
+            <div class="rma-actions" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a class="rma-button" href="<?php echo esc_url(rma_account_setup_url()); ?>">Status</a>
+                <a class="rma-button" href="<?php echo esc_url($docs_url); ?>">Documentos</a>
+                <a class="rma-button" href="<?php echo esc_url($finance_url); ?>">Financeiro</a>
+                <button class="rma-button" type="button" id="rma-refresh-status">Atualizar status</button>
+            </div>
+
+            <div id="rma-flow-feedback" style="margin-top:12px;"></div>
+
+            <div style="margin-top:14px;">
+                <?php if ($all_steps_done) : ?>
+                    <a class="rma-button" id="rma-dashboard-link" href="<?php echo esc_url($dashboard_url); ?>">Ir para o dashboard</a>
+                <?php else : ?>
+                    <button class="rma-button" id="rma-dashboard-link" type="button" disabled style="opacity:.6;cursor:not-allowed;">Ir para o dashboard (libera após concluir etapas)</button>
+                <?php endif; ?>
+            </div>
+        </section>
+
+        <script>
+        (function () {
+            var entityId = <?php echo (int) $entity_id; ?>;
+            var base = <?php echo wp_json_encode($rest_base); ?>;
+            var nonce = <?php echo wp_json_encode($rest_nonce); ?>;
+            var refreshButton = document.getElementById('rma-refresh-status');
+            var feedback = document.getElementById('rma-flow-feedback');
+            var dashboardLink = document.getElementById('rma-dashboard-link');
+
+            function showFeedback(message, ok) {
+                if (!feedback) return;
+                feedback.innerHTML = '<div style="padding:10px;border-radius:10px;background:' + (ok ? '#edf9ec' : '#fdecec') + ';">' + message + '</div>';
+            }
+
+            function updateState(payload) {
+                var g = document.getElementById('rma-status-governanca');
+                var d = document.getElementById('rma-status-documentos');
+                var f = document.getElementById('rma-status-financeiro');
+                if (g) g.textContent = payload.governance_status || 'pendente';
+                if (d) d.textContent = payload.documentos_status || 'pendente';
+                if (f) f.textContent = payload.finance_status || 'pendente';
+
+                var allDone = payload.governance_status === 'aprovado' && payload.documentos_status === 'enviado' && payload.finance_status === 'adimplente';
+                if (dashboardLink) {
+                    if (allDone && dashboardLink.tagName === 'BUTTON') {
+                        var a = document.createElement('a');
+                        a.className = dashboardLink.className;
+                        a.id = dashboardLink.id;
+                        a.href = <?php echo wp_json_encode($dashboard_url); ?>;
+                        a.textContent = 'Ir para o dashboard';
+                        dashboardLink.parentNode.replaceChild(a, dashboardLink);
+                    } else if (!allDone && dashboardLink.tagName === 'BUTTON') {
+                        dashboardLink.disabled = true;
+                    }
+                }
+            }
+
+            function refreshStatus() {
+                showFeedback('Atualizando status...', true);
+                fetch(base + '/entities/' + entityId + '/status', {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: { 'X-WP-Nonce': nonce }
+                })
+                .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
+                .then(function (result) {
+                    if (!result.ok) {
+                        showFeedback(result.json && result.json.message ? result.json.message : 'Falha ao atualizar status.', false);
+                        return;
+                    }
+                    updateState(result.json || {});
+                    showFeedback('Status atualizado com sucesso.', true);
+                })
+                .catch(function () {
+                    showFeedback('Erro de conexão ao atualizar status.', false);
+                });
+            }
+
+            if (refreshButton) {
+                refreshButton.addEventListener('click', refreshStatus);
+            }
+        })();
+        </script>
+        <?php
+        return (string) ob_get_clean();
+    }
 
     ob_start();
     ?>
@@ -183,7 +287,7 @@ add_shortcode('rma_conta_setup', function () {
     (function () {
         var base = <?php echo wp_json_encode($rest_base); ?>;
         var nonce = <?php echo wp_json_encode($rest_nonce); ?>;
-        var dashboardUrl = <?php echo wp_json_encode($dashboard_url); ?>;
+        var contaUrl = <?php echo wp_json_encode(rma_account_setup_url()); ?>;
 
         var form = document.getElementById('rma-conta-setup-form');
         if (!form) { return; }
@@ -273,9 +377,9 @@ add_shortcode('rma_conta_setup', function () {
                     return;
                 }
 
-                showMessage('Entidade criada com sucesso. Redirecionando...', true);
+                showMessage('Entidade criada com sucesso. Carregando próximas etapas...', true);
                 setTimeout(function () {
-                    window.location.href = dashboardUrl;
+                    window.location.href = contaUrl;
                 }, 900);
             })
             .catch(function () {
@@ -288,6 +392,7 @@ add_shortcode('rma_conta_setup', function () {
 
     return (string) ob_get_clean();
 });
+
 
 /**
  * Redirect para /conta/ quando usuário logado ainda não possui entidade.
@@ -329,8 +434,28 @@ add_action('template_redirect', function () {
         }
     }
 
-    // Já possui entidade: segue fluxo normal do tema.
-    if (rma_get_entity_id_by_author(get_current_user_id()) > 0) {
+    $entity_id = rma_get_entity_id_by_author(get_current_user_id());
+
+    // Sem entidade: força onboarding.
+    if ($entity_id <= 0) {
+        wp_safe_redirect(rma_account_setup_url());
+        exit;
+    }
+
+    // Com entidade, só bloqueia acesso ao dashboard se etapas ainda não concluídas.
+    $dashboard_path = untrailingslashit((string) wp_parse_url(home_url('/dashboard/'), PHP_URL_PATH));
+    $trying_dashboard = ($dashboard_path !== '' && $request_path === $dashboard_path);
+
+    if (! $trying_dashboard) {
+        return;
+    }
+
+    $governance = (string) get_post_meta($entity_id, 'governance_status', true);
+    $finance = (string) get_post_meta($entity_id, 'finance_status', true);
+    $docs_status = (string) get_post_meta($entity_id, 'documentos_status', true);
+
+    $all_steps_done = ($governance === 'aprovado' && $finance === 'adimplente' && $docs_status === 'enviado');
+    if ($all_steps_done) {
         return;
     }
 
