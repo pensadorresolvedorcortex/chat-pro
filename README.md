@@ -148,7 +148,7 @@ Para acelerar a implementação no tema, há um kit inicial em `ui/`:
 
 - `ui/rma-glass-theme.css` (tokens e componentes base, incluindo estado de foco acessível e responsividade)
 - `ui/rma-glass-theme-preview.html` (preview estático com topbar, status chips, KPIs, wizard de cadastro e formulário)
-- `ui/rma-glass-theme-wordpress-snippet.php` (snippet de integração para `functions.php` com enqueue + shortcode de exemplo)
+- `ui/rma-glass-theme-wordpress-snippet.php` (snippet de integração completo: enqueue, shortcodes `[rma_glass_card_demo]` e `[rma_conta_setup]`, redirect para `/conta/` e anti-loop)
 - `ui/rma-glass-theme.js` (comportamento opcional do wizard: avançar/voltar/reiniciar, suporte a múltiplos wizards, sync de etapa atual em `data-rma-current-step` e atalhos ←/→ e ESC no preview)
 - `ui/assets/` com SVGs de apoio visual (`rma-logo-mark.svg`, `rma-map-pin.svg`, `rma-document.svg`) para UI mais profissional
 
@@ -157,7 +157,8 @@ Uso rápido no tema (WordPress):
 
 1. Copie `ui/rma-glass-theme.css` e `ui/rma-glass-theme.js` para dentro do tema (ex.: `wp-content/themes/seu-tema/ui/`).
 2. Adapte o conteúdo de `ui/rma-glass-theme-wordpress-snippet.php` no `functions.php`.
-3. Para validar rapidamente, use o shortcode `[rma_glass_card_demo]` em uma página de teste.
+3. Crie a página `/conta/` com shortcode `[rma_conta_setup]` para onboarding da entidade (CNPJ + criação via REST).
+4. Para validar rapidamente o visual, use `[rma_glass_card_demo]` em uma página de teste.
 
 Checklist visual (100%):
 
