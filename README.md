@@ -161,6 +161,12 @@ Uso rápido no tema (WordPress):
 4. Após criar a entidade, a própria página `/conta/` vira hub de fluxo com links de Status, Documentos e Financeiro; enquanto as etapas não forem concluídas, o usuário permanece no fluxo e qualquer tentativa de abrir outras rotas (incluindo `/dashboard/`) volta para `/conta/`.
 5. Para validar rapidamente o visual, use `[rma_glass_card_demo]` em uma página de teste.
 
+Debug de fluxo (quando ainda redirecionar para dashboard):
+
+- Ative `WP_DEBUG` no `wp-config.php`.
+- Acesse a URL com `?rma_debug_flow=1` (ex.: `/rma/conta/?rma_debug_flow=1`).
+- O snippet registra no `error_log` eventos com prefixo `[RMA_FLOW]` explicando por que permitiu/negou rota e quando redirecionou para `/conta/`.
+
 Checklist visual (100%):
 
 - [x] Fonte Federo aplicada

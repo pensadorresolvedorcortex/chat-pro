@@ -80,6 +80,34 @@ function rma_get_entity_id_by_author($user_id) {
 }
 
 /**
+ * Debug opcional do fluxo RMA no tema.
+ * Ative com WP_DEBUG=true e query string ?rma_debug_flow=1.
+ */
+function rma_flow_debug_enabled() {
+    if (! defined('WP_DEBUG') || ! WP_DEBUG) {
+        return false;
+    }
+
+    if (! isset($_GET['rma_debug_flow'])) {
+        return false;
+    }
+
+    return sanitize_text_field((string) $_GET['rma_debug_flow']) === '1';
+}
+
+function rma_flow_debug_log($message, array $context = []) {
+    if (! rma_flow_debug_enabled()) {
+        return;
+    }
+
+    if (! empty($context)) {
+        $message .= ' | ' . wp_json_encode($context);
+    }
+
+    error_log('[RMA_FLOW] ' . $message);
+}
+
+/**
  * Enfileira UI kit e fonte Federo.
  */
 add_action('wp_enqueue_scripts', function () {
@@ -415,6 +443,11 @@ add_action('template_redirect', function () {
     $request_path = wp_parse_url($request_uri, PHP_URL_PATH);
     $request_path = is_string($request_path) ? untrailingslashit($request_path) : '';
 
+    rma_flow_debug_log('template_redirect:init', [
+        'request_path' => $request_path,
+        'user_id' => get_current_user_id(),
+    ]);
+
     if ($request_path === '') {
         return;
     }
@@ -423,6 +456,9 @@ add_action('template_redirect', function () {
 
     // Anti-loop: já está na página de onboarding.
     if ($account_path !== '' && $request_path === $account_path) {
+        rma_flow_debug_log('template_redirect:allow_account_path', [
+            'account_path' => $account_path,
+        ]);
         return;
     }
 
@@ -430,6 +466,9 @@ add_action('template_redirect', function () {
     $safe_suffixes = ['/login', '/register', '/wp-login.php'];
     foreach ($safe_suffixes as $safe_suffix) {
         if (substr($request_path, -strlen($safe_suffix)) === $safe_suffix) {
+            rma_flow_debug_log('template_redirect:allow_safe_path', [
+                'matched_suffix' => $safe_suffix,
+            ]);
             return;
         }
     }
@@ -438,6 +477,9 @@ add_action('template_redirect', function () {
 
     // Sem entidade: força onboarding.
     if ($entity_id <= 0) {
+        rma_flow_debug_log('template_redirect:redirect_no_entity', [
+            'to' => rma_account_setup_url(),
+        ]);
         wp_safe_redirect(rma_account_setup_url());
         exit;
     }
@@ -448,6 +490,12 @@ add_action('template_redirect', function () {
 
     $all_steps_done = ($governance === 'aprovado' && $finance === 'adimplente' && $docs_status === 'enviado');
     if ($all_steps_done) {
+        rma_flow_debug_log('template_redirect:allow_all_steps_done', [
+            'entity_id' => $entity_id,
+            'governance' => $governance,
+            'finance' => $finance,
+            'docs_status' => $docs_status,
+        ]);
         return;
     }
 
@@ -461,11 +509,21 @@ add_action('template_redirect', function () {
 
     foreach ($allowed_paths as $allowed_path) {
         if ($allowed_path !== '' && $request_path === $allowed_path) {
+            rma_flow_debug_log('template_redirect:allow_flow_path', [
+                'allowed_path' => $allowed_path,
+            ]);
             return;
         }
     }
 
     // Em qualquer outra rota (incluindo dashboard), retorna para /conta/ até concluir etapas.
+    rma_flow_debug_log('template_redirect:redirect_incomplete_flow', [
+        'to' => rma_account_setup_url(),
+        'entity_id' => $entity_id,
+        'governance' => $governance,
+        'finance' => $finance,
+        'docs_status' => $docs_status,
+    ]);
     wp_safe_redirect(rma_account_setup_url());
     exit;
 }, 20);
