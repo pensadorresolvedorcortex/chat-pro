@@ -379,7 +379,7 @@ add_shortcode('rma_conta_setup', function () {
 
                 showMessage('Entidade criada com sucesso. Carregando próximas etapas...', true);
                 setTimeout(function () {
-                    window.location.href = contaUrl;
+                    window.location.replace(contaUrl + '?rma_flow=1');
                 }, 900);
             })
             .catch(function () {
@@ -442,14 +442,6 @@ add_action('template_redirect', function () {
         exit;
     }
 
-    // Com entidade, só bloqueia acesso ao dashboard se etapas ainda não concluídas.
-    $dashboard_path = untrailingslashit((string) wp_parse_url(home_url('/dashboard/'), PHP_URL_PATH));
-    $trying_dashboard = ($dashboard_path !== '' && $request_path === $dashboard_path);
-
-    if (! $trying_dashboard) {
-        return;
-    }
-
     $governance = (string) get_post_meta($entity_id, 'governance_status', true);
     $finance = (string) get_post_meta($entity_id, 'finance_status', true);
     $docs_status = (string) get_post_meta($entity_id, 'documentos_status', true);
@@ -459,6 +451,21 @@ add_action('template_redirect', function () {
         return;
     }
 
+    // Enquanto não concluir o fluxo, só permite páginas relacionadas ao processo.
+    $allowed_paths = array_filter(array_map('untrailingslashit', [
+        rma_account_setup_path(),
+        (string) wp_parse_url(home_url('/documentos/'), PHP_URL_PATH),
+        (string) wp_parse_url(home_url('/financeiro/'), PHP_URL_PATH),
+        (string) wp_parse_url(home_url('/status/'), PHP_URL_PATH),
+    ]));
+
+    foreach ($allowed_paths as $allowed_path) {
+        if ($allowed_path !== '' && $request_path === $allowed_path) {
+            return;
+        }
+    }
+
+    // Em qualquer outra rota (incluindo dashboard), retorna para /conta/ até concluir etapas.
     wp_safe_redirect(rma_account_setup_url());
     exit;
 }, 20);
