@@ -155,8 +155,19 @@ Para acelerar a implementação no tema, há um kit inicial em `ui/`:
 
 Uso rápido no tema (WordPress):
 
-1. Copie `ui/rma-glass-theme.css` e `ui/rma-glass-theme.js` para dentro do tema (ex.: `wp-content/themes/seu-tema/ui/`).
-2. Adapte o conteúdo de `ui/rma-glass-theme-wordpress-snippet.php` no `functions.php`.
+1. Copie `ui/rma-glass-theme.css`, `ui/rma-glass-theme.js` e `ui/rma-glass-theme-wordpress-snippet.php` para dentro do tema (ex.: `wp-content/themes/seu-tema/ui/`).
+2. **Atualize o `functions.php`** para carregar o snippet (sem isso, o formulário não muda):
+
+   ```php
+   require_once get_stylesheet_directory() . '/ui/rma-glass-theme-wordpress-snippet.php';
+   ```
+
+   Alternativa (mais segura): copie também `ui/rma-functions-loader.php` e use:
+
+   ```php
+   require_once get_stylesheet_directory() . '/ui/rma-functions-loader.php';
+   ```
+
 3. Crie a página `/conta/` com shortcode `[rma_conta_setup]` para onboarding da entidade (CNPJ + criação via REST).
 4. Após criar a entidade, a própria página `/conta/` vira hub de fluxo com links de Status, Documentos e Financeiro; enquanto as etapas não forem concluídas, o usuário permanece no fluxo e qualquer tentativa de abrir outras rotas (incluindo `/dashboard/`) volta para `/conta/`.
 5. Para validar rapidamente o visual, use `[rma_glass_card_demo]` em uma página de teste.
