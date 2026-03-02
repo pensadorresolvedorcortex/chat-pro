@@ -160,6 +160,7 @@ Uso rápido no tema (WordPress):
 3. Crie a página `/conta/` com shortcode `[rma_conta_setup]` para onboarding da entidade (CNPJ + criação via REST).
 4. Após criar a entidade, a própria página `/conta/` vira hub de fluxo com links de Status, Documentos e Financeiro; enquanto as etapas não forem concluídas, o usuário permanece no fluxo e qualquer tentativa de abrir outras rotas (incluindo `/dashboard/`) volta para `/conta/`.
 5. Para validar rapidamente o visual, use `[rma_glass_card_demo]` em uma página de teste.
+- O bloco `/conta/` inclui checklist de documentos obrigatórios com tooltips orientativos e upload direto de PDFs por item após o cadastro da entidade.
 
 Debug de fluxo (quando ainda redirecionar para dashboard):
 

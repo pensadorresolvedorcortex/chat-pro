@@ -182,6 +182,16 @@ add_shortcode('rma_conta_setup', function () {
     $docs_url = apply_filters('rma_docs_page_url', home_url('/documentos/'));
     $finance_url = apply_filters('rma_finance_page_url', home_url('/financeiro/'));
 
+    $required_docs = [
+        'ficha_inscricao' => 'Ficha de Inscrição Cadastral (preenchida e assinada, assinatura digital gov.br aceita).',
+        'comprovante_cnpj' => 'Comprovante de Inscrição e Situação Cadastral do CNPJ (Receita Federal).',
+        'ata_fundacao' => 'Ata de Fundação (*) – cópia simples ou PDF escaneado com carimbo de registro.',
+        'ata_diretoria' => 'Ata de eleição da atual diretoria (*) – cópia simples ou PDF escaneado com carimbo de registro.',
+        'estatuto' => 'Estatuto + Ata da Assembleia que aprovou o Estatuto (*) – cópias.',
+        'relatorio_atividades' => 'Relatório de atividades dos últimos 2 anos.',
+        'cartas_recomendacao' => 'Duas cartas de recomendação de organizações filiadas à RMA da mesma região.',
+    ];
+
     if ($entity_id > 0) {
         $governance = (string) get_post_meta($entity_id, 'governance_status', true);
         $finance = (string) get_post_meta($entity_id, 'finance_status', true);
@@ -202,12 +212,36 @@ add_shortcode('rma_conta_setup', function () {
                 <li><strong>Status financeiro:</strong> <span id="rma-status-financeiro"><?php echo esc_html($finance ?: 'pendente'); ?></span></li>
             </ul>
 
-            <div class="rma-actions" style="display:flex;gap:8px;flex-wrap:wrap;">
+            <div class="rma-actions" style="display:flex;gap:8px;flex-wrap:wrap; margin-bottom: 14px;">
                 <a class="rma-button" href="<?php echo esc_url(rma_account_setup_url()); ?>">Status</a>
                 <a class="rma-button" href="<?php echo esc_url($docs_url); ?>">Documentos</a>
                 <a class="rma-button" href="<?php echo esc_url($finance_url); ?>">Financeiro</a>
                 <button class="rma-button" type="button" id="rma-refresh-status">Atualizar status</button>
             </div>
+
+            <h3 class="rma-glass-title" style="font-size:24px;margin-top:14px;">Documentos obrigatórios</h3>
+            <p class="rma-glass-subtitle" style="margin-bottom:10px;">Faça upload em PDF de cada item obrigatório.</p>
+
+            <div id="rma-docs-grid" style="display:grid; gap:10px;">
+                <?php foreach ($required_docs as $doc_key => $doc_tip) : ?>
+                    <div class="rma-doc-item" style="border:1px solid rgba(123,173,57,.25);border-radius:12px;padding:10px;">
+                        <label style="font-weight:600;display:block;margin-bottom:6px;" for="doc_<?php echo esc_attr($doc_key); ?>">
+                            <?php echo esc_html(ucwords(str_replace('_', ' ', $doc_key))); ?>
+                            <span title="<?php echo esc_attr($doc_tip); ?>" style="cursor:help;color:#7bad39;margin-left:6px;">ⓘ</span>
+                        </label>
+                        <input type="file" id="doc_<?php echo esc_attr($doc_key); ?>" accept="application/pdf" />
+                        <button class="rma-button rma-upload-doc" type="button" data-doc-key="<?php echo esc_attr($doc_key); ?>" style="margin-top:8px;">Enviar PDF</button>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div style="margin-top:10px; font-size:14px; color:#5f5f5f;">
+                <p><strong>Obs. 1:</strong> Para efeito de filiação, a candidata deve ser formalmente constituída há mais de 1 ano.</p>
+                <p><strong>Obs. (*):</strong> Aceita cópia simples ou PDF digitalizado, desde que o carimbo de registro em Cartório de Títulos e Documentos esteja visível.</p>
+            </div>
+
+            <div id="rma-doc-upload-feedback" style="margin-top:12px;"></div>
+            <div id="rma-doc-list" style="margin-top:12px;"></div>
 
             <div id="rma-flow-feedback" style="margin-top:12px;"></div>
 
@@ -228,10 +262,46 @@ add_shortcode('rma_conta_setup', function () {
             var refreshButton = document.getElementById('rma-refresh-status');
             var feedback = document.getElementById('rma-flow-feedback');
             var dashboardLink = document.getElementById('rma-dashboard-link');
+            var uploadFeedback = document.getElementById('rma-doc-upload-feedback');
+            var listWrap = document.getElementById('rma-doc-list');
 
             function showFeedback(message, ok) {
                 if (!feedback) return;
                 feedback.innerHTML = '<div style="padding:10px;border-radius:10px;background:' + (ok ? '#edf9ec' : '#fdecec') + ';">' + message + '</div>';
+            }
+
+            function showUploadFeedback(message, ok) {
+                if (!uploadFeedback) return;
+                uploadFeedback.innerHTML = '<div style="padding:10px;border-radius:10px;background:' + (ok ? '#edf9ec' : '#fdecec') + ';">' + message + '</div>';
+            }
+
+            function renderDocumentList(items) {
+                if (!listWrap) return;
+                if (!items || !items.length) {
+                    listWrap.innerHTML = '<p style="margin:0;">Nenhum documento enviado ainda.</p>';
+                    return;
+                }
+                var html = '<ul style="margin:0 0 0 18px;">';
+                items.forEach(function (item) {
+                    var name = item.filename || item.original_name || 'Documento';
+                    html += '<li>' + name + '</li>';
+                });
+                html += '</ul>';
+                listWrap.innerHTML = html;
+            }
+
+            function loadDocuments() {
+                fetch(base + '/entities/' + entityId + '/documents', {
+                    method: 'GET',
+                    credentials: 'same-origin',
+                    headers: { 'X-WP-Nonce': nonce }
+                })
+                .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
+                .then(function (result) {
+                    if (!result.ok) return;
+                    renderDocumentList(result.json || []);
+                })
+                .catch(function () {});
             }
 
             function updateState(payload) {
@@ -278,9 +348,52 @@ add_shortcode('rma_conta_setup', function () {
                 });
             }
 
+            function uploadDocument(docKey) {
+                var fileInput = document.getElementById('doc_' + docKey);
+                if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+                    showUploadFeedback('Selecione um PDF para enviar (' + docKey + ').', false);
+                    return;
+                }
+
+                var fd = new FormData();
+                fd.append('document', fileInput.files[0]);
+                fd.append('document_type', docKey);
+
+                showUploadFeedback('Enviando documento...', true);
+
+                fetch(base + '/entities/' + entityId + '/documents', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'X-WP-Nonce': nonce },
+                    body: fd
+                })
+                .then(function (res) { return res.json().then(function (json) { return { ok: res.ok, json: json }; }); })
+                .then(function (result) {
+                    if (!result.ok) {
+                        showUploadFeedback(result.json && result.json.message ? result.json.message : 'Falha no upload.', false);
+                        return;
+                    }
+                    showUploadFeedback('Documento enviado com sucesso.', true);
+                    fileInput.value = '';
+                    loadDocuments();
+                    refreshStatus();
+                })
+                .catch(function () {
+                    showUploadFeedback('Erro de conexão no upload.', false);
+                });
+            }
+
             if (refreshButton) {
                 refreshButton.addEventListener('click', refreshStatus);
             }
+
+            document.querySelectorAll('.rma-upload-doc').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    uploadDocument(btn.getAttribute('data-doc-key'));
+                });
+            });
+
+            loadDocuments();
         })();
         </script>
         <?php
@@ -298,15 +411,39 @@ add_shortcode('rma_conta_setup', function () {
             <input type="text" id="rma-cnpj" placeholder="CNPJ" required />
             <input type="text" id="rma-razao-social" placeholder="Razão social" required />
             <input type="text" id="rma-nome-fantasia" placeholder="Nome fantasia" />
-            <input type="email" id="rma-email" placeholder="E-mail de contato" required />
+            <input type="text" id="rma-representante" placeholder="Nome do representante legal" />
+            <input type="text" id="rma-logradouro" placeholder="Endereço" />
+            <input type="text" id="rma-bairro" placeholder="Bairro" />
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <input type="text" id="rma-cep" placeholder="CEP" />
+                <input type="text" id="rma-uf" placeholder="UF" maxlength="2" />
+            </div>
             <input type="text" id="rma-cidade" placeholder="Cidade" />
-            <input type="text" id="rma-uf" placeholder="UF" maxlength="2" />
+            <input type="email" id="rma-email" placeholder="E-mail de contato" required />
+            <input type="text" id="rma-telefone" placeholder="Telefone principal" />
+            <input type="date" id="rma-data-fundacao" placeholder="Data de criação/fundação" />
+            <textarea id="rma-atividades" placeholder="Relatório de atividades (últimos 2 anos)" rows="4"></textarea>
             <label><input type="checkbox" id="rma-consent-lgpd" required /> Concordo com LGPD</label>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
                 <button class="rma-button" type="button" id="rma-buscar-cnpj">Buscar CNPJ</button>
                 <button class="rma-button" type="submit">Salvar entidade</button>
             </div>
         </form>
+
+        <h3 class="rma-glass-title" style="font-size:22px;margin-top:16px;">Documentos obrigatórios (serão enviados após salvar cadastro)</h3>
+        <div style="display:grid; gap:8px; margin-top:8px;">
+            <?php foreach ($required_docs as $doc_key => $doc_tip) : ?>
+                <div style="border:1px solid rgba(123,173,57,.25);border-radius:10px;padding:8px;">
+                    <strong><?php echo esc_html(ucwords(str_replace('_', ' ', $doc_key))); ?></strong>
+                    <span title="<?php echo esc_attr($doc_tip); ?>" style="cursor:help;color:#7bad39;margin-left:6px;">ⓘ</span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div style="margin-top:10px; font-size:14px; color:#5f5f5f;">
+            <p><strong>Obs. 1:</strong> Para efeito de filiação, a candidata deve ser formalmente constituída há mais de 1 ano.</p>
+            <p><strong>Obs. (*):</strong> Aceita cópia simples ou PDF digitalizado, desde que o carimbo de registro em Cartório de Títulos e Documentos esteja visível.</p>
+        </div>
 
         <div id="rma-feedback" style="margin-top:10px;"></div>
     </section>
@@ -326,8 +463,15 @@ add_shortcode('rma_conta_setup', function () {
             razao_social: document.getElementById('rma-razao-social'),
             nome_fantasia: document.getElementById('rma-nome-fantasia'),
             email_contato: document.getElementById('rma-email'),
+            telefone_contato: document.getElementById('rma-telefone'),
             cidade: document.getElementById('rma-cidade'),
             uf: document.getElementById('rma-uf'),
+            cep: document.getElementById('rma-cep'),
+            logradouro: document.getElementById('rma-logradouro'),
+            bairro: document.getElementById('rma-bairro'),
+            representante: document.getElementById('rma-representante'),
+            atividades: document.getElementById('rma-atividades'),
+            data_fundacao: document.getElementById('rma-data-fundacao'),
             consent_lgpd: document.getElementById('rma-consent-lgpd')
         };
 
@@ -362,6 +506,9 @@ add_shortcode('rma_conta_setup', function () {
                 fields.nome_fantasia.value = result.json.nome_fantasia || fields.nome_fantasia.value;
                 fields.cidade.value = result.json.cidade || fields.cidade.value;
                 fields.uf.value = (result.json.uf || fields.uf.value || '').toUpperCase();
+                fields.cep.value = result.json.cep || fields.cep.value;
+                fields.logradouro.value = result.json.logradouro || fields.logradouro.value;
+                fields.bairro.value = result.json.bairro || fields.bairro.value;
                 showMessage('CNPJ validado e dados preenchidos.', true);
             })
             .catch(function () {
@@ -377,8 +524,17 @@ add_shortcode('rma_conta_setup', function () {
                 razao_social: (fields.razao_social.value || '').trim(),
                 nome_fantasia: (fields.nome_fantasia.value || '').trim(),
                 email_contato: (fields.email_contato.value || '').trim(),
+                telefone_contato: (fields.telefone_contato.value || '').trim(),
                 cidade: (fields.cidade.value || '').trim(),
                 uf: (fields.uf.value || '').trim().toUpperCase(),
+                cep: (fields.cep.value || '').trim(),
+                logradouro: (fields.logradouro.value || '').trim(),
+                bairro: (fields.bairro.value || '').trim(),
+                descricao: [
+                    'Representante legal: ' + (fields.representante.value || '').trim(),
+                    'Data de fundação: ' + (fields.data_fundacao.value || '').trim(),
+                    'Atividades recentes: ' + (fields.atividades.value || '').trim(),
+                ].join("\n"),
                 consent_lgpd: !!fields.consent_lgpd.checked
             };
 
