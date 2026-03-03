@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RMA Visual Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./rma-glass-theme.css" />
+  </head>
+  <body class="rma-glass-page">
+    <main class="rma-glass-shell">
+      <section class="rma-glass-card rma-topbar">
+        <div class="rma-brand-wrap"><img class="rma-brand-logo" src="./assets/rma-logo-mark.svg" alt="RMA ONGs" /><div class="rma-brand"><strong>Onboarding</strong> • SaaS Premium</div></div>
+        <span class="rma-badge">RMA • Fluxo Seguro</span>
+      </section>
+
+      <section class="rma-glass-card">
+        <h2 class="rma-glass-title">Verificação de segurança</h2>
+        <p class="rma-glass-subtitle">Enviamos um código de 6 dígitos para seu email. Insira abaixo para continuar.</p>
+        <div style="display:grid;grid-template-columns:repeat(6,minmax(0,52px));gap:10px;max-width:380px;">
+          <input class="rma-input" maxlength="1" />
+          <input class="rma-input" maxlength="1" />
+          <input class="rma-input" maxlength="1" />
+          <input class="rma-input" maxlength="1" />
+          <input class="rma-input" maxlength="1" />
+          <input class="rma-input" maxlength="1" />
+        </div>
+        <div class="rma-actions" style="justify-content:flex-start;gap:10px;">
+          <button class="rma-button">Validar código</button>
+          <button class="rma-button rma-button--ghost">Reenviar em 60s</button>
+        </div>
+      </section>
+
+      <section class="rma-glass-card" aria-label="Fluxo moderno">
+        <h2 class="rma-glass-title">Filiação institucional</h2>
+        <div class="rma-wizard-steps" role="list" aria-label="Etapas">
+          <span class="rma-step is-done" role="listitem">✔ Autenticação</span>
+          <span class="rma-step is-done" role="listitem">✔ Dados</span>
+          <span class="rma-step is-current" role="listitem">● Documentos</span>
+          <span class="rma-step" role="listitem">○ Financeiro</span>
+          <span class="rma-step" role="listitem">○ Checkout</span>
+        </div>
+        <div class="rma-alert" role="status">Seus documentos foram recebidos e estão em análise pela Equipe RMA. Você pode avançar para a etapa financeira enquanto realizamos a validação.</div>
+        <div class="rma-icon-row" aria-label="Ícones" style="margin-top:16px;">
+          <div class="rma-icon-card"><img src="./assets/rma-security.svg" alt="Segurança" /><span>Segurança</span></div>
+          <div class="rma-icon-card"><img src="./assets/rma-verification.svg" alt="Verificação" /><span>Verificação</span></div>
+          <div class="rma-icon-card"><img src="./assets/rma-document.svg" alt="Documento" /><span>Documento</span></div>
+          <div class="rma-icon-card"><img src="./assets/rma-payment.svg" alt="Pagamento" /><span>Pagamento</span></div>
+          <div class="rma-icon-card"><img src="./assets/rma-approval.svg" alt="Aprovação" /><span>Aprovação</span></div>
+        </div>
+        <div class="rma-actions" style="justify-content:space-between;">
+          <button class="rma-button rma-button--ghost">Voltar</button>
+          <button class="rma-button" id="btnPagamento">Avançar para Pagamento</button>
+        </div>
+      </section>
+    </main>
+    <script src="./rma-glass-theme.js"></script>
+  </body>
+</html>
