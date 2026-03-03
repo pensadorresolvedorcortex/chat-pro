@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RMA Visual Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Federo&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./rma-glass-theme.css" />
+  </head>
+  <body class="rma-glass-page">
+    <main class="rma-glass-shell">
+      <section class="rma-glass-card rma-topbar">
+        <div class="rma-brand-wrap"><img class="rma-brand-logo" src="./assets/rma-logo-mark.svg" alt="RMA ONGs" /><div class="rma-brand"><strong>Painel</strong> • Homologação</div></div>
+        <span class="rma-badge">Glasmorphism Ultra White</span>
+      </section>
+
+      <section class="rma-glass-card">
+        <h1 class="rma-glass-title">Painel da Entidade</h1>
+        <p class="rma-glass-subtitle">Referência visual com Federo, #7bad39 e #37302c em camadas translúcidas brancas.</p>
+        <div class="rma-status-list" aria-label="Status da entidade">
+          <span class="rma-status-chip is-ok">LGPD: ok</span>
+          <span class="rma-status-chip is-ok">CNPJ: validado</span>
+          <span class="rma-status-chip">Governança: 2/3</span>
+        </div>
+        <div class="rma-icon-row" aria-label="Elementos visuais">
+          <div class="rma-icon-card"><img src="./assets/rma-map-pin.svg" alt="Pin" /><span>Mapa</span></div>
+          <div class="rma-icon-card"><img src="./assets/rma-document.svg" alt="Documento" /><span>Documentos</span></div>
+        </div>
+
+      </section>
+
+      <section class="rma-glass-card" aria-label="Resumo rápido">
+        <h2 class="rma-glass-title">Resumo</h2>
+        <div class="rma-kpi-grid">
+          <article class="rma-kpi"><small>Documentos</small><strong>12</strong></article>
+          <article class="rma-kpi"><small>Pendências</small><strong>3</strong></article>
+          <article class="rma-kpi"><small>Status Financeiro</small><strong>Adimplente</strong></article>
+        </div>
+      </section>
+
+
+
+      <section class="rma-glass-card" aria-label="Wizard de cadastro" data-rma-wizard data-rma-current-step="2" tabindex="0" aria-keyshortcuts="ArrowLeft ArrowRight Escape">
+        <h2 class="rma-glass-title">Wizard de cadastro</h2>
+        <p class="rma-glass-subtitle">Fluxo visual em 5 etapas para onboarding da entidade.</p>
+        <div class="rma-wizard-steps" role="list" aria-label="Etapas do cadastro">
+          <span class="rma-step is-done" role="listitem">1. CNPJ</span>
+          <span class="rma-step is-current" role="listitem">2. Dados</span>
+          <span class="rma-step" role="listitem">3. Endereço</span>
+          <span class="rma-step" role="listitem">4. Documentos</span>
+          <span class="rma-step" role="listitem">5. Revisão</span>
+        </div>
+        <div class="rma-alert" role="status" data-rma-wizard-status aria-live="polite">Etapa 2 de 5 em andamento.</div>
+        <div class="rma-actions">
+          <button class="rma-button rma-button--muted" type="button" data-rma-prev-step aria-keyshortcuts="ArrowLeft">Etapa anterior</button>
+          <button class="rma-button" type="button" data-rma-next-step aria-keyshortcuts="ArrowRight">Próxima etapa</button>
+          <button class="rma-button rma-button--ghost" type="button" data-rma-reset-step aria-keyshortcuts="Escape">Reiniciar</button>
+        </div>
+      </section>
+
+      <section class="rma-glass-card" aria-label="Formulário rápido">
+        <h2 class="rma-glass-title">Cadastro rápido</h2>
+        <div class="rma-grid-2">
+          <div>
+            <label class="rma-label" for="cnpj">CNPJ</label>
+            <input class="rma-input" id="cnpj" placeholder="00.000.000/0000-00" />
+          </div>
+          <div>
+            <label class="rma-label" for="uf">UF</label>
+            <input class="rma-input" id="uf" placeholder="SP" maxlength="2" />
+          </div>
+        </div>
+        <div class="rma-actions">
+          <button class="rma-button" type="button">Enviar documentação</button>
+        </div>
+      </section>
+    </main>
+      <script src="./rma-glass-theme.js"></script>
+  </body>
+</html>
