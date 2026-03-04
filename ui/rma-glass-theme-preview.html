@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RMA Visual Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./rma-glass-theme.css" />
+  </head>
+  <body class="rma-glass-page">
+    <main class="rma-glass-shell">
+      <section class="rma-glass-card rma-topbar">
+        <div class="rma-brand-wrap"><img class="rma-brand-logo" src="./assets/rma-logo-mark.svg" alt="RMA ONGs" /><div class="rma-brand"><strong>Onboarding</strong> • SaaS Premium</div></div>
+        <span class="rma-badge">RMA • Fluxo Seguro</span>
+      </section>
+
+      <section class="rma-glass-card" style="max-width:900px;margin:0 auto;">
+        <h2 class="rma-glass-title">Central de Ativação RMA</h2>
+        <p class="rma-glass-subtitle">Finalize as etapas pendentes para liberar seu ambiente exclusivo na plataforma RMA.</p>
+
+        <div style="border:1px solid #edf1f4;border-radius:18px;padding:22px;max-width:640px;margin:24px auto 10px;">
+          <h3 style="margin:0 0 8px;color:#1f2937;font-weight:700;text-align:center;">Confirmação de Identidade</h3>
+          <p style="margin:0 0 14px;color:#4b5563;text-align:center;">Para sua segurança, valide o código enviado ao seu email institucional.</p>
+
+          <div style="display:grid;grid-template-columns:repeat(6,minmax(0,52px));gap:10px;justify-content:center;max-width:370px;margin:0 auto;">
+            <input class="rma-input" maxlength="1" />
+            <input class="rma-input" maxlength="1" />
+            <input class="rma-input" maxlength="1" />
+            <input class="rma-input" maxlength="1" />
+            <input class="rma-input" maxlength="1" />
+            <input class="rma-input" maxlength="1" />
+          </div>
+
+          <div style="display:flex;justify-content:space-between;gap:10px;margin-top:14px;">
+            <button class="rma-button rma-button--ghost" id="btnVoltar">Voltar</button>
+            <button class="rma-button">Validar Código</button>
+          </div>
+
+          <a href="#" style="display:inline-block;margin-top:10px;color:#4b5563;text-decoration:none;">Reenviar código em 60s</a>
+        </div>
+      </section>
+    </main>
+    <script src="./rma-glass-theme.js"></script>
+  </body>
+</html>
