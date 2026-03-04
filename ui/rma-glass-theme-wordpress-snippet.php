@@ -433,8 +433,7 @@ add_shortcode('rma_conta_setup', function () {
 '
         . '.rma-flow-step-figure{width:40px;height:40px;border-radius:12px;background:radial-gradient(circle at 30% 25%,rgba(93,218,187,.35),rgba(123,173,57,.14));display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(123,173,57,.2);}
 '
-        . '.rma-flow-step-figure svg{width:40px;height:40px;display:block;}
-'
+        . '.rma-flow-step-figure svg,.rma-flow-step-figure img{width:40px;height:40px;display:block;}\n'
         . '.rma-flow-step-label{font-size:13px;font-weight:500;color:#475569;line-height:1.1;}
 '
         . '.rma-flow-step-badge{position:absolute;top:6px;right:6px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;background:#e7edf4;color:#90a0b3;}
@@ -550,27 +549,27 @@ add_shortcode('rma_conta_setup', function () {
             <div class="rma-flow-stepper" id="rma-flow-stepper">
                 <div class="rma-flow-step is-done" data-step="1">
                     <span class="rma-flow-step-badge">✓</span>
-                    <div class="rma-flow-step-figure"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="rmaStepG1" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#7bad39"/><stop offset="1" stop-color="#5ddabb"/></linearGradient></defs><rect x="14" y="10" width="36" height="44" rx="12" fill="url(#rmaStepG1)" opacity=".16"/><path d="M32 17l14 6v10c0 10-6.2 17.4-14 20-7.8-2.6-14-10-14-20V23l14-6z" stroke="url(#rmaStepG1)" stroke-width="2.4"/><path d="m25 33 5 5 9-9" stroke="#1f2937" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <div class="rma-flow-step-figure"><img src="/exertio/images/verificacao.png" alt="Verificação" loading="lazy" /></div>
                     <div class="rma-flow-step-label">Verificação</div>
                 </div>
                 <div class="rma-flow-step is-done" data-step="2">
                     <span class="rma-flow-step-badge">✓</span>
-                    <div class="rma-flow-step-figure"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="rmaStepG2" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#7bad39"/><stop offset="1" stop-color="#5ddabb"/></linearGradient></defs><rect x="8" y="14" width="34" height="38" rx="10" fill="#fff" stroke="url(#rmaStepG2)" stroke-width="2.4"/><path d="M16 24h18M16 31h14M16 38h10" stroke="#334155" stroke-width="2.4" stroke-linecap="round"/><path d="m40 44 11-11 5 5-11 11-7 2 2-7z" fill="url(#rmaStepG2)" opacity=".3" stroke="url(#rmaStepG2)" stroke-width="2"/></svg></div>
+                    <div class="rma-flow-step-figure"><img src="/exertio/images/cadastro.png" alt="Cadastro" loading="lazy" /></div>
                     <div class="rma-flow-step-label">Cadastro</div>
                 </div>
                 <div class="rma-flow-step is-current" data-step="3">
                     <span class="rma-flow-step-badge">•</span>
-                    <div class="rma-flow-step-figure"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="rmaStepG3" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#7bad39"/><stop offset="1" stop-color="#5ddabb"/></linearGradient></defs><rect x="11" y="12" width="42" height="40" rx="10" fill="#fff" stroke="url(#rmaStepG3)" stroke-width="2.4"/><path d="M20 24h24M20 31h24M20 38h16" stroke="#334155" stroke-width="2.4" stroke-linecap="round"/><path d="M45 18h10v10" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/><path d="m45 28 10-10" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round"/></svg></div>
-                    <div class="rma-flow-step-label">Arquivos</div>
+                    <div class="rma-flow-step-figure"><img src="/exertio/images/documentos.png" alt="Documentos" loading="lazy" /></div>
+                    <div class="rma-flow-step-label">Documentos</div>
                 </div>
                 <div class="rma-flow-step is-locked" data-step="4">
                     <span class="rma-flow-step-badge">○</span>
-                    <div class="rma-flow-step-figure"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="rmaStepG4" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#7bad39"/><stop offset="1" stop-color="#5ddabb"/></linearGradient></defs><circle cx="32" cy="32" r="18" stroke="url(#rmaStepG4)" stroke-width="2.4" fill="#fff"/><circle cx="32" cy="32" r="6" fill="url(#rmaStepG4)" opacity=".3"/><path d="M32 14v4M32 46v4M50 32h-4M18 32h-4M44.7 19.3l-2.8 2.8M22.1 41.9l-2.8 2.8M44.7 44.7l-2.8-2.8M22.1 22.1l-2.8-2.8" stroke="#334155" stroke-width="2" stroke-linecap="round"/></svg></div>
+                    <div class="rma-flow-step-figure"><img src="/exertio/images/validacao.png" alt="Validação" loading="lazy" /></div>
                     <div class="rma-flow-step-label">Validação</div>
                 </div>
                 <div class="rma-flow-step is-locked" data-step="5">
                     <span class="rma-flow-step-badge">○</span>
-                    <div class="rma-flow-step-figure"><svg viewBox="0 0 64 64" fill="none" aria-hidden="true"><defs><linearGradient id="rmaStepG5" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop stop-color="#7bad39"/><stop offset="1" stop-color="#5ddabb"/></linearGradient></defs><rect x="10" y="16" width="44" height="32" rx="10" fill="#fff" stroke="url(#rmaStepG5)" stroke-width="2.4"/><path d="M10 27h44" stroke="url(#rmaStepG5)" stroke-width="2.2"/><rect x="16" y="34" width="16" height="6" rx="3" fill="url(#rmaStepG5)" opacity=".35"/><path d="M43 38h8" stroke="#334155" stroke-width="2.4" stroke-linecap="round"/></svg></div>
+                    <div class="rma-flow-step-figure"><img src="/exertio/images/pagamento.png" alt="Pagamento" loading="lazy" /></div>
                     <div class="rma-flow-step-label">Pagamento</div>
                 </div>
             </div>
@@ -582,7 +581,7 @@ add_shortcode('rma_conta_setup', function () {
             </ul>
 
             <div style="margin:0 0 14px;">
-                <h3 class="rma-premium-section-title">Etapa de documentos (PDF, imagem ou Word)</h3>
+                <h3 class="rma-premium-section-title">Etapa de documentos</h3>
 
                 <?php if ($show_docs_upload) : ?>
                 <?php if (! empty($rejected_document_types)) : ?>
@@ -605,7 +604,7 @@ add_shortcode('rma_conta_setup', function () {
                     </ul>
                 <?php else : ?>
                     <div class="rma-alert" id="rma-doc-upload-block" style="margin-top:8px;">
-                        Seus documentos foram recebidos e estão em análise pela Equipe RMA. Você pode avançar para a próxima etapa enquanto realizamos a validação.
+                        Seus documentos foram recebidos e estão em análise pela Equipe RMA.
                     </div>
                 <?php endif; ?>
             </div>
@@ -800,7 +799,7 @@ add_shortcode('rma_conta_setup', function () {
                     primaryAction.setAttribute('data-rma-pay', '1');
                     primaryAction.setAttribute('data-checkout-url', checkoutPaymentUrl);
                     primaryAction.onclick = redirectToCheckout;
-                    if (primaryHint) primaryHint.textContent = 'Seus documentos foram recebidos e estão em análise pela Equipe RMA. Você pode avançar para a próxima etapa enquanto realizamos a validação.';
+                    if (primaryHint) primaryHint.textContent = '';
                     return;
                 }
 
@@ -979,7 +978,7 @@ add_shortcode('rma_conta_setup', function () {
                     var card = document.getElementById('rma-auth-card');
                     if (card) card.style.display = 'none';
                     if (onboardingMain) onboardingMain.style.display = 'block';
-                        showFeedback('Verificação confirmada. Fluxo liberado.', true);
+                        showFeedback('Documentos enviados.', true);
                         refreshStatus();
                     })
                     .catch(function () {
