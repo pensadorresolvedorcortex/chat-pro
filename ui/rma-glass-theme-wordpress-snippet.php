@@ -361,7 +361,7 @@ add_shortcode('rma_conta_setup', function () {
     $dashboard_url = home_url('/dashboard/');
     $docs_url = apply_filters('rma_docs_page_url', home_url('/documentos/'));
     $finance_url = apply_filters('rma_finance_page_url', home_url('/financeiro/'));
-    $checkout_url = apply_filters('rma_checkout_url', home_url('/rma/checkout/'));
+    $checkout_url = apply_filters('rma_checkout_url', home_url('/checkout/'));
     $annual_product_id = (int) get_option('rma_annual_dues_product_id', 0);
     if ($annual_product_id <= 0) {
         $annual_product_id = (int) get_option('rma_woo_product_id', 0);
@@ -369,6 +369,12 @@ add_shortcode('rma_conta_setup', function () {
     $checkout_payment_url = $annual_product_id > 0
         ? add_query_arg('add-to-cart', $annual_product_id, $checkout_url)
         : $checkout_url;
+    $checkout_payment_path = (string) wp_parse_url($checkout_payment_url, PHP_URL_PATH);
+    $checkout_payment_query = (string) wp_parse_url($checkout_payment_url, PHP_URL_QUERY);
+    $checkout_payment_url_attr = $checkout_payment_path . ($checkout_payment_query !== '' ? ('?' . $checkout_payment_query) : '');
+    if ($checkout_payment_url_attr === '') {
+        $checkout_payment_url_attr = $checkout_payment_url;
+    }
     $layout_tune_css = '<style id="rma-layout-tune">
 '
         . '.rma-premium-card,.rma-premium-card--setup{max-width:1060px;margin:0 auto;border-radius:18px;background:#fff;border:1px solid #edf1f4;box-shadow:0 16px 40px rgba(0,0,0,.05);padding:28px;}
@@ -411,7 +417,9 @@ add_shortcode('rma_conta_setup', function () {
 '
         . '.rma-flow-step.is-locked{color:#98a2b3;background:#f5f7fa;}
 '
-        . '.rma-primary-cta,.rma-nav-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;}\n'
+        . '.rma-actions{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:10px;flex-wrap:wrap;}\n'
+        . '.rma-primary-cta,.rma-nav-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}\n'
+        . '.rma-primary-cta{margin-left:auto;}\n'
         . '.rma-auth-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 2px;}\n'
         . '.rma-auth-card{text-align:center;}\n'
         . '.rma-glass-title{color:#1f2937;font-weight:700;}\n'
@@ -536,13 +544,14 @@ add_shortcode('rma_conta_setup', function () {
                 <?php endif; ?>
             </div>
 
-            <div class="rma-primary-cta">
-                <button class="rma-button btn-rma-primary" type="button" id="btnPagamento" data-checkout-url="<?php echo esc_url($checkout_payment_url); ?>" data-product-id="<?php echo (int) $annual_product_id; ?>">Avançar para Pagamento</button>
-                <span id="rma-primary-hint" style="font-size:.92rem;color:#6b6b6b;"></span>
-            </div>
-
-            <div class="rma-nav-actions">
-                <button class="rma-button btn-rma-secondary" type="button" id="rma-back-action">Voltar</button>
+            <div class="rma-actions">
+                <div class="rma-nav-actions">
+                    <button class="rma-button btn-rma-secondary" type="button" id="rma-back-action">Voltar</button>
+                </div>
+                <div class="rma-primary-cta">
+                    <button class="rma-button btn-rma-primary" type="button" id="btnPagamento" data-checkout-url="<?php echo esc_url($checkout_payment_url_attr); ?>" data-product-id="<?php echo (int) $annual_product_id; ?>" data-rma-pay="1">Avançar para Pagamento</button>
+                    <span id="rma-primary-hint" style="font-size:.92rem;color:#6b6b6b;"></span>
+                </div>
             </div>
 
             <div id="rma-flow-feedback" class="rma-feedback"></div>
@@ -1351,7 +1360,7 @@ add_action('template_redirect', function () {
         return;
     }
 
-    $checkout_path = (string) wp_parse_url(home_url('/rma/checkout/'), PHP_URL_PATH);
+    $checkout_path = (string) wp_parse_url(apply_filters('rma_checkout_url', home_url('/checkout/')), PHP_URL_PATH);
 
     $allowed_paths = array_filter(array_map('untrailingslashit', [
         rma_account_setup_path(),
