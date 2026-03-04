@@ -229,33 +229,37 @@ add_action('rest_api_init', function () {
 
 
     // Compat route para evitar 404 em ambientes com JS legado apontando para /onboarding/status.
-    register_rest_route('rma/v1', '/onboarding/status', [
-        'methods' => 'GET',
-        'permission_callback' => function () {
-            return is_user_logged_in();
-        },
-        'callback' => function () {
-            $user_id = get_current_user_id();
-            $entity_id = rma_get_entity_id_by_author($user_id);
-            if ($entity_id <= 0) {
-                return new WP_REST_Response([
-                    'entity_id' => 0,
-                    'governance_status' => 'pendente',
-                    'finance_status' => 'pendente',
-                    'documentos_status' => 'pendente',
-                    'rejected_document_types' => [],
-                ]);
-            }
+    // Evita re-registro quando o plugin rma-core-entities já expõe a mesma rota.
+    $routes = rest_get_server()->get_routes();
+    if (! isset($routes['/rma/v1/onboarding/status'])) {
+        register_rest_route('rma/v1', '/onboarding/status', [
+            'methods' => 'GET',
+            'permission_callback' => function () {
+                return is_user_logged_in();
+            },
+            'callback' => function () {
+                $user_id = get_current_user_id();
+                $entity_id = rma_get_entity_id_by_author($user_id);
+                if ($entity_id <= 0) {
+                    return new WP_REST_Response([
+                        'entity_id' => 0,
+                        'governance_status' => 'pendente',
+                        'finance_status' => 'pendente',
+                        'documentos_status' => 'pendente',
+                        'rejected_document_types' => [],
+                    ]);
+                }
 
-            return new WP_REST_Response([
-                'entity_id' => $entity_id,
-                'governance_status' => (string) get_post_meta($entity_id, 'governance_status', true),
-                'finance_status' => (string) get_post_meta($entity_id, 'finance_status', true),
-                'documentos_status' => (string) get_post_meta($entity_id, 'documentos_status', true),
-                'rejected_document_types' => array_values(array_filter(array_map('sanitize_key', (array) get_post_meta($entity_id, 'documentos_reprovados', true)))),
-            ]);
-        },
-    ]);
+                return new WP_REST_Response([
+                    'entity_id' => $entity_id,
+                    'governance_status' => (string) get_post_meta($entity_id, 'governance_status', true),
+                    'finance_status' => (string) get_post_meta($entity_id, 'finance_status', true),
+                    'documentos_status' => (string) get_post_meta($entity_id, 'documentos_status', true),
+                    'rejected_document_types' => array_values(array_filter(array_map('sanitize_key', (array) get_post_meta($entity_id, 'documentos_reprovados', true)))),
+                ]);
+            },
+        ]);
+    }
 
     register_rest_route('rma/v1', '/otp/verify', [
         'methods' => 'POST',
