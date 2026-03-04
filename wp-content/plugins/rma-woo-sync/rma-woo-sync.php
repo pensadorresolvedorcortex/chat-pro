@@ -399,6 +399,53 @@ add_filter('woocommerce_cart_needs_shipping', function ($needs_shipping) {
     return $needs_shipping;
 });
 
+function rma_get_current_user_entity_id(): int {
+    $user_id = get_current_user_id();
+    if ($user_id <= 0) {
+        return 0;
+    }
+
+    if (function_exists('rma_get_entity_id_by_author')) {
+        return (int) rma_get_entity_id_by_author($user_id);
+    }
+
+    $entity_id = (int) get_posts([
+        'post_type' => 'rma_entidade',
+        'post_status' => ['publish', 'draft'],
+        'author' => $user_id,
+        'fields' => 'ids',
+        'posts_per_page' => 1,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    ])[0] ?? 0;
+
+    return max(0, $entity_id);
+}
+
+add_action('woocommerce_checkout_process', function (): void {
+    if (! rma_contains_annual_dues_product()) {
+        return;
+    }
+
+    if (rma_get_current_user_entity_id() <= 0) {
+        wc_add_notice('Não foi possível vincular o pagamento a uma entidade RMA. Faça login com a conta da entidade e tente novamente.', 'error');
+    }
+});
+
+add_action('woocommerce_checkout_create_order', function (WC_Order $order): void {
+    if (! rma_contains_annual_dues_product()) {
+        return;
+    }
+
+    $entity_id = rma_get_current_user_entity_id();
+    if ($entity_id > 0) {
+        $order->update_meta_data('rma_entity_id', $entity_id);
+    }
+
+    $order->update_meta_data('rma_is_annual_due', '1');
+    $order->update_meta_data('rma_due_year', gmdate('Y'));
+}, 20);
+
 add_action('wp_enqueue_scripts', function (): void {
     if (! function_exists('is_checkout') || ! is_checkout()) {
         return;
@@ -407,22 +454,39 @@ add_action('wp_enqueue_scripts', function (): void {
         return;
     }
 
-    wp_register_style('rma-woo-checkout-premium', false, [], '1.0.0');
+    wp_register_style('rma-woo-checkout-premium', false, [], '1.1.0');
     wp_enqueue_style('rma-woo-checkout-premium');
     wp_add_inline_style('rma-woo-checkout-premium', '
-        .woocommerce-checkout{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#f8fafc;padding:20px;border-radius:18px}
-        .woocommerce-checkout #customer_details{display:none!important}
-        .woocommerce-checkout #order_review,.woocommerce-checkout #payment{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:22px;box-shadow:0 10px 26px rgba(15,23,42,.06)}
-        .woocommerce-checkout h3,.woocommerce-checkout h2{color:#1f2937}
-        .woocommerce-checkout .payment_method_rma_pix label{font-weight:700;color:#1f2937}
-        .rma-pix-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.05);margin-bottom:14px}
-        .rma-pix-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-        .rma-pix-copy{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:10px;color:#111827;background:#f8fafc}
-        .rma-pix-copy-btn{background:linear-gradient(135deg,#7bad39,#5ddabb);color:#fff;border:none;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer}
-        .rma-pix-copy-status{font-size:.88rem;color:#047857;margin-top:6px;display:none}
+        .woocommerce-checkout{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#eef6f2 100%);padding:24px;border-radius:24px}
+        .woocommerce-checkout .col2-set,.woocommerce-checkout #customer_details{display:none!important}
+        .woocommerce-checkout #order_review_heading,.woocommerce-checkout #order_review{float:none!important;width:100%!important}
+        .woocommerce-checkout #order_review{display:grid;gap:16px}
+        .woocommerce-checkout #payment{background:#ffffff;border:1px solid #e5e7eb;border-radius:20px;padding:26px;box-shadow:0 16px 40px rgba(15,23,42,.09)}
+        .woocommerce-checkout h3,.woocommerce-checkout h2{color:#1f2937;letter-spacing:-.02em}
+        .woocommerce-checkout-review-order-table{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px rgba(15,23,42,.05)}
+        .woocommerce-checkout-payment ul.payment_methods{padding:0!important;border:none!important;background:transparent!important}
+        .woocommerce-checkout-payment .payment_method_rma_pix>label{font-weight:800;color:#1f2937;font-size:1.05rem}
+        .rma-pix-card{background:#fff;border:1px solid #d9e3dc;border-radius:20px;padding:22px;box-shadow:0 14px 34px rgba(15,23,42,.08);margin:8px 0 0}
+        .rma-pix-hero{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+        .rma-pix-title{font-size:1.7rem;line-height:1.2;margin:0;color:#1f2937}
+        .rma-pix-subtitle{margin:0;color:#4b5563}
+        .rma-pix-badge{background:rgba(93,218,187,.16);color:#0f766e;border:1px solid rgba(15,118,110,.18);border-radius:999px;padding:6px 12px;font-size:.78rem;font-weight:700;white-space:nowrap}
+        .rma-pix-grid{display:grid;grid-template-columns:minmax(290px,1.1fr) minmax(260px,.9fr);gap:18px;margin-top:16px}
+        .rma-pix-panel{background:#f9fbfd;border:1px solid #e5e7eb;border-radius:16px;padding:16px}
+        .rma-pix-panel h4{margin:0 0 8px;color:#1f2937;font-size:1.02rem}
+        .rma-pix-qr-wrap{text-align:center}
+        .rma-pix-qr{max-width:280px;width:100%;background:#fff;border:10px solid #fff;box-shadow:0 10px 26px rgba(15,23,42,.12);border-radius:14px}
+        .rma-pix-copy{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;color:#111827;background:#fff;font-size:.92rem;margin:8px 0 10px}
+        .rma-pix-copy-btn{background:linear-gradient(135deg,#7bad39,#5ddabb);color:#fff;border:none;border-radius:12px;padding:12px 16px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+        .rma-pix-copy-btn:hover{filter:brightness(1.03);transform:translateY(-1px)}
+        .rma-pix-copy-status{font-size:.9rem;color:#047857;margin-top:8px;display:none}
         .rma-pix-copy-status.is-visible{display:block}
-        .rma-pix-qr{max-width:260px;border:8px solid #fff;box-shadow:0 8px 20px rgba(15,23,42,.12);border-radius:12px}
-        @media (max-width:760px){.rma-pix-grid{grid-template-columns:1fr}}
+        .rma-pix-steps{margin:12px 0 0;padding-left:18px;color:#4b5563}
+        .rma-pix-steps li{margin:6px 0}
+        .rma-pix-warning{font-size:.9rem;color:#6b7280;margin-top:10px}
+        .rma-pix-qr-fallback{display:none;color:#4b5563;font-size:.9rem;margin-top:8px}
+        .rma-pix-qr-fallback.is-visible{display:block}
+        @media (max-width:900px){.rma-pix-grid{grid-template-columns:1fr}.rma-pix-hero{flex-direction:column;align-items:flex-start}.rma-pix-title{font-size:1.45rem}}
     ');
 }, 30);
 
@@ -471,30 +535,40 @@ add_action('plugins_loaded', function (): void {
                 return;
             }
 
-            $total = function_exists('WC') && WC()->cart ? (float) WC()->cart->get_total('edit') : 0;
-            $payload = rma_pix_build_payload($pix_key, (string) $total, 'RMA-CHECKOUT');
-            $qr_url = 'https://api.qrserver.com/v1/create-qr-code/?size=360x360&data=' . rawurlencode($payload);
+            $cart_total = function_exists('WC') && WC()->cart ? (float) WC()->cart->total : 0;
+            $payload = rma_pix_build_payload($pix_key, (string) $cart_total, 'RMA-CHECKOUT');
+            $qr_url = 'https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=' . rawurlencode($payload);
 
             echo '<div class="rma-pix-card">';
-            echo '<h3>Pagamento da Anuidade RMA</h3>';
-            echo '<p style="color:#4b5563;margin-top:0">Para concluir sua filiação, realize o pagamento via PIX. O acesso será ativado automaticamente após a compensação.</p>';
-            echo '<div class="rma-pix-grid">';
+            echo '<div class="rma-pix-hero">';
             echo '<div>';
-            echo '<img class="rma-pix-qr" src="' . esc_url($qr_url) . '" alt="QR Code PIX" />';
-            echo '<ol style="color:#4b5563"><li>Abra o app do seu banco</li><li>Escolha PIX > QR Code ou Copiar e Colar</li><li>Confirme o pagamento e finalize o pedido</li></ol>';
+            echo '<h3 class="rma-pix-title">Pagamento da Anuidade RMA</h3>';
+            echo '<p class="rma-pix-subtitle">Finalize sua filiação com segurança.</p>';
             echo '</div>';
-            echo '<div>';
-            echo '<p><strong>Resumo do pedido</strong></p>';
-            echo '<p style="color:#4b5563">Pagamento via PIX • Compensação conforme seu banco</p>';
+            echo '<span class="rma-pix-badge">Pagamento via PIX • Compensação conforme seu banco</span>';
+            echo '</div>';
+            echo '<p style="color:#4b5563;margin:0">Para concluir sua filiação, realize o pagamento via PIX. O acesso será ativado automaticamente após a compensação.</p>';
+            echo '<div class="rma-pix-grid">';
+            echo '<div class="rma-pix-panel">';
+            echo '<h4>Escaneie o QR Code</h4>';
+            echo '<div class="rma-pix-qr-wrap">';
+            echo '<img class="rma-pix-qr" src="' . esc_url($qr_url) . '" alt="QR Code PIX" onerror="var n=this.nextElementSibling;this.style.display=\'none\';if(n){n.classList.add(\'is-visible\');}" />';
+            echo '<div class="rma-pix-qr-fallback">Não foi possível carregar o QR Code agora. Use o código copia e cola abaixo.</div>';
+            echo '</div>';
+            echo '<ol class="rma-pix-steps"><li>Abra o app do seu banco</li><li>Escolha PIX > QR Code ou Copiar e Colar</li><li>Confirme o pagamento e finalize o pedido</li></ol>';
+            echo '</div>';
+            echo '<div class="rma-pix-panel">';
+            echo '<h4>Resumo do pedido</h4>';
+            echo '<p style="color:#4b5563;margin:0 0 6px">Total da anuidade: <strong style="color:#1f2937">' . wp_kses_post(wc_price($cart_total)) . '</strong></p>';
             echo '<input readonly class="rma-pix-copy" id="rma-pix-copy-code" value="' . esc_attr($payload) . '" />';
             echo '<button type="button" class="rma-pix-copy-btn" id="rma-pix-copy-btn">Copiar código PIX</button>';
-            echo '<div class="rma-pix-copy-status" id="rma-pix-copy-status">Copiado com sucesso.</div>';
-            echo '<p style="color:#6b7280;font-size:.9rem">O prazo de compensação pode variar conforme o banco.</p>';
+            echo '<div class="rma-pix-copy-status" id="rma-pix-copy-status">Código PIX copiado com sucesso.</div>';
+            echo '<p class="rma-pix-warning">O prazo de compensação pode variar conforme o banco.</p>';
             echo '</div>';
             echo '</div>';
             echo '</div>';
 
-            echo '<script>(function(){var b=document.getElementById("rma-pix-copy-btn");var i=document.getElementById("rma-pix-copy-code");var s=document.getElementById("rma-pix-copy-status");if(!b||!i){return;}b.addEventListener("click",function(){i.select();i.setSelectionRange(0,99999);var ok=false;try{ok=document.execCommand("copy");}catch(e){}if(navigator.clipboard){navigator.clipboard.writeText(i.value).then(function(){s&&s.classList.add("is-visible");});return;}if(ok&&s){s.classList.add("is-visible");}});})();</script>';
+            echo '<script>(function(){var b=document.getElementById("rma-pix-copy-btn");var i=document.getElementById("rma-pix-copy-code");var s=document.getElementById("rma-pix-copy-status");if(!b||!i){return;}b.addEventListener("click",function(){var v=i.value||"";if(!v){return;}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){s&&s.classList.add("is-visible");});return;}i.focus();i.select();i.setSelectionRange(0,99999);try{document.execCommand("copy");s&&s.classList.add("is-visible");}catch(e){}});})();</script>';
         }
 
         public function process_payment($order_id) {
@@ -503,10 +577,21 @@ add_action('plugins_loaded', function (): void {
                 return ['result' => 'fail'];
             }
 
+            $entity_id = (int) $order->get_meta('rma_entity_id');
+            if ($entity_id <= 0) {
+                $entity_id = rma_get_current_user_entity_id();
+                if ($entity_id > 0) {
+                    $order->update_meta_data('rma_entity_id', $entity_id);
+                    $order->save();
+                }
+            }
+
             $order->update_status('on-hold', 'Aguardando pagamento PIX da Anuidade RMA.');
             $order->add_order_note('Pedido criado via PIX institucional RMA.');
             wc_reduce_stock_levels($order_id);
-            WC()->cart->empty_cart();
+            if (function_exists('WC') && WC()->cart) {
+                WC()->cart->empty_cart();
+            }
 
             return [
                 'result' => 'success',
@@ -533,15 +618,15 @@ add_action('woocommerce_thankyou_rma_pix', function (int $order_id): void {
     $qr_url = 'https://api.qrserver.com/v1/create-qr-code/?size=420x420&data=' . rawurlencode($payload);
 
     echo '<section class="rma-pix-card" style="margin-top:20px">';
-    echo '<h2 style="margin-top:0">Pagamento da Anuidade RMA</h2>';
+    echo '<h2 style="margin-top:0;color:#1f2937">Pagamento da Anuidade RMA</h2>';
     echo '<p style="color:#4b5563">Seu pedido está em <strong>aguardando pagamento</strong>. Escaneie o QR Code ou copie o código PIX abaixo.</p>';
-    echo '<img class="rma-pix-qr" src="' . esc_url($qr_url) . '" alt="QR Code PIX do pedido" />';
+    echo '<img class="rma-pix-qr" src="' . esc_url($qr_url) . '" alt="QR Code PIX do pedido" onerror="this.style.display=\'none\'" />';
     echo '<input readonly class="rma-pix-copy" id="rma-pix-order-copy-code" value="' . esc_attr($payload) . '" />';
     echo '<button type="button" class="rma-pix-copy-btn" id="rma-pix-order-copy-btn">Copiar código PIX</button>';
     echo '<div class="rma-pix-copy-status" id="rma-pix-order-copy-status">Copiado com sucesso.</div>';
     echo '<p style="color:#6b7280;font-size:.9rem">Assim que houver compensação, seu acesso RMA será liberado automaticamente.</p>';
     echo '</section>';
-    echo '<script>(function(){var b=document.getElementById("rma-pix-order-copy-btn");var i=document.getElementById("rma-pix-order-copy-code");var s=document.getElementById("rma-pix-order-copy-status");if(!b||!i){return;}b.addEventListener("click",function(){if(navigator.clipboard){navigator.clipboard.writeText(i.value).then(function(){s&&s.classList.add("is-visible");});return;}i.select();i.setSelectionRange(0,99999);document.execCommand("copy");s&&s.classList.add("is-visible");});})();</script>';
+    echo '<script>(function(){var b=document.getElementById("rma-pix-order-copy-btn");var i=document.getElementById("rma-pix-order-copy-code");var s=document.getElementById("rma-pix-order-copy-status");if(!b||!i){return;}b.addEventListener("click",function(){var v=i.value||"";if(!v){return;}if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(function(){s&&s.classList.add("is-visible");});return;}i.select();i.setSelectionRange(0,99999);document.execCommand("copy");s&&s.classList.add("is-visible");});})();</script>';
 });
 
 register_deactivation_hook(__FILE__, ['RMA_Woo_Sync', 'deactivate']);
