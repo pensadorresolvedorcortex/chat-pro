@@ -320,6 +320,53 @@ function rma_contains_annual_dues_product(): bool {
     return false;
 }
 
+function rma_is_checkout_mode(): bool {
+    if (! function_exists('is_checkout') || ! is_checkout()) {
+        return false;
+    }
+
+    return rma_contains_annual_dues_product();
+}
+
+add_filter('body_class', function (array $classes): array {
+    if (rma_is_checkout_mode()) {
+        $classes[] = 'rma-checkout-mode';
+    }
+
+    return $classes;
+});
+
+add_filter('woocommerce_available_payment_gateways', function (array $gateways): array {
+    if (! rma_is_checkout_mode()) {
+        return $gateways;
+    }
+
+    if (isset($gateways['rma_pix'])) {
+        return ['rma_pix' => $gateways['rma_pix']];
+    }
+
+    return $gateways;
+});
+
+add_filter('wc_add_to_cart_message_html', function (string $message): string {
+    if (rma_is_checkout_mode()) {
+        return '';
+    }
+
+    return $message;
+}, 10, 1);
+
+add_action('woocommerce_before_checkout_form', function (): void {
+    if (! rma_is_checkout_mode() || ! function_exists('wc_get_notices')) {
+        return;
+    }
+
+    $success = wc_get_notices('success');
+    if (! empty($success)) {
+        wc_clear_notices();
+    }
+}, 1);
+
 function rma_pix_build_payload(string $pix_key, string $amount, string $txid): string {
     $pix_key = preg_replace('/\s+/', '', sanitize_text_field($pix_key));
     $amount = number_format(max(0, (float) $amount), 2, '.', '');
@@ -457,7 +504,7 @@ add_action('wp_enqueue_scripts', function (): void {
     wp_register_style('rma-woo-checkout-premium', false, [], '1.1.0');
     wp_enqueue_style('rma-woo-checkout-premium');
     wp_add_inline_style('rma-woo-checkout-premium', '
-        .woocommerce-checkout{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#eef6f2 100%);padding:24px;border-radius:24px}.woocommerce form.checkout{max-width:1180px!important;margin:0 auto!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+        .woocommerce-checkout{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,#f8fafc 0%,#eef6f2 100%);padding:24px;border-radius:24px}.rma-checkout-mode .woocommerce-notices-wrapper{display:none!important}.rma-checkout-mode .woocommerce-message .button,.rma-checkout-mode a.wc-forward{display:none!important}.rma-checkout-mode .woocommerce form.checkout{max-width:1100px!important;margin:0 auto!important;display:block!important}.rma-checkout-mode .woocommerce-checkout .col2-set,.rma-checkout-mode .woocommerce-checkout #customer_details{display:none!important;height:0!important;margin:0!important;padding:0!important;overflow:hidden!important}.rma-checkout-mode .woocommerce-checkout #order_review_heading{display:none!important}.rma-checkout-mode .woocommerce-checkout #order_review,.rma-checkout-mode .woocommerce-checkout .woocommerce-checkout-review-order,.rma-checkout-mode .woocommerce-checkout .woocommerce-checkout-review-order-table{float:none!important;width:100%!important;max-width:980px!important;margin:0 auto!important;display:block!important}
         .woocommerce-checkout .col2-set,.woocommerce-checkout #customer_details{display:none!important}
         .woocommerce-checkout #order_review_heading{display:none!important}.woocommerce-checkout #order_review{float:none!important;width:100%!important;max-width:100%!important;margin:0 auto!important}
         .woocommerce-checkout #order_review{display:grid;gap:16px}
@@ -548,6 +595,7 @@ add_action('plugins_loaded', function (): void {
             echo '<span class="rma-pix-badge">Pagamento via PIX • Compensação conforme seu banco</span>';
             echo '</div>';
             echo '<p style="color:#4b5563;margin:0">Para concluir sua filiação, realize o pagamento via PIX. O acesso será ativado automaticamente após a compensação.</p>';
+            echo '<div style="margin-top:12px;padding:10px 12px;border-radius:10px;background:#edf9ec;color:#166534;font-weight:600;">Anuidade adicionada. Finalize o pagamento via PIX para concluir sua filiação.</div>';
             echo '<div class="rma-pix-grid">';
             echo '<div class="rma-pix-panel">';
             echo '<h4>Escaneie o QR Code</h4>';
