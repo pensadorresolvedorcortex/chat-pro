@@ -82,11 +82,21 @@ function rma_otp_transient_key(int $user_id): string {
     return 'rma_otp_code_' . $user_id;
 }
 
+function rma_otp_send_lock_key(int $user_id): string {
+    return 'rma_otp_send_lock_' . $user_id;
+}
+
 function rma_send_otp_code_for_user(int $user_id) {
     $user = get_user_by('id', $user_id);
     if (! $user || ! $user->user_email) {
         return new WP_Error('rma_otp_user_invalid', 'Usuário inválido para verificação.');
     }
+
+    if (get_transient(rma_otp_send_lock_key($user_id))) {
+        return new WP_Error('rma_otp_rate_limited', 'Aguarde alguns segundos antes de solicitar um novo código.');
+    }
+
+    set_transient(rma_otp_send_lock_key($user_id), '1', 30);
 
     $code = (string) wp_rand(100000, 999999);
     $payload = [
@@ -129,6 +139,24 @@ add_action('rest_api_init', function () {
                 return new WP_REST_Response(['message' => $result->get_error_message()], 503);
             }
             return new WP_REST_Response(['sent' => true, 'message' => 'Código enviado para seu email institucional.']);
+        },
+    ]);
+
+
+    register_rest_route('rma/v1', '/otp/status', [
+        'methods' => 'GET',
+        'permission_callback' => function () {
+            return is_user_logged_in();
+        },
+        'callback' => function () {
+            $verified_at = (int) get_user_meta(get_current_user_id(), 'rma_otp_verified_at', true);
+            $valid_until = $verified_at > 0 ? ($verified_at + (30 * MINUTE_IN_SECONDS)) : 0;
+            $is_valid = $valid_until > time();
+            return new WP_REST_Response([
+                'verified' => $is_valid,
+                'verified_at' => $verified_at,
+                'valid_until' => $valid_until,
+            ]);
         },
     ]);
 
@@ -427,6 +455,29 @@ add_shortcode('rma_conta_setup', function () {
             var onboardingMain = document.getElementById('rma-onboarding-main');
             var currentUiStep = 1;
             var isOtpVerified = false;
+
+            function revealMainFlow() {
+                var card = document.getElementById('rma-auth-card');
+                if (card) card.style.display = 'none';
+                if (onboardingMain) onboardingMain.style.display = 'block';
+            }
+
+            function sendOtpCode(initial) {
+                return fetch(base + '/otp/send', { method: 'POST', credentials: 'same-origin', headers: { 'X-WP-Nonce': nonce } })
+                    .then(function (res) { return res.json().then(function (json) { return {ok: res.ok, json: json}; }); })
+                    .then(function (result) {
+                        if (!result.ok) {
+                            showFeedback((result.json && result.json.message) ? result.json.message : 'Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
+                            return false;
+                        }
+                        if (!initial) showFeedback('Novo código enviado para seu email.', true);
+                        return true;
+                    })
+                    .catch(function () {
+                        showFeedback('Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
+                        return false;
+                    });
+            }
 
             var paymentListenerBound = false;
             function bindPaymentButton() {
@@ -744,18 +795,7 @@ add_shortcode('rma_conta_setup', function () {
                     resendCodeLink.setAttribute('aria-disabled', 'true');
                     resendCodeLink.innerHTML = 'Reenviar código em <span id="rma-resend-timer">60</span>s';
                     resendTimerElement = document.getElementById('rma-resend-timer');
-                    fetch(base + '/otp/send', { method: 'POST', credentials: 'same-origin', headers: { 'X-WP-Nonce': nonce } })
-                        .then(function (res) { return res.json().then(function (json) { return {ok: res.ok, json: json}; }); })
-                        .then(function (result) {
-                            if (!result.ok) {
-                                showFeedback((result.json && result.json.message) ? result.json.message : 'Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
-                                return;
-                            }
-                            showFeedback('Novo código enviado para seu email.', true);
-                        })
-                        .catch(function () {
-                            showFeedback('Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
-                        });
+sendOtpCode(false);
                     resendTimerInterval = setInterval(function () {
                         resendSeconds = Math.max(0, resendSeconds - 1);
                         if (resendTimerElement) resendTimerElement.textContent = String(resendSeconds);
@@ -771,17 +811,22 @@ add_shortcode('rma_conta_setup', function () {
 
             if (onboardingMain) onboardingMain.style.display = 'none';
 
-            fetch(base + '/otp/send', { method: 'POST', credentials: 'same-origin', headers: { 'X-WP-Nonce': nonce } })
+            fetch(base + '/otp/status', { credentials: 'same-origin', headers: { 'X-WP-Nonce': nonce } })
                 .then(function (res) { return res.json().then(function (json) { return {ok: res.ok, json: json}; }); })
                 .then(function (result) {
-                    if (!result.ok) {
-                        showFeedback((result.json && result.json.message) ? result.json.message : 'Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
+                    if (result.ok && result.json && result.json.verified) {
+                        isOtpVerified = true;
+                        revealMainFlow();
                         return;
                     }
-                    showFeedback('Código enviado para seu email institucional.', true);
+                    sendOtpCode(true).then(function (sent) {
+                        if (sent) showFeedback('Código enviado para seu email institucional.', true);
+                    });
                 })
                 .catch(function () {
-                    showFeedback('Não foi possível enviar o código no momento. Tente novamente ou verifique sua caixa de spam.', false);
+                    sendOtpCode(true).then(function (sent) {
+                        if (sent) showFeedback('Código enviado para seu email institucional.', true);
+                    });
                 });
 
             updateState({
