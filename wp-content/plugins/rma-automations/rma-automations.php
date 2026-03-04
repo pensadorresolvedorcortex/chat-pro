@@ -47,15 +47,28 @@ final class RMA_Automations {
                     $this->notify_once_daily($email, 'Mandato próximo do vencimento', 'Seu mandato está próximo do vencimento.', $entity_id, 'mandato');
                 }
 
-                $finance = get_post_meta($entity_id, 'finance_status', true);
+                $finance = (string) get_post_meta($entity_id, 'finance_status', true);
                 $anuidade_vencimento = (string) get_post_meta($entity_id, 'anuidade_vencimento', true);
-                $should_notify_anuidade = $governance === 'aprovado' && $finance !== 'adimplente';
-                if ($should_notify_anuidade && $anuidade_vencimento !== '') {
-                    $should_notify_anuidade = $this->is_days_before($anuidade_vencimento, [30, 7, 0, -1, -7]);
+                if ($anuidade_vencimento === '') {
+                    $anuidade_vencimento = (string) get_post_meta($entity_id, 'finance_due_at', true);
                 }
 
-                if ($should_notify_anuidade) {
-                    $this->notify_once_daily($email, 'Anuidade pendente', 'Identificamos pendência na sua anuidade. Gere seu PIX no painel.', $entity_id, 'anuidade');
+                if ($governance === 'aprovado' && $anuidade_vencimento !== '') {
+                    $days_to_due = $this->days_until($anuidade_vencimento);
+
+                    if ($finance === 'adimplente' && $days_to_due === 30) {
+                        $this->notify_once_daily($email, 'Renovação da anuidade em 30 dias', 'Sua anuidade vencerá em 30 dias. Gere o PIX de renovação para evitar interrupções.', $entity_id, 'anuidade_30dias');
+                    }
+
+                    if ($days_to_due < 0 && $finance !== 'adimplente') {
+                        $this->notify_once_daily($email, 'Anuidade em atraso', 'Identificamos pendência na sua anuidade. Gere seu PIX no painel para regularizar.', $entity_id, 'anuidade_atraso');
+                    }
+
+                    if ($days_to_due <= -5) {
+                        update_post_meta($entity_id, 'finance_status', 'inadimplente');
+                        update_post_meta($entity_id, 'finance_access_status', 'blocked');
+                        $this->notify_once_daily($email, 'Serviços temporariamente bloqueados', 'Sua anuidade está com mais de 5 dias de atraso. O acesso foi temporariamente bloqueado até a regularização.', $entity_id, 'anuidade_bloqueio');
+                    }
                 }
             }
 
@@ -79,6 +92,16 @@ final class RMA_Automations {
         $diff_days = (int) floor(($target - $today) / DAY_IN_SECONDS);
 
         return in_array($diff_days, $days, true);
+    }
+
+    private function days_until(string $date): int {
+        $target = strtotime($date);
+        if (! $target) {
+            return 9999;
+        }
+
+        $today = strtotime(gmdate('Y-m-d'));
+        return (int) floor(($target - $today) / DAY_IN_SECONDS);
     }
 
     private function notify_once_daily(string $email, string $subject, string $message, int $entity_id, string $context): void {

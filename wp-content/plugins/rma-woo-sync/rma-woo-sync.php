@@ -66,7 +66,7 @@ final class RMA_Woo_Sync {
             'finance_status' => $finance_status,
             'is_paid' => $is_paid,
             'should_redirect' => $is_paid,
-            'redirect_url' => wc_get_page_permalink('myaccount'),
+            'redirect_url' => home_url('/dashboard/'),
             'latest_order' => $latest_order,
         ];
 
@@ -97,6 +97,15 @@ final class RMA_Woo_Sync {
         }
 
         update_post_meta($entity_id, 'finance_status', $target_status);
+
+        if ($target_status === 'adimplente') {
+            $paid_ts = time();
+            $due_ts = $paid_ts + (365 * DAY_IN_SECONDS);
+            update_post_meta($entity_id, 'finance_paid_at', gmdate('Y-m-d H:i:s', $paid_ts));
+            update_post_meta($entity_id, 'finance_due_at', gmdate('Y-m-d H:i:s', $due_ts));
+            update_post_meta($entity_id, 'anuidade_vencimento', gmdate('Y-m-d', $due_ts));
+            update_post_meta($entity_id, 'finance_access_status', 'active');
+        }
 
         $history = get_post_meta($entity_id, 'finance_history', true);
         $history = is_array($history) ? $history : [];
@@ -508,7 +517,7 @@ add_action('wp_enqueue_scripts', function (): void {
         .woocommerce-checkout .col2-set,.woocommerce-checkout #customer_details{display:none!important}
         .woocommerce-checkout #order_review_heading{display:none!important}.woocommerce-checkout #order_review{float:none!important;width:100%!important;max-width:100%!important;margin:0 auto!important}
         .woocommerce-checkout #order_review{display:grid;gap:8px}
-        .woocommerce-checkout #payment{background:#ffffff;border:1px solid #e5e7eb;border-radius:20px;padding:18px;box-shadow:0 16px 40px rgba(15,23,42,.09);width:100%!important;max-width:100%!important;margin:0 auto!important}
+        .woocommerce-checkout #payment{background:#ffffff;border:1px solid #e5e7eb;border-radius:20px;padding:18px;box-shadow:0 16px 40px rgba(15,23,42,.09);width:100%!important;max-width:100%!important;margin:0 auto!important}.woocommerce-checkout #order_review{background:#fff;border:1px solid #edf1f4;border-radius:18px;padding:14px;box-shadow:0 12px 28px rgba(0,0,0,.05)}
         .woocommerce-checkout h3,.woocommerce-checkout h2{color:#1f2937;letter-spacing:-.02em}
         .woocommerce-checkout-review-order-table{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 10px 26px rgba(15,23,42,.05)}
         .woocommerce-checkout-payment ul.payment_methods{padding:0!important;border:none!important;background:transparent!important}

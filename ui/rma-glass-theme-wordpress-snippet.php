@@ -465,6 +465,7 @@ add_shortcode('rma_conta_setup', function () {
         . '.rma-primary-cta,.rma-nav-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}\n'
         . '.rma-primary-cta{margin-left:auto;}\n'
         . '.rma-auth-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 2px;}\n'
+        . '.rma-auth-actions .btn-rma-primary{margin-left:auto;}\n'
         . '.rma-auth-card{text-align:center;}\n'
         . '.rma-glass-title{color:#1f2937;font-weight:700;}\n'
         . '.rma-glass-subtitle{color:#4b5563;}\n'
