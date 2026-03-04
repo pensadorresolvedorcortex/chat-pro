@@ -151,6 +151,21 @@ function rma_otp_send_lock_key(int $user_id): string {
     return 'rma_otp_send_lock_' . $user_id;
 }
 
+function rma_send_security_email(string $to, string $subject, string $html_message): bool {
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+    $sender_mode = (string) get_option('rma_email_sender_mode', 'wp_mail');
+
+    if ($sender_mode === 'woo_mail' && function_exists('WC') && WC() && method_exists(WC(), 'mailer')) {
+        $mailer = WC()->mailer();
+        if ($mailer && method_exists($mailer, 'send')) {
+            $wrapped = method_exists($mailer, 'wrap_message') ? $mailer->wrap_message($subject, $html_message) : $html_message;
+            return (bool) $mailer->send($to, $subject, $wrapped, $headers, []);
+        }
+    }
+
+    return (bool) wp_mail($to, $subject, $html_message, $headers);
+}
+
 function rma_send_otp_code_for_user(int $user_id) {
     $user = get_user_by('id', $user_id);
     if (! $user || ! $user->user_email) {
@@ -181,8 +196,7 @@ function rma_send_otp_code_for_user(int $user_id) {
         ])
         : ('Seu código de verificação é: ' . $code);
 
-    $headers = ['Content-Type: text/html; charset=UTF-8'];
-    $sent = wp_mail((string) $user->user_email, $subject, $message, $headers);
+    $sent = rma_send_security_email((string) $user->user_email, $subject, (string) $message);
 
     if (! $sent) {
         delete_transient(rma_otp_transient_key($user_id));
