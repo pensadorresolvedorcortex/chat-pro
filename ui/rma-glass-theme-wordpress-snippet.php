@@ -537,7 +537,7 @@ add_shortcode('rma_conta_setup', function () {
             </div>
 
             <div class="rma-primary-cta">
-                <button class="rma-button btn-rma-primary" type="button" id="btnPagamento" data-checkout-url="<?php echo esc_url($checkout_payment_url); ?>">Avançar para Pagamento</button>
+                <button class="rma-button btn-rma-primary" type="button" id="btnPagamento" data-checkout-url="<?php echo esc_url($checkout_payment_url); ?>" data-product-id="<?php echo (int) $annual_product_id; ?>">Avançar para Pagamento</button>
                 <span id="rma-primary-hint" style="font-size:.92rem;color:#6b6b6b;"></span>
             </div>
 
@@ -592,40 +592,32 @@ add_shortcode('rma_conta_setup', function () {
                     });
             }
 
-            var paymentListenerBound = false;
-            function bindPaymentButton() {
-                if (!primaryAction || paymentListenerBound) return;
-                primaryAction.addEventListener('click', function () {
-                    if (primaryAction.getAttribute('data-rma-pay') === '1') {
-                        redirectToCheckout();
-                    }
-                });
-                paymentListenerBound = true;
+            function resolveCheckoutPaymentUrl() {
+                var productId = annualProductId > 0 ? annualProductId : 3407;
+                if (productId <= 0) {
+                    return checkoutUrl;
+                }
+                return checkoutUrl + (checkoutUrl.indexOf('?') === -1 ? '?' : '&') + 'add-to-cart=' + productId;
             }
-            bindPaymentButton();
 
             function redirectToCheckout() {
-                if (!isOtpVerified) {
-                    showFeedback('Valide sua autenticação 2FA para seguir ao pagamento.', false);
-                    return;
-                }
-
-                if (!paymentUnlocked) {
-                    showFeedback('O pagamento será liberado após confirmar documentos e status da etapa financeira.', false);
-                    return;
-                }
+                var paymentUrl = resolveCheckoutPaymentUrl();
 
                 if (!primaryAction) {
-                    window.location.href = checkoutPaymentUrl;
+                    window.location.href = paymentUrl;
                     return;
                 }
 
                 primaryAction.disabled = true;
                 primaryAction.textContent = 'Processando pagamento...';
                 showFeedback('Processando pagamento... redirecionando para checkout.', true);
-                setTimeout(function () {
-                    window.location.href = checkoutPaymentUrl;
-                }, 220);
+                window.location.href = paymentUrl;
+            }
+
+            if (primaryAction && primaryAction.id === 'btnPagamento') {
+                primaryAction.addEventListener('click', function () {
+                    redirectToCheckout();
+                });
             }
 
             if (authBackButton) {
