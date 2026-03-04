@@ -221,11 +221,11 @@ function rma_render_verification_email_template(array $context = []): string {
     ]);
 
     $header = (string) get_option('rma_email_verification_header_image', '');
-    $logo = (string) get_option('rma_email_verification_logo', '');
-    $bg = (string) get_option('rma_email_verification_bg_color', '#f8fafb');
+    $logo = (string) get_option('rma_email_verification_logo', 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/logo-1.png');
+    $bg = (string) get_option('rma_email_verification_bg_color', '#f6f8fb');
     $button = (string) get_option('rma_email_verification_button_color', '#7bad39');
-    $body = (string) get_option('rma_email_verification_body', 'Olá {{nome}}, seu código de verificação é {{codigo}}.');
-    $footer = (string) get_option('rma_email_verification_footer', 'Equipe RMA • {{data}}');
+    $body = (string) get_option('rma_email_verification_body', 'Utilize o código abaixo para confirmar seu acesso à plataforma RMA.');
+    $footer = (string) get_option('rma_email_verification_footer', 'Se você não solicitou esta verificação, ignore este email.');
 
     $replace = [
         '{{nome}}' => (string) $context['nome'],
@@ -239,14 +239,23 @@ function rma_render_verification_email_template(array $context = []): string {
 
     ob_start();
     ?>
-    <div style="background:<?php echo esc_attr($bg); ?>;padding:24px;font-family:Inter,Arial,sans-serif;">
-      <div style="max-width:620px;margin:0 auto;background:#fff;border-radius:14px;padding:24px;border:1px solid #edf1f4;">
-        <?php if ($header) : ?><img src="<?php echo esc_url($header); ?>" alt="Header" style="width:100%;border-radius:10px;margin-bottom:16px;" /><?php endif; ?>
-        <?php if ($logo) : ?><img src="<?php echo esc_url($logo); ?>" alt="Logo" style="max-height:42px;margin-bottom:12px;" /><?php endif; ?>
-        <h2 style="margin:0 0 10px;color:#111827;">Verificação de segurança</h2>
-        <p style="color:#4b5563;line-height:1.6;"><?php echo wp_kses_post($body); ?></p>
-        <p style="margin:16px 0;"><span style="display:inline-block;background:<?php echo esc_attr($button); ?>;color:#fff;padding:10px 16px;border-radius:10px;font-weight:600;">Código: <?php echo esc_html((string) $context['codigo']); ?></span></p>
-        <p style="color:#6b7280;font-size:12px;margin-top:18px;"><?php echo wp_kses_post($footer); ?></p>
+    <div style="background:<?php echo esc_attr($bg); ?>;padding:28px 14px;font-family:Inter,Arial,sans-serif;">
+      <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:16px;padding:28px 24px;border:1px solid #e9eef3;box-shadow:0 10px 28px rgba(0,0,0,.06);text-align:center;">
+        <?php if ($logo) : ?><img src="<?php echo esc_url($logo); ?>" alt="Logo RMA" style="display:block;max-width:180px;width:100%;height:auto;margin:0 auto 24px;" /><?php endif; ?>
+        <?php if ($header) : ?><img src="<?php echo esc_url($header); ?>" alt="Header" style="width:100%;border-radius:10px;margin:0 auto 16px;" /><?php endif; ?>
+
+        <h2 style="margin:0 0 10px;color:#1f2937;font-size:28px;line-height:1.2;font-weight:700;">Verificação de segurança</h2>
+        <p style="margin:0 0 18px;color:#4b5563;line-height:1.6;font-size:15px;"><?php echo wp_kses_post($body); ?></p>
+
+        <div style="margin:0 auto 18px;display:inline-block;padding:14px 20px;border-radius:12px;background:#f3f6fa;border:1px solid #e3e9f0;color:#1f2937;font-size:32px;letter-spacing:8px;font-weight:700;">
+          <?php echo esc_html((string) $context['codigo']); ?>
+        </div>
+
+        <div style="margin:2px 0 12px;">
+          <a href="#" style="display:inline-block;text-decoration:none;background:linear-gradient(135deg, #7bad39, #5ddabb);color:#fff;padding:12px 18px;border-radius:12px;font-weight:600;">Confirmar verificação</a>
+        </div>
+
+        <p style="color:#4b5563;font-size:13px;line-height:1.5;margin:16px 0 4px;"><?php echo wp_kses_post($footer); ?></p>
       </div>
     </div>
     <?php

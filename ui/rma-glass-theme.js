@@ -4,7 +4,7 @@
   var buttonPagamento = document.getElementById('btnPagamento');
   if (buttonPagamento) {
     buttonPagamento.addEventListener('click', function () {
-      window.location.href = '/checkout';
+      window.location.href = '/rma/checkout';
     });
   }
 

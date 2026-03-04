@@ -230,7 +230,7 @@ add_shortcode('rma_conta_setup', function () {
     $dashboard_url = home_url('/dashboard/');
     $docs_url = apply_filters('rma_docs_page_url', home_url('/documentos/'));
     $finance_url = apply_filters('rma_finance_page_url', home_url('/financeiro/'));
-    $checkout_url = apply_filters('rma_checkout_url', home_url('/checkout/'));
+    $checkout_url = apply_filters('rma_checkout_url', home_url('/rma/checkout/'));
     $layout_tune_css = '<style id="rma-layout-tune">
 '
         . '.rma-premium-card,.rma-premium-card--setup{max-width:1060px;margin:0 auto;border-radius:18px;background:#fff;border:1px solid #edf1f4;box-shadow:0 16px 40px rgba(0,0,0,.05);padding:28px;}
