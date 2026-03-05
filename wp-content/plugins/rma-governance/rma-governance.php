@@ -320,7 +320,23 @@ final class RMA_Governance {
                                         <button class="rma-btn-resubmit" type="submit">Reenviar para análise</button>
                                     </form>
                                 <?php else : ?>
-                                    <p class="rma-muted">Entidade já aprovada. Nenhuma ação disponível.</p>
+                                    <p class="rma-muted">Entidade liberada. Você pode manter, suspender ou remover permanentemente.</p>
+                                <?php endif; ?>
+
+                                <?php if (in_array($selected['status'], ['aprovado', 'suspenso'], true)) : ?>
+                                    <form method="post">
+                                        <input type="hidden" name="rma_governance_action" value="suspend">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_suspend'); ?>
+                                        <button class="rma-btn-reject" type="submit">Suspender Entidade</button>
+                                    </form>
+
+                                    <form method="post" onsubmit="return confirm('Confirma a exclusão permanente da entidade e dos documentos privados?');">
+                                        <input type="hidden" name="rma_governance_action" value="delete">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_delete'); ?>
+                                        <button class="rma-btn-reject" style="background:#a10024;" type="submit">Deletar Entidade</button>
+                                    </form>
                                 <?php endif; ?>
                             </div>
 
@@ -456,7 +472,7 @@ final class RMA_Governance {
         $action = isset($_POST['rma_governance_action']) ? sanitize_key((string) wp_unslash($_POST['rma_governance_action'])) : '';
         $entity_id = isset($_POST['entity_id']) ? (int) $_POST['entity_id'] : 0;
 
-        if ($entity_id <= 0 || ! in_array($action, ['approve', 'reject', 'resubmit', 'force_approve'], true)) {
+        if ($entity_id <= 0 || ! in_array($action, ['approve', 'reject', 'resubmit', 'force_approve', 'suspend', 'delete'], true)) {
             $this->redirect_with_notice($entity_id, 'Ação inválida.', 'error');
         }
 
@@ -476,8 +492,12 @@ final class RMA_Governance {
             $response = $this->reject_entity($request);
         } elseif ($action === 'resubmit') {
             $response = $this->resubmit_entity($request);
-        } else {
+        } elseif ($action === 'force_approve') {
             $response = $this->force_approve_entity($request);
+        } elseif ($action === 'suspend') {
+            $response = $this->suspend_entity($request);
+        } else {
+            $response = $this->delete_entity($request);
         }
 
         $payload = $response instanceof WP_REST_Response ? $response->get_data() : [];
@@ -493,6 +513,14 @@ final class RMA_Governance {
                 $ok_message = 'Entidade reenviada para análise.';
             } elseif ($action === 'force_approve') {
                 $ok_message = 'Acesso liberado com sucesso para a entidade.';
+            } elseif ($action === 'suspend') {
+                $ok_message = 'Entidade suspensa com sucesso.';
+            } elseif ($action === 'delete') {
+                $ok_message = 'Entidade removida permanentemente.';
+            }
+
+            if ($action === 'delete') {
+                $this->redirect_with_notice(0, $ok_message, 'success');
             }
 
             $this->redirect_with_notice($entity_id, $ok_message, 'success');
@@ -679,6 +707,7 @@ final class RMA_Governance {
         $labels = [
             'aprovado' => 'Aprovado',
             'recusado' => 'Recusado',
+            'suspenso' => 'Suspenso',
             'em_analise' => 'Em análise',
             'pendente' => 'Aguardando',
         ];
@@ -699,6 +728,10 @@ final class RMA_Governance {
             return $this->svg_icon('analysis');
         }
 
+        if ($status === 'suspenso') {
+            return $this->svg_icon('suspended');
+        }
+
         return $this->svg_icon('pending');
     }
 
@@ -709,6 +742,7 @@ final class RMA_Governance {
             'pending' => '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="#d78d11" stroke-width="2"/><path d="M12 8v5l3 2" stroke="#d78d11" stroke-width="2" stroke-linecap="round"/></svg>',
             'analysis' => '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 5h9M10 12h9M10 19h9" stroke="#d78d11" stroke-width="2" stroke-linecap="round"/><circle cx="6" cy="5" r="1.5" fill="#d78d11"/><circle cx="6" cy="12" r="1.5" fill="#d78d11"/><circle cx="6" cy="19" r="1.5" fill="#d78d11"/></svg>',
             'document' => '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" stroke="#2351a3" stroke-width="2"/><path d="M14 3v5h5" stroke="#2351a3" stroke-width="2"/></svg>',
+            'suspended' => '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="#e8063c" stroke-width="2"/><path d="M8 12h8" stroke="#e8063c" stroke-width="2" stroke-linecap="round"/></svg>',
         ];
 
         return $icons[$name] ?? $icons['pending'];
@@ -953,6 +987,81 @@ final class RMA_Governance {
             'governance_status' => 'pendente',
             'message' => 'Entidade reenviada para análise.',
         ]);
+    }
+
+
+
+    private function suspend_entity(WP_REST_Request $request): WP_REST_Response {
+        $entity_id = (int) $request->get_param('id');
+        if (get_post_type($entity_id) !== self::CPT) {
+            return new WP_REST_Response(['message' => 'Entidade inválida.'], 404);
+        }
+
+        $user_id = get_current_user_id();
+        if ($user_id <= 0 || ! current_user_can('edit_others_posts')) {
+            return new WP_REST_Response(['message' => 'Usuário sem permissão para suspender entidade.'], 403);
+        }
+
+        update_post_meta($entity_id, 'governance_status', 'suspenso');
+
+        wp_update_post([
+            'ID' => $entity_id,
+            'post_status' => 'draft',
+        ]);
+
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+        $this->append_audit_log($entity_id, 'suspend', [
+            'user_id' => $user_id,
+            'ip' => $ip,
+        ]);
+
+        return new WP_REST_Response([
+            'entity_id' => $entity_id,
+            'governance_status' => 'suspenso',
+        ]);
+    }
+
+    private function delete_entity(WP_REST_Request $request): WP_REST_Response {
+        $entity_id = (int) $request->get_param('id');
+        if (get_post_type($entity_id) !== self::CPT) {
+            return new WP_REST_Response(['message' => 'Entidade inválida.'], 404);
+        }
+
+        $user_id = get_current_user_id();
+        if ($user_id <= 0 || ! current_user_can('delete_others_posts')) {
+            return new WP_REST_Response(['message' => 'Usuário sem permissão para deletar entidade.'], 403);
+        }
+
+        $this->purge_private_documents($entity_id);
+        $deleted = wp_delete_post($entity_id, true);
+
+        if (! $deleted) {
+            return new WP_REST_Response(['message' => 'Falha ao deletar entidade.'], 500);
+        }
+
+        return new WP_REST_Response([
+            'entity_id' => $entity_id,
+            'deleted' => true,
+        ]);
+    }
+
+    private function purge_private_documents(int $entity_id): void {
+        $docs = get_post_meta($entity_id, 'entity_documents', true);
+        $docs = is_array($docs) ? $docs : [];
+
+        foreach ($docs as $doc) {
+            $path = (string) ($doc['path'] ?? '');
+            if ($path === '') {
+                continue;
+            }
+
+            $real = realpath($path);
+            if ($real === false || ! is_file($real)) {
+                continue;
+            }
+
+            @unlink($real);
+        }
     }
 
 

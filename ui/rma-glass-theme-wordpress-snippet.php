@@ -610,7 +610,7 @@ add_shortcode('rma_conta_setup', function () {
                     </ul>
                 <?php else : ?>
                     <div class="rma-alert" id="rma-doc-upload-block" style="margin-top:8px;">
-                        Seus documentos foram recebidos e estão em análise pela Equipe RMA.
+                        <?php echo esc_html($governance === 'aprovado' ? 'Seus documentos foram aceitos pela RMA.' : 'Seus documentos foram recebidos e estão em análise pela Equipe RMA.'); ?>
                     </div>
                 <?php endif; ?>
             </div>
@@ -694,12 +694,6 @@ add_shortcode('rma_conta_setup', function () {
                 window.location.href = paymentUrl;
             }
 
-            if (primaryAction && primaryAction.id === 'btnPagamento') {
-                primaryAction.addEventListener('click', function () {
-                    redirectToCheckout();
-                });
-            }
-
             if (authBackButton) {
                 authBackButton.addEventListener('click', function () {
                     window.history.back();
@@ -771,7 +765,8 @@ add_shortcode('rma_conta_setup', function () {
                         pendente: 'Pendente',
                         em_analise: 'Em Análise',
                         aprovado: 'Liberado',
-                        recusado: 'Recusado'
+                        recusado: 'Recusado',
+                        suspenso: 'Suspenso'
                     },
                     documentos: {
                         pendente: 'Pendente',
@@ -820,11 +815,23 @@ add_shortcode('rma_conta_setup', function () {
                 if (primaryHint) primaryHint.textContent = '';
 
                 if (governance === 'aprovado' && finance === 'adimplente') {
-                    applyStepper(5);
+                    applyStepper(5, [5]);
                     primaryAction.textContent = 'Seguir para Central da Entidade';
                     primaryAction.disabled = false;
+                    primaryAction.removeAttribute('data-rma-pay');
+                    primaryAction.removeAttribute('data-checkout-url');
                     primaryAction.onclick = function () { window.location.assign(dashboardUrl); };
                     if (primaryHint) primaryHint.textContent = 'Tudo concluído. Acesse sua central para acompanhar os próximos passos.';
+                    return;
+                }
+
+                if (governance === 'suspenso') {
+                    applyStepper(4);
+                    primaryAction.textContent = 'Acesso Suspenso';
+                    primaryAction.disabled = true;
+                    primaryAction.removeAttribute('data-rma-pay');
+                    primaryAction.removeAttribute('data-checkout-url');
+                    if (primaryHint) primaryHint.textContent = 'Sua entidade foi suspensa pela equipe administrativa. Entre em contato com a RMA.';
                     return;
                 }
 
