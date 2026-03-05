@@ -6,6 +6,7 @@
  * - Enqueue do UI kit + fonte Federo
  * - Shortcode [rma_glass_card_demo]
  * - Shortcode [rma_conta_setup] com formulário atualizado (novos inputs)
+ * - Shortcode [rma-minha-conta] para edição cadastral da entidade
  * - Checklist de documentos (PDF, imagem ou Word) com tooltip + upload
  * - Redirect forçado para /conta/ até concluir governança + docs + financeiro
  */
@@ -1441,6 +1442,151 @@ add_shortcode('rma_conta_setup', function () {
     </script>
     <?php
 
+    return (string) ob_get_clean();
+});
+
+
+
+add_shortcode('rma-minha-conta', function () {
+    if (! is_user_logged_in()) {
+        return '<div class="rma-feedback"><div style="padding:10px;border-radius:10px;background:#fdecec;">Você precisa estar logado para editar os dados da entidade.</div></div>';
+    }
+
+    $user_id = get_current_user_id();
+    $entity_id = rma_get_entity_id_by_author($user_id);
+    if ($entity_id <= 0) {
+        return '<div class="rma-feedback"><div style="padding:10px;border-radius:10px;background:#fdecec;">Nenhuma entidade vinculada foi encontrada para sua conta.</div></div>';
+    }
+
+    $notice = '';
+    $notice_ok = false;
+
+    if (isset($_POST['rma_minha_conta_submit'])) {
+        $nonce = isset($_POST['rma_minha_conta_nonce']) ? (string) wp_unslash($_POST['rma_minha_conta_nonce']) : '';
+        if (! wp_verify_nonce($nonce, 'rma_minha_conta_update_' . $entity_id)) {
+            $notice = 'Falha de segurança ao atualizar os dados.';
+        } else {
+            $email = sanitize_email((string) ($_POST['email_contato'] ?? ''));
+            $uf = strtoupper(sanitize_text_field((string) ($_POST['uf'] ?? '')));
+            if ($email !== '' && ! is_email($email)) {
+                $notice = 'E-mail de contato inválido.';
+            } elseif ($uf !== '' && ! preg_match('/^[A-Z]{2}$/', $uf)) {
+                $notice = 'UF inválida. Use 2 letras (ex.: SP).';
+            } else {
+                $fields = [
+                    'nome_fantasia' => sanitize_text_field((string) ($_POST['nome_fantasia'] ?? '')),
+                    'email_contato' => $email,
+                    'telefone_contato' => preg_replace('/[^0-9\+\-\(\)\s]/', '', (string) ($_POST['telefone_contato'] ?? '')),
+                    'cep' => sanitize_text_field((string) ($_POST['cep'] ?? '')),
+                    'logradouro' => sanitize_text_field((string) ($_POST['logradouro'] ?? '')),
+                    'numero' => sanitize_text_field((string) ($_POST['numero'] ?? '')),
+                    'complemento' => sanitize_text_field((string) ($_POST['complemento'] ?? '')),
+                    'bairro' => sanitize_text_field((string) ($_POST['bairro'] ?? '')),
+                    'cidade' => sanitize_text_field((string) ($_POST['cidade'] ?? '')),
+                    'uf' => $uf,
+                ];
+
+                foreach ($fields as $key => $val) {
+                    update_post_meta($entity_id, $key, $val);
+                }
+
+                $descricao = sanitize_textarea_field((string) ($_POST['descricao'] ?? ''));
+                wp_update_post([
+                    'ID' => $entity_id,
+                    'post_content' => $descricao,
+                ]);
+
+                $notice = 'Dados da entidade atualizados com sucesso.';
+                $notice_ok = true;
+            }
+        }
+    }
+
+    $values = [
+        'razao_social' => (string) get_post_meta($entity_id, 'razao_social', true),
+        'nome_fantasia' => (string) get_post_meta($entity_id, 'nome_fantasia', true),
+        'email_contato' => (string) get_post_meta($entity_id, 'email_contato', true),
+        'telefone_contato' => (string) get_post_meta($entity_id, 'telefone_contato', true),
+        'cep' => (string) get_post_meta($entity_id, 'cep', true),
+        'logradouro' => (string) get_post_meta($entity_id, 'logradouro', true),
+        'numero' => (string) get_post_meta($entity_id, 'numero', true),
+        'complemento' => (string) get_post_meta($entity_id, 'complemento', true),
+        'bairro' => (string) get_post_meta($entity_id, 'bairro', true),
+        'cidade' => (string) get_post_meta($entity_id, 'cidade', true),
+        'uf' => (string) get_post_meta($entity_id, 'uf', true),
+        'descricao' => (string) get_post_field('post_content', $entity_id),
+    ];
+
+    ob_start();
+    ?>
+    <section class="rma-glass-card" style="margin:20px 0;">
+        <h2 class="rma-glass-title">Minha Conta da Entidade</h2>
+        <p class="rma-glass-subtitle">Atualize endereço e contatos para manter os dados da entidade e do mapa sempre corretos.</p>
+
+        <?php if ($notice !== '') : ?>
+            <div class="rma-feedback" style="margin-bottom:12px;">
+                <div style="padding:10px;border-radius:10px;background:<?php echo $notice_ok ? '#edf9ec' : '#fdecec'; ?>;">
+                    <?php echo esc_html($notice); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <form method="post" class="rma-grid rma-grid-2" style="gap:12px;">
+            <?php wp_nonce_field('rma_minha_conta_update_' . $entity_id, 'rma_minha_conta_nonce'); ?>
+            <div>
+                <label>Razão social</label>
+                <input type="text" value="<?php echo esc_attr($values['razao_social']); ?>" readonly>
+            </div>
+            <div>
+                <label>Nome fantasia</label>
+                <input type="text" name="nome_fantasia" value="<?php echo esc_attr($values['nome_fantasia']); ?>">
+            </div>
+            <div>
+                <label>E-mail de contato</label>
+                <input type="email" name="email_contato" value="<?php echo esc_attr($values['email_contato']); ?>">
+            </div>
+            <div>
+                <label>Telefone</label>
+                <input type="text" name="telefone_contato" value="<?php echo esc_attr($values['telefone_contato']); ?>">
+            </div>
+            <div>
+                <label>CEP</label>
+                <input type="text" name="cep" value="<?php echo esc_attr($values['cep']); ?>">
+            </div>
+            <div>
+                <label>Logradouro</label>
+                <input type="text" name="logradouro" value="<?php echo esc_attr($values['logradouro']); ?>">
+            </div>
+            <div>
+                <label>Número</label>
+                <input type="text" name="numero" value="<?php echo esc_attr($values['numero']); ?>">
+            </div>
+            <div>
+                <label>Complemento</label>
+                <input type="text" name="complemento" value="<?php echo esc_attr($values['complemento']); ?>">
+            </div>
+            <div>
+                <label>Bairro</label>
+                <input type="text" name="bairro" value="<?php echo esc_attr($values['bairro']); ?>">
+            </div>
+            <div>
+                <label>Cidade</label>
+                <input type="text" name="cidade" value="<?php echo esc_attr($values['cidade']); ?>">
+            </div>
+            <div>
+                <label>UF</label>
+                <input type="text" name="uf" maxlength="2" value="<?php echo esc_attr(strtoupper($values['uf'])); ?>">
+            </div>
+            <div style="grid-column:1 / -1;">
+                <label>Descrição institucional</label>
+                <textarea name="descricao" rows="4"><?php echo esc_textarea($values['descricao']); ?></textarea>
+            </div>
+            <div style="grid-column:1 / -1;display:flex;justify-content:flex-end;">
+                <button class="rma-button btn-rma-primary" type="submit" name="rma_minha_conta_submit" value="1">Salvar dados da entidade</button>
+            </div>
+        </form>
+    </section>
+    <?php
     return (string) ob_get_clean();
 });
 
