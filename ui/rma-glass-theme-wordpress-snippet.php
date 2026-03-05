@@ -764,6 +764,37 @@ add_shortcode('rma_conta_setup', function () {
                 }
             }
 
+            function formatStatusLabel(value, context) {
+                var raw = String(value || 'pendente');
+                var map = {
+                    governance: {
+                        pendente: 'Pendente',
+                        em_analise: 'Em Análise',
+                        aprovado: 'Liberado',
+                        recusado: 'Recusado'
+                    },
+                    documentos: {
+                        pendente: 'Pendente',
+                        pendente_reenvio: 'Pendente de Reenvio',
+                        enviado: 'Enviado',
+                        aprovado: 'Aprovado',
+                        validado: 'Validado',
+                        aceito: 'Aceito'
+                    },
+                    financeiro: {
+                        pendente: 'Pendente',
+                        inadimplente: 'Inadimplente',
+                        adimplente: 'Adimplente'
+                    }
+                };
+
+                if (context && map[context] && map[context][raw]) {
+                    return map[context][raw];
+                }
+
+                return raw.replace(/_/g, ' ').replace(/\b\w/g, function (char) { return char.toUpperCase(); });
+            }
+
             function applyPrimaryAction(payload) {
                 if (!primaryAction) return;
                 if (!isOtpVerified) {
@@ -788,6 +819,15 @@ add_shortcode('rma_conta_setup', function () {
                 primaryAction.onclick = null;
                 if (primaryHint) primaryHint.textContent = '';
 
+                if (governance === 'aprovado' && finance === 'adimplente') {
+                    applyStepper(5);
+                    primaryAction.textContent = 'Seguir para Central da Entidade';
+                    primaryAction.disabled = false;
+                    primaryAction.onclick = function () { window.location.assign(dashboardUrl); };
+                    if (primaryHint) primaryHint.textContent = 'Tudo concluído. Acesse sua central para acompanhar os próximos passos.';
+                    return;
+                }
+
                 if (docsNeedUpload) {
                     applyStepper(3);
                     primaryAction.textContent = 'Reenviar Documentos';
@@ -801,7 +841,7 @@ add_shortcode('rma_conta_setup', function () {
 
                 if (docsWaiting && finance === 'adimplente') {
                     applyStepper(4, [5]);
-                    primaryAction.textContent = 'Aguardando Aprovação da Equipe';
+                    primaryAction.textContent = 'Em Análise';
                     primaryAction.disabled = true;
                     if (primaryHint) primaryHint.textContent = 'Pagamento confirmado. Sua entidade permanece em validação até o parecer final da equipe.';
                     return;
@@ -832,19 +872,10 @@ add_shortcode('rma_conta_setup', function () {
 
                 if (docsApproved && finance === 'adimplente' && governance !== 'aprovado') {
                     applyStepper(4, [5]);
-                    primaryAction.textContent = 'Aguardando Aprovação da Equipe';
+                    primaryAction.textContent = 'Em Análise';
                     primaryAction.disabled = true;
                     primaryAction.removeAttribute('data-rma-pay');
                     if (primaryHint) primaryHint.textContent = 'Pagamento confirmado. Sua entidade permanece em validação até o parecer final da equipe.';
-                    return;
-                }
-
-                if (docsApproved && finance === 'adimplente' && governance === 'aprovado') {
-                    applyStepper(5);
-                    primaryAction.textContent = 'Acessar Painel da Entidade';
-                    primaryAction.disabled = false;
-                    primaryAction.onclick = function () { window.location.assign(dashboardUrl); };
-                    if (primaryHint) primaryHint.textContent = 'Tudo concluído. Acesse seu painel para acompanhar os próximos passos.';
                     return;
                 }
 
@@ -858,9 +889,9 @@ add_shortcode('rma_conta_setup', function () {
                 var g = document.getElementById('rma-status-governanca');
                 var d = document.getElementById('rma-status-documentos');
                 var f = document.getElementById('rma-status-financeiro');
-                if (g) g.textContent = payload.governance_status || 'pendente';
-                if (d) d.textContent = payload.documentos_status || 'pendente';
-                if (f) f.textContent = payload.finance_status || 'pendente';
+                if (g) g.textContent = formatStatusLabel(payload.governance_status || 'pendente', 'governance');
+                if (d) d.textContent = formatStatusLabel(payload.documentos_status || 'pendente', 'documentos');
+                if (f) f.textContent = formatStatusLabel(payload.finance_status || 'pendente', 'financeiro');
                 applyPrimaryAction(payload || {});
             }
 

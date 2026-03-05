@@ -230,8 +230,8 @@ final class RMA_Governance {
                 cursor: pointer;
                 width: fit-content;
             }
-            .rma-btn-approve { background: linear-gradient(135deg, #0f9f6f 0%, #0d8a61 100%); }
-            .rma-btn-reject { background: linear-gradient(135deg, #ce3f4a 0%, #b1323d 100%); }
+            .rma-btn-approve { background: #00bfa5; }
+            .rma-btn-reject { background: #e8063c; }
             .rma-btn-resubmit { background: linear-gradient(135deg, #d78d11 0%, #bd7a0f 100%); }
 
             .rma-timeline { margin: 0; padding-left: 18px; }
@@ -240,8 +240,8 @@ final class RMA_Governance {
 
         <div class="wrap rma-gov-wrap">
             <div class="rma-gov-head">
-                <h1>Governança RMA • Premium Console</h1>
-                <p>Tela com visual glass white, status operacionais e gestão prática de documentos e auditoria.</p>
+                <h1>Governança RMA</h1>
+                <p>Status operacionais e gestão prática de documentos e auditoria.</p>
             </div>
 
             <?php if ($notice !== '') : ?>
@@ -295,7 +295,7 @@ final class RMA_Governance {
                                         <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
                                         <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_approve'); ?>
                                         <textarea name="comment" rows="2" placeholder="Comentário opcional do aceite"></textarea>
-                                        <button class="rma-btn-approve" type="submit">Registrar aceite</button>
+                                        <button class="rma-btn-approve" type="submit">Registrar Aprovado</button>
                                     </form>
 
                                     <form method="post">
@@ -303,7 +303,14 @@ final class RMA_Governance {
                                         <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
                                         <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_reject'); ?>
                                         <input type="text" name="reason" required placeholder="Motivo obrigatório da recusa">
-                                        <button class="rma-btn-reject" type="submit">Recusar entidade</button>
+                                        <button class="rma-btn-reject" type="submit">Recusar Entidade</button>
+                                    </form>
+
+                                    <form method="post">
+                                        <input type="hidden" name="rma_governance_action" value="force_approve">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_force_approve'); ?>
+                                        <button class="rma-btn-approve" type="submit">Liberar Acesso Agora</button>
                                     </form>
                                 <?php elseif ($selected['status'] === 'recusado') : ?>
                                     <form method="post">
@@ -387,47 +394,50 @@ final class RMA_Governance {
                 <?php endif; ?>
             </div>
 
-            <div class="rma-gov-table-wrap">
-                <table class="rma-gov-table">
-                    <thead>
-                    <tr>
-                        <th>Entidade</th>
-                        <th>Status</th>
-                        <th>Aceites</th>
-                        <th>Documentos</th>
-                        <th>Último evento</th>
-                        <th>Ações</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php if (empty($rows)) : ?>
-                        <tr><td colspan="6">Nenhuma entidade encontrada para governança.</td></tr>
-                    <?php else : ?>
-                        <?php foreach ($rows as $row) : ?>
-                            <tr>
-                                <td>
-                                    <strong><?php echo esc_html($row['title']); ?></strong><br>
-                                    <span class="rma-muted">ID #<?php echo esc_html((string) $row['id']); ?></span>
-                                </td>
-                                <td>
-                                    <span class="rma-badge <?php echo esc_attr($row['status']); ?>">
-                                        <?php echo $this->status_icon($row['status']); ?>
-                                        <?php echo esc_html($this->status_label($row['status'])); ?>
-                                    </span>
-                                </td>
-                                <td><?php echo esc_html((string) $row['approvals_count']); ?>/3</td>
-                                <td><?php echo esc_html((string) $row['documents_count']); ?></td>
-                                <td><span class="rma-muted"><?php echo esc_html($row['last_audit'] !== '' ? $row['last_audit'] : '—'); ?></span></td>
-                                <td>
-                                    <a class="rma-link" href="<?php echo esc_url(get_edit_post_link($row['id'])); ?>">Editar</a> ·
-                                    <a class="rma-link" href="<?php echo esc_url($this->build_admin_url(['entity_id' => $row['id'], 'status_filter' => $status_filter, 'search' => $search_filter])); ?>#rma-governance-detail">Gerenciar</a>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+            <?php if ($selected === null) : ?>
+                <div class="rma-gov-table-wrap">
+                    <table class="rma-gov-table">
+                        <thead>
+                        <tr>
+                            <th>Entidade</th>
+                            <th>Status</th>
+                            <th>Aceites</th>
+                            <th>Documentos</th>
+                            <th>Último evento</th>
+                            <th>Ações</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php if (empty($rows)) : ?>
+                            <tr><td colspan="6">Nenhuma entidade encontrada para governança.</td></tr>
+                        <?php else : ?>
+                            <?php foreach ($rows as $row) : ?>
+                                <tr>
+                                    <td>
+                                        <strong><?php echo esc_html($row['title']); ?></strong><br>
+                                        <span class="rma-muted">ID #<?php echo esc_html((string) $row['id']); ?></span>
+                                    </td>
+                                    <td>
+                                        <span class="rma-badge <?php echo esc_attr($row['status']); ?>">
+                                            <?php echo $this->status_icon($row['status']); ?>
+                                            <?php echo esc_html($this->status_label($row['status'])); ?>
+                                        </span>
+                                    </td>
+                                    <td><?php echo esc_html((string) $row['approvals_count']); ?>/3</td>
+                                    <td><?php echo esc_html((string) $row['documents_count']); ?></td>
+                                    <td><span class="rma-muted"><?php echo esc_html($row['last_audit'] !== '' ? $row['last_audit'] : '—'); ?></span></td>
+                                    <td>
+                                        <a class="rma-link" href="<?php echo esc_url($this->build_admin_url(['entity_id' => $row['id'], 'status_filter' => $status_filter, 'search' => $search_filter])); ?>#rma-governance-detail">Gerenciar</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else : ?>
+                <p style="margin-top:14px;"><a class="rma-link" href="<?php echo esc_url($this->build_admin_url(['status_filter' => $status_filter, 'search' => $search_filter])); ?>">← Voltar para lista de entidades</a></p>
+            <?php endif; ?>
 
         </div>
         <?php
@@ -446,7 +456,7 @@ final class RMA_Governance {
         $action = isset($_POST['rma_governance_action']) ? sanitize_key((string) wp_unslash($_POST['rma_governance_action'])) : '';
         $entity_id = isset($_POST['entity_id']) ? (int) $_POST['entity_id'] : 0;
 
-        if ($entity_id <= 0 || ! in_array($action, ['approve', 'reject', 'resubmit'], true)) {
+        if ($entity_id <= 0 || ! in_array($action, ['approve', 'reject', 'resubmit', 'force_approve'], true)) {
             $this->redirect_with_notice($entity_id, 'Ação inválida.', 'error');
         }
 
@@ -464,8 +474,10 @@ final class RMA_Governance {
         } elseif ($action === 'reject') {
             $request->set_param('reason', sanitize_text_field((string) ($_POST['reason'] ?? '')));
             $response = $this->reject_entity($request);
-        } else {
+        } elseif ($action === 'resubmit') {
             $response = $this->resubmit_entity($request);
+        } else {
+            $response = $this->force_approve_entity($request);
         }
 
         $payload = $response instanceof WP_REST_Response ? $response->get_data() : [];
@@ -479,6 +491,8 @@ final class RMA_Governance {
                 $ok_message = 'Entidade recusada com sucesso.';
             } elseif ($action === 'resubmit') {
                 $ok_message = 'Entidade reenviada para análise.';
+            } elseif ($action === 'force_approve') {
+                $ok_message = 'Acesso liberado com sucesso para a entidade.';
             }
 
             $this->redirect_with_notice($entity_id, $ok_message, 'success');
@@ -941,6 +955,52 @@ final class RMA_Governance {
         ]);
     }
 
+
+
+    private function force_approve_entity(WP_REST_Request $request): WP_REST_Response {
+        $entity_id = (int) $request->get_param('id');
+        if (get_post_type($entity_id) !== self::CPT) {
+            return new WP_REST_Response(['message' => 'Entidade inválida.'], 404);
+        }
+
+        $user_id = get_current_user_id();
+        if ($user_id <= 0 || ! current_user_can('edit_others_posts')) {
+            return new WP_REST_Response(['message' => 'Usuário sem permissão para liberar acesso.'], 403);
+        }
+
+        $approvals = get_post_meta($entity_id, 'governance_approvals', true);
+        $approvals = is_array($approvals) ? $approvals : [];
+
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+        $approvals[] = [
+            'user_id' => $user_id,
+            'datetime' => current_time('mysql', true),
+            'ip' => $ip,
+            'comment' => 'Aprovação administrativa direta (liberação manual).',
+        ];
+
+        update_post_meta($entity_id, 'governance_approvals', array_slice($approvals, -3));
+        update_post_meta($entity_id, 'governance_status', 'aprovado');
+        delete_post_meta($entity_id, 'governance_rejection_reason');
+
+        wp_update_post([
+            'ID' => $entity_id,
+            'post_status' => 'publish',
+        ]);
+
+        $this->append_audit_log($entity_id, 'force_approve', [
+            'user_id' => $user_id,
+            'ip' => $ip,
+        ]);
+
+        do_action('rma/entity_approved', $entity_id, $approvals);
+
+        return new WP_REST_Response([
+            'entity_id' => $entity_id,
+            'governance_status' => 'aprovado',
+            'approvals_count' => count($approvals),
+        ]);
+    }
 
     private function normalized_governance_status(int $entity_id): string {
         $status = (string) get_post_meta($entity_id, 'governance_status', true);
