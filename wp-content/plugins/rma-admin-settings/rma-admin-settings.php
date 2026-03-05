@@ -83,7 +83,7 @@ final class RMA_Admin_Settings {
             'rma_admin_emails_verification',
             'Configurações > Emails > Verificação',
             static function () {
-                echo '<p>Personalize o template do e-mail de verificação em 2 fatores. Variáveis suportadas: <code>{{nome}}</code>, <code>{{codigo}}</code>, <code>{{data}}</code>, <code>{{empresa}}</code>.</p>';
+                echo '<p>Personalize o template do e-mail de verificação em 2 fatores. Variáveis suportadas: <code>{{nome}}</code>, <code>{{codigo}}</code>, <code>{{data}}</code>, <code>{{empresa}}</code>. Header/footer seguem o padrão institucional com degradê.</p>';
             },
             'rma-admin-settings'
         );
@@ -220,7 +220,11 @@ function rma_render_verification_email_template(array $context = []): string {
         'empresa' => (string) get_option('rma_email_verification_company', 'RMA'),
     ]);
 
-    $logo = (string) get_option('rma_email_verification_logo', 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/logo-.png');
+    $logo = trim((string) get_option('rma_email_verification_logo', ''));
+    if ($logo === '') {
+        $logo = 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/logo-.png';
+    }
+
     $favicon = 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/favicon.png';
     $body = (string) get_option('rma_email_verification_body', 'Utilize o código abaixo para confirmar seu acesso à plataforma RMA.');
 
