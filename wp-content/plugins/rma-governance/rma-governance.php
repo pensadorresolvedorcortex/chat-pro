@@ -36,14 +36,30 @@ final class RMA_Governance {
 
         $this->handle_admin_actions();
 
-        $rows = $this->load_governance_rows();
-        $summary = $this->build_summary($rows);
+        $status_filter = isset($_GET['status_filter']) ? sanitize_key((string) wp_unslash($_GET['status_filter'])) : '';
+        $allowed_status_filters = ['', 'pendente', 'em_analise', 'recusado', 'aprovado'];
+        if (! in_array($status_filter, $allowed_status_filters, true)) {
+            $status_filter = '';
+        }
+
+        $search_filter = isset($_GET['search']) ? sanitize_text_field((string) wp_unslash($_GET['search'])) : '';
+
+        $all_rows = $this->load_governance_rows();
+        $rows = $this->load_governance_rows([
+            'status_filter' => $status_filter,
+            'search_filter' => $search_filter,
+        ]);
+        $summary = $this->build_summary($all_rows);
 
         $selected_entity_id = isset($_GET['entity_id']) ? (int) $_GET['entity_id'] : 0;
         $selected = $selected_entity_id > 0 ? $this->load_entity_details($selected_entity_id) : null;
 
         $notice = isset($_GET['rma_notice']) ? sanitize_text_field(rawurldecode((string) wp_unslash($_GET['rma_notice']))) : '';
         $notice_type = isset($_GET['rma_notice_type']) ? sanitize_key((string) wp_unslash($_GET['rma_notice_type'])) : '';
+        if ($selected_entity_id > 0 && $selected === null && $notice === '') {
+            $notice = 'A entidade selecionada não foi encontrada para gerenciamento.';
+            $notice_type = 'error';
+        }
         ?>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,6 +92,12 @@ final class RMA_Governance {
             }
 
             .rma-gov-head { margin-bottom: 16px; }
+            .rma-filter-bar { display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0 18px; }
+            .rma-filter-bar input, .rma-filter-bar select { border:1px solid rgba(15,23,42,.2); border-radius:10px; padding:8px 10px; background:#fff; min-width:170px; }
+            .rma-filter-bar button, .rma-filter-bar a { border-radius:10px; padding:8px 11px; text-decoration:none; border:none; cursor:pointer; }
+            .rma-filter-bar button { background:#162538; color:#fff; }
+            .rma-filter-bar a { background:rgba(15,23,42,.08); color:#162538; }
+            #rma-governance-detail { scroll-margin-top: 80px; }
             .rma-gov-head h1 { margin: 0 0 8px 0 !important; font-size: 30px !important; }
             .rma-gov-head p { margin: 0 !important; color: var(--rma-muted); }
 
@@ -228,11 +250,141 @@ final class RMA_Governance {
                 </div>
             <?php endif; ?>
 
+            <form method="get" class="rma-filter-bar">
+                <input type="hidden" name="post_type" value="<?php echo esc_attr(self::CPT); ?>">
+                <input type="hidden" name="page" value="rma-governance-audit">
+                <select name="status_filter">
+                    <option value="" <?php selected($status_filter, ''); ?>>Todos os status</option>
+                    <option value="pendente" <?php selected($status_filter, 'pendente'); ?>>Aguardando</option>
+                    <option value="em_analise" <?php selected($status_filter, 'em_analise'); ?>>Em análise</option>
+                    <option value="recusado" <?php selected($status_filter, 'recusado'); ?>>Recusado</option>
+                    <option value="aprovado" <?php selected($status_filter, 'aprovado'); ?>>Aprovado</option>
+                </select>
+                <input type="text" name="search" placeholder="Buscar por entidade ou ID" value="<?php echo esc_attr($search_filter); ?>">
+                <button type="submit">Filtrar</button>
+                <a href="<?php echo esc_url($this->build_admin_url()); ?>">Limpar</a>
+            </form>
+
             <div class="rma-gov-cards">
                 <?php echo $this->summary_card('approve', 'Aprovadas', $summary['approved']); ?>
                 <?php echo $this->summary_card('reject', 'Recusadas', $summary['rejected']); ?>
                 <?php echo $this->summary_card('pending', 'Aguardando análise', $summary['pending']); ?>
                 <?php echo $this->summary_card('document', 'Arquivos privados', $summary['documents']); ?>
+            </div>
+
+            <div id="rma-governance-detail">
+                <?php if ($selected !== null) : ?>
+                    <div class="rma-gov-detail">
+                        <div>
+                            <h2 style="margin:0 0 6px;">Entidade selecionada: <?php echo esc_html($selected['title']); ?></h2>
+                            <span class="rma-badge <?php echo esc_attr($selected['status']); ?>">
+                                <?php echo $this->status_icon($selected['status']); ?>
+                                <?php echo esc_html($this->status_label($selected['status'])); ?>
+                            </span>
+                            <?php if ($selected['rejection_reason'] !== '') : ?>
+                                <p class="rma-muted" style="margin-top:8px;">Motivo da recusa: <?php echo esc_html($selected['rejection_reason']); ?></p>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="rma-gov-detail-grid">
+                            <div class="rma-detail-card rma-actions">
+                                <h3>Ações de governança</h3>
+                                <?php if (in_array($selected['status'], ['pendente', 'em_analise'], true)) : ?>
+                                    <form method="post">
+                                        <input type="hidden" name="rma_governance_action" value="approve">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_approve'); ?>
+                                        <textarea name="comment" rows="2" placeholder="Comentário opcional do aceite"></textarea>
+                                        <button class="rma-btn-approve" type="submit">Registrar aceite</button>
+                                    </form>
+
+                                    <form method="post">
+                                        <input type="hidden" name="rma_governance_action" value="reject">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_reject'); ?>
+                                        <input type="text" name="reason" required placeholder="Motivo obrigatório da recusa">
+                                        <button class="rma-btn-reject" type="submit">Recusar entidade</button>
+                                    </form>
+                                <?php elseif ($selected['status'] === 'recusado') : ?>
+                                    <form method="post">
+                                        <input type="hidden" name="rma_governance_action" value="resubmit">
+                                        <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
+                                        <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_resubmit'); ?>
+                                        <button class="rma-btn-resubmit" type="submit">Reenviar para análise</button>
+                                    </form>
+                                <?php else : ?>
+                                    <p class="rma-muted">Entidade já aprovada. Nenhuma ação disponível.</p>
+                                <?php endif; ?>
+                            </div>
+
+                            <div class="rma-detail-card">
+                                <h3>Aceites registrados</h3>
+                                <?php if (empty($selected['approvals'])) : ?>
+                                    <p class="rma-muted">Ainda não há aceites para esta entidade.</p>
+                                <?php else : ?>
+                                    <ul class="rma-timeline">
+                                        <?php foreach ($selected['approvals'] as $approval) : ?>
+                                            <li>
+                                                <?php echo esc_html($approval['user_name']); ?> · <?php echo esc_html($approval['datetime']); ?>
+                                                <?php if ($approval['comment'] !== '') : ?>
+                                                    <br><span class="rma-muted"><?php echo esc_html($approval['comment']); ?></span>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                        <div class="rma-detail-card">
+                            <h3>Documentos privados (<?php echo esc_html((string) count($selected['documents'])); ?>)</h3>
+                            <?php if (empty($selected['documents'])) : ?>
+                                <p class="rma-muted">Não há documentos enviados nesta entidade.</p>
+                            <?php else : ?>
+                                <table class="rma-gov-nested">
+                                    <thead>
+                                    <tr>
+                                        <th>Arquivo</th>
+                                        <th>Tipo</th>
+                                        <th>Enviado em</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach ($selected['documents'] as $doc) : ?>
+                                        <tr>
+                                            <td><?php echo esc_html($doc['name']); ?></td>
+                                            <td><?php echo esc_html($doc['document_type'] !== '' ? $doc['document_type'] : 'geral'); ?></td>
+                                            <td><?php echo esc_html($doc['uploaded_at'] !== '' ? $doc['uploaded_at'] : '—'); ?></td>
+                                            <td><a class="rma-link" href="<?php echo esc_url($doc['download_url']); ?>" target="_blank" rel="noopener">Baixar</a></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="rma-detail-card">
+                            <h3>Trilha de auditoria</h3>
+                            <?php if (empty($selected['audit_logs'])) : ?>
+                                <p class="rma-muted">Sem eventos de auditoria.</p>
+                            <?php else : ?>
+                                <ul class="rma-timeline">
+                                    <?php foreach ($selected['audit_logs'] as $log) : ?>
+                                        <li><?php echo esc_html($log['action']); ?> · <?php echo esc_html($log['datetime']); ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <div class="rma-gov-detail">
+                        <div class="rma-detail-card">
+                            <h3>Painel de gerenciamento</h3>
+                            <p class="rma-muted">Clique em <strong>Gerenciar</strong> em qualquer entidade para abrir a análise completa (ações, documentos e auditoria) aqui no topo.</p>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <div class="rma-gov-table-wrap">
@@ -268,7 +420,7 @@ final class RMA_Governance {
                                 <td><span class="rma-muted"><?php echo esc_html($row['last_audit'] !== '' ? $row['last_audit'] : '—'); ?></span></td>
                                 <td>
                                     <a class="rma-link" href="<?php echo esc_url(get_edit_post_link($row['id'])); ?>">Editar</a> ·
-                                    <a class="rma-link" href="<?php echo esc_url($this->build_admin_url(['entity_id' => $row['id']])); ?>">Gerenciar</a>
+                                    <a class="rma-link" href="<?php echo esc_url($this->build_admin_url(['entity_id' => $row['id'], 'status_filter' => $status_filter, 'search' => $search_filter])); ?>#rma-governance-detail">Gerenciar</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -277,111 +429,6 @@ final class RMA_Governance {
                 </table>
             </div>
 
-            <?php if ($selected !== null) : ?>
-                <div class="rma-gov-detail">
-                    <div>
-                        <h2 style="margin:0 0 6px;">Entidade selecionada: <?php echo esc_html($selected['title']); ?></h2>
-                        <span class="rma-badge <?php echo esc_attr($selected['status']); ?>">
-                            <?php echo $this->status_icon($selected['status']); ?>
-                            <?php echo esc_html($this->status_label($selected['status'])); ?>
-                        </span>
-                        <?php if ($selected['rejection_reason'] !== '') : ?>
-                            <p class="rma-muted" style="margin-top:8px;">Motivo da recusa: <?php echo esc_html($selected['rejection_reason']); ?></p>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="rma-gov-detail-grid">
-                        <div class="rma-detail-card rma-actions">
-                            <h3>Ações de governança</h3>
-                            <?php if (in_array($selected['status'], ['pendente', 'em_analise'], true)) : ?>
-                                <form method="post">
-                                    <input type="hidden" name="rma_governance_action" value="approve">
-                                    <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
-                                    <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_approve'); ?>
-                                    <textarea name="comment" rows="2" placeholder="Comentário opcional do aceite"></textarea>
-                                    <button class="rma-btn-approve" type="submit">Registrar aceite</button>
-                                </form>
-
-                                <form method="post">
-                                    <input type="hidden" name="rma_governance_action" value="reject">
-                                    <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
-                                    <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_reject'); ?>
-                                    <input type="text" name="reason" required placeholder="Motivo obrigatório da recusa">
-                                    <button class="rma-btn-reject" type="submit">Recusar entidade</button>
-                                </form>
-                            <?php elseif ($selected['status'] === 'recusado') : ?>
-                                <form method="post">
-                                    <input type="hidden" name="rma_governance_action" value="resubmit">
-                                    <input type="hidden" name="entity_id" value="<?php echo esc_attr((string) $selected['id']); ?>">
-                                    <?php wp_nonce_field('rma_gov_action_' . $selected['id'] . '_resubmit'); ?>
-                                    <button class="rma-btn-resubmit" type="submit">Reenviar para análise</button>
-                                </form>
-                            <?php else : ?>
-                                <p class="rma-muted">Entidade já aprovada. Nenhuma ação disponível.</p>
-                            <?php endif; ?>
-                        </div>
-
-                        <div class="rma-detail-card">
-                            <h3>Aceites registrados</h3>
-                            <?php if (empty($selected['approvals'])) : ?>
-                                <p class="rma-muted">Ainda não há aceites para esta entidade.</p>
-                            <?php else : ?>
-                                <ul class="rma-timeline">
-                                    <?php foreach ($selected['approvals'] as $approval) : ?>
-                                        <li>
-                                            <?php echo esc_html($approval['user_name']); ?> · <?php echo esc_html($approval['datetime']); ?>
-                                            <?php if ($approval['comment'] !== '') : ?>
-                                                <br><span class="rma-muted"><?php echo esc_html($approval['comment']); ?></span>
-                                            <?php endif; ?>
-                                        </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-
-                    <div class="rma-detail-card">
-                        <h3>Documentos privados (<?php echo esc_html((string) count($selected['documents'])); ?>)</h3>
-                        <?php if (empty($selected['documents'])) : ?>
-                            <p class="rma-muted">Não há documentos enviados nesta entidade.</p>
-                        <?php else : ?>
-                            <table class="rma-gov-nested">
-                                <thead>
-                                <tr>
-                                    <th>Arquivo</th>
-                                    <th>Tipo</th>
-                                    <th>Enviado em</th>
-                                    <th>Ação</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php foreach ($selected['documents'] as $doc) : ?>
-                                    <tr>
-                                        <td><?php echo esc_html($doc['name']); ?></td>
-                                        <td><?php echo esc_html($doc['document_type'] !== '' ? $doc['document_type'] : 'geral'); ?></td>
-                                        <td><?php echo esc_html($doc['uploaded_at'] !== '' ? $doc['uploaded_at'] : '—'); ?></td>
-                                        <td><a class="rma-link" href="<?php echo esc_url($doc['download_url']); ?>" target="_blank" rel="noopener">Baixar</a></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="rma-detail-card">
-                        <h3>Trilha de auditoria</h3>
-                        <?php if (empty($selected['audit_logs'])) : ?>
-                            <p class="rma-muted">Sem eventos de auditoria.</p>
-                        <?php else : ?>
-                            <ul class="rma-timeline">
-                                <?php foreach ($selected['audit_logs'] as $log) : ?>
-                                    <li><?php echo esc_html($log['action']); ?> · <?php echo esc_html($log['datetime']); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            <?php endif; ?>
         </div>
         <?php
     }
@@ -521,7 +568,7 @@ final class RMA_Governance {
         ];
     }
 
-    private function load_governance_rows(): array {
+    private function load_governance_rows(array $filters = []): array {
         $posts = get_posts([
             'post_type' => self::CPT,
             'post_status' => ['draft', 'publish', 'pending', 'private'],
@@ -535,6 +582,8 @@ final class RMA_Governance {
         }
 
         $rows = [];
+        $status_filter = sanitize_key((string) ($filters['status_filter'] ?? ''));
+        $search_filter = sanitize_text_field((string) ($filters['search_filter'] ?? ''));
 
         foreach ($posts as $post) {
             $entity_id = (int) $post->ID;
@@ -555,10 +604,21 @@ final class RMA_Governance {
                 $last_audit = trim($action . ' · ' . $datetime, " ·");
             }
 
+            $title = (string) get_the_title($entity_id);
+            $status = $this->normalized_governance_status($entity_id);
+
+            if ($status_filter !== '' && $status !== $status_filter) {
+                continue;
+            }
+
+            if ($search_filter !== '' && stripos($title, $search_filter) === false && stripos((string) $entity_id, $search_filter) === false) {
+                continue;
+            }
+
             $rows[] = [
                 'id' => $entity_id,
-                'title' => (string) get_the_title($entity_id),
-                'status' => $this->normalized_governance_status($entity_id),
+                'title' => $title,
+                'status' => $status,
                 'approvals_count' => count($approvals),
                 'documents_count' => count($documents),
                 'last_audit' => $last_audit,
