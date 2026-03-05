@@ -220,12 +220,9 @@ function rma_render_verification_email_template(array $context = []): string {
         'empresa' => (string) get_option('rma_email_verification_company', 'RMA'),
     ]);
 
-    $header = (string) get_option('rma_email_verification_header_image', '');
     $logo = (string) get_option('rma_email_verification_logo', 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/logo-.png');
-    $bg = (string) get_option('rma_email_verification_bg_color', '#f6f8fb');
-    $button = (string) get_option('rma_email_verification_button_color', '#7bad39');
+    $favicon = 'https://www.agenciadigitalsaopaulo.com.br/rma/wp-content/uploads/2021/02/favicon.png';
     $body = (string) get_option('rma_email_verification_body', 'Utilize o código abaixo para confirmar seu acesso à plataforma RMA.');
-    $footer = (string) get_option('rma_email_verification_footer', 'Se você não solicitou esta verificação, ignore este email.');
 
     $replace = [
         '{{nome}}' => (string) $context['nome'],
@@ -235,36 +232,33 @@ function rma_render_verification_email_template(array $context = []): string {
     ];
 
     $body = strtr($body, $replace);
-    $footer = strtr($footer, $replace);
 
     ob_start();
     ?>
-    <div style="background:<?php echo esc_attr($bg); ?>;padding:30px 14px;font-family:'Segoe UI',Inter,Arial,sans-serif;">
-      <div style="max-width:620px;margin:0 auto;background:#ffffff;border-radius:20px;overflow:hidden;border:1px solid #e9eef3;box-shadow:0 18px 48px rgba(15,23,42,.14);">
-        <div style="background-image:linear-gradient(135deg,#7bad39,#5ddabb);padding:26px 22px 22px;text-align:center;color:#fff;">
-          <?php if ($logo) : ?><img src="<?php echo esc_url($logo); ?>" alt="Logo RMA" style="display:block;max-width:190px;width:100%;height:auto;margin:0 auto 14px;" /><?php endif; ?>
-          <?php if ($header) : ?><img src="<?php echo esc_url($header); ?>" alt="Header" style="width:100%;max-width:540px;border-radius:12px;margin:0 auto 14px;display:block;" /><?php endif; ?>
-          <p style="margin:0;font-size:13px;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.95;">Verificação em 2 fatores</p>
-          <h2 style="margin:8px 0 0;font-size:30px;line-height:1.12;font-weight:800;">Proteja seu acesso</h2>
+    <div style="background:#ffffff;padding:24px 12px;font-family:'Maven Pro','Segoe UI',Arial,sans-serif;">
+      <div style="max-width:520px;margin:0 auto;background:rgba(255,255,255,.94);border-radius:20px;overflow:hidden;border:1px solid #e9eef3;box-shadow:0 16px 42px rgba(15,23,42,.10);">
+        <div style="background-image:linear-gradient(135deg,#7bad39,#5ddabb);padding:24px 20px;text-align:center;color:#fff;">
+          <?php if ($logo) : ?><img src="<?php echo esc_url($logo); ?>" alt="Logo RMA" style="display:block;max-width:180px;width:100%;height:auto;margin:0 auto 14px;" /><?php endif; ?>
+          <p style="margin:0;font-size:12px;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;font-weight:700;opacity:.95;color:#fff;text-align:center;">Verificação em 2 fatores</p>
+          <h2 style="margin:8px 0 0;font-size:34px;line-height:1.1;font-weight:800;color:#ffffff;text-align:center;">Proteja seu acesso</h2>
         </div>
 
-        <div style="padding:28px 26px 22px;text-align:center;">
+        <div style="padding:26px 24px 20px;text-align:center;background:rgba(255,255,255,.92);">
           <p style="margin:0 0 16px;color:#334155;line-height:1.7;font-size:16px;"><?php echo wp_kses_post($body); ?></p>
 
-          <div style="display:inline-block;margin:0 auto 16px;padding:16px 24px;border-radius:14px;background:#f8fbff;border:1px solid #dbe7f3;color:#0f172a;font-size:34px;letter-spacing:9px;font-weight:800;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);">
+          <div style="display:inline-block;margin:0 auto 16px;padding:16px 24px;border-radius:14px;background:rgba(255,255,255,.96);border:1px solid #dbe7f3;color:#0f172a;font-size:34px;letter-spacing:9px;font-weight:800;box-shadow:0 10px 24px rgba(15,23,42,.08);">
             <?php echo esc_html((string) $context['codigo']); ?>
           </div>
 
           <p style="margin:0 0 16px;color:#64748b;font-size:13px;line-height:1.5;">Este código expira em poucos minutos. Nunca compartilhe com terceiros.</p>
 
-          <div style="margin:0 0 8px;">
+          <div style="margin:0 0 2px;">
             <a href="#" style="display:inline-block;text-decoration:none;background-image:linear-gradient(135deg,#7bad39,#5ddabb);color:#fff;padding:12px 24px;border-radius:999px;font-weight:700;font-size:14px;letter-spacing:.01em;box-shadow:0 10px 24px rgba(93,218,187,.35);">Confirmar verificação</a>
           </div>
-
-          <p style="color:#475569;font-size:13px;line-height:1.6;margin:14px 0 0;"><?php echo wp_kses_post($footer); ?></p>
         </div>
 
-        <div style="background-image:linear-gradient(135deg,#7bad39,#5ddabb);padding:16px 24px;text-align:center;">
+        <div style="background-image:linear-gradient(135deg,#7bad39,#5ddabb);padding:14px 24px;text-align:center;">
+          <img src="<?php echo esc_url($favicon); ?>" alt="RMA" style="display:block;max-width:20px;width:20px;height:20px;margin:0 auto 6px;" />
           <p style="margin:0;color:#ffffff;font-size:16px;line-height:1.4;font-weight:700;letter-spacing:.02em;">rma.org.br</p>
         </div>
       </div>
