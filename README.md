@@ -47,6 +47,7 @@ Este repositório contém um **MVP modular** para o ecossistema de ONGs da RMA e
   - Bloqueio de recusa repetida para entidade já `recusado` (mantém fluxo consistente)
   - Recusa permitida apenas em estados `pendente`/`em_analise`
   - Compatibilidade com entidades legadas sem `governance_status` (tratadas como `pendente`)
+  - Tela administrativa de governança (`Entidades → Governança`) com status, contagem de aceites/documentos e último evento de auditoria
 
 - `rma-maps-directory`
   - Endpoint público para mapa/diretório (`/wp-json/rma-public/v1/entities`) com paginação (`page`/`per_page`), validação de UF, filtros `area`/`situacao` (`ativa|inadimplente|todas`) e headers `X-WP-Total`/`X-WP-TotalPages`
@@ -214,9 +215,8 @@ Exemplo de container visual:
 1. Criar UI do wizard (5 passos) no tema com nonces e mensagens de erro/pendência.
 2. Implementar gestão de documentos privados com endpoint autenticado (download controlado).
 3. Adicionar geocoding automático em criação/edição de endereço.
-4. Criar tela administrativa de governança com trilha de auditoria visual.
-5. Integrar geração de pedido da anuidade por ano no painel da entidade.
-6. Adicionar testes automatizados (WP-CLI + integração REST).
+4. Integrar geração de pedido da anuidade por ano no painel da entidade.
+5. Adicionar testes automatizados (WP-CLI + integração REST).
 
 
 ## Validação local

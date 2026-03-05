@@ -15,6 +15,125 @@ final class RMA_Governance {
 
     public function __construct() {
         add_action('rest_api_init', [$this, 'register_routes']);
+        add_action('admin_menu', [$this, 'register_admin_page']);
+    }
+
+    public function register_admin_page(): void {
+        add_submenu_page(
+            'edit.php?post_type=' . self::CPT,
+            'Governança RMA',
+            'Governança',
+            'edit_others_posts',
+            'rma-governance-audit',
+            [$this, 'render_admin_page']
+        );
+    }
+
+    public function render_admin_page(): void {
+        if (! current_user_can('edit_others_posts')) {
+            wp_die('Você não tem permissão para acessar esta página.');
+        }
+
+        $rows = $this->load_governance_rows();
+        ?>
+        <div class="wrap">
+            <h1>Governança RMA</h1>
+            <p>Painel para acompanhamento de status e trilha de auditoria das entidades.</p>
+
+            <?php if (empty($rows)) : ?>
+                <p>Nenhuma entidade encontrada para governança.</p>
+            <?php else : ?>
+                <table class="widefat striped">
+                    <thead>
+                    <tr>
+                        <th>Entidade</th>
+                        <th>Status</th>
+                        <th>Aceites</th>
+                        <th>Documentos</th>
+                        <th>Último evento de auditoria</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($rows as $row) : ?>
+                        <tr>
+                            <td>
+                                <strong><?php echo esc_html($row['title']); ?></strong><br/>
+                                <small>ID #<?php echo esc_html((string) $row['id']); ?></small>
+                            </td>
+                            <td>
+                                <code><?php echo esc_html($row['status']); ?></code>
+                                <?php if ($row['rejection_reason'] !== '') : ?>
+                                    <br/><small><strong>Motivo:</strong> <?php echo esc_html($row['rejection_reason']); ?></small>
+                                <?php endif; ?>
+                            </td>
+                            <td><?php echo esc_html((string) $row['approvals_count']); ?>/3</td>
+                            <td><?php echo esc_html((string) $row['documents_count']); ?></td>
+                            <td>
+                                <?php if ($row['last_audit'] === '') : ?>
+                                    <span>—</span>
+                                <?php else : ?>
+                                    <small><?php echo esc_html($row['last_audit']); ?></small>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a href="<?php echo esc_url(get_edit_post_link($row['id'])); ?>">Abrir entidade</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php endif; ?>
+        </div>
+        <?php
+    }
+
+    private function load_governance_rows(): array {
+        $posts = get_posts([
+            'post_type' => self::CPT,
+            'post_status' => ['draft', 'publish', 'pending', 'private'],
+            'posts_per_page' => 200,
+            'orderby' => 'modified',
+            'order' => 'DESC',
+        ]);
+
+        if (empty($posts)) {
+            return [];
+        }
+
+        $rows = [];
+
+        foreach ($posts as $post) {
+            $entity_id = (int) $post->ID;
+            $approvals = get_post_meta($entity_id, 'governance_approvals', true);
+            $approvals = is_array($approvals) ? $approvals : [];
+
+            $documents = get_post_meta($entity_id, 'entity_documents', true);
+            $documents = is_array($documents) ? $documents : [];
+
+            $audit_logs = get_post_meta($entity_id, 'governance_audit_logs', true);
+            $audit_logs = is_array($audit_logs) ? $audit_logs : [];
+            $last_audit = '';
+
+            if (! empty($audit_logs)) {
+                $last_log = end($audit_logs);
+                $action = (string) ($last_log['action'] ?? 'evento');
+                $datetime = (string) ($last_log['datetime'] ?? '');
+                $last_audit = trim($action . ' · ' . $datetime, " ·");
+            }
+
+            $rows[] = [
+                'id' => $entity_id,
+                'title' => (string) get_the_title($entity_id),
+                'status' => $this->normalized_governance_status($entity_id),
+                'approvals_count' => count($approvals),
+                'documents_count' => count($documents),
+                'rejection_reason' => (string) get_post_meta($entity_id, 'governance_rejection_reason', true),
+                'last_audit' => $last_audit,
+            ];
+        }
+
+        return $rows;
     }
 
     public function register_routes(): void {
