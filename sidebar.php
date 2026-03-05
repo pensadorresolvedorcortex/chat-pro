@@ -41,7 +41,27 @@ $alt_id ='';
         <p><?php echo esc_html($user_info->user_email); ?></p>
       </li>
 	<?php
-		foreach($exertio_theme_options['employer_dashboard_sidebar_sortable'] as $key => $val)
+		$employer_sidebar_menu = array();
+		if (function_exists('fl_framework_get_options')) {
+			$employer_sidebar_menu = fl_framework_get_options('employer_dashboard_sidebar_sortable');
+		}
+		if (!is_array($employer_sidebar_menu) || empty($employer_sidebar_menu)) {
+			$employer_sidebar_menu = isset($exertio_theme_options['employer_dashboard_sidebar_sortable']) && is_array($exertio_theme_options['employer_dashboard_sidebar_sortable']) ? $exertio_theme_options['employer_dashboard_sidebar_sortable'] : array();
+		}
+		if (!is_array($employer_sidebar_menu) || empty($employer_sidebar_menu)) {
+			$employer_sidebar_menu = array(
+				'Dashboard' => esc_html__('Dashboard', 'exertio_theme'),
+				'Profile' => esc_html__('Profile', 'exertio_theme'),
+				'RmaMapDirectory' => esc_html__('Mapa de ONGs', 'exertio_theme'),
+				'Projects' => esc_html__('Projects', 'exertio_theme'),
+				'Services' => esc_html__('Services', 'exertio_theme'),
+				'chat_dashboard' => esc_html__('SB Chat Dashboard', 'exertio_theme'),
+				'ChatDashboard' => esc_html__('Chat Dashboard', 'exertio_theme'),
+				'SavedServices' => esc_html__('Saved Services', 'exertio_theme'),
+				'Logout' => esc_html__('Logout', 'exertio_theme'),
+			);
+		}
+		foreach($employer_sidebar_menu as $key => $val)
 		{
 			if($key == 'Dashboard' && $val != "")
 			{
@@ -84,6 +104,20 @@ $alt_id ='';
 						<li class="nav-item"> <a class="nav-link" href="<?php echo esc_url(get_the_permalink());?>?ext=edit-profile"> <?php echo esc_html__( 'Edit Profile', 'exertio_theme' ); ?> </a></li>
 					  </ul>
 					</div>
+				</li>
+				<?php
+			}
+			if($key == 'RmaMapDirectory' && $val != "")
+			{
+				$rma_map_url = isset($exertio_theme_options['rma_map_iframe_url']) ? trim($exertio_theme_options['rma_map_iframe_url']) : '';
+				$rma_map_has_valid_url = !empty($rma_map_url) && wp_http_validate_url($rma_map_url);
+				$rma_map_target = $rma_map_has_valid_url ? $rma_map_url : get_the_permalink() . '?ext=edit-profile';
+			?>
+				<li class="nav-item">
+					<a class="nav-link" href="<?php echo esc_url($rma_map_target); ?>"<?php echo $rma_map_has_valid_url ? ' target="_blank" rel="noopener"' : ''; ?>>
+						<i class="fas fa-map-marked-alt menu-icon"></i>
+						<span class="menu-title"><?php echo esc_html($val); ?></span>
+					</a>
 				</li>
 			<?php
 			}

@@ -8928,6 +8928,7 @@ Redux::setSection($opt_name, array(
 			'options' => array(
 				'Dashboard' => __('Gerenciador', 'exertio_theme'),
 				'Profile' => __('Minha Conta', 'exertio_theme'),
+				'RmaMapDirectory' => __('Mapa de ONGs', 'exertio_theme'),
 				'Projects' => __('Documentos', 'exertio_theme'),
 				'Services' => __('Governança', 'exertio_theme'),
 				'CustomOffers' => __('Financeiro', 'exertio_theme'),
@@ -9046,22 +9047,30 @@ Redux::setSection($opt_name, array(
 			),
 			'default' => '2'
 		),
-		array(
-			'id' => 'employer_map',
-			'type' => 'button_set',
-			'title' => __('Map Address', 'exertio_theme'),
-			'subtitle' => __('Select option to show hide or required', 'exertio_theme'),
-			'options' => array(
-				'1' => __('Required', 'exertio_theme'),
-				'2' => __('Not Required', 'exertio_theme'),
-				'3' => __('Hide', 'exertio_theme'),
+			array(
+				'id' => 'employer_map',
+				'type' => 'button_set',
+				'title' => __('Map Address', 'exertio_theme'),
+				'subtitle' => __('Select option to show hide or required', 'exertio_theme'),
+				'options' => array(
+					'1' => __('Required', 'exertio_theme'),
+					'2' => __('Not Required', 'exertio_theme'),
+					'3' => __('Hide', 'exertio_theme'),
+				),
+				'default' => '2'
 			),
-			'default' => '2'
-		),
-		array(
-			'id' => 'employer-show-hide-fields-end',
-			'type' => 'section',
-			'indent' => false,
+			array(
+				'id' => 'rma_map_iframe_url',
+				'type' => 'text',
+				'title' => __('RMA Map iframe URL', 'exertio_theme'),
+				'subtitle' => __('Public iframe URL used by the Mapa de ONGs dashboard menu item.', 'exertio_theme'),
+				'desc' => __('Example: https://mapa.seudominio.com.br/embed', 'exertio_theme'),
+				'validate' => 'url',
+			),
+			array(
+				'id' => 'employer-show-hide-fields-end',
+				'type' => 'section',
+				'indent' => false,
 		),
 	)
 ));
